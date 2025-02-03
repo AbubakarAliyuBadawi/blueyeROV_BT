@@ -1,0 +1,17 @@
+<root main_tree_to_execute="InspectionMission">
+    <BehaviorTree ID="InspectionMission">
+        <Sequence name="inspection_sequence">
+            <Sequence name="approach_sequence">
+                <ClearWaypoints/>
+                <SetWaypoint x="-9.5" y="8.54" z="95.7" velocity="0.3"/>
+                <ExecuteWaypoint/>
+            </Sequence>
+            <Sequence name="inspection_tasks">
+                <EnableSensors name="start_recording"/>
+                <CircleInspection radius="2.0" height="1.0"/>
+                <DisableSensors name="stop_recording"/>
+            </Sequence>
+            <ReturnToHome/>
+        </Sequence>
+    </BehaviorTree>
+</root>
