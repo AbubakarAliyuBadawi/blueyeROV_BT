@@ -4,6 +4,11 @@
 #include "rov_mission_bt/behaviors/waypoint_behaviors.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
+#include <behaviortree_cpp_v3/behavior_tree.h>
+#include <behaviortree_cpp_v3/bt_factory.h>
+#include <memory>
+#include <chrono>
+#include <thread>
 
 // Global node for service clients
 rclcpp::Node::SharedPtr g_node;
@@ -11,7 +16,9 @@ std::atomic<bool> g_program_running{true};
 
 // Signal handler function
 void signalHandler(int signum) {
-    RCLCPP_INFO(g_node->get_logger(), "Interrupt signal (%d) received.", signum);
+    if (g_node) {
+        RCLCPP_INFO(g_node->get_logger(), "Interrupt signal (%d) received.", signum);
+    }
     g_program_running = false;
 }
 
@@ -20,7 +27,10 @@ int main(int argc, char **argv) {
     signal(SIGINT, signalHandler);
     
     rclcpp::init(argc, argv);
-    g_node = rclcpp::Node::make_shared("rov_mission_bt");
+    g_node = rclcpp::Node::make_shared("rov_mission");  // Match the name in launch file
+
+    // Declare the parameter with a default value
+    g_node->declare_parameter("behavior_tree_path", "");
 
     BT::BehaviorTreeFactory factory;
     
@@ -30,11 +40,25 @@ int main(int argc, char **argv) {
     factory.registerNodeType<ExecuteWaypoint>("ExecuteWaypoint");
 
     try {
+        // Get the behavior tree path from parameter
+        std::string mission_file;
+        if (!g_node->get_parameter("behavior_tree_path", mission_file)) {
+            throw std::runtime_error("Failed to get behavior_tree_path parameter");
+        }
+        
+        // Log the path we're trying to load
+        RCLCPP_INFO(g_node->get_logger(), "Loading behavior tree from: %s", mission_file.c_str());
+
+        // Verify file exists before trying to load it
+        if (access(mission_file.c_str(), F_OK) == -1) {
+            throw std::runtime_error("Behavior tree file does not exist: " + mission_file);
+        }
+
         // Create behavior tree from XML file
-        std::string mission_file = "behavior_tree/dock_undock_mission.xml";
         auto tree = factory.createTreeFromFile(mission_file);
         RCLCPP_INFO(g_node->get_logger(), "Behavior tree created successfully");
 
+        // Main loop
         while (rclcpp::ok() && g_program_running) {
             auto status = tree.tickRoot();
             rclcpp::spin_some(g_node);
@@ -60,9 +84,6 @@ int main(int argc, char **argv) {
         
         // Final cleanup
         RCLCPP_INFO(g_node->get_logger(), "Shutdown complete");
-        
-        // Clear node after last log message
-        g_node.reset();
 
     } catch (const std::exception& e) {
         if (g_node) {
@@ -73,6 +94,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    // Clean up
+    g_node.reset();
     rclcpp::shutdown();
     return 0;
 }
