@@ -3,6 +3,7 @@
 
 #include <behaviortree_cpp_v3/behavior_tree.h>
 #include <rclcpp/rclcpp.hpp>
+#include <string>
 #include "mundus_mir_msgs/srv/add_waypoint.hpp"
 #include "mundus_mir_msgs/srv/run_waypoint_controller.hpp"
 #include "mundus_mir_msgs/srv/go_to_waypoints.hpp"
