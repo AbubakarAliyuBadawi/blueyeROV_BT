@@ -1,44 +1,29 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
-import os
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
+import os
 
 def generate_launch_description():
-    pkg_dir = get_package_share_directory('rov_mission_bt')
+    # Get the package share directory
+    rov_bt_pkg_dir = get_package_share_directory('rov_mission_bt')
     
-    # Declare launch arguments
-    mission_name_arg = DeclareLaunchArgument(
-        'mission_name',
-        default_value='dock_undock_mission',
-        description='Name of the mission to execute'
-    )
-
-    # Default config
-    default_config = os.path.join(pkg_dir, 'config', 'mission_params.yaml')
+    # Create the behavior tree path
+    behavior_tree_path = os.path.join(rov_bt_pkg_dir, 'behavior_trees', 'dock_undock_mission.xml')
     
-    config_arg = DeclareLaunchArgument(
-        'config_file',
-        default_value=default_config,
-        description='Path to config file'
-    )
-
-    # Create node
-    node = Node(
+    # Create the new BT-based rov_mission node
+    rov_mission_node = Node(
         package='rov_mission_bt',
-        executable='rov_mission_bt_node',
-        name='rov_mission_bt',
-        parameters=[
-            LaunchConfiguration('config_file'),
-            {'mission_name': LaunchConfiguration('mission_name')},
-            {'mission_directory': os.path.join(pkg_dir, 'missions', 'xml')}
-        ],
-        output='screen'
+        executable='rov_mission_bt', 
+        name='rov_mission',
+        output='screen',
+        parameters=[{
+            'behavior_tree_path': behavior_tree_path
+        }]
     )
 
-    return LaunchDescription([
-        mission_name_arg,
-        config_arg,
-        node
-    ])
+    # Create and return LaunchDescription with the node
+    ld = LaunchDescription()
+    ld.add_action(rov_mission_node)  # Add the node to the launch description
+    return ld
