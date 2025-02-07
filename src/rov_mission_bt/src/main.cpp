@@ -2,10 +2,15 @@
 #include "rov_mission_bt/mission_control/mission_factory.hpp"
 #include "rov_mission_bt/utils/node_configuration.hpp"
 #include "rov_mission_bt/behaviors/waypoint_behaviors.hpp"
+#include "rov_mission_bt/conditions/battery_condition.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
 #include <behaviortree_cpp_v3/behavior_tree.h>
 #include <behaviortree_cpp_v3/bt_factory.h>
+#include <behaviortree_cpp_v3/controls/sequence_node.h>
+#include <behaviortree_cpp_v3/controls/fallback_node.h>
+#include <behaviortree_cpp_v3/controls/parallel_node.h>
+#include <behaviortree_cpp_v3/decorators/inverter_node.h>
 #include <memory>
 #include <chrono>
 #include <thread>
@@ -33,11 +38,22 @@ int main(int argc, char **argv) {
     g_node->declare_parameter("behavior_tree_path", "");
 
     BT::BehaviorTreeFactory factory;
-    
-    // Register the custom nodes
+
+    // Register Control Nodes
+    factory.registerNodeType<BT::RetryNode>("RetryNode");
+    // factory.registerNodeType<BT::FallbackNode>("Fallback");
+    // factory.registerNodeType<BT::SequenceNode>("Sequence");
+    // factory.registerNodeType<BT::ParallelNode>("Parallel");
+
+    // Register Decorator Nodes
+    // factory.registerNodeType<BT::ForceSuccessNode>("ForceSuccess");
+    // factory.registerNodeType<BT::InverterNode>("Inverter");
+
+    // Register your custom action nodes
     factory.registerNodeType<ClearWaypoints>("ClearWaypoints");
     factory.registerNodeType<SetWaypoint>("SetWaypoint");
     factory.registerNodeType<ExecuteWaypoint>("ExecuteWaypoint");
+    factory.registerNodeType<CheckBatteryLevel>("CheckBatteryLevel");  // Don't forget to add this
 
     try {
         // Get the behavior tree path from parameter

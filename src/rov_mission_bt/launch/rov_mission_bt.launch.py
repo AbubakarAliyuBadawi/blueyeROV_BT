@@ -11,7 +11,8 @@ def generate_launch_description():
     behavior_tree_path = os.path.join(
         rov_bt_pkg_dir,
         'behavior_trees',
-        'dock_undock_mission.xml'
+        'inspection_mission.xml'
+        # 'dock_undock_mission.xml'
     )
     
     # Verify file exists
