@@ -1,0 +1,65 @@
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <Sequence name="mission_sequence">
+            <RetryNode num_attempts="2">
+                <ReactiveSequence name="main_mission">
+                    <!-- Battery monitoring condition -->
+                    <Inverter>
+                        <CheckBatteryLevel name="check_battery"/>
+                    </Inverter>
+
+                    <!-- Main mission sequence -->
+                    <Sequence name="mission_tasks">
+                        <!-- Undocking Sequence -->
+                        <Sequence name="undock_sequence">
+                            <ClearWaypoints name="clear_undock"/>
+                            <SetWaypoint name="undock_waypoint" 
+                                       x="-9.5" y="8.54" z="95.7" 
+                                       velocity="0.3"/>
+                            <ExecuteWaypoint name="execute_undock"/>
+                        </Sequence>
+
+                        <!-- Pipeline Inspection Sequence -->
+                        <Sequence name="inspection_sequence">
+                            <!-- First inspection point -->
+                            <Sequence>
+                                <ClearWaypoints name="clear_inspection_1"/>
+                                <SetWaypoint name="inspection_point_1" 
+                                           x="-18" y="-25" z="90" 
+                                           velocity="0.5"/>
+                                <ExecuteWaypoint name="execute_inspection_1"/>
+                            </Sequence>
+                            
+                            <!-- Second inspection point -->
+                            <Sequence>
+                                <ClearWaypoints name="clear_inspection_2"/>
+                                <SetWaypoint name="inspection_point_2" 
+                                           x="20" y="55" z="90" 
+                                           velocity="0.5"/>
+                                <ExecuteWaypoint name="execute_inspection_2"/>
+                            </Sequence>
+                        </Sequence>
+
+                        <!-- Return to Dock Sequence -->
+                        <Sequence name="return_sequence">
+                            <ClearWaypoints name="clear_return"/>
+                            <SetWaypoint name="return_waypoint" 
+                                       x="-8.5" y="8.54" z="95.3" 
+                                       velocity="0.5"/>
+                            <ExecuteWaypoint name="execute_return"/>
+                        </Sequence>
+                    </Sequence>
+                </ReactiveSequence>
+            </RetryNode>
+
+            <!-- Emergency return if RetryNode fails -->
+            <Sequence name="emergency_return">
+                <ClearWaypoints name="clear_emergency"/>
+                <SetWaypoint name="emergency_return" 
+                           x="-8.5" y="8.54" z="95.3" 
+                           velocity="1.0"/>
+                <ExecuteWaypoint name="execute_emergency"/>
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+</root>

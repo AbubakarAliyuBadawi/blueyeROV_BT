@@ -24,6 +24,7 @@ include_directories(
 # Waypoint behaviors library
 add_library(waypoint_behaviors SHARED
   src/behaviors/waypoint_behaviors.cpp
+  src/conditions/battery_condition.cpp
 )
 
 ament_target_dependencies(waypoint_behaviors
