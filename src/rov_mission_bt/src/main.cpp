@@ -5,6 +5,7 @@
 #include "rov_mission_bt/conditions/battery_condition.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
+#include "behaviortree_cpp_v3/loggers/bt_zmq_publisher.h"
 #include <behaviortree_cpp_v3/behavior_tree.h>
 #include <behaviortree_cpp_v3/bt_factory.h>
 #include <behaviortree_cpp_v3/controls/sequence_node.h>
@@ -67,6 +68,10 @@ int main(int argc, char **argv) {
         // Create behavior tree from XML file
         auto tree = factory.createTreeFromFile(mission_file);
         RCLCPP_INFO(g_node->get_logger(), "Behavior tree created successfully");
+
+        // Add the publisher AFTER tree creation
+        BT::PublisherZMQ publisher_zmq(tree);
+        RCLCPP_INFO(g_node->get_logger(), "ZMQ publisher created. You can monitor the tree using Groot");
 
         // Main loop
         while (rclcpp::ok() && g_program_running) {
