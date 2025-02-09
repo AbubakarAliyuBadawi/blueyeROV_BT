@@ -1,4 +1,29 @@
-<root main_tree_to_execute="MainTree">
+<root main_tree_to_execute="MainTree" BTCPP_format="3">
+    <!-- Add this TreeNodesModel section -->
+    <TreeNodesModel>
+        <Control ID="RetryNode">
+            <input_port name="num_attempts" type="int">Number of attempts</input_port>
+        </Control>
+        <Condition ID="CheckBatteryLevel">
+            <!-- Battery check condition -->
+        </Condition>
+        <Action ID="ClearWaypoints">
+            <!-- Clear waypoints action -->
+        </Action>
+        <Action ID="SetWaypoint">
+            <input_port name="x" type="double">X coordinate</input_port>
+            <input_port name="y" type="double">Y coordinate</input_port>
+            <input_port name="z" type="double">Z coordinate</input_port>
+            <input_port name="velocity" type="double">Desired velocity</input_port>
+        </Action>
+        <Action ID="ExecuteWaypoint">
+            <!-- Execute waypoint action -->
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="duration" type="int">Duration in seconds</input_port>
+        </Action>
+    </TreeNodesModel>
+
     <BehaviorTree ID="MainTree">
         <Sequence name="mission_sequence">
             <RetryNode num_attempts="2">
