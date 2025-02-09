@@ -17,6 +17,13 @@
                                        x="-9.5" y="8.54" z="95.7" 
                                        velocity="0.3"/>
                             <ExecuteWaypoint name="execute_undock"/>
+                            <!-- Move to station keeping position -->
+                            <ClearWaypoints name="clear_station_1"/>
+                            <SetWaypoint name="station_waypoint_1" 
+                                       x="8.54" y="-10.5" z="-95.8" 
+                                       velocity="0.3"/>
+                            <ExecuteWaypoint name="execute_station_1"/>
+                            <StationKeeping name="post_undock_keeping" duration="10"/>
                         </Sequence>
 
                         <!-- Pipeline Inspection Sequence -->
@@ -42,6 +49,14 @@
 
                         <!-- Return to Dock Sequence -->
                         <Sequence name="return_sequence">
+                            <!-- Move to station keeping position first -->
+                            <ClearWaypoints name="clear_station_2"/>
+                            <SetWaypoint name="station_waypoint_2" 
+                                       x="8.54" y="-10.5" z="-95.8" 
+                                       velocity="0.3"/>
+                            <ExecuteWaypoint name="execute_station_2"/>
+                            <StationKeeping name="pre_dock_keeping" duration="10"/>
+                            <!-- Then move to dock -->
                             <ClearWaypoints name="clear_return"/>
                             <SetWaypoint name="return_waypoint" 
                                        x="-8.5" y="8.54" z="95.3" 

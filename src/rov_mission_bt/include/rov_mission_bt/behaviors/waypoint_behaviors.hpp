@@ -57,4 +57,27 @@ private:
     void cleanup();
 };
 
+class StationKeeping : public BT::StatefulActionNode {
+public:
+    StationKeeping(const std::string& name, const BT::NodeConfiguration& config)
+        : BT::StatefulActionNode(name, config), start_time_{}
+    {
+        run_client_ = g_node->create_client<mundus_mir_msgs::srv::RunWaypointController>("/blueye/run_waypoint_controller");
+    }
+
+    static BT::PortsList providedPorts() {
+        return { BT::InputPort<int>("duration") };  // Duration in seconds
+    }
+
+protected:
+    BT::NodeStatus onStart() override;
+    BT::NodeStatus onRunning() override;
+    void onHalted() override;
+
+private:
+    std::chrono::steady_clock::time_point start_time_;
+    rclcpp::Client<mundus_mir_msgs::srv::RunWaypointController>::SharedPtr run_client_;
+    bool startWaypointController(bool run);
+};
+
 #endif // ROV_MISSION_BT_WAYPOINT_BEHAVIORS_HPP

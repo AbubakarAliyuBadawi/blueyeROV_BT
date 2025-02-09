@@ -41,19 +41,13 @@ int main(int argc, char **argv) {
 
     // Register Control Nodes
     factory.registerNodeType<BT::RetryNode>("RetryNode");
-    // factory.registerNodeType<BT::FallbackNode>("Fallback");
-    // factory.registerNodeType<BT::SequenceNode>("Sequence");
-    // factory.registerNodeType<BT::ParallelNode>("Parallel");
-
-    // Register Decorator Nodes
-    // factory.registerNodeType<BT::ForceSuccessNode>("ForceSuccess");
-    // factory.registerNodeType<BT::InverterNode>("Inverter");
 
     // Register your custom action nodes
     factory.registerNodeType<ClearWaypoints>("ClearWaypoints");
     factory.registerNodeType<SetWaypoint>("SetWaypoint");
     factory.registerNodeType<ExecuteWaypoint>("ExecuteWaypoint");
-    factory.registerNodeType<CheckBatteryLevel>("CheckBatteryLevel");  // Don't forget to add this
+    factory.registerNodeType<CheckBatteryLevel>("CheckBatteryLevel");  
+    factory.registerNodeType<StationKeeping>("StationKeeping");
 
     try {
         // Get the behavior tree path from parameter
