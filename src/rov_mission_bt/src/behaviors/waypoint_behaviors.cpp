@@ -8,10 +8,6 @@ ClearWaypoints::ClearWaypoints(const std::string& name, const BT::NodeConfigurat
     RCLCPP_INFO(g_node->get_logger(), "Creating ClearWaypoints node");
 }
 
-BT::PortsList ClearWaypoints::providedPorts() {
-    return BT::PortsList();
-}
-
 BT::NodeStatus ClearWaypoints::tick() {
     if (!client_->wait_for_service(std::chrono::seconds(1))) {
         RCLCPP_ERROR(g_node->get_logger(), "Clear waypoints service not available");
@@ -37,26 +33,23 @@ SetWaypoint::SetWaypoint(const std::string& name, const BT::NodeConfiguration& c
     client_ = g_node->create_client<mundus_mir_msgs::srv::AddWaypoint>("/blueye/add_waypoint");
 }
 
-BT::PortsList SetWaypoint::providedPorts() {
-    return { BT::InputPort<double>("x"),
-             BT::InputPort<double>("y"),
-             BT::InputPort<double>("z"),
-             BT::InputPort<double>("velocity") };
-}
-
 BT::NodeStatus SetWaypoint::tick() {
-    double x, y, z, velocity;
-    if (!getInput("x", x) || !getInput("y", y) || 
-        !getInput("z", z) || !getInput("velocity", velocity)) {
+    // v4 style port access
+    auto x = getInput<double>("x");
+    auto y = getInput<double>("y");
+    auto z = getInput<double>("z");
+    auto velocity = getInput<double>("velocity");
+
+    if (!x || !y || !z || !velocity) {
         RCLCPP_ERROR(g_node->get_logger(), "Failed to get input parameters");
         return BT::NodeStatus::FAILURE;
     }
 
     auto request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
-    request->x = x;
-    request->y = y;
-    request->z = z;
-    request->desired_velocity = velocity;
+    request->x = x.value();
+    request->y = y.value();
+    request->z = z.value();
+    request->desired_velocity = velocity.value();
     request->fixed_heading = false;
     request->heading = 0.0;
 
@@ -71,7 +64,8 @@ BT::NodeStatus SetWaypoint::tick() {
         return BT::NodeStatus::FAILURE;
     }
 
-    RCLCPP_INFO(g_node->get_logger(), "Successfully set waypoint: x=%.2f, y=%.2f, z=%.2f", x, y, z);
+    RCLCPP_INFO(g_node->get_logger(), "Successfully set waypoint: x=%.2f, y=%.2f, z=%.2f", 
+                x.value(), y.value(), z.value());
     return BT::NodeStatus::SUCCESS;
 }
 
@@ -88,21 +82,15 @@ ExecuteWaypoint::~ExecuteWaypoint() {
     cleanup();
 }
 
-BT::PortsList ExecuteWaypoint::providedPorts() {
-    return BT::PortsList();
-}
-
 BT::NodeStatus ExecuteWaypoint::onStart() {
     if (!first_run_) {
         return BT::NodeStatus::RUNNING;
     }
 
-    // Start the waypoint controller
     if (!startWaypointController()) {
         return BT::NodeStatus::FAILURE;
     }
 
-    // Start moving to waypoints
     if (!startWaypointExecution()) {
         stopWaypointController();
         return BT::NodeStatus::FAILURE;
@@ -207,28 +195,25 @@ void ExecuteWaypoint::cleanup() {
 }
 
 BT::NodeStatus StationKeeping::onStart() {
-    // Get the duration parameter
-    int duration;
-    if (!getInput("duration", duration)) {
+    auto duration = getInput<int>("duration");
+    if (!duration) {
         RCLCPP_ERROR(g_node->get_logger(), "Failed to get duration parameter for station keeping");
         return BT::NodeStatus::FAILURE;
     }
 
-    // Start the waypoint controller to maintain position
     if (!startWaypointController(true)) {
         return BT::NodeStatus::FAILURE;
     }
 
-    // Record start time
     start_time_ = std::chrono::steady_clock::now();
-    RCLCPP_INFO(g_node->get_logger(), "Starting station keeping for %d seconds", duration);
+    RCLCPP_INFO(g_node->get_logger(), "Starting station keeping for %d seconds", duration.value());
     
     return BT::NodeStatus::RUNNING;
 }
 
 BT::NodeStatus StationKeeping::onRunning() {
-    int duration;
-    if (!getInput("duration", duration)) {
+    auto duration = getInput<int>("duration");
+    if (!duration) {
         RCLCPP_ERROR(g_node->get_logger(), "Failed to get duration parameter");
         return BT::NodeStatus::FAILURE;
     }
@@ -237,15 +222,14 @@ BT::NodeStatus StationKeeping::onRunning() {
     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(
         current_time - start_time_).count();
 
-    if (elapsed >= duration) {
+    if (elapsed >= duration.value()) {
         RCLCPP_INFO(g_node->get_logger(), "Station keeping completed");
         return BT::NodeStatus::SUCCESS;
     }
 
-    // Optional: Log remaining time periodically
-    if (elapsed % 5 == 0) {  // Log every 5 seconds
+    if (elapsed % 5 == 0) {
         RCLCPP_INFO(g_node->get_logger(), "Station keeping: %ld seconds remaining", 
-                   duration - elapsed);
+                   duration.value() - elapsed);
     }
 
     return BT::NodeStatus::RUNNING;

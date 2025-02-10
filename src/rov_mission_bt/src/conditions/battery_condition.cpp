@@ -1,5 +1,6 @@
 #include "rov_mission_bt/conditions/battery_condition.hpp"
 
+// Constructor remains largely the same
 CheckBatteryLevel::CheckBatteryLevel(const std::string& name, const BT::NodeConfiguration& config)
     : BT::ConditionNode(name, config), 
       should_return_(false), 
@@ -16,14 +17,20 @@ CheckBatteryLevel::CheckBatteryLevel(const std::string& name, const BT::NodeConf
         std::bind(&CheckBatteryLevel::returnCallback, this, std::placeholders::_1));
 }
 
-BT::PortsList CheckBatteryLevel::providedPorts() {
-    return {};
-}
+// Remove this function since it's now defined in the header
+// BT::PortsList CheckBatteryLevel::providedPorts() {
+//     return BT::PortsList({});
+// }
 
 BT::NodeStatus CheckBatteryLevel::tick() {
+    rclcpp::spin_some(node_);  // Make sure to process callbacks
+    
     if (should_return_) {
+        RCLCPP_INFO(node_->get_logger(), "Battery check triggered return: Level %.1f%%", battery_level_);
         return BT::NodeStatus::SUCCESS;
     }
+    
+    RCLCPP_DEBUG(node_->get_logger(), "Battery level: %.1f%% - No return needed", battery_level_);
     return BT::NodeStatus::FAILURE;
 }
 

@@ -1,7 +1,7 @@
 #ifndef BATTERY_CONDITION_HPP
 #define BATTERY_CONDITION_HPP
 
-#include <behaviortree_cpp_v3/condition_node.h>
+#include <behaviortree_cpp/condition_node.h>
 #include <rclcpp/rclcpp.hpp>
 #include <mundus_mir_msgs/msg/battery_status.hpp>
 #include <mundus_mir_msgs/msg/return_recommendation.hpp>
@@ -16,7 +16,12 @@ private:
 
 public:
     CheckBatteryLevel(const std::string& name, const BT::NodeConfiguration& config);
-    static BT::PortsList providedPorts();
+    
+    // Updated ports definition for v4
+    static BT::PortsList providedPorts() {
+        return BT::PortsList();  // More explicit in v4
+    }
+    
     BT::NodeStatus tick() override;
 
 private:

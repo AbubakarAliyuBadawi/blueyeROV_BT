@@ -1,7 +1,7 @@
 #ifndef ROV_MISSION_BT_WAYPOINT_BEHAVIORS_HPP
 #define ROV_MISSION_BT_WAYPOINT_BEHAVIORS_HPP
 
-#include <behaviortree_cpp_v3/behavior_tree.h>
+#include <behaviortree_cpp/behavior_tree.h>  // Updated to v4
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 #include "mundus_mir_msgs/srv/add_waypoint.hpp"
@@ -16,7 +16,9 @@ extern rclcpp::Node::SharedPtr g_node;
 class ClearWaypoints : public BT::SyncActionNode {
 public:
     ClearWaypoints(const std::string& name, const BT::NodeConfiguration& config);
-    static BT::PortsList providedPorts();
+    static BT::PortsList providedPorts() {
+        return BT::PortsList(); // More explicit in v4
+    }
     BT::NodeStatus tick() override;
 
 private:
@@ -26,7 +28,12 @@ private:
 class SetWaypoint : public BT::SyncActionNode {
 public:
     SetWaypoint(const std::string& name, const BT::NodeConfiguration& config);
-    static BT::PortsList providedPorts();
+    static BT::PortsList providedPorts() {
+        return { BT::InputPort<double>("x", "X coordinate"),
+                BT::InputPort<double>("y", "Y coordinate"),
+                BT::InputPort<double>("z", "Z coordinate"),
+                BT::InputPort<double>("velocity", "Desired velocity") };
+    }
     BT::NodeStatus tick() override;
 
 private:
@@ -37,7 +44,9 @@ class ExecuteWaypoint : public BT::StatefulActionNode {
 public:
     ExecuteWaypoint(const std::string& name, const BT::NodeConfiguration& config);
     ~ExecuteWaypoint();
-    static BT::PortsList providedPorts();
+    static BT::PortsList providedPorts() {
+        return BT::PortsList(); // More explicit in v4
+    }
 
 protected:
     BT::NodeStatus onStart() override;
@@ -66,7 +75,7 @@ public:
     }
 
     static BT::PortsList providedPorts() {
-        return { BT::InputPort<int>("duration") };  // Duration in seconds
+        return { BT::InputPort<int>("duration", "Duration in seconds") }; // More explicit description in v4
     }
 
 protected:
