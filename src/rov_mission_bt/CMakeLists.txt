@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(rov_mission_bt)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)  # Changed to C++17 for v4
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -11,14 +11,15 @@ endif()
 # Find required packages
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(behaviortree_cpp_v3 REQUIRED)  # Note: changed to behaviortree_cpp_v3
+find_package(behaviortree_cpp REQUIRED)  # Changed from v3
 find_package(nav_msgs REQUIRED)
 find_package(mundus_mir_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 
+# ZMQ is included in behaviortree_cpp
 include_directories(
   include
-  ${behaviortree_cpp_v3_INCLUDE_DIRS}  # Updated include dirs
+  ${behaviortree_cpp_INCLUDE_DIRS}  # Changed from v3
 )
 
 # Waypoint behaviors library
@@ -29,7 +30,7 @@ add_library(waypoint_behaviors SHARED
 
 ament_target_dependencies(waypoint_behaviors
   rclcpp
-  behaviortree_cpp_v3  # Updated dependency
+  behaviortree_cpp  # Changed from v3
   mundus_mir_msgs
   std_msgs
 )
@@ -39,13 +40,14 @@ add_executable(rov_mission_bt src/main.cpp)
 
 ament_target_dependencies(rov_mission_bt
   rclcpp
-  behaviortree_cpp_v3  # Updated dependency
+  behaviortree_cpp  # Changed from v3
   mundus_mir_msgs
   std_msgs
 )
 
 target_link_libraries(rov_mission_bt
   waypoint_behaviors
+  ${behaviortree_cpp_LIBRARIES}  # Added explicit linking
 )
 
 # Install targets

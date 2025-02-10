@@ -11,7 +11,8 @@
 
   <depend>rclcpp</depend>
   <depend>nav_msgs</depend>
-  <depend>behaviortree_cpp_v3</depend>  <!-- Changed from behaviortree_cpp -->
+  <depend>libzmq3-dev</depend>
+  <depend>behaviortree_cpp</depend>
   <depend>mundus_mir_msgs</depend>
   <depend>std_msgs</depend>
 
