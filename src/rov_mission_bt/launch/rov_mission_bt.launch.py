@@ -30,23 +30,23 @@ def generate_launch_description():
         }]
     )
 
-    # Add Groot monitor node
-    groot_monitor_node = Node(
-        package='groot',
-        executable='behavior_tree_logger',
-        name='bt_logger',
-        output='screen',
-        parameters=[{
-            'publisher_port': 1666,
-            'server_port': 1667,
-            'max_msgs_per_second': 25
-        }]
-    )
+    # # Add Groot monitor node
+    # groot_monitor_node = Node(
+    #     package='groot',
+    #     executable='behavior_tree_logger',
+    #     name='bt_logger',
+    #     output='screen',
+    #     parameters=[{
+    #         'publisher_port': 1666,
+    #         'server_port': 1667,
+    #         'max_msgs_per_second': 25
+    #     }]
+    # )
 
     # Create and return LaunchDescription with both nodes
     ld = LaunchDescription([
         rov_mission_node,
-        groot_monitor_node
+        # groot_monitor_node
     ])
     
     return ld

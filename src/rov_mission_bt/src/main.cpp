@@ -1,31 +1,20 @@
-#include "rov_mission_bt/mission_control/mission_loader.hpp"
-#include "rov_mission_bt/mission_control/mission_factory.hpp"
-#include "rov_mission_bt/utils/node_configuration.hpp"
 #include "rov_mission_bt/behaviors/waypoint_behaviors.hpp"
 #include "rov_mission_bt/conditions/battery_condition.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
-// Change these includes
-
-#include <behaviortree_cpp/behavior_tree.h>
-#include <behaviortree_cpp/bt_factory.h>
-// Note: Control nodes are now included differently in v4
-// #include "behaviortree_cpp/loggers/bt_zmq_publisher.h"
-#include <behaviortree_cpp/behavior_tree.h>
-#include <behaviortree_cpp/bt_factory.h>
-#include <behaviortree_cpp/controls/sequence.h>
-#include <behaviortree_cpp/controls/fallback.h>
-#include <behaviortree_cpp/controls/parallel.h>
-#include <behaviortree_cpp/decorators/inverter.h>
+// BehaviorTree.CPP includes
+#include "behaviortree_cpp/behavior_tree.h"
+#include "behaviortree_cpp/bt_factory.h"
+#include "behaviortree_cpp/loggers/groot2_publisher.h"
 #include <memory>
 #include <chrono>
 #include <thread>
+#include <unistd.h> // for access()
 
 // Global node for service clients
 rclcpp::Node::SharedPtr g_node;
 std::atomic<bool> g_program_running{true};
 
-// Signal handler function
 void signalHandler(int signum) {
     if (g_node) {
         RCLCPP_INFO(g_node->get_logger(), "Interrupt signal (%d) received.", signum);
@@ -34,75 +23,97 @@ void signalHandler(int signum) {
 }
 
 int main(int argc, char **argv) {
-    // Setup signal handling and ROS2 initialization stays the same
+    signal(SIGINT, signalHandler);
     
+    rclcpp::init(argc, argv);
+    g_node = rclcpp::Node::make_shared("rov_mission");
+    g_node->declare_parameter("behavior_tree_path", "");
+
     BT::BehaviorTreeFactory factory;
 
-    // Register nodes using v4 style
-    // RetryNode registration
+    // Register nodes
     factory.registerNodeType<BT::RetryNode>("RetryNode");
-
-    // Register custom nodes using v4 builder pattern
-    auto builder_clear = [](const std::string& name, const BT::NodeConfig& config)
-    {
-        return std::make_unique<ClearWaypoints>(name, config);
-    };
-    factory.registerBuilder<ClearWaypoints>("ClearWaypoints", builder_clear);
-
-    auto builder_set = [](const std::string& name, const BT::NodeConfig& config)
-    {
-        return std::make_unique<SetWaypoint>(name, config);
-    };
-    factory.registerBuilder<SetWaypoint>("SetWaypoint", builder_set);
-
-    auto builder_execute = [](const std::string& name, const BT::NodeConfig& config)
-    {
-        return std::make_unique<ExecuteWaypoint>(name, config);
-    };
-    factory.registerBuilder<ExecuteWaypoint>("ExecuteWaypoint", builder_execute);
-
-    auto builder_battery = [](const std::string& name, const BT::NodeConfig& config)
-    {
-        return std::make_unique<CheckBatteryLevel>(name, config);
-    };
-    factory.registerBuilder<CheckBatteryLevel>("CheckBatteryLevel", builder_battery);
-
-    auto builder_station = [](const std::string& name, const BT::NodeConfig& config)
-    {
-        return std::make_unique<StationKeeping>(name, config);
-    };
-    factory.registerBuilder<StationKeeping>("StationKeeping", builder_station);
+    factory.registerBuilder<ClearWaypoints>(
+        "ClearWaypoints",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<ClearWaypoints>(name, config);
+        });
+    factory.registerBuilder<SetWaypoint>(
+        "SetWaypoint",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<SetWaypoint>(name, config);
+        });
+    factory.registerBuilder<ExecuteWaypoint>(
+        "ExecuteWaypoint",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<ExecuteWaypoint>(name, config);
+        });
+    factory.registerBuilder<CheckBatteryLevel>(
+        "CheckBatteryLevel",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<CheckBatteryLevel>(name, config);
+        });
+    factory.registerBuilder<StationKeeping>(
+        "StationKeeping",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<StationKeeping>(name, config);
+        });
 
     try {
-        // Tree creation and main loop remain largely the same
-        // but status checking might need updates
+        std::string mission_file;
+        if (!g_node->get_parameter("behavior_tree_path", mission_file)) {
+            throw std::runtime_error("Failed to get behavior_tree_path parameter");
+        }
         
+        RCLCPP_INFO(g_node->get_logger(), "Loading behavior tree from: %s", mission_file.c_str());
+        if (access(mission_file.c_str(), F_OK) == -1) {
+            throw std::runtime_error("Behavior tree file does not exist: " + mission_file);
+        }
+
         auto tree = factory.createTreeFromFile(mission_file);
         RCLCPP_INFO(g_node->get_logger(), "Behavior tree created successfully");
 
-        // ZMQ publisher creation remains the same
-        BT::PublisherZMQ publisher_zmq(tree);
-        RCLCPP_INFO(g_node->get_logger(), "ZMQ publisher created. You can monitor the tree using Groot");
+        // Create Groot2 publisher
+        BT::Groot2Publisher publisher(tree, 1666);
+        RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 1666. You can monitor the tree using Groot2");
 
-        // Main loop remains the same but with potentially updated status handling
+        // Tree execution
+        const auto sleep_ms = std::chrono::milliseconds(100);
+        auto status = BT::NodeStatus::RUNNING;
+
         while (rclcpp::ok() && g_program_running) {
-            auto status = tree.tickOnce();  // Note: tickRoot() is now tickOnce() in v4
+            status = tree.tickWhileRunning(sleep_ms);
             rclcpp::spin_some(g_node);
             
-            if (status != BT::NodeStatus::RUNNING) {
+            if (BT::isStatusCompleted(status)) {
                 RCLCPP_INFO(g_node->get_logger(), "Tree finished with status: %s", 
                            status == BT::NodeStatus::SUCCESS ? "SUCCESS" : "FAILURE");
                 break;
             }
-            
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
-        // Cleanup remains the same
-    }
-    catch(const std::exception& e) {
-        // Exception handling remains the same
+        RCLCPP_INFO(g_node->get_logger(), "Starting clean shutdown...");
+        tree.haltTree();
+        RCLCPP_INFO(g_node->get_logger(), "Tree halted successfully");
+        
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        RCLCPP_INFO(g_node->get_logger(), "Shutdown complete");
+
+    } catch (const std::exception& e) {
+        if (g_node) {
+            RCLCPP_ERROR(g_node->get_logger(), "Exception caught: %s", e.what());
+        }
+        g_node.reset();
+        rclcpp::shutdown();
+        return 1;
     }
 
+    g_node.reset();
+    rclcpp::shutdown();
     return 0;
 }
