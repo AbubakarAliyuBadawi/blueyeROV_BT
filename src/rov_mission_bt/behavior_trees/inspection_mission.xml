@@ -33,7 +33,7 @@
                             <NavigateToWaypoint name="undock_waypoint" 
                                               x="-10.079" 
                                               y="8.594" 
-                                              z="-95.807"
+                                              z="95.807"
                                               velocity="0.1"
                                               fixed_heading="true"
                                               heading="0.0"/>
@@ -46,7 +46,7 @@
                             <NavigateToWaypoint name="inspection_point_1" 
                                               x="-12.512" 
                                               y="-28.430" 
-                                              z="-92.839"
+                                              z="92.839"
                                               velocity="0.3"
                                               fixed_heading="false"
                                               heading="0.0"/>
@@ -59,9 +59,9 @@
                             <NavigateToWaypoint name="inspection_point_2" 
                                               x="-12.512" 
                                               y="-79.992" 
-                                              z="-92.839"
+                                              z="92.839"
                                               velocity="0.1"
-                                              fixed_heading="true"
+                                              fixed_heading="false"
                                               heading="0.0"/>
                             <StationKeeping name="inspection_2_keeping" 
                                           duration="10"/>
@@ -70,11 +70,11 @@
                         <!-- Phase 4: Move to third inspection point -->
                         <Sequence name="inspection_point_3">
                             <NavigateToWaypoint name="inspection_point_3" 
-                                              x="-9.113" 
+                                              x="9.113" 
                                               y="-80.902" 
-                                              z="-92.839"
+                                              z="92.839"
                                               velocity="0.1"
-                                              fixed_heading="true"
+                                              fixed_heading="false"
                                               heading="0.0"/>
                             <StationKeeping name="inspection_3_keeping" 
                                           duration="10"/>
@@ -85,7 +85,7 @@
                             <NavigateToWaypoint name="return_waypoint" 
                                               x="-10.079" 
                                               y="8.594" 
-                                              z="-95.807"
+                                              z="95.807"
                                               velocity="0.3"
                                               fixed_heading="false"
                                               heading="0.0"/>
