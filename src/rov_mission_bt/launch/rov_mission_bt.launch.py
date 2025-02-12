@@ -12,7 +12,7 @@ def generate_launch_description():
         rov_bt_pkg_dir,
         'behavior_trees',
         'inspection_mission.xml'
-        # 'dock_undock_mission.xml'
+        # 'test_mission.xml'
     )
     
     # Verify file exists
@@ -29,19 +29,6 @@ def generate_launch_description():
             'behavior_tree_path': behavior_tree_path
         }]
     )
-
-    # # Add Groot monitor node
-    # groot_monitor_node = Node(
-    #     package='groot',
-    #     executable='behavior_tree_logger',
-    #     name='bt_logger',
-    #     output='screen',
-    #     parameters=[{
-    #         'publisher_port': 1666,
-    #         'server_port': 1667,
-    #         'max_msgs_per_second': 25
-    #     }]
-    # )
 
     # Create and return LaunchDescription with both nodes
     ld = LaunchDescription([

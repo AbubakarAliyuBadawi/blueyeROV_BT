@@ -25,6 +25,7 @@ include_directories(
 # Waypoint behaviors library
 add_library(waypoint_behaviors SHARED
   src/behaviors/waypoint_behaviors.cpp
+  src/behaviors/navigate_to_waypoint.cpp
   src/conditions/battery_condition.cpp
 )
 

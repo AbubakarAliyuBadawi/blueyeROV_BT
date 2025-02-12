@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="MainTree" BTCPP_format="4">
+    <TreeNodesModel>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="duration" type="Int">Duration in seconds</input_port>
+        </Action>
+    </TreeNodesModel>
+
+    <BehaviorTree ID="MainTree">
+        <Sequence name="undock_sequence">
+            <!-- Move slightly away from current position -->
+            <NavigateToWaypoint name="undock_waypoint" 
+                              x="-10.079" 
+                              y="8.594" 
+                              z="95.807" 
+                              velocity="0.1"
+                              fixed_heading="true"
+                              heading="0.0"/>
+            <!-- Perform station keeping -->
+            <StationKeeping name="post_undock_keeping" 
+                          duration="10"/>
+        </Sequence>
+    </BehaviorTree>
+</root>
