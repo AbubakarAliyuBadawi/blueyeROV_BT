@@ -1,15 +1,15 @@
 #include "rov_mission_bt/behaviors/waypoint_behaviors.hpp"
+#include "rov_mission_bt/behaviors/navigate_to_waypoint.hpp"  // Add this line
 #include "rov_mission_bt/conditions/battery_condition.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
-// BehaviorTree.CPP includes
 #include "behaviortree_cpp/behavior_tree.h"
 #include "behaviortree_cpp/bt_factory.h"
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
 #include <memory>
 #include <chrono>
 #include <thread>
-#include <unistd.h> // for access()
+#include <unistd.h>
 
 // Global node for service clients
 rclcpp::Node::SharedPtr g_node;
@@ -33,6 +33,16 @@ int main(int argc, char **argv) {
 
     // Register nodes
     factory.registerNodeType<BT::RetryNode>("RetryNode");
+    
+    // Register the new NavigateToWaypoint node
+    factory.registerBuilder<NavigateToWaypoint>(
+        "NavigateToWaypoint",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<NavigateToWaypoint>(name, config);
+        });
+
+    // Keep existing nodes for backward compatibility
     factory.registerBuilder<ClearWaypoints>(
         "ClearWaypoints",
         [](const std::string& name, const BT::NodeConfig& config)
@@ -78,11 +88,9 @@ int main(int argc, char **argv) {
         auto tree = factory.createTreeFromFile(mission_file);
         RCLCPP_INFO(g_node->get_logger(), "Behavior tree created successfully");
 
-        // Create Groot2 publisher
         BT::Groot2Publisher publisher(tree, 1666);
         RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 1666. You can monitor the tree using Groot2");
 
-        // Tree execution
         const auto sleep_ms = std::chrono::milliseconds(100);
         auto status = BT::NodeStatus::RUNNING;
 

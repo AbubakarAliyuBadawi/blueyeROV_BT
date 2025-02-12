@@ -9,13 +9,14 @@
         "/home/badawi/Desktop/blueyeROV_BT/install/mundus_mir_msgs/include/**",
         "/opt/ros/humble/include/**",
         "/home/badawi/Desktop/blueyeROV_BT/src/rov_mission_bt/include/**",
+        "/usr/local/include/**",
         "/usr/include/**"
       ],
       "name": "ROS",
       "intelliSenseMode": "gcc-x64",
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "gnu11",
-      "cppStandard": "c++14"
+      "cppStandard": "c++17"
     }
   ],
   "version": 4

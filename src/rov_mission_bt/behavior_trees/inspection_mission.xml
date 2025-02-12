@@ -1,23 +1,17 @@
+<?xml version="1.0"?>
 <root main_tree_to_execute="MainTree" BTCPP_format="4">
-    <!-- TreeNodesModel section - updated for v4 -->
     <TreeNodesModel>
         <Control ID="RetryNode">
             <input_port name="num_attempts" type="Int">Number of attempts</input_port>
         </Control>
-        <Condition ID="CheckBatteryLevel">
-            <!-- Battery check condition -->
-        </Condition>
-        <Action ID="ClearWaypoints">
-            <!-- Clear waypoints action -->
-        </Action>
-        <Action ID="SetWaypoint">
+        <Condition ID="CheckBatteryLevel"/>
+        <Action ID="NavigateToWaypoint">
             <input_port name="x" type="Double">X coordinate</input_port>
             <input_port name="y" type="Double">Y coordinate</input_port>
             <input_port name="z" type="Double">Z coordinate</input_port>
             <input_port name="velocity" type="Double">Desired velocity</input_port>
-        </Action>
-        <Action ID="ExecuteWaypoint">
-            <!-- Execute waypoint action -->
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
         </Action>
         <Action ID="StationKeeping">
             <input_port name="duration" type="Int">Duration in seconds</input_port>
@@ -28,65 +22,75 @@
         <Sequence name="mission_sequence">
             <RetryNode num_attempts="2">
                 <ReactiveSequence name="main_mission">
-                    <!-- Battery monitoring condition -->
+                    <!-- Battery check will run continuously -->
                     <Inverter>
                         <CheckBatteryLevel name="check_battery"/>
                     </Inverter>
 
-                    <!-- Main mission sequence -->
-                    <Sequence name="mission_tasks">
-                        <!-- Undocking Sequence -->
+                    <Sequence name="inspection_tasks">
+                        <!-- Phase 1: Undocking -->
                         <Sequence name="undock_sequence">
-                            <ClearWaypoints name="clear_undock"/>
-                            <SetWaypoint name="undock_waypoint" 
-                                       x="-9.5" y="8.54" z="95.7" 
-                                       velocity="0.3"/>
-                            <ExecuteWaypoint name="execute_undock"/>
-                            <!-- Move to station keeping position -->
-                            <ClearWaypoints name="clear_station_1"/>
-                            <SetWaypoint name="station_waypoint_1" 
-                                       x="8.54" y="-10.5" z="-95.8" 
-                                       velocity="0.3"/>
-                            <ExecuteWaypoint name="execute_station_1"/>
-                            <StationKeeping name="post_undock_keeping" duration="10"/>
+                            <NavigateToWaypoint name="undock_waypoint" 
+                                              x="-10.079" 
+                                              y="8.594" 
+                                              z="-95.807"
+                                              velocity="0.1"
+                                              fixed_heading="true"
+                                              heading="0.0"/>
+                            <StationKeeping name="post_undock_keeping" 
+                                          duration="10"/>
                         </Sequence>
 
-                        <!-- Pipeline Inspection Sequence -->
-                        <Sequence name="inspection_sequence">
-                            <!-- First inspection point -->
-                            <Sequence>
-                                <ClearWaypoints name="clear_inspection_1"/>
-                                <SetWaypoint name="inspection_point_1" 
-                                           x="-18" y="-25" z="90" 
-                                           velocity="0.5"/>
-                                <ExecuteWaypoint name="execute_inspection_1"/>
-                            </Sequence>
-                            
-                            <!-- Second inspection point -->
-                            <Sequence>
-                                <ClearWaypoints name="clear_inspection_2"/>
-                                <SetWaypoint name="inspection_point_2" 
-                                           x="20" y="55" z="90" 
-                                           velocity="0.5"/>
-                                <ExecuteWaypoint name="execute_inspection_2"/>
-                            </Sequence>
+                        <!-- Phase 2: Move to first inspection point -->
+                        <Sequence name="inspection_point_1">
+                            <NavigateToWaypoint name="inspection_point_1" 
+                                              x="-12.512" 
+                                              y="-28.430" 
+                                              z="-92.839"
+                                              velocity="0.3"
+                                              fixed_heading="false"
+                                              heading="0.0"/>
+                            <StationKeeping name="inspection_1_keeping" 
+                                          duration="10"/>
                         </Sequence>
 
-                        <!-- Return to Dock Sequence -->
+                        <!-- Phase 3: Move to second inspection point -->
+                        <Sequence name="inspection_point_2">
+                            <NavigateToWaypoint name="inspection_point_2" 
+                                              x="-12.512" 
+                                              y="-79.992" 
+                                              z="-92.839"
+                                              velocity="0.1"
+                                              fixed_heading="true"
+                                              heading="0.0"/>
+                            <StationKeeping name="inspection_2_keeping" 
+                                          duration="10"/>
+                        </Sequence>
+
+                        <!-- Phase 4: Move to third inspection point -->
+                        <Sequence name="inspection_point_3">
+                            <NavigateToWaypoint name="inspection_point_3" 
+                                              x="-9.113" 
+                                              y="-80.902" 
+                                              z="-92.839"
+                                              velocity="0.1"
+                                              fixed_heading="true"
+                                              heading="0.0"/>
+                            <StationKeeping name="inspection_3_keeping" 
+                                          duration="10"/>
+                        </Sequence>
+
+                        <!-- Phase 5: Return to dock -->
                         <Sequence name="return_sequence">
-                            <!-- Move to station keeping position first -->
-                            <ClearWaypoints name="clear_station_2"/>
-                            <SetWaypoint name="station_waypoint_2" 
-                                       x="8.54" y="-10.5" z="-95.8" 
-                                       velocity="0.3"/>
-                            <ExecuteWaypoint name="execute_station_2"/>
-                            <StationKeeping name="pre_dock_keeping" duration="10"/>
-                            <!-- Then move to dock -->
-                            <ClearWaypoints name="clear_return"/>
-                            <SetWaypoint name="return_waypoint" 
-                                       x="-8.5" y="8.54" z="95.3" 
-                                       velocity="0.5"/>
-                            <ExecuteWaypoint name="execute_return"/>
+                            <NavigateToWaypoint name="return_waypoint" 
+                                              x="-10.079" 
+                                              y="8.594" 
+                                              z="-95.807"
+                                              velocity="0.3"
+                                              fixed_heading="false"
+                                              heading="0.0"/>
+                            <StationKeeping name="final_keeping" 
+                                          duration="10"/>
                         </Sequence>
                     </Sequence>
                 </ReactiveSequence>
@@ -94,11 +98,13 @@
 
             <!-- Emergency return if RetryNode fails -->
             <Sequence name="emergency_return">
-                <ClearWaypoints name="clear_emergency"/>
-                <SetWaypoint name="emergency_return" 
-                           x="-8.5" y="8.54" z="95.3" 
-                           velocity="1.0"/>
-                <ExecuteWaypoint name="execute_emergency"/>
+                <NavigateToWaypoint name="emergency_return" 
+                                  x="-10.079" 
+                                  y="8.594" 
+                                  z="-95.807"
+                                  velocity="0.5"
+                                  fixed_heading="false"
+                                  heading="0.0"/>
             </Sequence>
         </Sequence>
     </BehaviorTree>
