@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
         auto tree = factory.createTreeFromFile(mission_file);
         RCLCPP_INFO(g_node->get_logger(), "Behavior tree created successfully");
 
-        BT::Groot2Publisher publisher(tree, 1666);
+        BT::Groot2Publisher publisher(tree, 6677);
         RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 1666. You can monitor the tree using Groot2");
 
         const auto sleep_ms = std::chrono::milliseconds(100);
