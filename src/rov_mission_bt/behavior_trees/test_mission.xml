@@ -18,11 +18,11 @@
         <Sequence name="undock_sequence">
             <!-- Move slightly away from current position -->
             <NavigateToWaypoint name="undock_waypoint" 
-                              x="-10.079" 
-                              y="8.594" 
-                              z="95.807" 
+                              x="-12.000" 
+                              y="-28.000" 
+                              z="93.000" 
                               velocity="0.1"
-                              fixed_heading="true"
+                              fixed_heading="false"
                               heading="0.0"/>
             <!-- Perform station keeping -->
             <StationKeeping name="post_undock_keeping" 
