@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <root main_tree_to_execute="MainTree" BTCPP_format="4">
     <TreeNodesModel>
-        <Control ID="RetryNode">
-            <input_port name="num_attempts" type="Int">Number of attempts</input_port>
-        </Control>
         <Condition ID="CheckBatteryLevel"/>
         <Action ID="NavigateToWaypoint">
             <input_port name="x" type="Double">X coordinate</input_port>
@@ -19,93 +16,81 @@
     </TreeNodesModel>
 
     <BehaviorTree ID="MainTree">
-        <Sequence name="mission_sequence">
-            <RetryNode num_attempts="2">
-                <ReactiveSequence name="main_mission">
-                    <!-- Battery check will run continuously -->
-                    <Inverter>
-                        <CheckBatteryLevel name="check_battery"/>
-                    </Inverter>
-
-                    <Sequence name="inspection_tasks">
-                        <!-- Phase 1: Undocking -->
-                        <Sequence name="undock_sequence">
-                            <NavigateToWaypoint name="undock_waypoint" 
-                                              x="-10.079" 
-                                              y="8.594" 
-                                              z="95.807"
-                                              velocity="0.1"
-                                              fixed_heading="true"
-                                              heading="0.0"/>
-                            <StationKeeping name="post_undock_keeping" 
-                                          duration="10"/>
-                        </Sequence>
-
-                        <!-- Phase 2: Move to first inspection point -->
-                        <Sequence name="inspection_point_1">
-                            <NavigateToWaypoint name="inspection_point_1" 
-                                              x="-12.512" 
-                                              y="-28.430" 
-                                              z="92.839"
-                                              velocity="0.3"
-                                              fixed_heading="false"
-                                              heading="0.0"/>
-                            <StationKeeping name="inspection_1_keeping" 
-                                          duration="10"/>
-                        </Sequence>
-
-                        <!-- Phase 3: Move to second inspection point -->
-                        <Sequence name="inspection_point_2">
-                            <NavigateToWaypoint name="inspection_point_2" 
-                                              x="-12.512" 
-                                              y="-79.992" 
-                                              z="92.839"
-                                              velocity="0.1"
-                                              fixed_heading="false"
-                                              heading="0.0"/>
-                            <StationKeeping name="inspection_2_keeping" 
-                                          duration="10"/>
-                        </Sequence>
-
-                        <!-- Phase 4: Move to third inspection point -->
-                        <Sequence name="inspection_point_3">
-                            <NavigateToWaypoint name="inspection_point_3" 
-                                              x="9.113" 
-                                              y="-80.902" 
-                                              z="92.839"
-                                              velocity="0.1"
-                                              fixed_heading="false"
-                                              heading="0.0"/>
-                            <StationKeeping name="inspection_3_keeping" 
-                                          duration="10"/>
-                        </Sequence>
-
-                        <!-- Phase 5: Return to dock -->
-                        <Sequence name="return_sequence">
-                            <NavigateToWaypoint name="return_waypoint" 
-                                              x="-10.079" 
-                                              y="8.594" 
-                                              z="95.807"
-                                              velocity="0.3"
-                                              fixed_heading="false"
-                                              heading="0.0"/>
-                            <StationKeeping name="final_keeping" 
-                                          duration="10"/>
-                        </Sequence>
+        <Fallback name="main_mission">
+            <!-- Normal mission sequence -->
+            <Sequence name="normal_mission">
+                <Inverter>
+                    <CheckBatteryLevel name="check_battery"/>
+                </Inverter>
+                
+                <!-- Inspection tasks -->
+                <Sequence name="inspection_tasks">
+                    <!-- Phase 1: Undocking -->
+                    <Sequence name="undock_sequence">
+                        <NavigateToWaypoint name="undock_waypoint" 
+                                          x="-10.079" 
+                                          y="8.594" 
+                                          z="95.807"
+                                          velocity="0.1"
+                                          fixed_heading="true"
+                                          heading="0.0"/>
+                        <StationKeeping name="post_undock_keeping" 
+                                      duration="10"/>
                     </Sequence>
-                </ReactiveSequence>
-            </RetryNode>
 
-            <!-- Emergency return if RetryNode fails -->
-            <Sequence name="emergency_return">
-                <NavigateToWaypoint name="emergency_return" 
+                    <!-- Phase 2: Move to first inspection point -->
+                    <Sequence name="inspection_point_1">
+                        <NavigateToWaypoint name="inspection_point_1" 
+                                          x="-12.512" 
+                                          y="-28.430" 
+                                          z="92.839"
+                                          velocity="0.3"
+                                          fixed_heading="false"
+                                          heading="0.0"/>
+                        <StationKeeping name="inspection_1_keeping" 
+                                      duration="10"/>
+                    </Sequence>
+
+                    <!-- Phase 3: Move to second inspection point -->
+                    <Sequence name="inspection_point_2">
+                        <NavigateToWaypoint name="inspection_point_2" 
+                                          x="-12.512" 
+                                          y="-79.992" 
+                                          z="92.839"
+                                          velocity="0.1"
+                                          fixed_heading="false"
+                                          heading="0.0"/>
+                        <StationKeeping name="inspection_2_keeping" 
+                                      duration="10"/>
+                    </Sequence>
+
+                    <!-- Phase 4: Move to third inspection point -->
+                    <Sequence name="inspection_point_3">
+                        <NavigateToWaypoint name="inspection_point_3" 
+                                          x="9.113" 
+                                          y="-80.902" 
+                                          z="92.839"
+                                          velocity="0.1"
+                                          fixed_heading="false"
+                                          heading="0.0"/>
+                        <StationKeeping name="inspection_3_keeping" 
+                                      duration="10"/>
+                    </Sequence>
+                </Sequence>
+            </Sequence>
+
+            <!-- Return sequence that executes when battery check fails -->
+            <Sequence name="battery_return">
+                <NavigateToWaypoint name="return_waypoint" 
                                   x="-10.079" 
                                   y="8.594" 
-                                  z="-95.807"
-                                  velocity="0.5"
+                                  z="95.807"
+                                  velocity="0.3"
                                   fixed_heading="false"
                                   heading="0.0"/>
+                <StationKeeping name="dock_keeping" 
+                              duration="10"/>
             </Sequence>
-        </Sequence>
+        </Fallback>
     </BehaviorTree>
 </root>

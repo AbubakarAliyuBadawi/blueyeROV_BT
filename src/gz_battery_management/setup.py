@@ -20,11 +20,13 @@ setup(
     maintainer_email='your@email.com',
     description='Battery management and dock distance calculation nodes',
     license='TODO: License declaration',
-    tests_require=['pytest'],
+    extras_require={
+        'test': ['pytest', 'mock']
+    },
     entry_points={
         'console_scripts': [
-            'dock_distance_calc = blueye_mission.dock_distance_calc:main',
-            'battery_management = blueye_mission.battery_management:main'
+            'dock_distance_calc = gz_battery_management.dock_distance_calc:main',
+            'battery_management = gz_battery_management.battery_management:main'
         ],
     },
 )
