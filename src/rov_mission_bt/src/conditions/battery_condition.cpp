@@ -17,21 +17,14 @@ CheckBatteryLevel::CheckBatteryLevel(const std::string& name, const BT::NodeConf
         std::bind(&CheckBatteryLevel::returnCallback, this, std::placeholders::_1));
 }
 
-// Remove this function since it's now defined in the header
-// BT::PortsList CheckBatteryLevel::providedPorts() {
-//     return BT::PortsList({});
-// }
-
 BT::NodeStatus CheckBatteryLevel::tick() {
-    rclcpp::spin_some(node_);  // Make sure to process callbacks
-    
+    rclcpp::spin_some(node_);
     if (should_return_) {
-        RCLCPP_INFO(node_->get_logger(), "Battery check triggered return: Level %.1f%%", battery_level_);
-        return BT::NodeStatus::SUCCESS;
+        RCLCPP_INFO(node_->get_logger(), "Battery low, Level %.1f%% - Triggering return", battery_level_);
+        return BT::NodeStatus::FAILURE;  // Changed from SUCCESS to FAILURE
     }
-    
-    RCLCPP_DEBUG(node_->get_logger(), "Battery level: %.1f%% - No return needed", battery_level_);
-    return BT::NodeStatus::FAILURE;
+    RCLCPP_DEBUG(node_->get_logger(), "Battery good: %.1f%% - Continue mission", battery_level_);
+    return BT::NodeStatus::SUCCESS;  // Changed from FAILURE to SUCCESS
 }
 
 void CheckBatteryLevel::batteryCallback(const mundus_mir_msgs::msg::BatteryStatus::SharedPtr msg) {
