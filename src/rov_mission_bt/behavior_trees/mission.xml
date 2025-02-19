@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="MissionTree" BTCPP_format="4">
+    <!-- Include the existing behavior trees -->
+    <include path="inspection_mission.xml"/>
+    <include path="lawnmower.xml"/>
+    
+    <BehaviorTree ID="MissionTree">
+        <Fallback name="complete_mission">
+            <!-- Normal mission sequence -->
+            <Sequence name="full_mission">
+                <Inverter>
+                    <CheckBatteryLevel name="mission_battery_check"/>
+                </Inverter>
+                
+                <!-- Run inspection mission as a subtree -->
+                <SubTree ID="PipeLineInspection" />
+                
+                <!-- After inspection completes, run lawnmower pattern -->
+                <SubTree ID="LawnmowerPattern" />
+            </Sequence>
+
+            <!-- Common return behavior -->
+            <Sequence name="emergency_return">
+                <NavigateToWaypoint name="emergency_return_point" 
+                                  x="-10.079" 
+                                  y="8.594" 
+                                  z="95.807"
+                                  velocity="0.3"
+                                  fixed_heading="false"
+                                  heading="0.0"/>
+                <StationKeeping name="emergency_dock" 
+                              duration="10"/>
+            </Sequence>
+        </Fallback>
+    </BehaviorTree>
+</root>

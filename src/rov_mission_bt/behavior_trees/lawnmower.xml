@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<root BTCPP_format="4">
+    <BehaviorTree ID="LawnmowerPattern">
+        <Sequence name="lawnmower_sequence">
+            <NavigateToWaypoint name="lawnmower_start" 
+                              x="10.0" 
+                              y="-80.0" 
+                              z="92.0"
+                              velocity="0.2"
+                              fixed_heading="false"
+                              heading="0.0"/>
+            <!-- Add your lawnmower pattern waypoints here -->
+            <StationKeeping name="lawnmower_complete" 
+                          duration="5"/>
+        </Sequence>
+    </BehaviorTree>
+</root>
