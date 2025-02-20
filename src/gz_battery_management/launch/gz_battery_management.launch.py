@@ -4,13 +4,13 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='blueye_mission',
+            package='gz_battery_management',
             executable='dock_distance_calc',
             name='dock_distance_calc',
             output='screen'
         ),
         Node(
-            package='blueye_mission',
+            package='gz_battery_management',
             executable='battery_management',
             name='battery_management',
             parameters=[{
