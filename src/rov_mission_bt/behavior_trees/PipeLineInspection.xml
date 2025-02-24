@@ -1,74 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="4" main_tree_to_execute="MainTree">
     <BehaviorTree ID="PipeLineInspection">
-        <Fallback name="main_mission">
-            <Sequence name="normal_mission">
-                <Inverter>
-                    <CheckBatteryLevel name="check_battery"/>
-                </Inverter>
-                <Sequence name="inspection_tasks">
-                    <Sequence name="undock_sequence">
-                        <NavigateToWaypoint name="undock_waypoint"
-                                          x="-10.079"
-                                          y="8.594"
-                                          z="95.807"
-                                          velocity="0.1"
-                                          fixed_heading="true"
-                                          heading="0.0"/>
-                        <StationKeeping name="post_undock_keeping"
-                                      duration="10"/>
-                    </Sequence>
-                    <Sequence name="inspection_point_1">
-                        <NavigateToWaypoint name="inspection_point_1"
-                                          x="-12.512"
-                                          y="-28.430"
-                                          z="92.839"
-                                          velocity="0.3"
-                                          fixed_heading="false"
-                                          heading="0.0"/>
-                        <StationKeeping name="inspection_1_keeping"
-                                      duration="10"/>
-                    </Sequence>
-                    <Sequence name="inspection_point_2">
-                        <NavigateToWaypoint name="inspection_point_2"
-                                          x="-12.512"
-                                          y="-79.992"
-                                          z="92.839"
-                                          velocity="0.1"
-                                          fixed_heading="false"
-                                          heading="0.0"/>
-                        <StationKeeping name="inspection_2_keeping"
-                                      duration="10"/>
-                    </Sequence>
-                    <Sequence name="inspection_point_3">
-                        <NavigateToWaypoint name="inspection_point_3"
-                                          x="9.113"
-                                          y="-80.902"
-                                          z="92.839"
-                                          velocity="0.1"
-                                          fixed_heading="false"
-                                          heading="0.0"/>
-                        <StationKeeping name="inspection_3_keeping"
-                                      duration="10"/>
-                    </Sequence>
-                </Sequence>
-            </Sequence>
-            <Sequence name="battery_return">
-                <NavigateToWaypoint name="return_waypoint"
+        <Sequence name="inspection_tasks">
+            <Sequence name="undock_sequence">
+                <NavigateToWaypoint name="undock_waypoint"
                                   x="-10.079"
                                   y="8.594"
                                   z="95.807"
+                                  velocity="0.1"
+                                  fixed_heading="true"
+                                  heading="0.0"/>
+                <StationKeeping name="post_undock_keeping"
+                              duration="10"/>
+            </Sequence>
+            <Sequence name="inspection_point_1">
+                <NavigateToWaypoint name="inspection_point_1"
+                                  x="-12.512"
+                                  y="-28.430"
+                                  z="92.839"
                                   velocity="0.3"
                                   fixed_heading="false"
                                   heading="0.0"/>
-                <StationKeeping name="dock_keeping"
+                <StationKeeping name="inspection_1_keeping"
                               duration="10"/>
             </Sequence>
-        </Fallback>
+            <Sequence name="inspection_point_2">
+                <NavigateToWaypoint name="inspection_point_2"
+                                  x="-12.512"
+                                  y="-79.992"
+                                  z="92.839"
+                                  velocity="0.1"
+                                  fixed_heading="false"
+                                  heading="0.0"/>
+                <StationKeeping name="inspection_2_keeping"
+                              duration="10"/>
+            </Sequence>
+            <Sequence name="inspection_point_3">
+                <NavigateToWaypoint name="inspection_point_3"
+                                  x="9.113"
+                                  y="-80.902"
+                                  z="92.839"
+                                  velocity="0.1"
+                                  fixed_heading="false"
+                                  heading="0.0"/>
+                <StationKeeping name="inspection_3_keeping"
+                              duration="10"/>
+            </Sequence>
+        </Sequence>
     </BehaviorTree>
+    
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
-        <Condition ID="CheckBatteryLevel"/>
         <Action ID="NavigateToWaypoint">
             <input_port name="x"
                       type="Double">X coordinate</input_port>

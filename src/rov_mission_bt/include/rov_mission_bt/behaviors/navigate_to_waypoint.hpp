@@ -58,3 +58,18 @@ private:
     void stopWaypointController();
     void cleanup();
 };
+
+class StationKeeping : public BT::StatefulActionNode {
+public:
+    StationKeeping(const std::string& name, const BT::NodeConfiguration& config)
+        : BT::StatefulActionNode(name, config) {}
+
+    static BT::PortsList providedPorts() {
+        return { 
+            BT::InputPort<int>("duration", "Duration in seconds"),
+            BT::InputPort<bool>("fixed_heading", "Whether to use fixed heading"),
+            BT::InputPort<double>("heading", "Desired heading in degrees")
+        };
+    }
+    // ... rest of the class definition ...
+};
