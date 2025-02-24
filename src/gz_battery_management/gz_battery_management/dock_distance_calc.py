@@ -1,5 +1,3 @@
-# dock_distance_calc.py
-
 #!/usr/bin/env python3
 
 import numpy as np

@@ -213,12 +213,12 @@ class ReturnCalculator(Node):
         self.recommendation_pub.publish(msg)
         
         # Log current status
-        self.get_logger().info(
-            f'Battery: {msg.current_battery_level:.1f}%, ' +
-            f'Distance: {msg.distance_to_dock:.1f}m, ' +
-            f'Return Energy: {msg.estimated_return_energy:.1f}%, ' +
-            f'Minimum Needed: {msg.minimum_battery_needed:.1f}%'
-        )
+        # self.get_logger().info(
+        #     f'Battery: {msg.current_battery_level:.1f}%, ' +
+        #     f'Distance: {msg.distance_to_dock:.1f}m, ' +
+        #     f'Return Energy: {msg.estimated_return_energy:.1f}%, ' +
+        #     f'Minimum Needed: {msg.minimum_battery_needed:.1f}%'
+        # )
 
 def main(args=None):
     rclpy.init(args=args)
