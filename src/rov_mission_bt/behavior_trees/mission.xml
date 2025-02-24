@@ -1,36 +1,38 @@
-<?xml version="1.0"?>
-<root main_tree_to_execute="MissionTree" BTCPP_format="4">
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="MissionTree">
     <!-- Include the existing behavior trees -->
-    <include path="inspection_mission.xml"/>
-    <include path="lawnmower.xml"/>
+    <include path="PipeLineInspection.xml"/>
+    <include path="emergency_return.xml"/>
     
     <BehaviorTree ID="MissionTree">
-        <Fallback name="complete_mission">
+        <Fallback name="mission_with_battery_check">
             <!-- Normal mission sequence -->
-            <Sequence name="full_mission">
+            <Sequence name="pipeline_mission">
                 <Inverter>
                     <CheckBatteryLevel name="mission_battery_check"/>
                 </Inverter>
-                
                 <!-- Run inspection mission as a subtree -->
-                <SubTree ID="PipeLineInspection" />
-                
-                <!-- After inspection completes, run lawnmower pattern -->
-                <SubTree ID="LawnmowerPattern" />
+                <SubTree ID="PipeLineInspection"/>
             </Sequence>
-
-            <!-- Common return behavior -->
-            <Sequence name="emergency_return">
-                <NavigateToWaypoint name="emergency_return_point" 
-                                  x="-10.079" 
-                                  y="8.594" 
-                                  z="95.807"
-                                  velocity="0.3"
-                                  fixed_heading="false"
-                                  heading="0.0"/>
-                <StationKeeping name="emergency_dock" 
-                              duration="10"/>
-            </Sequence>
+            
+            <!-- If battery check fails or mission fails, do emergency return -->
+            <SubTree ID="EmergencyReturn"/>
         </Fallback>
     </BehaviorTree>
+
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Condition ID="CheckBatteryLevel"/>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="duration" type="Int">Duration in seconds</input_port>
+        </Action>
+    </TreeNodesModel>
 </root>

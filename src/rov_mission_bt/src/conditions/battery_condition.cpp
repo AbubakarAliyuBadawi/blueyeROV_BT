@@ -21,10 +21,10 @@ BT::NodeStatus CheckBatteryLevel::tick() {
     rclcpp::spin_some(node_);
     if (should_return_) {
         RCLCPP_INFO(node_->get_logger(), "Battery low, Level %.1f%% - Triggering return", battery_level_);
-        return BT::NodeStatus::FAILURE;  // Changed from SUCCESS to FAILURE
+        return BT::NodeStatus::SUCCESS;
     }
     RCLCPP_DEBUG(node_->get_logger(), "Battery good: %.1f%% - Continue mission", battery_level_);
-    return BT::NodeStatus::SUCCESS;  // Changed from FAILURE to SUCCESS
+    return BT::NodeStatus::FAILURE;
 }
 
 void CheckBatteryLevel::batteryCallback(const mundus_mir_msgs::msg::BatteryStatus::SharedPtr msg) {

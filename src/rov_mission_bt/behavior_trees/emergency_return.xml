@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+    <BehaviorTree ID="EmergencyReturn">
+        <Sequence name="emergency_return_sequence">
+            <NavigateToWaypoint name="emergency_return_point" 
+                              x="-10.079" 
+                              y="8.594" 
+                              z="95.807"
+                              velocity="0.3"
+                              fixed_heading="false"
+                              heading="0.0"/>
+            <StationKeeping name="emergency_dock" 
+                          duration="10"/>
+        </Sequence>
+    </BehaviorTree>
+</root> 
