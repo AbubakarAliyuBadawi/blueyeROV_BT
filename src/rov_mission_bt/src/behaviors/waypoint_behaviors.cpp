@@ -195,20 +195,30 @@ void ExecuteWaypoint::cleanup() {
 }
 
 BT::NodeStatus StationKeeping::onStart() {
-    auto duration = getInput<int>("duration");
-    if (!duration) {
-        RCLCPP_ERROR(g_node->get_logger(), "Failed to get duration parameter for station keeping");
+    if (!getInput("duration", duration_)) {
+        RCLCPP_ERROR(g_node->get_logger(), "Missing required duration parameter");
         return BT::NodeStatus::FAILURE;
     }
 
-    if (!startWaypointController(true)) {
-        return BT::NodeStatus::FAILURE;
-    }
+    bool fixed_heading = false;
+    double heading = 0.0;
+    getInput("fixed_heading", fixed_heading);
+    getInput("heading", heading);
 
-    start_time_ = std::chrono::steady_clock::now();
-    RCLCPP_INFO(g_node->get_logger(), "Starting station keeping for %d seconds", duration.value());
+    // Create waypoint at current position
+    auto request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
     
-    return BT::NodeStatus::RUNNING;
+    // Get current position from odometry
+    // ... get current position code ...
+
+    request->x = current_x;
+    request->y = current_y;
+    request->z = current_z;
+    request->desired_velocity = 0.0;  // Zero velocity for station keeping
+    request->fixed_heading = fixed_heading;
+    request->heading = heading;
+
+    // ... rest of the implementation ...
 }
 
 BT::NodeStatus StationKeeping::onRunning() {

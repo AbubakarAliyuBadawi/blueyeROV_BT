@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
 
     // Register nodes
     factory.registerNodeType<BT::RetryNode>("RetryNode");
-    
+
     // Register the new NavigateToWaypoint node
     factory.registerBuilder<NavigateToWaypoint>(
         "NavigateToWaypoint",
