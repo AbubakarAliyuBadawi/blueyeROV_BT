@@ -19,7 +19,7 @@ find_package(std_msgs REQUIRED)
 # ZMQ is included in behaviortree_cpp
 include_directories(
   include
-  ${behaviortree_cpp_INCLUDE_DIRS}  # Changed from v3
+  ${behaviortree_cpp_INCLUDE_DIRS} 
 )
 
 # Waypoint behaviors library
@@ -27,11 +27,12 @@ add_library(waypoint_behaviors SHARED
   src/behaviors/waypoint_behaviors.cpp
   src/behaviors/navigate_to_waypoint.cpp
   src/conditions/battery_condition.cpp
+  src/behaviors/station_keeping.cpp
 )
 
 ament_target_dependencies(waypoint_behaviors
   rclcpp
-  behaviortree_cpp  # Changed from v3
+  behaviortree_cpp 
   mundus_mir_msgs
   std_msgs
 )
@@ -41,9 +42,10 @@ add_executable(rov_mission_bt src/main.cpp)
 
 ament_target_dependencies(rov_mission_bt
   rclcpp
-  behaviortree_cpp  # Changed from v3
+  behaviortree_cpp 
   mundus_mir_msgs
   std_msgs
+  nav_msgs
 )
 
 target_link_libraries(rov_mission_bt

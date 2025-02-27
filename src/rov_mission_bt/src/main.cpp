@@ -1,5 +1,6 @@
 #include "rov_mission_bt/behaviors/waypoint_behaviors.hpp"
-#include "rov_mission_bt/behaviors/navigate_to_waypoint.hpp"  // Add this line
+#include "rov_mission_bt/behaviors/navigate_to_waypoint.hpp"
+#include "rov_mission_bt/behaviors/station_keeping.hpp"
 #include "rov_mission_bt/conditions/battery_condition.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
@@ -33,6 +34,7 @@ int main(int argc, char **argv) {
 
     // Register nodes
     factory.registerNodeType<BT::RetryNode>("RetryNode");
+    factory.registerNodeType<BT::SequenceNode>("SequenceNode");
 
     // Register the new NavigateToWaypoint node
     factory.registerBuilder<NavigateToWaypoint>(

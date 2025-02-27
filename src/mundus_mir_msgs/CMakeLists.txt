@@ -29,6 +29,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/GoToWaypoints.srv"
   "srv/RunWaypointController.srv"
   "srv/GetWaypointStatus.srv"
+  "srv/MissionManager.srv"
   DEPENDENCIES std_msgs geometry_msgs builtin_interfaces
 )
 

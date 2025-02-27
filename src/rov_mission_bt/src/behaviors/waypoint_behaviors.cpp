@@ -194,76 +194,106 @@ void ExecuteWaypoint::cleanup() {
     }
 }
 
-BT::NodeStatus StationKeeping::onStart() {
-    if (!getInput("duration", duration_)) {
-        RCLCPP_ERROR(g_node->get_logger(), "Missing required duration parameter");
-        return BT::NodeStatus::FAILURE;
-    }
-
-    bool fixed_heading = false;
-    double heading = 0.0;
-    getInput("fixed_heading", fixed_heading);
-    getInput("heading", heading);
-
-    // Create waypoint at current position
-    auto request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
+// BT::NodeStatus StationKeeping::onStart() {
+//     auto duration = getInput<int>("duration");
+//     auto heading = getInput<double>("heading");
     
-    // Get current position from odometry
-    // ... get current position code ...
+//     if (!duration || !heading) {
+//         RCLCPP_ERROR(g_node->get_logger(), "Failed to get duration or heading parameter for station keeping");
+//         return BT::NodeStatus::FAILURE;
+//     }
 
-    request->x = current_x;
-    request->y = current_y;
-    request->z = current_z;
-    request->desired_velocity = 0.0;  // Zero velocity for station keeping
-    request->fixed_heading = fixed_heading;
-    request->heading = heading;
+//     if (!startWaypointController(true)) {
+//         return BT::NodeStatus::FAILURE;
+//     }
 
-    // ... rest of the implementation ...
-}
+//     if (!setCurrentPositionAsWaypoint(heading.value())) {
+//         startWaypointController(false);
+//         return BT::NodeStatus::FAILURE;
+//     }
 
-BT::NodeStatus StationKeeping::onRunning() {
-    auto duration = getInput<int>("duration");
-    if (!duration) {
-        RCLCPP_ERROR(g_node->get_logger(), "Failed to get duration parameter");
-        return BT::NodeStatus::FAILURE;
-    }
+//     if (!startWaypointExecution()) {
+//         startWaypointController(false);
+//         return BT::NodeStatus::FAILURE;
+//     }
 
-    auto current_time = std::chrono::steady_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(
-        current_time - start_time_).count();
-
-    if (elapsed >= duration.value()) {
-        RCLCPP_INFO(g_node->get_logger(), "Station keeping completed");
-        return BT::NodeStatus::SUCCESS;
-    }
-
-    if (elapsed % 5 == 0) {
-        RCLCPP_INFO(g_node->get_logger(), "Station keeping: %ld seconds remaining", 
-                   duration.value() - elapsed);
-    }
-
-    return BT::NodeStatus::RUNNING;
-}
-
-void StationKeeping::onHalted() {
-    RCLCPP_INFO(g_node->get_logger(), "Station keeping halted");
-    startWaypointController(false);
-}
-
-bool StationKeeping::startWaypointController(bool run) {
-    auto request = std::make_shared<mundus_mir_msgs::srv::RunWaypointController::Request>();
-    request->run = run;
+//     start_time_ = std::chrono::steady_clock::now();
+//     RCLCPP_INFO(g_node->get_logger(), "Starting station keeping for %d seconds with heading %.2f", 
+//                 duration.value(), heading.value());
     
-    if (!run_client_->wait_for_service(std::chrono::seconds(1))) {
-        RCLCPP_ERROR(g_node->get_logger(), "Run waypoint controller service not available");
-        return false;
-    }
-    
-    auto future = run_client_->async_send_request(request);
-    if (rclcpp::spin_until_future_complete(g_node, future) != rclcpp::FutureReturnCode::SUCCESS) {
-        RCLCPP_ERROR(g_node->get_logger(), "Failed to call run waypoint controller service");
-        return false;
-    }
+//     return BT::NodeStatus::RUNNING;
+// }
 
-    return true;
-}
+// bool StationKeeping::setCurrentPositionAsWaypoint(double heading) {
+//     auto request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
+    
+//     // Set the current position as the waypoint
+//     // Note: We'll use the same position that was last commanded
+//     request->x = 0.0;  
+//     request->y = 0.0;
+//     request->z = 0.0;
+//     request->desired_velocity = 0.0;
+//     request->fixed_heading = true;
+//     request->heading = heading;
+    
+//     if (!add_client_->wait_for_service(std::chrono::seconds(1))) {
+//         RCLCPP_ERROR(g_node->get_logger(), "Add waypoint service not available");
+//         return false;
+//     }
+    
+//     auto future = add_client_->async_send_request(request);
+//     if (rclcpp::spin_until_future_complete(g_node, future) != rclcpp::FutureReturnCode::SUCCESS) {
+//         RCLCPP_ERROR(g_node->get_logger(), "Failed to call add waypoint service");
+//         return false;
+//     }
+
+//     auto result = future.get();
+//     return result->accepted;
+// }
+
+// BT::NodeStatus StationKeeping::onRunning() {
+//     auto duration = getInput<int>("duration");
+//     if (!duration) {
+//         RCLCPP_ERROR(g_node->get_logger(), "Failed to get duration parameter");
+//         return BT::NodeStatus::FAILURE;
+//     }
+
+//     auto current_time = std::chrono::steady_clock::now();
+//     auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(
+//         current_time - start_time_).count();
+
+//     if (elapsed >= duration.value()) {
+//         RCLCPP_INFO(g_node->get_logger(), "Station keeping completed");
+//         return BT::NodeStatus::SUCCESS;
+//     }
+
+//     if (elapsed % 5 == 0) {
+//         RCLCPP_INFO(g_node->get_logger(), "Station keeping: %ld seconds remaining", 
+//                    duration.value() - elapsed);
+//     }
+
+//     return BT::NodeStatus::RUNNING;
+// }
+
+// void StationKeeping::onHalted() {
+//     RCLCPP_INFO(g_node->get_logger(), "Station keeping halted");
+//     startWaypointController(false);
+// }
+
+// bool StationKeeping::startWaypointController(bool run) {
+//     auto request = std::make_shared<mundus_mir_msgs::srv::RunWaypointController::Request>();
+//     request->run = run;
+    
+//     if (!run_client_->wait_for_service(std::chrono::seconds(1))) {
+//         RCLCPP_ERROR(g_node->get_logger(), "Run waypoint controller service not available");
+//         return false;
+//     }
+    
+//     auto future = run_client_->async_send_request(request);
+//     if (rclcpp::spin_until_future_complete(g_node, future) != rclcpp::FutureReturnCode::SUCCESS) {
+//         RCLCPP_ERROR(g_node->get_logger(), "Failed to call run waypoint controller service");
+//         return false;
+//     }
+
+//     return true;
+// }

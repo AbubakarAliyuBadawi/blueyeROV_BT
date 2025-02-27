@@ -1,32 +1,21 @@
-<?xml version="1.0"?>
-<root main_tree_to_execute="MainTree" BTCPP_format="4">
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+    <BehaviorTree ID="TestMission">
+        <StationKeeping name="test_station_keeping" 
+                      duration="20"
+                      heading="0.0"
+                      x="-10.0"
+                      y="8.5"
+                      z="95.8"/>
+    </BehaviorTree>
+
     <TreeNodesModel>
-        <Action ID="NavigateToWaypoint">
-            <input_port name="x" type="Double">X coordinate</input_port>
-            <input_port name="y" type="Double">Y coordinate</input_port>
-            <input_port name="z" type="Double">Z coordinate</input_port>
-            <input_port name="velocity" type="Double">Desired velocity</input_port>
-            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
-            <input_port name="heading" type="Double">Desired heading</input_port>
-        </Action>
         <Action ID="StationKeeping">
             <input_port name="duration" type="Int">Duration in seconds</input_port>
+            <input_port name="heading" type="Double">Desired heading in degrees</input_port>
+            <input_port name="x" type="Double">X coordinate for station keeping (optional)</input_port>
+            <input_port name="y" type="Double">Y coordinate for station keeping (optional)</input_port>
+            <input_port name="z" type="Double">Z coordinate for station keeping (optional)</input_port>
         </Action>
     </TreeNodesModel>
-
-    <BehaviorTree ID="MainTree">
-        <Sequence name="undock_sequence">
-            <!-- Move slightly away from current position -->
-            <NavigateToWaypoint name="undock_waypoint" 
-                              x="-12.000" 
-                              y="-28.000" 
-                              z="93.000" 
-                              velocity="0.1"
-                              fixed_heading="false"
-                              heading="0.0"/>
-            <!-- Perform station keeping -->
-            <StationKeeping name="post_undock_keeping" 
-                          duration="10"/>
-        </Sequence>
-    </BehaviorTree>
 </root>
