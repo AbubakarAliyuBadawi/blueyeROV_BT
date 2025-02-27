@@ -32,8 +32,6 @@
         </Action>
         <Action ID="StationKeeping">
             <input_port name="duration" type="Int">Duration in seconds</input_port>
-            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
-            <input_port name="heading" type="Double">Desired heading in degrees</input_port>
         </Action>
     </TreeNodesModel>
 </root>

@@ -1,7 +1,7 @@
 #ifndef ROV_MISSION_BT_WAYPOINT_BEHAVIORS_HPP
 #define ROV_MISSION_BT_WAYPOINT_BEHAVIORS_HPP
 
-#include <behaviortree_cpp/behavior_tree.h>  // Updated to v4
+#include <behaviortree_cpp/behavior_tree.h> 
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 #include "mundus_mir_msgs/srv/add_waypoint.hpp"
@@ -10,14 +10,13 @@
 #include "mundus_mir_msgs/srv/get_waypoint_status.hpp"
 #include "mundus_mir_msgs/srv/clear_waypoints.hpp"
 
-// Forward declaration of global node
 extern rclcpp::Node::SharedPtr g_node;
 
 class ClearWaypoints : public BT::SyncActionNode {
 public:
     ClearWaypoints(const std::string& name, const BT::NodeConfiguration& config);
     static BT::PortsList providedPorts() {
-        return BT::PortsList(); // More explicit in v4
+        return BT::PortsList();
     }
     BT::NodeStatus tick() override;
 
@@ -45,7 +44,7 @@ public:
     ExecuteWaypoint(const std::string& name, const BT::NodeConfiguration& config);
     ~ExecuteWaypoint();
     static BT::PortsList providedPorts() {
-        return BT::PortsList(); // More explicit in v4
+        return BT::PortsList();
     }
 
 protected:
@@ -66,27 +65,4 @@ private:
     void cleanup();
 };
 
-class StationKeeping : public BT::StatefulActionNode {
-public:
-    StationKeeping(const std::string& name, const BT::NodeConfiguration& config)
-        : BT::StatefulActionNode(name, config), start_time_{}
-    {
-        run_client_ = g_node->create_client<mundus_mir_msgs::srv::RunWaypointController>("/blueye/run_waypoint_controller");
-    }
-
-    static BT::PortsList providedPorts() {
-        return { BT::InputPort<int>("duration", "Duration in seconds") }; // More explicit description in v4
-    }
-
-protected:
-    BT::NodeStatus onStart() override;
-    BT::NodeStatus onRunning() override;
-    void onHalted() override;
-
-private:
-    std::chrono::steady_clock::time_point start_time_;
-    rclcpp::Client<mundus_mir_msgs::srv::RunWaypointController>::SharedPtr run_client_;
-    bool startWaypointController(bool run);
-};
-
-#endif // ROV_MISSION_BT_WAYPOINT_BEHAVIORS_HPP
+#endif 

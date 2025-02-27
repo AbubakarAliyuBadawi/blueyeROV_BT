@@ -7,12 +7,11 @@
                               y="8.594" 
                               z="95.807"
                               velocity="0.3"
-                              fixed_heading="true"
+                              fixed_heading="false"
                               heading="0.0"/>
             <StationKeeping name="emergency_dock" 
                           duration="10"
-                          fixed_heading="true"
-                          heading="0.0"/>
+                          heading="90.0"/>
         </Sequence>
     </BehaviorTree>
 </root> 
