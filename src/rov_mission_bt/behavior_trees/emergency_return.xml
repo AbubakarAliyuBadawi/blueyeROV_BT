@@ -2,16 +2,49 @@
 <root BTCPP_format="4">
     <BehaviorTree ID="EmergencyReturn">
         <Sequence name="emergency_return_sequence">
-            <NavigateToWaypoint name="emergency_return_point" 
-                              x="-10.079" 
-                              y="8.594" 
-                              z="95.807"
-                              velocity="0.3"
-                              fixed_heading="false"
-                              heading="0.0"/>
-            <StationKeeping name="emergency_dock" 
-                          duration="10"
-                          heading="90.0"/>
+            <NavigateToWaypoint name="emergency_return_point"
+                                x="-10.079"
+                                y="8.594"
+                                z="95.807"
+                                velocity="0.3"
+                                fixed_heading="false"
+                                heading="0.0"/>
+            <StationKeeping name="test_station_keeping"
+                           duration="20"
+                           heading="0.0"
+                           x="-10.0"
+                           y="8.5"
+                           z="95.8"/>
         </Sequence>
     </BehaviorTree>
-</root> 
+    
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x"
+                       type="Double">X coordinate</input_port>
+            <input_port name="y"
+                       type="Double">Y coordinate</input_port>
+            <input_port name="z"
+                       type="Double">Z coordinate</input_port>
+            <input_port name="velocity"
+                       type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading"
+                       type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading"
+                       type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="duration"
+                       type="Int">Duration in seconds</input_port>
+            <input_port name="heading"
+                       type="Double">Desired heading</input_port>
+            <input_port name="x"
+                       type="Double">X coordinate</input_port>
+            <input_port name="y"
+                       type="Double">Y coordinate</input_port>
+            <input_port name="z"
+                       type="Double">Z coordinate</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

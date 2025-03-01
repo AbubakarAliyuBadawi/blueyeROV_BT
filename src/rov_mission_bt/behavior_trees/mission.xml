@@ -2,21 +2,15 @@
 <root BTCPP_format="4" main_tree_to_execute="MissionTree">
     <!-- Include the existing behavior trees -->
     <include path="PipeLineInspection.xml"/>
-    <include path="emergency_return.xml"/>
     
     <BehaviorTree ID="MissionTree">
-        <Fallback name="mission_with_battery_check">
-            <!-- Normal mission sequence -->
-            <ReactiveSequence name="pipeline_mission">
-                <Inverter>
-                    <CheckBatteryLevel name="mission_battery_check"/>
-                </Inverter>
-                <!-- Run inspection mission as a subtree -->
-                <SubTree ID="PipeLineInspection"/>
-            </ReactiveSequence>
-            <!-- If battery check fails or mission fails, do emergency return -->
-            <SubTree ID="EmergencyReturn"/>
-        </Fallback>
+        <ReactiveSequence name="pipeline_mission">
+            <Inverter>
+                <CheckBatteryLevel name="mission_battery_check"/>
+            </Inverter>
+            <!-- Run inspection mission as a subtree -->
+            <SubTree ID="PipeLineInspection"/>
+        </ReactiveSequence>
     </BehaviorTree>
     
     <!-- Description of Node Models (used by Groot) -->
@@ -29,9 +23,6 @@
             <input_port name="velocity" type="Double">Desired velocity</input_port>
             <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
             <input_port name="heading" type="Double">Desired heading</input_port>
-        </Action>
-        <Action ID="StationKeeping">
-            <input_port name="duration" type="Int">Duration in seconds</input_port>
         </Action>
     </TreeNodesModel>
 </root>
