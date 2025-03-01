@@ -4,9 +4,9 @@
         <StationKeeping name="test_station_keeping" 
                       duration="20"
                       heading="0.0"
-                      x="-10.0"
-                      y="8.5"
-                      z="95.8"/>
+                      x="128.53"
+                      y="-168.43"
+                      z="-193.95"/>
     </BehaviorTree>
 
     <TreeNodesModel>

@@ -2,72 +2,51 @@
 <root BTCPP_format="4" main_tree_to_execute="MainTree">
     <BehaviorTree ID="PipeLineInspection">
         <Sequence name="inspection_tasks">
-            <Sequence name="undock_sequence">
-                <NavigateToWaypoint name="undock_waypoint"
-                                  x="-10.079"
-                                  y="8.594"
-                                  z="95.807"
-                                  velocity="0.1"
-                                  fixed_heading="true"
-                                  heading="0.0"/>
-                <StationKeeping name="post_undock_keeping"
-                              duration="10"/>
-            </Sequence>
-            <Sequence name="inspection_point_1">
-                <NavigateToWaypoint name="inspection_point_1"
-                                  x="-12.512"
-                                  y="-28.430"
-                                  z="92.839"
-                                  velocity="0.3"
-                                  fixed_heading="false"
-                                  heading="0.0"/>
-                <StationKeeping name="inspection_1_keeping"
-                              duration="10"/>
-            </Sequence>
-            <Sequence name="inspection_point_2">
-                <NavigateToWaypoint name="inspection_point_2"
-                                  x="-12.512"
-                                  y="-79.992"
-                                  z="92.839"
-                                  velocity="0.1"
-                                  fixed_heading="false"
-                                  heading="0.0"/>
-                <StationKeeping name="inspection_2_keeping"
-                              duration="10"/>
-            </Sequence>
-            <Sequence name="inspection_point_3">
-                <NavigateToWaypoint name="inspection_point_3"
-                                  x="9.113"
-                                  y="-80.902"
-                                  z="92.839"
-                                  velocity="0.1"
-                                  fixed_heading="false"
-                                  heading="0.0"/>
-                <StationKeeping name="inspection_3_keeping"
-                              duration="10"/>
-            </Sequence>
+            <NavigateToWaypoint name="undock_waypoint"
+                                x="130.00"
+                                y="-168.43"
+                                z="-193.95"
+                                velocity="0.1"
+                                fixed_heading="true"
+                                heading="0.0"/>
+            <NavigateToWaypoint name="inspection_point_1"
+                                x="-34.37"
+                                y="-179.97"
+                                z="-190.00"
+                                velocity="0.3"
+                                fixed_heading="false"
+                                heading="0.0"/>
+            <NavigateToWaypoint name="inspection_point_2"
+                                x="-12.512"
+                                y="-79.992"
+                                z="92.839"
+                                velocity="0.1"
+                                fixed_heading="false"
+                                heading="0.0"/>
+            <NavigateToWaypoint name="inspection_point_3"
+                                x="9.113"
+                                y="-80.902"
+                                z="92.839"
+                                velocity="0.1"
+                                fixed_heading="false"
+                                heading="0.0"/>
         </Sequence>
     </BehaviorTree>
-    
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
         <Action ID="NavigateToWaypoint">
             <input_port name="x"
-                      type="Double">X coordinate</input_port>
+                       type="Double">X coordinate</input_port>
             <input_port name="y"
-                      type="Double">Y coordinate</input_port>
+                       type="Double">Y coordinate</input_port>
             <input_port name="z"
-                      type="Double">Z coordinate</input_port>
+                       type="Double">Z coordinate</input_port>
             <input_port name="velocity"
-                      type="Double">Desired velocity</input_port>
+                       type="Double">Desired velocity</input_port>
             <input_port name="fixed_heading"
-                      type="Boolean">Whether to use fixed heading</input_port>
+                       type="Boolean">Whether to use fixed heading</input_port>
             <input_port name="heading"
-                      type="Double">Desired heading</input_port>
-        </Action>
-        <Action ID="StationKeeping">
-            <input_port name="duration"
-                      type="Int">Duration in seconds</input_port>
+                       type="Double">Desired heading</input_port>
         </Action>
     </TreeNodesModel>
 </root>
