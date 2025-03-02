@@ -1,0 +1,195 @@
+# Robot Configuration File
+
+# General
+model_name: "blueye"
+robot_type: 0
+
+# Initial Pose - Simulator assumed Forward-Left-Up -> Negative z is submerged
+x: 8.54
+y: -8.5
+z: -95.8
+R: 0.0 
+P: 0.0 
+Y: 1.57
+
+# Dynamics
+mass: 8.6
+# Inertia
+ixx: 10000
+ixy: 0
+ixz: 0
+iyy: 10000
+iyz: 0
+izz: 100
+# Added Mass
+xDotU: "5.2171"
+yDotV: "19.8729"
+zDotW: "11.2643"
+kDotP: "0.0972"
+mDotQ: "0.1822"
+nDotR: "0.1594"
+# Linear Dampening
+xU: "-1.8430"
+yV: "-3.1802"
+zW: "-0.3778"
+kP: "-0.868"
+mQ: "-0.868"
+nR: "-0.868"
+
+# Quadratic Dampening -> Seems like the hydrodynamic plugin dosent handle this well atm
+xUabsU: "-9.4873"
+yVabsV: "-45.7127"
+zWabsW: "-25.4825"
+kPabsP: "-1.5344"
+mQabsQ: "-1.5344"
+nRabsR: "-1.5344"
+
+# Collision Size - Temporarly just assuming a box
+collision_size: "0.409 0.205 0.1025"
+
+# Visual pose
+model_visual_pose: "-0.31 -0.1285 -0.177 1.5707 0.0 1.5707"
+
+# Sensors - Poses are relative to the robot
+
+# IMU 
+imu: true
+imu_pose: "0.0 0.0 0.0 0.0 0.0 0.0" # Assumed Forward-Left-Up
+imu_topic: "/blueye/imu"
+imu_update_rate: "500"
+# Linear acceleration noise and bias
+imu_linear_x_mean: "0.0"
+imu_linear_x_stddev: "0.01"
+imu_linear_x_bias_mean: "0.0"
+imu_linear_x_bias_stddev: "0.0"
+imu_linear_y_mean: "0.0"
+imu_linear_y_stddev: "0.01"
+imu_linear_y_bias_mean: "0.0"
+imu_linear_y_bias_stddev: "0.0"
+imu_linear_z_mean: "0.0"
+imu_linear_z_stddev: "0.01"
+imu_linear_z_bias_mean: "0.0"
+imu_linear_z_bias_stddev: "0.0"
+# Angular velocity nose and bias
+imu_angular_x_mean: "0.0"
+imu_angular_x_stddev: "0.01"
+imu_angular_x_bias_mean: "0.0"
+imu_angular_x_bias_stddev: "0.0"
+imu_angular_y_mean: "0.0"
+imu_angular_y_stddev: "0.01"
+imu_angular_y_bias_mean: "0.0"
+imu_angular_y_bias_stddev: "0.0"
+imu_angular_z_mean: "0.0"
+imu_angular_z_stddev: "0.01"
+imu_angular_z_bias_mean: "0.0"
+imu_angular_z_bias_stddev: "0.0"
+
+# DVL
+dvl: true
+dvl_pose: "0.0 0.0 0.0" # Only position, it will point downwards
+dvl_topic: "/blueye/dvl"
+dvl_update_rate: "10"
+dvl_range_noise_mean: "0.0"
+dvl_range_noise_stddev: "0.2"
+dvl_max_valid_altitude: "30.0"
+dvl_lin_vel_noise_mean: "0.0"
+dvl_lin_vel_noise_stddev: "0.05"
+dvl_wildpoint_prob: "0.005"
+
+# Sonar [At the moment a ray sensor is used]
+sonar: true
+sonar_pose: "0.0 0.0 0.0 0.0 0.0 0.0"
+sonar_update_rate: "10"
+sonar_topic: "/blueye/sonar"
+sonar_horizontal_samples: "100"
+sonar_horizontal_resolution: "0.1"
+sonar_horizontal_min_angle: "-1.5707"
+sonar_horizontal_max_angle: "1.5707"
+sonar_vertical_samples: "100"
+sonar_vertical_resolution: "0.1"
+sonar_vertical_min_angle: "-0.15"
+sonar_vertical_max_angle: "0.15"
+sonar_range_min: "0.5"
+sonar_range_max: "20.0"
+sonar_range_resolution: "0.1"
+sonar_noise_mean: "0.0"
+sonar_noise_stddev: "0.01"
+
+# Camera 1
+camera_1: false
+camera_1_pose: "0.0 0.0 0.0 0.0 0.0 0.0"
+camera_1_width: "640"
+camera_1_height: "480"
+camera_1_fov: "1.0472"
+camera_1_clip_far: "20.0"
+camera_1_clip_near: "0.1"
+camera_1_topic: "/blueye/camera/1/image_raw"
+camera_1_info_topic: "/blueye/camera/1/camera_info"
+camera_1_update_rate: "10" # FPS
+
+# Camera 2
+camera_2: false
+camera_2_pose: "0.0 0.0 0.0 0.0 0.0 0.0"
+camera_2_width: "640"
+camera_2_height: "480"
+camera_2_fov: "1.0472"
+camera_2_clip_far: "20.0"
+camera_2_clip_near: "0.1"
+camera_2_topic: "/blueye/camera/2/image_raw"
+camera_2_info_topic: "/blueye/camera/2/camera_info"
+camera_2_update_rate: "10" # FPS
+
+# Camera 3
+camera_3: false 
+camera_3_pose: "0.0 0.0 0.0 0.0 0.0 0.0"
+camera_3_width: "640"
+camera_3_height: "480"
+camera_3_fov: "1.0472"
+camera_3_clip_far: "20.0"
+camera_3_clip_near: "0.1"
+camera_3_topic: "/blueye/camera/3/image_raw"
+camera_3_info_topic: "/blueye/camera/3/camera_info"
+camera_3_update_rate: "10" # FPS
+
+# USBL
+usbl: true
+usbl_x: 0.0
+usbl_y: 0.0
+usbl_z: 0.0
+usbl_R: 0.0
+usbl_P: 0.0
+usbl_Y: 0.0
+usbl_topic: "/blueye/usbl"
+# Noise - Should add both mean and std deviation
+usbl_x_pos: 0.3
+usbl_y_pos: 0.3
+usbl_z_pos: 0.3
+
+# Thrusters
+# 1
+thruster_1: true
+thruster_1_pose: "-0.14 0.0815 -0.004 0.0 -1.5707 0.0"
+thruster_1_diameter: "0.2"
+thruster_1_max_thrust: "1200"
+thruster_1_min_thrust: "-1200"
+
+# 2
+thruster_2: true 
+thruster_2_pose: "-0.14 -0.0785 -0.004 0.0 -1.5707 0.0"
+thruster_2_diameter: "0.2"
+thruster_2_max_thrust: "1200"
+thruster_2_min_thrust: "-1200"
+
+# 3
+thruster_3: true 
+thruster_3_pose: "0.08 -0.034 -0.004 0.0 1.57 -1.57"
+thruster_3_diameter: "0.2"
+thruster_3_max_thrust: "1200"
+thruster_3_min_thrust: "-1200"
+
+# 4
+thruster_4: true
+thruster_4_pose: "0.0 0.0015 0.071 0.0 0.0 3.1415"
+thruster_4_diameter: "0.2"
+thruster_4_max_thrust: "1200"
+thruster_4_min_thrust: "-1200"

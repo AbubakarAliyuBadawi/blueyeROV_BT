@@ -1,0 +1,45 @@
+quadratic_mapping: true
+max_thrust_surge: 10.0
+max_thrust_sway: 10.0
+max_thrust_heave: 10.0
+max_thrust_yaw: 400.0
+cmd_topic: '/blueye/cmd_force'
+
+# Alternativley a velocity controller can be utilized
+velocity_controller: true
+max_velocity_surge: 0.5 # m/s
+max_velocity_sway: 0.5 # m/s
+max_velocity_heave: 0.5 # m/s
+max_velocity_yaw: 1.0 # rad/s
+vel_topic: '/blueye/ref_vel' # Velocity reference passed to a velocity controller
+estimate_topic: "/blueye/odometry_frd/gt" # Topic with current best estimate of current velocity
+
+# If Velocity Controller, gains 
+surge_kp: 10.0
+surge_ki: 0.0
+surge_kd: 0.0
+surge_feedforward: 0.0
+
+sway_kp: 10.0
+sway_ki: 0.0
+sway_kd: 0.0
+sway_feedforward: 0.0
+
+heave_kp: 10.0
+heave_ki: 0.05
+heave_kd: 4.0
+heave_feedforward: 2.0
+
+yaw_kp: 100.0
+yaw_ki: 0.0
+yaw_kd: 0.0
+yaw_feedforward: 0.0
+
+# Waypoint Controller
+heading_tolerance: 0.3 # Radians
+circle_of_acceptance: 0.5 # Radius in meters
+max_heading_rate: 0.3 # Radians per second
+max_heave_rate: 0.3 # Meters per second
+max_station_keep_rate: 0.1 # Meters per second
+
+

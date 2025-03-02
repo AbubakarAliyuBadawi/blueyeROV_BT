@@ -1,0 +1,320 @@
+<?xml version="1.0" ?>
+<!-- Copyright (c) 2016 The UUV Simulator Authors.
+     All rights reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<sdf version="1.5">
+  <model name="docking_station_rig">
+    <static>true</static>
+    <link name="docking_station_link">
+      <visual name="Visual">
+        <cast_shadows>true</cast_shadows>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+			    <mesh><uri>model://models/static_assets/docking_station_rig/meshes/Docking_station_asReal_cutting_without_tags.dae</uri></mesh>
+        </geometry>
+        <material>
+<!--           <script>
+            <uri>file://models/docking_station_rig/materials/textures/SAFETY-YELLOW.jpg</uri>
+            <name>Rig_texture</name>
+          </script>    
+          <texture>
+            <scale>2 2</scale>
+          </texture> -->
+        
+          <ambient>0.6 0.6 0.1 1.0</ambient> <!-- Ambient color (darker subsea yellow) -->
+          <diffuse>0.6 0.6 0.1 1.0</diffuse> <!-- Diffuse color (darker subsea yellow) -->
+          <specular>0.6 0.6 0.1 1.0</specular> <!-- Specular color (darker subsea yellow) -->
+          <emissive>0.3 0.3 0.05 1.0</emissive> <!-- Emissive color (darker subsea yellow) -->
+        </material>
+      </visual>
+
+
+      <collision name="collision_plate">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+
+          <mesh><uri>model://models/static_assets/docking_station_rig/meshes/docking_station_rig.dae</uri></mesh>
+
+        </geometry>
+      </collision>
+    </link>
+    <link name="aruco_link_0">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_0">
+			   	<pose>1.4925 1.9199 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_0.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	
+	<link name="aruco_link_1">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_1">
+			   	<pose>1.8327 1.4464 2.1781 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_1.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+
+	
+	<link name="aruco_link_2">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_2">
+			   	<pose>1.1698 1.46 2.1781 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_2.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_3">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_3">
+			   	<pose>1.4925 0.95922 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_3.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_4">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_4">
+			   	<pose>1.4925 1.4939 2.1781 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_4.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_5">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_5">
+			   	<pose>0.86261 1.1461 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_5.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_6">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_6">
+			   	<pose>1.4925 1.2135 2.1781 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_6.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_7">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_7">
+			   	<pose>1.782 1.875 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_7.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_8">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_8">
+			   	<pose>1.972 1.684 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_8.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_9">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_9">
+			   	<pose>0.19152 1.0447 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_9.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	
+	<link name="aruco_link_10">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_10">
+			   	<pose>1.203 1.875 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_10.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	
+	<!-- bak -->
+	<link name="aruco_link_11">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_11">
+			   	<pose>0.16104 1.875 2.1781 0 -1.5708 -1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_11.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_12">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_12">
+			   	<pose>0.19152 1.875 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_12.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_13">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_13">
+			   	<pose>1.972 1.0447 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_13.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_14">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_14">
+			   	<pose>1.5325 1.6156 2.1781 0 1.5708 1.5708</pose> <!--Before: 1.5325 1.6156 2.1781 0 1.5708 1.5708  Moved them 1 cm up to avoid collision -->
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_14_new.dae</uri> <!--Before: DICT_5x5_50_14.dae-->
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<link name="aruco_link_15">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_15">
+			   	<pose>1.4525 1.6156 2.1781 0 1.5708 1.5708</pose> <!--Before: 1.4525 1.6156 2.1781 0 1.5708 1.5708 Moved them 1 cm up to avoid collision and to the left 1 cm  -->
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_15_new.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	
+	<link name="aruco_link_16">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_16">
+			   	<pose>0.79951 1.6993 1.176 0 1.5708 1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_16.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<!-- høyre side -->
+	<link name="aruco_link_17">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_17">
+			   	<pose>0.008167 1.6951 1.68 -1.5708 3.14 0</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_17.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<!-- venstre side -->
+	<link name="aruco_link_18">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_18">
+			   	<pose>2.0181 1.6983 1.68 -1.5708 0 0</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_18.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<!-- bak -->
+	<link name="aruco_link_19">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_19">
+			   	<pose>0.88297 1.6953 2.1781 0 -1.5708 -1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_19.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+	<!-- bak -->
+	<link name="aruco_link_20">
+			<pose relative_to="docking_station_link">0 0 0 0 0 0</pose>
+			<visual name="aruco_visual_20">
+			   	<pose>1.8796 1.6975 2.1781 0 -1.5708 -1.5708</pose>
+				<geometry>
+					<mesh>
+						<uri>model://models/static_assets/docking_station_rig/meshes/Daes_for_5x5/DICT_5x5_50_20.dae</uri>
+						<scale>1 1 1</scale> 
+					</mesh>
+				</geometry>
+			</visual>
+	</link>
+
+
+
+  </model>
+</sdf>

@@ -1,0 +1,21 @@
+# joy_topic: '/joy'
+# x_axis_left_stick: 0
+# y_axis_left_stick: 1
+# x_axis_right_stick: 3
+# y_axis_right_stick: 4
+# cross_button: 0
+# circle_button: 1 
+# square_button: 2 
+# triangle_button: 3 
+
+joy_topic: '/joy'
+x_axis_left_stick: 0
+y_axis_left_stick: 1
+left_trigger: 2      # Add this
+x_axis_right_stick: 3
+y_axis_right_stick: 4
+right_trigger: 5     # Add this
+cross_button: 0
+circle_button: 1 
+square_button: 2 
+triangle_button: 3
