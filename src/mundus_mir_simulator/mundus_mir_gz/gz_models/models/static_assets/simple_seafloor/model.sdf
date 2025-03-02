@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+    <!--
+      This model itself only loads Tile1, but other models and worlds can
+      directly refer to the other tiles.
+    -->
+    <model name="portuguese_ledge">
+        <static>true</static>
+        <link name="link">
+            <collision name="collision">
+                <geometry>
+                    <heightmap>
+                        <uri>meshes/PortugueseLedgeTile1_DecDeg.nc</uri>
+                        <size>1000 1000 25.34</size>
+                    </heightmap>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <heightmap>
+                        <use_terrain_paging>true</use_terrain_paging>
+                        <texture>
+                            <diffuse>materials/textures/dirt_diffusespecular.png</diffuse>
+                            <normal>materials/textures/flat_normal.png</normal>
+                            <size>10</size>
+                        </texture>
+                        <uri>meshes/PortugueseLedgeTile1_DecDeg.nc</uri>
+                        <size>1000 1000 25.34</size>
+                    </heightmap>
+                </geometry>
+            </visual>
+        </link>
+    </model>
+</sdf>

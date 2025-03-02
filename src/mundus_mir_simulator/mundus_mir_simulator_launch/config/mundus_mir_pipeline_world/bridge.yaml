@@ -1,0 +1,50 @@
+---
+
+# Thruster 1
+- ros_topic_name: "/blueye/thruster_1/cmd_vel"
+  gz_topic_name: "/model/blueye/joint/blueye_thruster_1_joint/cmd_thrust"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+# Thruster 2
+- ros_topic_name: "/blueye/thruster_2/cmd_vel"
+  gz_topic_name: "/model/blueye/joint/blueye_thruster_2_joint/cmd_thrust"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+# Thruster 3
+- ros_topic_name: "/blueye/thruster_3/cmd_vel"
+  gz_topic_name: "/model/blueye/joint/blueye_thruster_3_joint/cmd_thrust"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+# Thruster 4
+- ros_topic_name: "/blueye/thruster_4/cmd_vel"
+  gz_topic_name: "/model/blueye/joint/blueye_thruster_4_joint/cmd_thrust"
+  ros_type_name: "std_msgs/msg/Float64"
+  gz_type_name: "gz.msgs.Double"
+  direction: ROS_TO_GZ
+
+# Odometry
+- ros_topic_name: "/blueye/odometry"
+  gz_topic_name: "/blueye/odometry"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "gz.msgs.Odometry"
+  direction: GZ_TO_ROS
+
+  # IMU
+- ros_topic_name: "/blueye/imu"
+  gz_topic_name: "/blueye/imu"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "gz.msgs.IMU"
+  direction: GZ_TO_ROS
+
+#Camera 1
+- ros_topic_name: "/blueye/camera/front_camera/image_raw"
+  gz_topic_name: "/blueye/camera/front_camera/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "sensor_msgs/Image"
+  direction: GZ_TO_ROS
