@@ -88,6 +88,9 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "expected": "cpp"
+        "expected": "cpp",
+        "coroutine": "cpp",
+        "regex": "cpp",
+        "source_location": "cpp"
     }
 }
