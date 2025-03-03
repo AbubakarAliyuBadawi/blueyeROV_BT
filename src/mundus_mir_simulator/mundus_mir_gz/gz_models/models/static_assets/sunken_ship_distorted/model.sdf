@@ -9,7 +9,7 @@
                     <mesh>
                         <!--uri>https://fuel.ignitionrobotics.org/1.0/cole/models/sunken ship/2/files/meshes/sunkenship.dae</uri-->
                         <uri>model://models/static_assets/sunken_ship_distorted/meshes/sunkenship_distort.dae</uri>
-                        <scale>1.0 1.0 1.0</scale>
+                        <scale>100.0 100.0 100.0</scale>
                     </mesh>
                 </geometry>
             </collision>

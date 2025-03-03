@@ -8,7 +8,7 @@
       "includePath": [
         "/home/badawi/Desktop/blueyeROV_BT/install/mundus_mir_msgs/include/**",
         "/opt/ros/humble/include/**",
-        "/home/badawi/Desktop/blueyeROV_BT/src/rov_mission_bt/include/**",
+        "/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt/include/**",
         "/home/badawi/Desktop/blueyeROV_BT/src/gz_sensors/gz_battery/include/**",
         "/home/badawi/Desktop/blueyeROV_BT/src/blueye_ws/src/blueye_gui_interface/include/**",
         "/usr/local/include/**",

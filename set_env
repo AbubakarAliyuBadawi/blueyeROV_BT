@@ -1,0 +1,3 @@
+export GZ_SIM_RESOURCE_PATH=$(pwd)/src/mundus_mir_simulator/mundus_mir_gz/gz_models
+export GZ_VERSION=garden
+
