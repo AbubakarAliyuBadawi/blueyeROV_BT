@@ -1,1 +1,0 @@
-# mundus_mir_waypoint_controller

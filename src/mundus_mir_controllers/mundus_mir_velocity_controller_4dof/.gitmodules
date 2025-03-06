@@ -1,3 +1,0 @@
-[submodule "lib/pid_siso_cpp"]
-	path = lib/pid_siso_cpp
-	url = git@gitlab.com:aurlab/rov-control-system/controllers/pid_siso_cpp.git
