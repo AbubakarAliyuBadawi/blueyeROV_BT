@@ -1,52 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root BTCPP_format="4" main_tree_to_execute="MainTree">
+<root BTCPP_format="4" main_tree_to_execute="PipeLineInspection">
     <BehaviorTree ID="PipeLineInspection">
-        <Sequence name="inspection_tasks">
-            <NavigateToWaypoint name="undock_waypoint"
-                                x="130.00"
-                                y="-168.43"
-                                z="-193.95"
-                                velocity="0.1"
-                                fixed_heading="true"
-                                heading="0.0"/>
-            <NavigateToWaypoint name="inspection_point_1"
-                                x="-34.37"
-                                y="-179.97"
-                                z="-190.00"
-                                velocity="0.3"
-                                fixed_heading="false"
-                                heading="0.0"/>
-            <NavigateToWaypoint name="inspection_point_2"
-                                x="-12.512"
-                                y="-79.992"
-                                z="92.839"
-                                velocity="0.1"
-                                fixed_heading="false"
-                                heading="0.0"/>
-            <NavigateToWaypoint name="inspection_point_3"
-                                x="9.113"
-                                y="-80.902"
-                                z="92.839"
-                                velocity="0.1"
-                                fixed_heading="false"
-                                heading="0.0"/>
+        <Sequence name="main_sequence">
+            <Sequence name="inspection_tasks">
+                <NavigateToWaypoint name="undock"
+                                    x="-170.70"
+                                    y="128.53"
+                                    z="193.95"
+                                    velocity="0.1"
+                                    fixed_heading="true"
+                                    heading="0.0"/>
+                <StationKeeping name="test_station_keeping"
+                              duration="10"
+                              heading="0.0"
+                              x="-170.70"
+                              y="128.53"
+                              z="193.95"/>
+            </Sequence>
+
+            <Sequence name="point_1_sequence">
+                <NavigateToWaypoint name="point_1"
+                                    x="-184.21"
+                                    y="128.85"
+                                    z="193.95"
+                                    velocity="0.2"
+                                    fixed_heading="false"
+                                    heading="0.0"/>
+                <StationKeeping name="test_station_keeping"
+                              duration="10"
+                              heading="0.0"
+                                    x="-184.21"
+                                    y="128.85"
+                                    z="193.95"/>
+            </Sequence>
+
+            <Sequence name="point_2_sequence">
+                <NavigateToWaypoint name="point_2"
+                                    x="-179.97"
+                                    y="-34.37"
+                                    z="193.95"
+                                    velocity="0.2"
+                                    fixed_heading="false"
+                                    heading="0.0"/>
+                <StationKeeping name="test_station_keeping"
+                              duration="10"
+                              heading="80.0"
+                                    x="-179.97"
+                                    y="-34.37"
+                                    z="193.95"/>
+            </Sequence>
+
+            <Sequence name="return_sequence_1">
+                <NavigateToWaypoint name="goto_test_position"
+                                    x="-179.97"
+                                    y="-78.43"
+                                    z="193.95"
+                                    velocity="0.2"
+                                    fixed_heading="false"
+                                    heading="0.0"/>
+                <StationKeeping name="test_station_keeping"
+                              duration="10"
+                              heading="0.0"
+                                    x="-179.97"
+                                    y="-78.43"
+                                    z="193.95"/>
+            </Sequence>
+
+            <Sequence name="return_sequence_2">
+                <NavigateToWaypoint name="goto_test_position"
+                                    x="-170.70"
+                                    y="128.53"
+                                    z="193.95"
+                                    velocity="0.2"
+                                    fixed_heading="false"
+                                    heading="0.0"/>
+                <StationKeeping name="test_station_keeping"
+                              duration="20"
+                              heading="80.0"
+                              x="-170.70"
+                              y="128.53"
+                              z="193.95"/>
+            </Sequence>
+
+            <Sequence name="return_sequence_3">
+                <NavigateToWaypoint name="goto_test_position"
+                                    x="-170.70"
+                                    y="128.53"
+                                    z="193.95"
+                                    velocity="0.2"
+                                    fixed_heading="false"
+                                    heading="0.0"/>
+                <StationKeeping name="test_station_keeping"
+                              duration="20"
+                              heading="80.0"
+                              x="-170.70"
+                              y="128.53"
+                              z="193.95"/>
+            </Sequence>
+
+            <Sequence name="return_sequence_4">
+                <NavigateToWaypoint name="goto_test_position"
+                                    x="-170.70"
+                                    y="128.53"
+                                    z="193.95"
+                                    velocity="0.2"
+                                    fixed_heading="true"
+                                    heading="0.0"/>
+                <StationKeeping name="test_station_keeping"
+                              duration="20"
+                              heading="80.0"
+                              x="-170.70"
+                              y="128.53"
+                              z="193.95"/>
+            </Sequence>
         </Sequence>
     </BehaviorTree>
+
     <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
         <Action ID="NavigateToWaypoint">
-            <input_port name="x"
-                       type="Double">X coordinate</input_port>
-            <input_port name="y"
-                       type="Double">Y coordinate</input_port>
-            <input_port name="z"
-                       type="Double">Z coordinate</input_port>
-            <input_port name="velocity"
-                       type="Double">Desired velocity</input_port>
-            <input_port name="fixed_heading"
-                       type="Boolean">Whether to use fixed heading</input_port>
-            <input_port name="heading"
-                       type="Double">Desired heading</input_port>
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="duration" type="Int">Duration in seconds</input_port>
+            <input_port name="heading" type="Double">Desired heading in degrees</input_port>
+            <input_port name="x" type="Double">X coordinate for station keeping (optional)</input_port>
+            <input_port name="y" type="Double">Y coordinate for station keeping (optional)</input_port>
+            <input_port name="z" type="Double">Z coordinate for station keeping (optional)</input_port>
         </Action>
     </TreeNodesModel>
 </root>

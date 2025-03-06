@@ -2,22 +2,31 @@
 <root BTCPP_format="4">
     <BehaviorTree ID="TestMission">
         <Sequence>
-            <StationKeeping name="first_position" 
-                          duration="15"
-                          heading="0.0"
-                          x="128.53"
-                          y="-168.43"
-                          z="-193.95"/>
-            <StationKeeping name="second_position" 
-                          duration="15"
-                          heading="90.0"
-                          x="130.0"
-                          y="-170.0"
-                          z="-193.95"/>
+            <NavigateToWaypoint name="goto_test_position"
+                                x="-170.70"
+                                y="128.53"
+                                z="193.95"
+                                velocity="0.2"
+                                fixed_heading="true"
+                                heading="0.0"/>
+            <StationKeeping name="test_station_keeping"
+                          duration="20"
+                          heading="80.0"
+                          x="-170.70"
+                          y="128.53"
+                          z="193.95"/>
         </Sequence>
     </BehaviorTree>
 
     <TreeNodesModel>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
         <Action ID="StationKeeping">
             <input_port name="duration" type="Int">Duration in seconds</input_port>
             <input_port name="heading" type="Double">Desired heading in degrees</input_port>
