@@ -8,13 +8,18 @@
                                 z="193.95"
                                 velocity="0.2"
                                 fixed_heading="true"
-                                heading="0.0"/>
+                                heading="0.0"
+                                altitude_mode="false"
+                                target_altitude="0.0"/>
+                                
             <StationKeeping name="test_station_keeping"
                           duration="20"
                           heading="80.0"
                           x="-170.70"
                           y="128.53"
-                          z="193.95"/>
+                          z="193.95"
+                          altitude_mode="false"
+                          target_altitude="0.0"/>
         </Sequence>
     </BehaviorTree>
 
@@ -26,13 +31,18 @@
             <input_port name="velocity" type="Double">Desired velocity</input_port>
             <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
             <input_port name="heading" type="Double">Desired heading</input_port>
+            <input_port name="altitude_mode" type="Boolean">Enable altitude-based control</input_port>
+            <input_port name="target_altitude" type="Double">Target altitude (if altitude_mode is true)</input_port>
         </Action>
+        
         <Action ID="StationKeeping">
             <input_port name="duration" type="Int">Duration in seconds</input_port>
             <input_port name="heading" type="Double">Desired heading in degrees</input_port>
             <input_port name="x" type="Double">X coordinate for station keeping (optional)</input_port>
             <input_port name="y" type="Double">Y coordinate for station keeping (optional)</input_port>
             <input_port name="z" type="Double">Z coordinate for station keeping (optional)</input_port>
+            <input_port name="altitude_mode" type="Boolean">Enable altitude-based control</input_port>
+            <input_port name="target_altitude" type="Double">Target altitude (if altitude_mode is true)</input_port>
         </Action>
     </TreeNodesModel>
 </root>
