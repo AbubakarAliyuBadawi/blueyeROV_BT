@@ -1,4 +1,3 @@
-#include "blueye_bt/behaviors/waypoint_behaviors.hpp"
 #include "blueye_bt/behaviors/navigate_to_waypoint.hpp"
 #include "blueye_bt/behaviors/station_keeping.hpp"
 #include "blueye_bt/conditions/battery_condition.hpp"
@@ -32,48 +31,31 @@ int main(int argc, char **argv) {
 
     BT::BehaviorTreeFactory factory;
 
-    // Register nodes
+    // Register basic BT nodes
     factory.registerNodeType<BT::RetryNode>("RetryNode");
     factory.registerNodeType<BT::SequenceNode>("SequenceNode");
 
-    // Register the new NavigateToWaypoint node
+    // Register primary navigation nodes
     factory.registerBuilder<NavigateToWaypoint>(
         "NavigateToWaypoint",
         [](const std::string& name, const BT::NodeConfig& config)
         {
             return std::make_unique<NavigateToWaypoint>(name, config);
         });
-
-    // Keep existing nodes for backward compatibility
-    factory.registerBuilder<ClearWaypoints>(
-        "ClearWaypoints",
-        [](const std::string& name, const BT::NodeConfig& config)
-        {
-            return std::make_unique<ClearWaypoints>(name, config);
-        });
-    factory.registerBuilder<SetWaypoint>(
-        "SetWaypoint",
-        [](const std::string& name, const BT::NodeConfig& config)
-        {
-            return std::make_unique<SetWaypoint>(name, config);
-        });
-    factory.registerBuilder<ExecuteWaypoint>(
-        "ExecuteWaypoint",
-        [](const std::string& name, const BT::NodeConfig& config)
-        {
-            return std::make_unique<ExecuteWaypoint>(name, config);
-        });
-    factory.registerBuilder<CheckBatteryLevel>(
-        "CheckBatteryLevel",
-        [](const std::string& name, const BT::NodeConfig& config)
-        {
-            return std::make_unique<CheckBatteryLevel>(name, config);
-        });
+    
     factory.registerBuilder<StationKeeping>(
         "StationKeeping",
         [](const std::string& name, const BT::NodeConfig& config)
         {
             return std::make_unique<StationKeeping>(name, config);
+        });
+    
+    // Register condition nodes
+    factory.registerBuilder<CheckBatteryLevel>(
+        "CheckBatteryLevel",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<CheckBatteryLevel>(name, config);
         });
 
     try {
@@ -91,7 +73,7 @@ int main(int argc, char **argv) {
         RCLCPP_INFO(g_node->get_logger(), "Behavior tree created successfully");
 
         BT::Groot2Publisher publisher(tree, 6677);
-        RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 1666. You can monitor the tree using Groot2");
+        RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 6677. You can monitor the tree using Groot2");
 
         const auto sleep_ms = std::chrono::milliseconds(100);
         auto status = BT::NodeStatus::RUNNING;

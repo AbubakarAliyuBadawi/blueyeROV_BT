@@ -1,3 +1,4 @@
+// src/behaviors/station_keeping.cpp
 #include "blueye_bt/behaviors/station_keeping.hpp"
 #include <chrono>
 
@@ -19,6 +20,12 @@ BT::NodeStatus StationKeeping::onStart() {
     auto duration = getInput<int>("duration");
     auto heading = getInput<double>("heading");
     
+    // Get optional altitude mode parameters
+    bool altitude_mode = false;
+    double target_altitude = 2.0;
+    getInput("altitude_mode", altitude_mode);
+    getInput("target_altitude", target_altitude);
+    
     if (!duration || !heading) {
         RCLCPP_ERROR(g_node->get_logger(), "Failed to get duration or heading parameter for station keeping");
         return BT::NodeStatus::FAILURE;
@@ -36,8 +43,8 @@ BT::NodeStatus StationKeeping::onStart() {
         return BT::NodeStatus::FAILURE;
     }
     
-    // Add waypoint with the specified position and heading
-    if (!addWaypoint(heading.value())) {
+    // Add waypoint with the specified position, heading, and altitude mode if enabled
+    if (!addWaypoint(heading.value(), altitude_mode, target_altitude)) {
         RCLCPP_ERROR(g_node->get_logger(), "Failed to add waypoint");
         startWaypointController(false);
         return BT::NodeStatus::FAILURE;
@@ -54,6 +61,10 @@ BT::NodeStatus StationKeeping::onStart() {
     start_time_ = std::chrono::steady_clock::now();
     RCLCPP_INFO(g_node->get_logger(), "Starting station keeping for %d seconds with heading %.2f°", 
                 duration.value(), heading.value());
+    
+    if (altitude_mode) {
+        RCLCPP_INFO(g_node->get_logger(), "Using altitude mode with target altitude %.2f meters", target_altitude);
+    }
     
     return BT::NodeStatus::RUNNING;
 }
@@ -95,7 +106,7 @@ BT::NodeStatus StationKeeping::onRunning() {
 
 bool StationKeeping::clearWaypoints() {
     RCLCPP_INFO(g_node->get_logger(), "Clearing waypoints...");
-    if (!clear_client_->wait_for_service(2s)) {
+    if (!clear_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Clear waypoints service not available");
         return false;
     }
@@ -118,7 +129,7 @@ bool StationKeeping::clearWaypoints() {
     return true;
 }
 
-bool StationKeeping::addWaypoint(double heading) {
+bool StationKeeping::addWaypoint(double heading, bool altitude_mode, double target_altitude) {
     // Try to get position parameters if provided
     auto x_opt = getInput<double>("x");
     auto y_opt = getInput<double>("y");
@@ -127,7 +138,7 @@ bool StationKeeping::addWaypoint(double heading) {
     // Check if all position parameters are provided
     bool has_position = x_opt.has_value() && y_opt.has_value() && z_opt.has_value();
     
-    if (!add_client_->wait_for_service(2s)) {
+    if (!add_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Add waypoint service not available");
         return false;
     }
@@ -139,8 +150,16 @@ bool StationKeeping::addWaypoint(double heading) {
         request->x = x_opt.value();
         request->y = y_opt.value();
         request->z = z_opt.value();
-        RCLCPP_INFO(g_node->get_logger(), "Setting station keeping at specified position (x: %.2f, y: %.2f, z: %.2f, heading: %.2f°)",
-                    request->x, request->y, request->z, heading);
+        
+        if (altitude_mode) {
+            RCLCPP_INFO(g_node->get_logger(), 
+                      "Setting station keeping at specified position (x: %.2f, y: %.2f, z: %.2f, heading: %.2f°) with altitude mode, target altitude: %.2f m",
+                      request->x, request->y, request->z, heading, target_altitude);
+        } else {
+            RCLCPP_INFO(g_node->get_logger(), 
+                      "Setting station keeping at specified position (x: %.2f, y: %.2f, z: %.2f, heading: %.2f°)",
+                      request->x, request->y, request->z, heading);
+        }
     } else {
         // Get status to see current position (for logging)
         auto status_request = std::make_shared<mundus_mir_msgs::srv::GetWaypointStatus::Request>();
@@ -155,12 +174,25 @@ bool StationKeeping::addWaypoint(double heading) {
         request->x = 0.0;
         request->y = 0.0;
         request->z = 0.0;
-        RCLCPP_INFO(g_node->get_logger(), "Setting station keeping at current position with heading: %.2f°", heading);
+        
+        if (altitude_mode) {
+            RCLCPP_INFO(g_node->get_logger(), 
+                      "Setting station keeping at current position with heading: %.2f° and altitude mode, target altitude: %.2f m", 
+                      heading, target_altitude);
+        } else {
+            RCLCPP_INFO(g_node->get_logger(), 
+                      "Setting station keeping at current position with heading: %.2f°", 
+                      heading);
+        }
     }
     
     request->desired_velocity = 0.2;  // Low velocity for station keeping
     request->fixed_heading = true;    // Critical: this makes the controller respect our heading
     request->heading = heading * M_PI / 180.0;  // Convert degrees to radians
+    
+    // Add altitude mode if enabled
+    request->altitude_mode = altitude_mode;
+    request->target_altitude = target_altitude;
     
     auto future = add_client_->async_send_request(request);
     
@@ -182,7 +214,7 @@ bool StationKeeping::addWaypoint(double heading) {
 bool StationKeeping::startWaypointController(bool run) {
     RCLCPP_INFO(g_node->get_logger(), run ? "Starting waypoint controller..." : "Stopping waypoint controller...");
     
-    if (!run_client_->wait_for_service(2s)) {
+    if (!run_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Run waypoint controller service not available");
         return false;
     }
@@ -214,7 +246,7 @@ bool StationKeeping::startWaypointController(bool run) {
 bool StationKeeping::startWaypointExecution() {
     RCLCPP_INFO(g_node->get_logger(), "Starting station keeping execution...");
     
-    if (!go_client_->wait_for_service(2s)) {
+    if (!go_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Go to waypoints service not available");
         return false;
     }
@@ -241,7 +273,7 @@ bool StationKeeping::startWaypointExecution() {
 
 void StationKeeping::stopExecution() {
     // First stop the waypoint execution
-    if (go_client_->wait_for_service(1s)) {
+    if (go_client_->wait_for_service(5s)) {
         auto go_request = std::make_shared<mundus_mir_msgs::srv::GoToWaypoints::Request>();
         go_request->run = false;
         auto future = go_client_->async_send_request(go_request);
@@ -256,6 +288,7 @@ void StationKeeping::stopExecution() {
     
     RCLCPP_INFO(g_node->get_logger(), "Station keeping execution stopped");
 }
+
 void StationKeeping::onHalted() {
     RCLCPP_INFO(g_node->get_logger(), "Station keeping halted");
     stopExecution();

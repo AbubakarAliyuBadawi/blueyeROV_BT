@@ -10,7 +10,7 @@ bool NavigateToWaypoint::enableController() {
 
     RCLCPP_INFO(g_node->get_logger(), "Enabling waypoint controller...");
     
-    if (!run_client_->wait_for_service(2s)) {
+    if (!run_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Run controller service not available after 2s");
         return false;
     }
@@ -43,24 +43,40 @@ BT::NodeStatus NavigateToWaypoint::onStart() {
         return BT::NodeStatus::FAILURE;
     }
 
-    double x, y, z, velocity;
+    // Get required parameters from ports
+    double x, y, z, velocity, heading = 0.0;
+    bool fixed_heading = false, altitude_mode = false;
+    double target_altitude = 2.0;
+    
     if (!getInput("x", x) || !getInput("y", y) || !getInput("z", z)) {
         RCLCPP_ERROR(g_node->get_logger(), "Missing required waypoint coordinates");
         return BT::NodeStatus::FAILURE;
     }
+    
+    // Get optional parameters with defaults
     getInput("velocity", velocity);
-    RCLCPP_INFO(g_node->get_logger(), "Received waypoint: x=%.2f, y=%.2f, z=%.2f, v=%.2f", x, y, z, velocity);
+    getInput("fixed_heading", fixed_heading);
+    getInput("heading", heading);
+    getInput("altitude_mode", altitude_mode);
+    getInput("target_altitude", target_altitude);
+    
+    RCLCPP_INFO(g_node->get_logger(), "Received waypoint: x=%.2f, y=%.2f, z=%.2f, v=%.2f, fixed_heading=%s, heading=%.2f",
+               x, y, z, velocity, fixed_heading ? "true" : "false", heading);
+    
+    if (altitude_mode) {
+        RCLCPP_INFO(g_node->get_logger(), "Using altitude mode with target_altitude=%.2f m", target_altitude);
+    }
 
     // Check service availability first
-    if (!clear_client_->wait_for_service(2s)) {
+    if (!clear_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Clear waypoints service not available after 2s");
         return BT::NodeStatus::FAILURE;
     }
-    if (!add_client_->wait_for_service(2s)) {
+    if (!add_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Add waypoint service not available after 2s");
         return BT::NodeStatus::FAILURE;
     }
-    if (!go_client_->wait_for_service(2s)) {
+    if (!go_client_->wait_for_service(5s)) {
         RCLCPP_ERROR(g_node->get_logger(), "Run waypoint controller service not available after 2s");
         return BT::NodeStatus::FAILURE;
     }
@@ -69,7 +85,7 @@ BT::NodeStatus NavigateToWaypoint::onStart() {
         return BT::NodeStatus::FAILURE;
     }
 
-    if (!addWaypoint(x, y, z, velocity)) {
+    if (!addWaypoint(x, y, z, velocity, fixed_heading, heading, altitude_mode, target_altitude)) {
         return BT::NodeStatus::FAILURE;
     }
 
@@ -115,6 +131,12 @@ BT::NodeStatus NavigateToWaypoint::onRunning() {
         RCLCPP_INFO(g_node->get_logger(), "Waypoint reached successfully");
         return BT::NodeStatus::SUCCESS;
     }
+    
+    // If we're in station-keeping mode, we've also reached our destination
+    if (result->status_code.find("Station Keep On Position") != std::string::npos) {
+        RCLCPP_INFO(g_node->get_logger(), "Waypoint reached, now in station-keeping mode");
+        return BT::NodeStatus::SUCCESS;
+    }
 
     return BT::NodeStatus::RUNNING;
 }
@@ -142,24 +164,28 @@ bool NavigateToWaypoint::clearWaypoints() {
     return true;
 }
 
-bool NavigateToWaypoint::addWaypoint(double x, double y, double z, double velocity) {
+bool NavigateToWaypoint::addWaypoint(double x, double y, double z, double velocity, 
+                                     bool fixed_heading, double heading,
+                                     bool altitude_mode, double target_altitude) {
     RCLCPP_INFO(g_node->get_logger(), "Adding waypoint...");
     auto request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
     request->x = x;
     request->y = y;
     request->z = z;
     request->desired_velocity = velocity;
-    
-    bool fixed_heading = false;
-    double heading = 0.0;
-    getInput("fixed_heading", fixed_heading);
-    getInput("heading", heading);
-    
     request->fixed_heading = fixed_heading;
     request->heading = heading;
+    
+    // Add altitude mode parameters
+    request->altitude_mode = altitude_mode;
+    request->target_altitude = target_altitude;
 
-    RCLCPP_INFO(g_node->get_logger(), "Sending waypoint: x=%.2f, y=%.2f, z=%.2f, v=%.2f, fixed_heading=%d, heading=%.2f",
-                x, y, z, velocity, fixed_heading, heading);
+    RCLCPP_INFO(g_node->get_logger(), "Sending waypoint: x=%.2f, y=%.2f, z=%.2f, v=%.2f, fixed_heading=%s, heading=%.2f",
+                x, y, z, velocity, fixed_heading ? "true" : "false", heading);
+    
+    if (altitude_mode) {
+        RCLCPP_INFO(g_node->get_logger(), "Using altitude mode with target_altitude=%.2f m", target_altitude);
+    }
 
     auto future = add_client_->async_send_request(request);
 
