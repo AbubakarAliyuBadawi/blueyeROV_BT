@@ -50,19 +50,19 @@ def generate_launch_description():
         output='screen'
     )
 
-    sonar_node = Node(
-        package='gz_sonar',
-        executable='gz_sonar',
-        name='gz_sonar',
-        output='screen'
-    )
+    # sonar_node = Node(
+    #     package='gz_sonar',
+    #     executable='gz_sonar',
+    #     name='gz_sonar',
+    #     output='screen'
+    # )
 
     ld = LaunchDescription([
         blueye_mission_node,
         battery_management_node,
         dock_distance_node,
         battery_node,
-        sonar_node
+        # sonar_node
     ])
     
     return ld

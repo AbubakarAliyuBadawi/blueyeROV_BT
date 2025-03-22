@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+    <BehaviorTree ID="SystemMonitor">
+        <ReactiveSequence name="system_monitoring">
+            <!-- If battery indicates return is needed, mission fails -->
+            <Inverter>
+                <CheckBatteryLevel name="check_battery" />
+            </Inverter>
+            
+            <!-- If any critical system fails, mission fails -->
+            <Fallback name="system_checks">
+                <CheckCameraStatus name="check_camera" timeout_seconds="2.0" />
+                <Sequence name="camera_failure_sequence">
+                    <SetBlackboard output_key="failure_reason" value="Camera failure detected" />
+                    <AlwaysFailure />
+                </Sequence>
+            </Fallback>
+            
+            <Fallback name="sonar_checks">
+                <CheckSonarStatus name="check_sonar" timeout_seconds="3.0" min_beam_count="10" />
+                <Sequence name="sonar_failure_sequence">
+                    <SetBlackboard output_key="failure_reason" value="Sonar failure detected" />
+                    <AlwaysFailure />
+                </Sequence>
+            </Fallback>
+            
+            <Fallback name="watchdog_checks">
+                <SystemWatchdog name="system_watchdog" max_failures="5" min_reset_interval="60.0" failing_topics="{failing_topics}" />
+                <Sequence name="system_failure_sequence">
+                    <SetBlackboard output_key="failure_reason" value="System failure: {failing_topics}" />
+                    <AlwaysFailure />
+                </Sequence>
+            </Fallback>
+        </ReactiveSequence>
+    </BehaviorTree>
+
+    <TreeNodesModel>
+        <Condition ID="CheckBatteryLevel">
+            <output_port name="battery_level" type="Double">Current battery level percentage</output_port>
+        </Condition>
+        <Condition ID="CheckCameraStatus">
+            <input_port name="timeout_seconds" type="Double">Maximum time without messages before failure</input_port>
+        </Condition>
+        <Condition ID="CheckSonarStatus">
+            <input_port name="timeout_seconds" type="Double">Maximum time without messages before failure</input_port>
+            <input_port name="min_beam_count" type="Int">Minimum number of beams required</input_port>
+        </Condition>
+        <Condition ID="SystemWatchdog">
+            <input_port name="max_failures" type="Int">Maximum consecutive failures before reset</input_port>
+            <input_port name="min_reset_interval" type="Double">Minimum time between resets in seconds</input_port>
+            <output_port name="failing_topics" type="String">List of failing topics</output_port>
+        </Condition>
+    </TreeNodesModel>
+</root>

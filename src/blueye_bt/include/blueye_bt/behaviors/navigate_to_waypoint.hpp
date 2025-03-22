@@ -1,5 +1,4 @@
 #pragma once
-
 #include <behaviortree_cpp/action_node.h>
 #include <rclcpp/rclcpp.hpp>
 #include "mundus_mir_msgs/srv/add_waypoint.hpp"
@@ -25,13 +24,15 @@ public:
     }
 
     static BT::PortsList providedPorts() {
-        return { 
+        return {
             BT::InputPort<double>("x", "X coordinate"),
             BT::InputPort<double>("y", "Y coordinate"),
             BT::InputPort<double>("z", "Z coordinate"),
-            BT::InputPort<double>("velocity", "Desired velocity"),
-            BT::InputPort<bool>("fixed_heading"),
-            BT::InputPort<double>("heading")
+            BT::InputPort<double>("velocity", 0.2, "Desired velocity"),
+            BT::InputPort<bool>("fixed_heading", false, "Whether to use fixed heading"),
+            BT::InputPort<double>("heading", 0.0, "Desired heading in radians"),
+            BT::InputPort<bool>("altitude_mode", false, "Whether to use altitude mode instead of fixed z"),
+            BT::InputPort<double>("target_altitude", 2.0, "Target altitude above seafloor in meters")
         };
     }
 
@@ -52,7 +53,8 @@ private:
 
     bool enableController();
     bool clearWaypoints();
-    bool addWaypoint(double x, double y, double z, double velocity);
+    bool addWaypoint(double x, double y, double z, double velocity, bool fixed_heading, double heading, 
+                     bool altitude_mode, double target_altitude);
     bool startWaypointController();
     bool startWaypointExecution();
     void stopWaypointController();
