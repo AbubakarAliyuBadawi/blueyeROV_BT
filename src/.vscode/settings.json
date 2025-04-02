@@ -91,7 +91,21 @@
         "expected": "cpp",
         "coroutine": "cpp",
         "regex": "cpp",
-        "source_location": "cpp"
+        "source_location": "cpp",
+        "csetjmp": "cpp",
+        "*.ipp": "cpp",
+        "barrier": "cpp",
+        "cuchar": "cpp",
+        "netfwd": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "rope": "cpp",
+        "slist": "cpp",
+        "latch": "cpp",
+        "scoped_allocator": "cpp",
+        "syncstream": "cpp",
+        "spanstream": "cpp",
+        "stacktrace": "cpp"
     },
     "cmake.sourceDirectory": "/home/badawi/Desktop/blueyeROV_BT/src/mundus_mir_simulator/mundus_mir_gz/gz_tf2_broadcaster"
 }

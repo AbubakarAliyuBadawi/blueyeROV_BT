@@ -7,103 +7,103 @@
             <NavigateToWaypoint name="navigate_to_point1"
                                x="-210.50" 
                                y="108.00" 
-                               z="193.00" 
+                               z="195.00" 
                                velocity="0.4" 
                                fixed_heading="false" 
                                heading="0.0"/>
             
             <!-- Point 1: Then station keep with correct heading -->
-            <StationKeeping name="station_keep_point1"
+            <StationKeep name="station_keep_point1"
                         x="-210.50" 
                         y="108.00" 
-                        z="193.00" 
+                        z="195.00" 
                         heading="1.57" 
-                        duration="60"/>
+                        duration="30"/>
             
             <!-- Point 2: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point2"
                                x="-210.50" 
                                y="134.50" 
-                               z="193.00" 
+                               z="195.00" 
                                velocity="0.2" 
-                               fixed_heading="false" 
+                               fixed_heading="true" 
                                heading="1.57"/>
             
             <!-- Point 2: Then station keep with correct heading -->
-            <StationKeeping name="station_keep_point2"
+            <StationKeep name="station_keep_point2"
                         x="-210.50" 
                         y="134.50" 
-                        z="193.00" 
+                        z="195.00" 
                         heading="3.14" 
-                        duration="60"/>
+                        duration="30"/>
             
             <!-- Point 3: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point3"
                                x="-233.00" 
                                y="134.50" 
-                               z="193.00" 
+                               z="195.00" 
                                velocity="0.2" 
-                               fixed_heading="false" 
+                               fixed_heading="true" 
                                heading="3.14"/>
             
             <!-- Point 3: Then station keep with correct heading -->
-            <StationKeeping name="station_keep_point3"
+            <StationKeep name="station_keep_point3"
                         x="-233.00" 
                         y="134.50" 
-                        z="193.00" 
+                        z="195.00" 
                         heading="-1.57" 
-                        duration="60"/>
+                        duration="30"/>
             
             <!-- Point 4: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point4"
                                x="-233.00" 
                                y="130.50" 
-                               z="193.00" 
+                               z="195.00" 
                                velocity="0.2" 
-                               fixed_heading="false" 
+                               fixed_heading="true" 
                                heading="-1.57"/>
             
             <!-- Point 4: Then station keep with correct heading -->
-            <StationKeeping name="station_keep_point4"
+            <StationKeep name="station_keep_point4"
                         x="-233.00" 
                         y="130.50" 
-                        z="193.00" 
+                        z="195.00" 
                         heading="3.14" 
-                        duration="60"/>
+                        duration="30"/>
             
             <!-- Point 5: Navigate there -->
             <NavigateToWaypoint name="navigate_to_point5"
                                x="-251.00" 
                                y="130.50" 
-                               z="193.00" 
+                               z="195.00" 
                                velocity="0.2" 
-                               fixed_heading="false" 
+                               fixed_heading="true" 
                                heading="3.14"/>
             
             <!-- Point 5: Station keep with correct heading -->
-            <StationKeeping name="station_keep_point5"
+            <StationKeep name="station_keep_point5"
                         x="-251.00" 
                         y="130.50" 
-                        z="193.00" 
+                        z="195.00" 
                         heading="-1.57" 
-                        duration="60"/>
+                        duration="30"/>
             
             <!-- Point 6: Navigate there -->
             <NavigateToWaypoint name="navigate_to_point6"
                                x="-251.00" 
                                y="109.50" 
-                               z="193.00" 
+                               z="195.00" 
                                velocity="0.2" 
-                               fixed_heading="false" 
+                               fixed_heading="true" 
                                heading="-1.57"/>
             
             <!-- Point 6: Station keep with correct heading -->
-            <StationKeeping name="station_keep_point6"
+            <StationKeep name="station_keep_point6"
                         x="-251.00" 
                         y="109.50" 
-                        z="193.00" 
+                        z="195.00" 
                         heading="-1.57" 
-                        duration="60"/>
+                        duration="30"/>
         </Sequence>
     </BehaviorTree>
     
@@ -117,7 +117,7 @@
             <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
             <input_port name="heading" type="Double">Desired heading</input_port>
         </Action>
-        <Action ID="StationKeeping">
+        <Action ID="StationKeep">
             <input_port name="x" type="Double">X coordinate</input_port>
             <input_port name="y" type="Double">Y coordinate</input_port>
             <input_port name="z" type="Double">Z coordinate</input_port>

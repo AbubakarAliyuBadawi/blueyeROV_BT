@@ -1,11 +1,11 @@
 #pragma once
 #include <behaviortree_cpp/action_node.h>
 #include <rclcpp/rclcpp.hpp>
-#include "mundus_mir_msgs/srv/add_waypoint.hpp"
-#include "mundus_mir_msgs/srv/run_waypoint_controller.hpp"
-#include "mundus_mir_msgs/srv/go_to_waypoints.hpp"
-#include "mundus_mir_msgs/srv/get_waypoint_status.hpp"
-#include "mundus_mir_msgs/srv/clear_waypoints.hpp"
+#include "mundus_mir_msgs_alt/srv/add_waypoint_alt.hpp"
+#include "mundus_mir_msgs_alt/srv/run_waypoint_controller_alt.hpp"
+#include "mundus_mir_msgs_alt/srv/go_to_waypoints_alt.hpp"
+#include "mundus_mir_msgs_alt/srv/get_waypoint_status_alt.hpp"
+#include "mundus_mir_msgs_alt/srv/clear_waypoints_alt.hpp"
 #include <chrono>
 // Forward declaration of global node
 extern rclcpp::Node::SharedPtr g_node;
@@ -14,11 +14,11 @@ public:
 NavigateToWaypoint(const std::string& name, const BT::NodeConfiguration& config)
  : BT::StatefulActionNode(name, config), first_run_(true), execution_started_(false), controller_enabled_(false)
  {
- clear_client_ = g_node->create_client<mundus_mir_msgs::srv::ClearWaypoints>("/blueye/clear_waypoints");
- add_client_ = g_node->create_client<mundus_mir_msgs::srv::AddWaypoint>("/blueye/add_waypoint");
- run_client_ = g_node->create_client<mundus_mir_msgs::srv::RunWaypointController>("/blueye/run_waypoint_controller");
- go_client_ = g_node->create_client<mundus_mir_msgs::srv::GoToWaypoints>("/blueye/go_to_waypoints");
- status_client_ = g_node->create_client<mundus_mir_msgs::srv::GetWaypointStatus>("/blueye/get_waypoint_status");
+clear_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::ClearWaypointsAlt>("/blueye/clear_waypoints");
+add_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::AddWaypointAlt>("/blueye/add_waypoint");
+run_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::RunWaypointControllerAlt>("/blueye/run_waypoint_controller");
+go_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::GoToWaypointsAlt>("/blueye/go_to_waypoints");
+status_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::GetWaypointStatusAlt>("/blueye/get_waypoint_status");
  }
 static BT::PortsList providedPorts() {
 return {
@@ -37,11 +37,11 @@ virtual BT::NodeStatus onStart() override;
 virtual BT::NodeStatus onRunning() override;
 virtual void onHalted() override;
 private:
-rclcpp::Client<mundus_mir_msgs::srv::ClearWaypoints>::SharedPtr clear_client_;
-rclcpp::Client<mundus_mir_msgs::srv::AddWaypoint>::SharedPtr add_client_;
-rclcpp::Client<mundus_mir_msgs::srv::RunWaypointController>::SharedPtr run_client_;
-rclcpp::Client<mundus_mir_msgs::srv::GoToWaypoints>::SharedPtr go_client_;
-rclcpp::Client<mundus_mir_msgs::srv::GetWaypointStatus>::SharedPtr status_client_;
+rclcpp::Client<mundus_mir_msgs_alt::srv::ClearWaypointsAlt>::SharedPtr clear_client_;
+rclcpp::Client<mundus_mir_msgs_alt::srv::AddWaypointAlt>::SharedPtr add_client_;
+rclcpp::Client<mundus_mir_msgs_alt::srv::RunWaypointControllerAlt>::SharedPtr run_client_;
+rclcpp::Client<mundus_mir_msgs_alt::srv::GoToWaypointsAlt>::SharedPtr go_client_;
+rclcpp::Client<mundus_mir_msgs_alt::srv::GetWaypointStatusAlt>::SharedPtr status_client_;
 bool first_run_;
 bool execution_started_;
 bool controller_enabled_;
