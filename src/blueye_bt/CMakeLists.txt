@@ -15,6 +15,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(marine_acoustic_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 # Include directories
 include_directories(
@@ -24,6 +25,7 @@ include_directories(
   ${mundus_mir_msgs_INCLUDE_DIRS}
   ${nav_msgs_INCLUDE_DIRS}
   ${std_msgs_INCLUDE_DIRS}
+  ${YAML_CPP_INCLUDE_DIRS}
 )
 
 # BT nodes library
@@ -34,6 +36,7 @@ add_library(bt_nodes SHARED
   src/conditions/camera_condition.cpp
   src/conditions/sonar_condition.cpp
   src/conditions/system_watchdog.cpp
+  src/behaviors/load_mission_requirements.cpp
 )
 
 # Add dependencies to the BT nodes library
@@ -52,6 +55,7 @@ ament_target_dependencies(bt_nodes
 # Link BT nodes with BehaviorTree.CPP library
 target_link_libraries(bt_nodes
   ${behaviortree_cpp_LIBRARIES}
+  ${YAML_CPP_LIBRARIES}
 )
 
 # Add remaining executables
