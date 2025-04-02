@@ -1,6 +1,16 @@
-blueye_bt:
-  ros__parameters:
-    mission_directory: ""
-    mission_name: "dock_undock_mission"
-    default_velocity: 0.4
-    timeout_seconds: 30.0
+mission_requirements:
+  undocking:
+    requires_camera: true
+    requires_sonar: true
+  pipeline_inspection:
+    requires_camera: true
+    requires_sonar: true
+  wreckage_inspection:
+    requires_camera: true
+    requires_sonar: true
+  return_to_dock:
+    requires_camera: false
+    requires_sonar: true
+  docking:
+    requires_camera: true
+    requires_sonar: true
