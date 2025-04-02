@@ -7,7 +7,7 @@
             <NavigateToWaypoint name="navigate_to_point1"
                                x="-222.70" 
                                y="60.50" 
-                               z="194.00" 
+                               z="194.90" 
                                velocity="0.4" 
                                fixed_heading="false" 
                                heading="0.0"/>
@@ -16,7 +16,7 @@
             <StationKeeping name="station_keep_point1"
                                x="-222.70" 
                                y="60.50" 
-                               z="194.00" 
+                               z="194.90" 
                         heading="3.14" 
                         duration="60"/>
         </Sequence>
