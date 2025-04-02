@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root BTCPP_format="4" main_tree_to_execute="PipeLineInspection">
+<root BTCPP_format="4" main_tree_to_execute="WreckageInspection">
     <!-- Main pipeline inspection tree -->
-    <BehaviorTree ID="PipeLineInspection">
+    <BehaviorTree ID="WreckageInspection">
         <Sequence name="main_sequence">
             <!-- Point 1: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point1"

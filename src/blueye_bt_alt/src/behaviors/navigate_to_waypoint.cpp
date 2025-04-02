@@ -1,4 +1,4 @@
-#include "blueye_bt/behaviors/navigate_to_waypoint.hpp"
+#include "blueye_bt_alt/behaviors/navigate_to_waypoint.hpp"
 #include <chrono>
 
 using namespace std::chrono_literals;
@@ -15,11 +15,11 @@ bool NavigateToWaypoint::enableController() {
         return false;
     }
 
-    auto request = std::make_shared<mundus_mir_msgs::srv::RunWaypointController::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::RunWaypointControllerAlt::Request>();
     request->run = true;
     auto future = run_client_->async_send_request(request);
 
-    if (rclcpp::spin_until_future_complete(g_node, future, 10s) != rclcpp::FutureReturnCode::SUCCESS) {
+    if (rclcpp::spin_until_future_complete(g_node, future, 2s) != rclcpp::FutureReturnCode::SUCCESS) {
         RCLCPP_ERROR(g_node->get_logger(), "Failed to enable waypoint controller");
         return false;
     }
@@ -64,7 +64,7 @@ BT::NodeStatus NavigateToWaypoint::onStart() {
                x, y, z, velocity, fixed_heading ? "true" : "false", heading);
     
     if (altitude_mode) {
-        RCLCPP_INFO(g_node->get_logger(), "Note: Altitude mode is not supported in this version. Using fixed z value.");
+        RCLCPP_INFO(g_node->get_logger(), "Using altitude mode with target_altitude=%.2f m", target_altitude);
     }
 
     // Check service availability first
@@ -110,7 +110,7 @@ BT::NodeStatus NavigateToWaypoint::onRunning() {
     }
 
     // Check waypoint status
-    auto request = std::make_shared<mundus_mir_msgs::srv::GetWaypointStatus::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::GetWaypointStatusAlt::Request>();
     auto future = status_client_->async_send_request(request);
 
     if (rclcpp::spin_until_future_complete(g_node, future, 2s) != rclcpp::FutureReturnCode::SUCCESS) {
@@ -148,7 +148,7 @@ void NavigateToWaypoint::onHalted() {
 
 bool NavigateToWaypoint::clearWaypoints() {
     RCLCPP_INFO(g_node->get_logger(), "Clearing waypoints...");
-    auto request = std::make_shared<mundus_mir_msgs::srv::ClearWaypoints::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::ClearWaypointsAlt::Request>();
     auto future = clear_client_->async_send_request(request);
 
     if (rclcpp::spin_until_future_complete(g_node, future, 2s) != rclcpp::FutureReturnCode::SUCCESS) {
@@ -168,7 +168,7 @@ bool NavigateToWaypoint::addWaypoint(double x, double y, double z, double veloci
                                      bool fixed_heading, double heading,
                                      bool altitude_mode, double target_altitude) {
     RCLCPP_INFO(g_node->get_logger(), "Adding waypoint...");
-    auto request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::AddWaypointAlt::Request>();
     request->x = x;
     request->y = y;
     request->z = z;
@@ -176,14 +176,16 @@ bool NavigateToWaypoint::addWaypoint(double x, double y, double z, double veloci
     request->fixed_heading = fixed_heading;
     request->heading = heading;
     
-    // Note: Not setting altitude mode parameters as they don't exist in this version
-    // Just log what would have been done
-    if (altitude_mode) {
-        RCLCPP_INFO(g_node->get_logger(), "Note: Altitude mode requested but not supported in this version. Using fixed z=%.2f instead.", z);
-    }
+    // Add altitude mode parameters
+    request->altitude_mode = altitude_mode;
+    request->target_altitude = target_altitude;
 
     RCLCPP_INFO(g_node->get_logger(), "Sending waypoint: x=%.2f, y=%.2f, z=%.2f, v=%.2f, fixed_heading=%s, heading=%.2f",
                 x, y, z, velocity, fixed_heading ? "true" : "false", heading);
+    
+    if (altitude_mode) {
+        RCLCPP_INFO(g_node->get_logger(), "Using altitude mode with target_altitude=%.2f m", target_altitude);
+    }
 
     auto future = add_client_->async_send_request(request);
 
@@ -202,7 +204,7 @@ bool NavigateToWaypoint::addWaypoint(double x, double y, double z, double veloci
 
 bool NavigateToWaypoint::startWaypointController() {
     RCLCPP_INFO(g_node->get_logger(), "Starting waypoint controller...");
-    auto request = std::make_shared<mundus_mir_msgs::srv::RunWaypointController::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::RunWaypointControllerAlt::Request>();
     request->run = true;
     auto future = run_client_->async_send_request(request);
 
@@ -221,7 +223,7 @@ bool NavigateToWaypoint::startWaypointController() {
 
 bool NavigateToWaypoint::startWaypointExecution() {
     RCLCPP_INFO(g_node->get_logger(), "Starting waypoint execution...");
-    auto request = std::make_shared<mundus_mir_msgs::srv::GoToWaypoints::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::GoToWaypointsAlt::Request>();
     request->run = true;
     auto future = go_client_->async_send_request(request);
 
@@ -240,7 +242,7 @@ bool NavigateToWaypoint::startWaypointExecution() {
 
 void NavigateToWaypoint::stopWaypointController() {
     RCLCPP_INFO(g_node->get_logger(), "Stopping waypoint controller...");
-    auto request = std::make_shared<mundus_mir_msgs::srv::RunWaypointController::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::RunWaypointControllerAlt::Request>();
     request->run = false;
     auto future = run_client_->async_send_request(request);
     

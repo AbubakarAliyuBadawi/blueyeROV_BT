@@ -1,5 +1,5 @@
 // src/behaviors/station_keeping.cpp
-#include "blueye_bt/behaviors/station_keeping.hpp"
+#include "blueye_bt_alt/behaviors/station_keeping.hpp"
 #include <chrono>
 
 using namespace std::chrono_literals;
@@ -8,11 +8,11 @@ StationKeeping::StationKeeping(const std::string& name, const BT::NodeConfigurat
     : BT::StatefulActionNode(name, config)
 {
     // Initialize service clients
-    clear_client_ = g_node->create_client<mundus_mir_msgs::srv::ClearWaypoints>("/blueye/clear_waypoints");
-    add_client_ = g_node->create_client<mundus_mir_msgs::srv::AddWaypoint>("/blueye/add_waypoint");
-    run_client_ = g_node->create_client<mundus_mir_msgs::srv::RunWaypointController>("/blueye/run_waypoint_controller");
-    go_client_ = g_node->create_client<mundus_mir_msgs::srv::GoToWaypoints>("/blueye/go_to_waypoints");
-    status_client_ = g_node->create_client<mundus_mir_msgs::srv::GetWaypointStatus>("/blueye/get_waypoint_status");
+    clear_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::ClearWaypointsAlt>("/blueye/clear_waypoints");
+    add_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::AddWaypointAlt>("/blueye/add_waypoint");
+    run_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::RunWaypointControllerAlt>("/blueye/run_waypoint_controller");
+    go_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::GoToWaypointsAlt>("/blueye/go_to_waypoints");
+    status_client_ = g_node->create_client<mundus_mir_msgs_alt::srv::GetWaypointStatusAlt>("/blueye/get_waypoint_status");
 }
 
 BT::NodeStatus StationKeeping::onStart() {
@@ -63,7 +63,7 @@ BT::NodeStatus StationKeeping::onStart() {
                 duration.value(), heading.value());
     
     if (altitude_mode) {
-        RCLCPP_INFO(g_node->get_logger(), "Note: Altitude mode is not supported in this version. Using fixed z value.");
+        RCLCPP_INFO(g_node->get_logger(), "Using altitude mode with target altitude %.2f meters", target_altitude);
     }
     
     return BT::NodeStatus::RUNNING;
@@ -111,7 +111,7 @@ bool StationKeeping::clearWaypoints() {
         return false;
     }
     
-    auto request = std::make_shared<mundus_mir_msgs::srv::ClearWaypoints::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::ClearWaypointsAlt::Request>();
     auto future = clear_client_->async_send_request(request);
     
     if (rclcpp::spin_until_future_complete(g_node, future, 2s) != rclcpp::FutureReturnCode::SUCCESS) {
@@ -143,7 +143,7 @@ bool StationKeeping::addWaypoint(double heading, bool altitude_mode, double targ
         return false;
     }
     
-    auto request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::AddWaypointAlt::Request>();
     
     if (has_position) {
         // Use provided position
@@ -153,8 +153,8 @@ bool StationKeeping::addWaypoint(double heading, bool altitude_mode, double targ
         
         if (altitude_mode) {
             RCLCPP_INFO(g_node->get_logger(), 
-                      "Setting station keeping at specified position (x: %.2f, y: %.2f, z: %.2f, heading: %.2f°) with altitude mode requested (not supported)",
-                      request->x, request->y, request->z, heading);
+                      "Setting station keeping at specified position (x: %.2f, y: %.2f, z: %.2f, heading: %.2f°) with altitude mode, target altitude: %.2f m",
+                      request->x, request->y, request->z, heading, target_altitude);
         } else {
             RCLCPP_INFO(g_node->get_logger(), 
                       "Setting station keeping at specified position (x: %.2f, y: %.2f, z: %.2f, heading: %.2f°)",
@@ -162,7 +162,7 @@ bool StationKeeping::addWaypoint(double heading, bool altitude_mode, double targ
         }
     } else {
         // Get status to see current position (for logging)
-        auto status_request = std::make_shared<mundus_mir_msgs::srv::GetWaypointStatus::Request>();
+        auto status_request = std::make_shared<mundus_mir_msgs_alt::srv::GetWaypointStatusAlt::Request>();
         auto status_future = status_client_->async_send_request(status_request);
         
         if (rclcpp::spin_until_future_complete(g_node, status_future, 2s) == rclcpp::FutureReturnCode::SUCCESS) {
@@ -177,8 +177,8 @@ bool StationKeeping::addWaypoint(double heading, bool altitude_mode, double targ
         
         if (altitude_mode) {
             RCLCPP_INFO(g_node->get_logger(), 
-                      "Setting station keeping at current position with heading: %.2f° (altitude mode requested but not supported)", 
-                      heading);
+                      "Setting station keeping at current position with heading: %.2f° and altitude mode, target altitude: %.2f m", 
+                      heading, target_altitude);
         } else {
             RCLCPP_INFO(g_node->get_logger(), 
                       "Setting station keeping at current position with heading: %.2f°", 
@@ -188,9 +188,11 @@ bool StationKeeping::addWaypoint(double heading, bool altitude_mode, double targ
     
     request->desired_velocity = 0.2;  // Low velocity for station keeping
     request->fixed_heading = true;    // Critical: this makes the controller respect our heading
-    request->heading = heading; // Convert degrees to radians
+    request->heading = heading * M_PI / 180.0;  // Convert degrees to radians
     
-    // Note: Not setting altitude mode parameters as they don't exist in this version
+    // Add altitude mode if enabled
+    request->altitude_mode = altitude_mode;
+    request->target_altitude = target_altitude;
     
     auto future = add_client_->async_send_request(request);
     
@@ -217,7 +219,7 @@ bool StationKeeping::startWaypointController(bool run) {
         return false;
     }
     
-    auto request = std::make_shared<mundus_mir_msgs::srv::RunWaypointController::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::RunWaypointControllerAlt::Request>();
     request->run = run;
     
     auto future = run_client_->async_send_request(request);
@@ -249,7 +251,7 @@ bool StationKeeping::startWaypointExecution() {
         return false;
     }
     
-    auto request = std::make_shared<mundus_mir_msgs::srv::GoToWaypoints::Request>();
+    auto request = std::make_shared<mundus_mir_msgs_alt::srv::GoToWaypointsAlt::Request>();
     request->run = true;
     
     auto future = go_client_->async_send_request(request);
@@ -272,7 +274,7 @@ bool StationKeeping::startWaypointExecution() {
 void StationKeeping::stopExecution() {
     // First stop the waypoint execution
     if (go_client_->wait_for_service(10s)) {
-        auto go_request = std::make_shared<mundus_mir_msgs::srv::GoToWaypoints::Request>();
+        auto go_request = std::make_shared<mundus_mir_msgs_alt::srv::GoToWaypointsAlt::Request>();
         go_request->run = false;
         auto future = go_client_->async_send_request(go_request);
         rclcpp::spin_until_future_complete(g_node, future, 1s);

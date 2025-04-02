@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="MissionControl">
+    <!-- Include all the separate behavior tree files -->
+    <include path="PipeLineInspection.xml"/>
+    <include path="system_monitor.xml"/>
+    <include path="emergency_return.xml"/>
+    <include path="lawnmower.xml"/>
+    
+    <!-- Main mission control tree -->
+    <BehaviorTree ID="MissionControl">
+        <ReactiveSequence name="mission_control">
+            <!-- Set initial mission requirements before starting -->
+            <Sequence name="initialize_mission">
+                <SetBlackboard output_key="mission_requires_camera" value="true" />
+                <SetBlackboard output_key="mission_requires_sonar" value="true" />
+            </Sequence>
+            
+            <!-- Run system monitoring throughout the mission -->
+            <SubTree ID="SystemMonitor" />
+            
+            <!-- Main mission execution -->
+            <ReactiveSequence name="normal_mission">
+                <!-- First part: Pipeline inspection -->
+                <SubTree ID="PipeLineInspection"/>
+                
+                <!-- Update requirements for lawnmower pattern -->
+                <Sequence name="set_lawnmower_requirements">
+                    <SetBlackboard output_key="mission_requires_camera" value="false" />
+                    <SetBlackboard output_key="mission_requires_sonar" value="true" />
+                </Sequence>
+                
+                <!-- Lawnmower pattern -->
+                <SubTree ID="LawnmowerPattern"/>
+                
+                <!-- Update requirements for return -->
+                <Sequence name="set_return_requirements">
+                    <SetBlackboard output_key="mission_requires_camera" value="false" />
+                    <SetBlackboard output_key="mission_requires_sonar" value="false" />
+                </Sequence>
+                
+                <!-- Return and dock at the end of the mission -->
+                <SubTree ID="EmergencyReturn"/>
+            </ReactiveSequence>
+        </ReactiveSequence>
+    </BehaviorTree>
+
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="SetBlackboard">
+            <input_port name="output_key" type="String">Key to set</input_port>
+            <input_port name="value" type="String">Value to set</input_port>
+        </Action>
+        <SubTree ID="SystemMonitor" />
+        <SubTree ID="EmergencyReturn" />
+        <SubTree ID="PipeLineInspection" />
+        <SubTree ID="LawnmowerPattern" />
+    </TreeNodesModel>
+</root>
