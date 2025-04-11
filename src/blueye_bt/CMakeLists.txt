@@ -37,6 +37,7 @@ add_library(bt_nodes SHARED
   src/conditions/sonar_condition.cpp
   src/conditions/system_watchdog.cpp
   src/behaviors/load_mission_requirements.cpp
+  src/conditions/blackboard_condition.cpp 
 )
 
 # Add dependencies to the BT nodes library
@@ -121,6 +122,12 @@ install(DIRECTORY
   launch
   config
   DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY
+  scripts/
+  DESTINATION lib/${PROJECT_NAME}/scripts
+  USE_SOURCE_PERMISSIONS
 )
 
 ament_package()
