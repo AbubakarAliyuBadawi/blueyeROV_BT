@@ -9,8 +9,8 @@
                                y="60.50" 
                                z="194.90" 
                                velocity="0.1" 
-                               fixed_heading="false" 
-                               heading="0.0"/>
+                               fixed_heading="True" 
+                               heading="3.14"/>
             
             <!-- Point 1: Then station keep with correct heading -->
             <StationKeeping name="station_keep_point1"

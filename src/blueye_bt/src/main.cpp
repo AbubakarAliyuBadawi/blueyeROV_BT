@@ -1,6 +1,12 @@
 #include "blueye_bt/behaviors/navigate_to_waypoint.hpp"
 #include "blueye_bt/behaviors/station_keeping.hpp"
 #include "blueye_bt/conditions/battery_condition.hpp"
+#include "blueye_bt/conditions/camera_condition.hpp"
+#include "blueye_bt/conditions/sonar_condition.hpp"
+#include "blueye_bt/conditions/system_watchdog.hpp"
+#include "blueye_bt/behaviors/load_mission_requirements.hpp"
+#include "blueye_bt/conditions/blackboard_condition.hpp"
+#include "blueye_bt/loggers/timeline_logger.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
 #include "behaviortree_cpp/behavior_tree.h"
@@ -34,7 +40,16 @@ int main(int argc, char **argv) {
     // Register basic BT nodes
     factory.registerNodeType<BT::RetryNode>("RetryNode");
     factory.registerNodeType<BT::SequenceNode>("SequenceNode");
+    factory.registerNodeType<CheckBlackboard>("CheckBlackboard");
 
+    // Register LoadMissionRequirements
+    factory.registerBuilder<LoadMissionRequirements>(
+        "LoadMissionRequirements",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<LoadMissionRequirements>(name, config);
+        });
+    
     // Register primary navigation nodes
     factory.registerBuilder<NavigateToWaypoint>(
         "NavigateToWaypoint",
@@ -48,6 +63,30 @@ int main(int argc, char **argv) {
         [](const std::string& name, const BT::NodeConfig& config)
         {
             return std::make_unique<StationKeeping>(name, config);
+        });
+
+    // Register condition nodes
+    factory.registerBuilder<CheckCameraStatus>(
+        "CheckCameraStatus",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<CheckCameraStatus>(name, config);
+        });
+
+        // Register sonar condition
+    factory.registerBuilder<CheckSonarStatus>(
+        "CheckSonarStatus",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<CheckSonarStatus>(name, config);
+        });
+
+    // Register system watchdog
+    factory.registerBuilder<SystemWatchdog>(
+        "SystemWatchdog",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<SystemWatchdog>(name, config);
         });
     
     // Register condition nodes
@@ -75,6 +114,9 @@ int main(int argc, char **argv) {
         BT::Groot2Publisher publisher(tree, 6677);
         RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 6677. You can monitor the tree using Groot2");
 
+        auto timeline_logger = std::make_shared<blueye_bt::TimelineLogger>(tree, g_node);
+        RCLCPP_INFO(g_node->get_logger(), "Timeline logger added. Data will be saved to /tmp/bt_timeline_data.csv");
+
         const auto sleep_ms = std::chrono::milliseconds(100);
         auto status = BT::NodeStatus::RUNNING;
 
@@ -85,7 +127,6 @@ int main(int argc, char **argv) {
             if (BT::isStatusCompleted(status)) {
                 RCLCPP_INFO(g_node->get_logger(), "Tree finished with status: %s", 
                            status == BT::NodeStatus::SUCCESS ? "SUCCESS" : "FAILURE");
-                break;
             }
         }
 

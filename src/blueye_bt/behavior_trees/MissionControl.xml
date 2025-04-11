@@ -35,10 +35,15 @@
             <!-- Run system monitoring throughout the mission -->
             <SubTree ID="SystemMonitor" />
             
-            <!-- Main mission execution -->
+            <!-- Main mission execution with emergency logic -->
             <Fallback name="mission_or_emergency">
-                <!-- Check if emergency is triggered -->
-                <CheckBlackboard key="emergency_triggered" expected_value="true"/>
+                <!-- Emergency sequence if triggered -->
+                <Sequence name="emergency_sequence">
+                    <CheckBlackboard key="emergency_triggered" expected_value="true"/>
+                    <LoadMissionRequirements phase="emergency_return"/>
+                    <SubTree ID="ReturnToDock"/>
+                    <SubTree ID="Docking"/>
+                </Sequence>
                 
                 <!-- Normal mission sequence -->
                 <Sequence name="normal_mission">
@@ -73,14 +78,6 @@
                     </Sequence>
                 </Sequence>
             </Fallback>
-            
-            <!-- Emergency return sequence (triggered when emergency_triggered is true) -->
-            <Sequence name="emergency_sequence">
-                <CheckBlackboard key="emergency_triggered" expected_value="true"/>
-                <LoadMissionRequirements phase="emergency_return"/>
-                <SubTree ID="ReturnToDock"/>
-                <SubTree ID="Docking"/>
-            </Sequence>
         </ReactiveSequence>
     </BehaviorTree>
     

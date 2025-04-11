@@ -10,7 +10,7 @@
             <!-- Camera failure handling - only trigger emergency if camera is required -->
             <Fallback name="camera_checks">
                 <!-- If camera check passes, continue -->
-                <CheckCameraStatus name="check_camera" timeout_seconds="2.0" />
+                <CheckCameraStatus name="check_camera" timeout_seconds="10.0" />
                 
                 <!-- If camera required flag is not set, continue anyway -->
                 <Inverter>
@@ -21,14 +21,13 @@
                 <Sequence name="camera_failure_sequence">
                     <SetBlackboard output_key="failure_reason" value="Camera failure detected" />
                     <SetBlackboard output_key="emergency_triggered" value="true" />
-                    <SubTree ID="EmergencyReturn" />
                 </Sequence>
             </Fallback>
             
             <!-- Sonar failure handling - only trigger emergency if sonar is required -->
             <Fallback name="sonar_checks">
                 <!-- If sonar check passes, continue -->
-                <CheckSonarStatus name="check_sonar" timeout_seconds="3.0" min_beam_count="10" />
+                <CheckSonarStatus name="check_sonar" timeout_seconds="10.0" />
                 
                 <!-- If sonar required flag is not set, continue anyway -->
                 <Inverter>
@@ -39,27 +38,25 @@
                 <Sequence name="sonar_failure_sequence">
                     <SetBlackboard output_key="failure_reason" value="Sonar failure detected" />
                     <SetBlackboard output_key="emergency_triggered" value="true" />
-                    <SubTree ID="EmergencyReturn" />
                 </Sequence>
             </Fallback>
             
             <!-- Watchdog failures are always critical -->
             <Fallback name="watchdog_checks">
-                <SystemWatchdog name="system_watchdog" max_failures="5" min_reset_interval="60.0" failing_topics="{failing_topics}" />
+                <SystemWatchdog name="system_watchdog" max_failures="5" failing_topics="{failing_topics}" />
                 <Sequence name="system_failure_sequence">
                     <SetBlackboard output_key="failure_reason" value="System failure: {failing_topics}" />
                     <SetBlackboard output_key="emergency_triggered" value="true" />
-                    <SubTree ID="EmergencyReturn" />
                 </Sequence>
             </Fallback>
         </ReactiveSequence>
     </BehaviorTree>
 
     <TreeNodesModel>
-        <Action ID="CheckBlackboard">
+        <Condition ID="CheckBlackboard">
             <input_port name="key" type="String">Key to check</input_port>
             <input_port name="expected_value" type="String">Expected value</input_port>
-        </Action>
+        </Condition>
         <Action ID="SetBlackboard">
             <input_port name="output_key" type="String">Key to set</input_port>
             <input_port name="value" type="String">Value to set</input_port>
@@ -75,8 +72,7 @@
             <input_port name="min_beam_count" type="Int">Minimum number of beams required</input_port>
         </Condition>
         <Condition ID="SystemWatchdog">
-            <input_port name="max_failures" type="Int">Maximum consecutive failures before reset</input_port>
-            <input_port name="min_reset_interval" type="Double">Minimum time between resets in seconds</input_port>
+            <input_port name="max_failures" type="Int">Maximum consecutive failures before logging warning</input_port>
             <output_port name="failing_topics" type="String">List of failing topics</output_port>
         </Condition>
         <SubTree ID="EmergencyReturn" />

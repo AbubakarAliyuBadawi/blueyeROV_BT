@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="BlueyePipelineDockMission">
+    <BehaviorTree ID="BlueyePipelineDockMission">
+        <Sequence name="mission_sequence">
+            <!-- Main mission with battery monitoring -->
+            <ReactiveSequence name="mission_with_battery_check">
+                <!-- Monitor battery continuously -->
+                <Fallback name="battery_check">
+                    <BatteryCondition name="check_battery" threshold="20.0" />
+                    <!-- If battery low, skip to docking -->
+                    <Sequence name="skip_to_docking">
+                        <NavigateWaypoint name="emergency_docking" 
+                                        latitude="63.441441" longitude="10.348331" 
+                                        depth="2.3" speed="0.2" />
+                    </Sequence>
+                </Fallback>
+                
+                <!-- Pipeline inspection sequence -->
+                <Sequence name="pipeline_inspection">
+                    <!-- Pipeline waypoints -->
+                    <NavigateWaypoint name="waypoint1" 
+                                    latitude="63.441475" longitude="10.348348" 
+                                    depth="0.5" speed="0.3" />
+                    <NavigateWaypoint name="waypoint2" 
+                                    latitude="63.441478" longitude="10.348247" 
+                                    depth="0.5" speed="0.3" />
+                    <NavigateWaypoint name="waypoint3" 
+                                    latitude="63.441422" longitude="10.348239" 
+                                    depth="0.5" speed="0.3" />
+                    <NavigateWaypoint name="waypoint4" 
+                                    latitude="63.441418" longitude="10.348347" 
+                                    depth="0.5" speed="0.3" />
+                </Sequence>
+            </ReactiveSequence>
+            
+            <!-- Docking sequence (always executed at the end) -->
+            <NavigateWaypoint name="docking_waypoint" 
+                            latitude="63.441441" longitude="10.348331" 
+                            depth="2.3" speed="0.2" />
+        </Sequence>
+    </BehaviorTree>
+</root>
