@@ -81,6 +81,9 @@ void AltitudeController::dvlCallback(const marine_acoustic_msgs::msg::Dvl::Share
 }
 
 void AltitudeController::cmdVelCallback(const geometry_msgs::msg::TwistStamped::SharedPtr msg) {
+    // Check for parameter updates
+    target_altitude_ = this->get_parameter("target_altitude").as_double();
+    
     // Make a copy of the incoming velocity command
     auto modified_msg = std::make_unique<geometry_msgs::msg::TwistStamped>(*msg);
     
