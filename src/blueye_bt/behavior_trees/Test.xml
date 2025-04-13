@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="AltitudeTest">
+    <!-- Test tree for altitude control -->
+    <BehaviorTree ID="AltitudeTest">
+        <Sequence name="main_sequence">
+            <!-- Enable altitude control with target of 3.0 meters -->
+            <AltitudeControlAction name="enable_altitude_control" 
+                                  enable="true" 
+                                  target_altitude="3.0"/>
+            
+            <!-- Point 1: Navigate there (altitude controller will override z) -->
+            <NavigateToWaypoint name="navigate_to_point1"
+                               x="-210.50" 
+                               y="108.00" 
+                               z="193.00" 
+                               velocity="0.4" 
+                               fixed_heading="false" 
+                               heading="0.0"/>
+            
+            <!-- Point 1: Station keep with correct heading -->
+            <StationKeeping name="station_keep_point1"
+                        x="-210.50" 
+                        y="108.00" 
+                        z="193.00" 
+                        heading="1.57" 
+                        duration="60"/>
+            
+            <!-- Point 2: Navigate there -->
+            <NavigateToWaypoint name="navigate_to_point2"
+                               x="-210.50" 
+                               y="134.50" 
+                               z="193.00" 
+                               velocity="0.2" 
+                               fixed_heading="false" 
+                               heading="1.57"/>
+            
+            <!-- Point 2: Station keep with correct heading -->
+            <StationKeeping name="station_keep_point2"
+                        x="-210.50" 
+                        y="134.50" 
+                        z="193.00" 
+                        heading="3.14" 
+                        duration="60"/>
+            
+            <!-- Point 3: Navigate there -->
+            <NavigateToWaypoint name="navigate_to_point3"
+                               x="-233.00" 
+                               y="134.50" 
+                               z="193.00" 
+                               velocity="0.2" 
+                               fixed_heading="false" 
+                               heading="3.14"/>
+            
+            <!-- Disable altitude control after the test -->
+            <AltitudeControlAction name="disable_altitude_control" 
+                                  enable="false" 
+                                  target_altitude="3.0"/>
+        </Sequence>
+    </BehaviorTree>
+    
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="AltitudeControlAction">
+            <input_port name="enable" type="Boolean">Enable altitude control</input_port>
+            <input_port name="target_altitude" type="Double">Target altitude in meters</input_port>
+        </Action>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+            <input_port name="duration" type="Int">Duration in seconds</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

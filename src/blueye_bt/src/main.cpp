@@ -6,7 +6,8 @@
 #include "blueye_bt/conditions/system_watchdog.hpp"
 #include "blueye_bt/behaviors/load_mission_requirements.hpp"
 #include "blueye_bt/conditions/blackboard_condition.hpp"
-#include "blueye_bt/loggers/timeline_logger.hpp"
+#include "blueye_bt/actions/altitude_control_action.hpp"
+// #include "blueye_bt/loggers/timeline_logger.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
 #include "behaviortree_cpp/behavior_tree.h"
@@ -34,6 +35,8 @@ int main(int argc, char **argv) {
     rclcpp::init(argc, argv);
     g_node = rclcpp::Node::make_shared("blueye_bt");
     g_node->declare_parameter("behavior_tree_path", "");
+    g_node->declare_parameter("target_altitude", 2.0); 
+
 
     BT::BehaviorTreeFactory factory;
 
@@ -97,6 +100,14 @@ int main(int argc, char **argv) {
             return std::make_unique<CheckBatteryLevel>(name, config);
         });
 
+    // Register altitude control action
+    factory.registerBuilder<AltitudeControlAction>(
+        "AltitudeControlAction",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<AltitudeControlAction>(name, config);
+        });
+
     try {
         std::string mission_file;
         if (!g_node->get_parameter("behavior_tree_path", mission_file)) {
@@ -114,8 +125,8 @@ int main(int argc, char **argv) {
         BT::Groot2Publisher publisher(tree, 6677);
         RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 6677. You can monitor the tree using Groot2");
 
-        auto timeline_logger = std::make_shared<blueye_bt::TimelineLogger>(tree, g_node);
-        RCLCPP_INFO(g_node->get_logger(), "Timeline logger added. Data will be saved to /tmp/bt_timeline_data.csv");
+        // auto timeline_logger = std::make_shared<blueye_bt::TimelineLogger>(tree, g_node);
+        // RCLCPP_INFO(g_node->get_logger(), "Timeline logger added. Data will be saved to /tmp/bt_timeline_data.csv");
 
         const auto sleep_ms = std::chrono::milliseconds(100);
         auto status = BT::NodeStatus::RUNNING;
