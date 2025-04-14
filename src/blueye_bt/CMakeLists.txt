@@ -42,6 +42,7 @@ add_library(bt_nodes SHARED
   src/actions/altitude_control_action.cpp
   src/behaviors/launch_docking_procedure.cpp 
   src/behaviors/wait_node.cpp 
+  src/actions/publish_state.cpp
 )
 
 # Add dependencies to the BT nodes library
