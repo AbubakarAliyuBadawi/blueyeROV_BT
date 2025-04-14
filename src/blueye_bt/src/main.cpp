@@ -9,12 +9,14 @@
 #include "blueye_bt/actions/altitude_control_action.hpp"
 #include "blueye_bt/behaviors/launch_docking_procedure.hpp"
 #include "blueye_bt/behaviors/wait_node.hpp"
+#include "blueye_bt/actions/publish_state.hpp"
 // #include "blueye_bt/loggers/timeline_logger.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
 #include "behaviortree_cpp/behavior_tree.h"
 #include "behaviortree_cpp/bt_factory.h"
 #include "behaviortree_cpp/loggers/groot2_publisher.h"
+#include <std_msgs/msg/int32.hpp>
 #include <memory>
 #include <chrono>
 #include <thread>
@@ -23,12 +25,31 @@
 // Global node for service clients
 rclcpp::Node::SharedPtr g_node;
 std::atomic<bool> g_program_running{true};
+rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr g_mission_state_pub;
+int g_current_mission_state = 0;
 
 void signalHandler(int signum) {
     if (g_node) {
         RCLCPP_INFO(g_node->get_logger(), "Interrupt signal (%d) received.", signum);
     }
     g_program_running = false;
+}
+
+void publishMissionState() {
+    auto msg = std::make_unique<std_msgs::msg::Int32>();
+    msg->data = g_current_mission_state;
+    g_mission_state_pub->publish(*msg);
+}
+
+void setupContinuousStatePublishing() {
+    // Create and start a thread for continuous publishing
+    std::thread([&]() {
+        rclcpp::Rate rate(10);  // 10 Hz - publish 10 times per second
+        while (rclcpp::ok() && g_program_running) {
+            publishMissionState();
+            rate.sleep();
+        }
+    }).detach();  // Detach so it runs independently
 }
 
 int main(int argc, char **argv) {
@@ -38,6 +59,10 @@ int main(int argc, char **argv) {
     g_node = rclcpp::Node::make_shared("blueye_bt");
     g_node->declare_parameter("behavior_tree_path", "");
     g_node->declare_parameter("target_altitude", 2.0); 
+    g_mission_state_pub = g_node->create_publisher<std_msgs::msg::Int32>("/mission_state", 10);
+    setupContinuousStatePublishing();
+    // rclcpp::TimerBase::SharedPtr state_timer = g_node->create_wall_timer(
+    // std::chrono::milliseconds(500), publishMissionState);
 
 
     BT::BehaviorTreeFactory factory;
@@ -124,6 +149,13 @@ int main(int argc, char **argv) {
         [](const std::string& name, const BT::NodeConfig& config)
         {
             return std::make_unique<Wait>(name, config);
+        });
+    // Register the node in main()
+    factory.registerBuilder<PublishState>(
+        "PublishState",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<PublishState>(name, config);
         });
 
     try {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="TestState">
+    <BehaviorTree ID="TestState">
+        <Sequence name="test_state_sequence">
+            <!-- Initialize with state 0 (Not started) -->
+            <Wait name="initial_wait" duration="10" />
+            <PublishState state="0" />
+            <Wait name="initial_wait" duration="10" />
+            
+            <!-- Test Undocking state -->
+            <PublishState state="1" />
+            <Wait name="undocking_wait" duration="10" />
+            
+            <!-- Test Pipeline Inspection state -->
+            <PublishState state="2" />
+            <Wait name="pipeline_wait" duration="10" />
+            
+            <!-- Test Wreckage Inspection state -->
+            <PublishState state="3" />
+            <Wait name="wreckage_wait" duration="10" />
+            
+            <!-- Test Return to Dock state -->
+            <PublishState state="4" />
+            <Wait name="return_wait" duration="10" />
+            
+            <!-- Test Docking state -->
+            <PublishState state="5" />
+            <Wait name="docking_wait" duration="10" />
+            
+            <!-- Return to idle state -->
+            <PublishState state="0" />
+        </Sequence>
+    </BehaviorTree>
+    
+    <TreeNodesModel>
+        <Action ID="PublishState">
+            <input_port name="state" type="Int">Mission state ID</input_port>
+        </Action>
+        <Action ID="Wait">
+            <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>
