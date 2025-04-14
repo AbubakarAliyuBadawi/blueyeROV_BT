@@ -7,6 +7,8 @@
 #include "blueye_bt/behaviors/load_mission_requirements.hpp"
 #include "blueye_bt/conditions/blackboard_condition.hpp"
 #include "blueye_bt/actions/altitude_control_action.hpp"
+#include "blueye_bt/behaviors/launch_docking_procedure.hpp"
+#include "blueye_bt/behaviors/wait_node.hpp"
 // #include "blueye_bt/loggers/timeline_logger.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
@@ -106,6 +108,22 @@ int main(int argc, char **argv) {
         [](const std::string& name, const BT::NodeConfig& config)
         {
             return std::make_unique<AltitudeControlAction>(name, config);
+        });
+
+    // Register LaunchDockingProcedure
+    factory.registerBuilder<LaunchDockingProcedure>(
+        "LaunchDockingProcedure",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<LaunchDockingProcedure>(name, config);
+        });
+
+    // Register Wait
+    factory.registerBuilder<Wait>(
+        "Wait",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<Wait>(name, config);
         });
 
     try {

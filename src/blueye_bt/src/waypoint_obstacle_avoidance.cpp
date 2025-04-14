@@ -67,34 +67,53 @@ public:
 private:
   void sonarCallback(const marine_acoustic_msgs::msg::ProjectedSonarImage::SharedPtr msg)
   {
-    if (!obstacle_avoidance_enabled_ || !have_pose_) {
-      return;
-    }
-    
-    // Only process if we're not already avoiding
-    if (is_avoiding_ || is_recovering_) {
-      return;
-    }
-    
-    // Divide the sonar beams into sectors (left, center, right)
-    int total_beams = msg->beam_directions.size();
-    int left_sector_start = 0;
-    int left_sector_end = total_beams / 3;
-    int center_sector_start = left_sector_end;
-    int center_sector_end = 2 * total_beams / 3;
-    int right_sector_start = center_sector_end;
-    int right_sector_end = total_beams;
-    
-    // Calculate minimum distances for each sector
-    min_dist_left_ = findMinDistanceInSector(msg, left_sector_start, left_sector_end);
-    min_dist_center_ = findMinDistanceInSector(msg, center_sector_start, center_sector_end);
-    min_dist_right_ = findMinDistanceInSector(msg, right_sector_start, right_sector_end);
-    
-    // Check if obstacle is detected in the center sector
-    if (min_dist_center_ < safety_distance_) {
-      // Obstacle detected, get current waypoint status before taking action
-      getWaypointStatus();
-    }
+      if (!obstacle_avoidance_enabled_ || !have_pose_) {
+          RCLCPP_INFO(this->get_logger(), "Obstacle avoidance disabled or no pose available");
+          return;
+      }
+      
+      // Only process if we're not already avoiding
+      if (is_avoiding_ || is_recovering_) {
+          RCLCPP_INFO(this->get_logger(), "Already avoiding or recovering, skipping obstacle detection");
+          return;
+      }
+      
+      RCLCPP_INFO(this->get_logger(), "Received sonar data with %d beams and %zu ranges", 
+                msg->beam_directions.size(), msg->ranges.size());
+      
+      // Divide the sonar beams into sectors (left, center, right)
+      int total_beams = msg->beam_directions.size();
+      int left_sector_start = 0;
+      int left_sector_end = total_beams / 3;
+      int center_sector_start = left_sector_end;
+      int center_sector_end = 2 * total_beams / 3;
+      int right_sector_start = center_sector_end;
+      int right_sector_end = total_beams;
+      
+      RCLCPP_INFO(this->get_logger(), "Sectors - Left: %d-%d, Center: %d-%d, Right: %d-%d",
+                left_sector_start, left_sector_end, center_sector_start, center_sector_end, 
+                right_sector_start, right_sector_end);
+      
+      // Calculate minimum distances for each sector
+      min_dist_left_ = findMinDistanceInSector(msg, left_sector_start, left_sector_end);
+      min_dist_center_ = findMinDistanceInSector(msg, center_sector_start, center_sector_end);
+      min_dist_right_ = findMinDistanceInSector(msg, right_sector_start, right_sector_end);
+      
+      RCLCPP_INFO(this->get_logger(), "Min distances - Left: %.2f, Center: %.2f, Right: %.2f",
+                min_dist_left_, min_dist_center_, min_dist_right_);
+      
+      // Check if obstacle is detected in the center sector
+      RCLCPP_INFO(this->get_logger(), "Safety distance: %.2f", safety_distance_);
+      
+      if (min_dist_center_ < safety_distance_) {
+          RCLCPP_INFO(this->get_logger(), "Obstacle detected! Distance (%.2f) < Safety threshold (%.2f)",
+                    min_dist_center_, safety_distance_);
+          // Obstacle detected, get current waypoint status before taking action
+          getWaypointStatus();
+      } else {
+          RCLCPP_INFO(this->get_logger(), "No obstacle detected. Distance (%.2f) >= Safety threshold (%.2f)",
+                    min_dist_center_, safety_distance_);
+      }
   }
   
   void odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg)
@@ -331,46 +350,71 @@ void parseWaypointStatus(const std::string& status) {
                         "Obstacle avoidance enabled" : 
                         "Obstacle avoidance disabled";
   }
-  
-  float findMinDistanceInSector(const marine_acoustic_msgs::msg::ProjectedSonarImage::SharedPtr msg,
-                               int sector_start, int sector_end)
-  {
+
+    float findMinDistanceInSector(const marine_acoustic_msgs::msg::ProjectedSonarImage::SharedPtr msg,
+                             int sector_start, int sector_end)
+{
     float min_distance = std::numeric_limits<float>::max();
-    float intensity_threshold = 0.01f;  // Adjust based on your sonar's characteristics
+    float intensity_threshold = 0.2f;  // LOWERED threshold for testing
+    
+    RCLCPP_INFO(this->get_logger(), "Finding min distance for sector %d-%d, threshold: %.4f",
+               sector_start, sector_end, intensity_threshold);
+    
+    int obstacles_detected = 0;
     
     // For each beam in this sector
     for (int beam_idx = sector_start; beam_idx < sector_end; beam_idx++) {
-      // For each range in this beam
-      for (size_t range_idx = 0; range_idx < msg->ranges.size(); range_idx++) {
-        // Calculate the index in the flattened data array
-        size_t data_idx = beam_idx * msg->ranges.size() + range_idx;
-        if (data_idx * 4 + 3 >= msg->image.data.size()) continue;  // Safety check
-        
-        // Convert 4 bytes to float (for DTYPE_FLOAT32)
-        float intensity = 0.0f;
-        if (msg->image.dtype == 8) {  // DTYPE_FLOAT32
-          uint8_t bytes[4] = {
-            msg->image.data[data_idx * 4],
-            msg->image.data[data_idx * 4 + 1],
-            msg->image.data[data_idx * 4 + 2],
-            msg->image.data[data_idx * 4 + 3]
-          };
-          memcpy(&intensity, bytes, sizeof(float));
+        // For each range in this beam
+        for (size_t range_idx = 0; range_idx < msg->ranges.size(); range_idx++) {
+            // Calculate the index in the flattened data array
+            size_t data_idx = beam_idx * msg->ranges.size() + range_idx;
+            if (data_idx * 4 + 3 >= msg->image.data.size()) continue;  // Safety check
+            
+            // Convert 4 bytes to float (for DTYPE_FLOAT32)
+            float intensity = 0.0f;
+            if (msg->image.dtype == 8) {  // DTYPE_FLOAT32
+                uint8_t bytes[4] = {
+                    msg->image.data[data_idx * 4],
+                    msg->image.data[data_idx * 4 + 1],
+                    msg->image.data[data_idx * 4 + 2],
+                    msg->image.data[data_idx * 4 + 3]
+                };
+                memcpy(&intensity, bytes, sizeof(float));
+                
+                // Log some sample intensities
+                if (beam_idx % 5 == 0 && range_idx % 20 == 0) {
+                    RCLCPP_INFO(this->get_logger(), "Beam %d, Range %zu (%.2f m): Intensity = %.6f, Bytes: %d,%d,%d,%d", 
+                               beam_idx, range_idx, msg->ranges[range_idx], intensity,
+                               bytes[0], bytes[1], bytes[2], bytes[3]);
+                }
+            }
+            
+            // If intensity exceeds threshold, consider it an obstacle
+            if (intensity > intensity_threshold) {
+                float range = msg->ranges[range_idx];
+                obstacles_detected++;
+                
+                if (range < min_distance) {
+                    min_distance = range;
+                    RCLCPP_INFO(this->get_logger(), "New minimum distance: %.2f at beam %d, range %zu, intensity %.6f",
+                               min_distance, beam_idx, range_idx, intensity);
+                }
+                break;  // Found closest obstacle in this beam
+            }
         }
-        
-        // If intensity exceeds threshold, consider it an obstacle
-        if (intensity > intensity_threshold) {
-          float range = msg->ranges[range_idx];
-          min_distance = std::min(min_distance, range);
-          break;  // Found closest obstacle in this beam
-        }
-      }
     }
     
-    return (min_distance == std::numeric_limits<float>::max()) ? 
-            msg->ranges.back() : min_distance;  // Return max range if no obstacle detected
-  }
-  
+    if (min_distance == std::numeric_limits<float>::max()) {
+        min_distance = msg->ranges.back();  // Return max range if no obstacle detected
+        RCLCPP_INFO(this->get_logger(), "No obstacles detected in sector %d-%d, using max range: %.2f",
+                   sector_start, sector_end, min_distance);
+    } else {
+        RCLCPP_INFO(this->get_logger(), "Found %d obstacles in sector %d-%d, min distance: %.2f",
+                   obstacles_detected, sector_start, sector_end, min_distance);
+    }
+    
+    return min_distance;
+}
   // Waypoint data structure
   struct Waypoint {
     float x;
