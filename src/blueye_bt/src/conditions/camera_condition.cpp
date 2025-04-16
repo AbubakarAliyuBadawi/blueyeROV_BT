@@ -3,12 +3,12 @@
 
 CheckCameraStatus::CheckCameraStatus(const std::string& name, const BT::NodeConfiguration& config)
   : BT::ConditionNode(name, config),
-    camera_ok_(false) {
+    camera_ok_(true) {
   
   node_ = rclcpp::Node::make_shared("camera_check_node");
   
   // Get timeout from port using the reference method of getInput
-  double timeout = 2.0;  // Default value
+  double timeout = 10.0;  // Default value
   if (getInput("timeout_seconds", timeout)) {
     timeout_seconds_ = timeout;
   }

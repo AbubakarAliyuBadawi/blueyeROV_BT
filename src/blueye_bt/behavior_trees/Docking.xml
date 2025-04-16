@@ -1,43 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="4" main_tree_to_execute="Docking">
-    <!-- Main pipeline inspection tree -->
     <BehaviorTree ID="Docking">
-        <Sequence name="main_sequence">
-            <!-- Point 1: First navigate there -->
-            <NavigateToWaypoint name="navigate_to_point1"
-                               x="-223.70" 
-                               y="60.50" 
-                               z="194.90" 
-                               velocity="0.4" 
-                               fixed_heading="false" 
-                               heading="0.0"/>
-            
-            <!-- Point 1: Then station keep with correct heading -->
-            <StationKeeping name="station_keep_point1"
-                               x="-222.70" 
-                               y="60.50" 
-                               z="194.90" 
-                        heading="3.14" 
-                        duration="60"/>
+        <Sequence name="docking_sequence">
+            <!-- Launch the external docking procedure -->
+            <LaunchDockingProcedure name="launch_integrated_docking" />
+            <!-- Wait for the docking to complete -->
+            <Wait name="wait_for_docking" duration="120" />
+            <!-- Extended charging wait period -->
+            <Sequence name="charging_sequence">
+                <SetBlackboard output_key="status_message" value="ROV successfully docked and now charging" />
+                <Wait name="charging_time" duration="10000" />
+            </Sequence>
         </Sequence>
     </BehaviorTree>
     
-    <!-- Description of Node Models (used by Groot) -->
     <TreeNodesModel>
-        <Action ID="NavigateToWaypoint">
-            <input_port name="x" type="Double">X coordinate</input_port>
-            <input_port name="y" type="Double">Y coordinate</input_port>
-            <input_port name="z" type="Double">Z coordinate</input_port>
-            <input_port name="velocity" type="Double">Desired velocity</input_port>
-            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
-            <input_port name="heading" type="Double">Desired heading</input_port>
+        <Action ID="LaunchDockingProcedure" />
+        <Action ID="Wait">
+            <input_port name="duration" type="Int">Wait duration in seconds</input_port>
         </Action>
-        <Action ID="StationKeeping">
-            <input_port name="x" type="Double">X coordinate</input_port>
-            <input_port name="y" type="Double">Y coordinate</input_port>
-            <input_port name="z" type="Double">Z coordinate</input_port>
-            <input_port name="heading" type="Double">Desired heading</input_port>
-            <input_port name="duration" type="Int">Duration in seconds</input_port>
+        <Action ID="SetBlackboard">
+            <input_port name="output_key" type="String">Key to set</input_port>
+            <input_port name="value" type="String">Value to set</input_port>
         </Action>
     </TreeNodesModel>
 </root>

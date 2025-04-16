@@ -13,7 +13,7 @@ private:
   
   bool camera_ok_ = false;
   rclcpp::Time last_msg_time_;
-  double timeout_seconds_ = 2.0;  // How long without messages before considering the camera faulty
+  double timeout_seconds_ = 10.0;  // How long without messages before considering the camera faulty
 
 public:
   CheckCameraStatus(const std::string& name, const BT::NodeConfiguration& config);
@@ -21,7 +21,7 @@ public:
   // Port definition
   static BT::PortsList providedPorts() {
     return BT::PortsList({
-      BT::InputPort<double>("timeout_seconds", 2.0, "Maximum time without camera messages before reporting failure")
+      BT::InputPort<double>("timeout_seconds", 10.0, "Maximum time without camera messages before reporting failure")
     }); 
   }
   

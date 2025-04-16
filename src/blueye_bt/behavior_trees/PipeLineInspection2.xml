@@ -1,109 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root BTCPP_format="4" main_tree_to_execute="WreckageInspection">
+<root BTCPP_format="4" main_tree_to_execute="PipeLineInspection">
     <!-- Main pipeline inspection tree -->
-    <BehaviorTree ID="WreckageInspection">
+    <BehaviorTree ID="PipeLineInspection">
         <Sequence name="main_sequence">
             <!-- Point 1: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point1"
-                               x="-190.70" 
-                               y="184.50" 
-                               z="189.00" 
+                               x="-210.50" 
+                               y="108.00" 
+                               z="193.00" 
                                velocity="0.4" 
                                fixed_heading="false" 
                                heading="0.0"/>
             
             <!-- Point 1: Then station keep with correct heading -->
             <StationKeeping name="station_keep_point1"
-                               x="-190.70" 
-                               y="184.50" 
-                               z="189.00" 
-                        heading="0.00" 
-                        duration="40"/>
+                        x="-210.50" 
+                        y="108.00" 
+                        z="193.00" 
+                        heading="1.57" 
+                        duration="60"/>
             
             <!-- Point 2: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point2"
-                               x="-163.70" 
-                               y="184.50" 
-                               z="189.00" 
+                               x="-210.50" 
+                               y="134.50" 
+                               z="193.00" 
                                velocity="0.2" 
                                fixed_heading="false" 
                                heading="1.57"/>
             
             <!-- Point 2: Then station keep with correct heading -->
             <StationKeeping name="station_keep_point2"
-                               x="-163.70" 
-                               y="184.50" 
-                               z="189.00" 
-                        heading="-1.57" 
-                        duration="40"/>
+                        x="-210.50" 
+                        y="134.50" 
+                        z="193.00" 
+                        heading="3.14" 
+                        duration="60"/>
             
             <!-- Point 3: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point3"
-                               x="-163.70" 
-                               y="181.50" 
-                               z="189.00" 
+                               x="-233.00" 
+                               y="134.50" 
+                               z="193.00" 
                                velocity="0.2" 
                                fixed_heading="false" 
-                               heading="-1.57"/>
+                               heading="3.14"/>
             
             <!-- Point 3: Then station keep with correct heading -->
             <StationKeeping name="station_keep_point3"
-                               x="-163.70" 
-                               y="181.50" 
-                               z="189.00" 
-                        heading="3.14" 
-                        duration="40"/>
+                        x="-233.00" 
+                        y="134.50" 
+                        z="193.00" 
+                        heading="-1.57" 
+                        duration="60"/>
             
             <!-- Point 4: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point4"
-                               x="-190.70" 
-                               y="181.50" 
-                               z="189.00" 
+                               x="-233.00" 
+                               y="130.50" 
+                               z="193.00" 
                                velocity="0.2" 
                                fixed_heading="false" 
                                heading="-1.57"/>
             
             <!-- Point 4: Then station keep with correct heading -->
             <StationKeeping name="station_keep_point4"
-                               x="-190.70" 
-                               y="181.50" 
-                               z="189.00" 
-                        heading="-1.57" 
-                        duration="40"/>
+                        x="-233.00" 
+                        y="130.50" 
+                        z="193.00" 
+                        heading="3.14" 
+                        duration="60"/>
             
             <!-- Point 5: Navigate there -->
             <NavigateToWaypoint name="navigate_to_point5"
-                               x="-190.70" 
-                               y="177.50" 
-                               z="189.00" 
+                               x="-251.00" 
+                               y="130.50" 
+                               z="193.00" 
                                velocity="0.2" 
                                fixed_heading="false" 
                                heading="3.14"/>
             
             <!-- Point 5: Station keep with correct heading -->
             <StationKeeping name="station_keep_point5"
-                               x="-190.70" 
-                               y="177.50" 
-                               z="189.00" 
-                        heading="0.00" 
-                        duration="40"/>
+                        x="-251.00" 
+                        y="130.50" 
+                        z="193.00" 
+                        heading="-1.57" 
+                        duration="60"/>
             
             <!-- Point 6: Navigate there -->
             <NavigateToWaypoint name="navigate_to_point6"
-                               x="-163.70" 
-                               y="177.50" 
-                               z="189.00" 
+                               x="-251.00" 
+                               y="109.50" 
+                               z="193.00" 
                                velocity="0.2" 
                                fixed_heading="false" 
                                heading="-1.57"/>
             
             <!-- Point 6: Station keep with correct heading -->
             <StationKeeping name="station_keep_point6"
-                               x="-163.70" 
-                               y="177.50"
-                               z="189.00" 
+                        x="-251.00" 
+                        y="109.50" 
+                        z="193.00" 
                         heading="-1.57" 
-                        duration="40"/>
+                        duration="60"/>
         </Sequence>
     </BehaviorTree>
     

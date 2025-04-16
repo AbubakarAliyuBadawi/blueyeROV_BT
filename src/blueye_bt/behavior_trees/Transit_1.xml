@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="Transit_1">
+
+    <!-- Test tree for altitude control -->
+    <BehaviorTree ID="Transit_2">
+        <Sequence name="main_sequence">
+            
+            <!-- Point 1: Navigate  -->
+            <NavigateToWaypoint name="navigate_to_point1"
+                               x="-217.30" 
+                               y="71.90" 
+                               z="194.00" 
+                               velocity="0.4" 
+                               fixed_heading="false" 
+                               heading="0.0"/>
+            
+            <!-- Point 2: Navigate there -->
+            <NavigateToWaypoint name="navigate_to_point2"
+                               x="-212.50" 
+                               y="95.50" 
+                               z="194.00" 
+                               velocity="0.1" 
+                               fixed_heading="false" 
+                               heading="1.57"/>
+            </Sequence>
+        </BehaviorTree>
+                
+                <!-- Description of Node Models (used by Groot) -->
+                <TreeNodesModel>    
+                <Action ID="NavigateToWaypoint">
+                        <input_port name="x" type="Double">X coordinate</input_port>
+                        <input_port name="y" type="Double">Y coordinate</input_port>
+                        <input_port name="z" type="Double">Z coordinate</input_port>
+                        <input_port name="velocity" type="Double">Desired velocity</input_port>
+                        <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+                        <input_port name="heading" type="Double">Desired heading</input_port>
+                    </Action>
+            
+                    <Action ID="StationKeeping">
+                        <input_port name="x" type="Double">X coordinate</input_port>
+                        <input_port name="y" type="Double">Y coordinate</input_port>
+                        <input_port name="z" type="Double">Z coordinate</input_port>
+                        <input_port name="heading" type="Double">Desired heading</input_port>
+                        <input_port name="duration" type="Int">Duration in seconds</input_port>
+                </Action>
+                </TreeNodesModel>
+            
+            </root>
+            

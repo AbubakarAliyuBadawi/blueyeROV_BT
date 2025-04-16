@@ -20,17 +20,20 @@ public:
   WaypointObstacleAvoidance() : Node("waypoint_obstacle_avoidance"), is_avoiding_(false)
   {
     // Parameters
-    this->declare_parameter("safety_distance", 5.0);  // meters
-    this->declare_parameter("deviation_distance", 6.0); // meters
-    this->declare_parameter("deviation_velocity", 0.1); // m/s
+    this->declare_parameter("safety_distance", 3.0);  // meters
+    this->declare_parameter("deviation_distance", 10.0); // meters
+    this->declare_parameter("deviation_velocity", 0.2); // m/s
     this->declare_parameter("obstacle_avoidance_enabled", true);
     this->declare_parameter("waypoint_resume_delay", 0.1); // seconds
-    
+    this->declare_parameter("startup_delay", 60.0);
+  
+
     safety_distance_ = this->get_parameter("safety_distance").as_double();
     deviation_distance_ = this->get_parameter("deviation_distance").as_double();
     deviation_velocity_ = this->get_parameter("deviation_velocity").as_double();
     obstacle_avoidance_enabled_ = this->get_parameter("obstacle_avoidance_enabled").as_bool();
     waypoint_resume_delay_ = this->get_parameter("waypoint_resume_delay").as_double();
+    double startup_delay = this->get_parameter("startup_delay").as_double();
     
     // Create subscribers
     sonar_sub_ = this->create_subscription<marine_acoustic_msgs::msg::ProjectedSonarImage>(
@@ -60,6 +63,16 @@ public:
     status_timer_ = this->create_wall_timer(
       std::chrono::milliseconds(500),
       std::bind(&WaypointObstacleAvoidance::checkWaypointStatus, this));
+
+    // Add the startup timer here:
+    startup_timer_ = this->create_wall_timer(
+      std::chrono::duration<double>(startup_delay),
+      [this]() {
+        startup_delay_passed_ = true;
+        RCLCPP_INFO(this->get_logger(), "Startup delay elapsed. Obstacle avoidance now active.");
+        // This timer only needs to fire once
+        startup_timer_->cancel();
+      });
     
     RCLCPP_INFO(this->get_logger(), "Waypoint Obstacle Avoidance node initialized");
   }
@@ -67,6 +80,13 @@ public:
 private:
   void sonarCallback(const marine_acoustic_msgs::msg::ProjectedSonarImage::SharedPtr msg)
   {
+      // Check if startup delay has passed
+      if (!startup_delay_passed_) {
+          RCLCPP_INFO(this->get_logger(), "Waiting for startup delay to pass");
+          return;
+      }
+
+      // Check if obstacle avoidance is enabled and if we have a pose
       if (!obstacle_avoidance_enabled_ || !have_pose_) {
           RCLCPP_INFO(this->get_logger(), "Obstacle avoidance disabled or no pose available");
           return;
@@ -78,8 +98,8 @@ private:
           return;
       }
       
-      RCLCPP_INFO(this->get_logger(), "Received sonar data with %d beams and %zu ranges", 
-                msg->beam_directions.size(), msg->ranges.size());
+      // RCLCPP_INFO(this->get_logger(), "Received sonar data with %d beams and %zu ranges", 
+      //           msg->beam_directions.size(), msg->ranges.size());
       
       // Divide the sonar beams into sectors (left, center, right)
       int total_beams = msg->beam_directions.size();
@@ -154,12 +174,12 @@ void parseWaypointStatus(const std::string& status) {
     bool has_waypoints = status.find("Amount of waypoints: 0") == std::string::npos;
     
     // Extract current waypoint coordinates if available
-    size_t wp_pos = status.find("Current waypoint: x=");
+    size_t wp_pos = status.find("Current waypoint:");
     if (wp_pos != std::string::npos && is_going_to_waypoint && has_waypoints) {
         // Parse current waypoint coordinates from string
         std::string wp_str = status.substr(wp_pos);
         float x, y, z;
-        sscanf(wp_str.c_str(), "Current waypoint: x=%f, y=%f, z=%f", &x, &y, &z);
+        sscanf(wp_str.c_str(), "Current waypoint: %f, %f, %f", &x, &y, &z);
         
         // Store original waypoint
         original_waypoint_.x = x;
@@ -174,8 +194,58 @@ void parseWaypointStatus(const std::string& status) {
     }
 }
   
-  void startObstacleAvoidance()
-  {
+  // void startObstacleAvoidance()
+  // {
+  //   RCLCPP_INFO(this->get_logger(), "Obstacle detected at %.2f meters. Starting avoidance maneuver.", min_dist_center_);
+    
+  //   is_avoiding_ = true;
+  //   avoidance_start_time_ = this->now();
+    
+  //   // Create deviation waypoint
+  //   float avoidance_x, avoidance_y;
+    
+  //   // Determine if we should go left or right
+  //   bool go_left = min_dist_left_ <= min_dist_right_;
+    
+  //   // Calculate 25-degree direction instead of 45 degrees
+  //   float deviation_angle = current_yaw_ + (go_left ? (25.0 * M_PI/180.0) : -(25.0 * M_PI/180.0));
+
+  //   // Calculate deviation point
+  //   avoidance_x = current_pose_.position.x + deviation_distance_ * cos(deviation_angle);
+  //   avoidance_y = current_pose_.position.y + deviation_distance_ * sin(deviation_angle);
+
+  //   // Add these lines right here:
+  //   avoidance_waypoint_.x = avoidance_x;
+  //   avoidance_waypoint_.y = avoidance_y;
+  //   avoidance_waypoint_.z = original_waypoint_.z;
+    
+  //   RCLCPP_INFO(this->get_logger(), "Creating avoidance waypoint at x=%.2f, y=%.2f (going %s)",
+  //              avoidance_x, avoidance_y, go_left ? "left" : "right");
+    
+  //   // Clear current waypoints
+  //   auto clear_request = std::make_shared<mundus_mir_msgs::srv::ClearWaypoints::Request>();
+  //   clear_request->clear = true;
+    
+  //   auto clear_response_callback = [this, avoidance_x, avoidance_y](
+  //       rclcpp::Client<mundus_mir_msgs::srv::ClearWaypoints>::SharedFuture future) {
+  //     auto response = future.get();
+  //     if (response->accepted) {
+  //       // Add deviation waypoint
+  //       addDeviationWaypoint(avoidance_x, avoidance_y);
+  //     }
+  //   };
+    
+  //   clear_waypoints_client_->async_send_request(clear_request, clear_response_callback);
+    
+  //   // Publish avoidance status
+  //   auto status_msg = std::make_unique<std_msgs::msg::Bool>();
+  //   status_msg->data = true;
+  //   avoidance_status_pub_->publish(std::move(status_msg));
+  // }
+
+void startObstacleAvoidance()
+{
+    RCLCPP_INFO(this->get_logger(), "==== OBSTACLE AVOIDANCE STARTING ====");
     RCLCPP_INFO(this->get_logger(), "Obstacle detected at %.2f meters. Starting avoidance maneuver.", min_dist_center_);
     
     is_avoiding_ = true;
@@ -189,10 +259,17 @@ void parseWaypointStatus(const std::string& status) {
     
     // Calculate 25-degree direction instead of 45 degrees
     float deviation_angle = current_yaw_ + (go_left ? (25.0 * M_PI/180.0) : -(25.0 * M_PI/180.0));
-
     // Calculate deviation point
     avoidance_x = current_pose_.position.x + deviation_distance_ * cos(deviation_angle);
     avoidance_y = current_pose_.position.y + deviation_distance_ * sin(deviation_angle);
+    
+    // Save to avoidance_waypoint_
+    avoidance_waypoint_.x = avoidance_x;
+    avoidance_waypoint_.y = avoidance_y;
+    avoidance_waypoint_.z = original_waypoint_.z;
+    
+    // Increase velocity to make movement more noticeable
+    deviation_velocity_ = 0.3;  // Set to a higher value
     
     RCLCPP_INFO(this->get_logger(), "Creating avoidance waypoint at x=%.2f, y=%.2f (going %s)",
                avoidance_x, avoidance_y, go_left ? "left" : "right");
@@ -204,21 +281,58 @@ void parseWaypointStatus(const std::string& status) {
     auto clear_response_callback = [this, avoidance_x, avoidance_y](
         rclcpp::Client<mundus_mir_msgs::srv::ClearWaypoints>::SharedFuture future) {
       auto response = future.get();
+      RCLCPP_INFO(this->get_logger(), "Clear waypoints response accepted: %s", response->accepted ? "true" : "false");
       if (response->accepted) {
         // Add deviation waypoint
         addDeviationWaypoint(avoidance_x, avoidance_y);
+      } else {
+        RCLCPP_ERROR(this->get_logger(), "Failed to clear waypoints - avoidance cannot proceed!");
       }
     };
     
+    RCLCPP_INFO(this->get_logger(), "Sending clear waypoints request...");
     clear_waypoints_client_->async_send_request(clear_request, clear_response_callback);
     
     // Publish avoidance status
     auto status_msg = std::make_unique<std_msgs::msg::Bool>();
     status_msg->data = true;
     avoidance_status_pub_->publish(std::move(status_msg));
-  }
+}
   
-  void addDeviationWaypoint(float x, float y) {
+//   void addDeviationWaypoint(float x, float y) {
+//     auto add_request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
+//     add_request->x = x;
+//     add_request->y = y;
+//     add_request->z = original_waypoint_.z;  // Use original waypoint's z-value
+//     add_request->desired_velocity = deviation_velocity_;
+//     add_request->fixed_heading = false;  // Look toward waypoint
+//     add_request->heading = 0.0;  // Not used with fixed_heading=false
+    
+//     auto add_response_callback = [this](
+//         rclcpp::Client<mundus_mir_msgs::srv::AddWaypoint>::SharedFuture future) {
+//         auto response = future.get();
+//         if (response->accepted) {
+//             // Start going to waypoint
+//             auto go_request = std::make_shared<mundus_mir_msgs::srv::GoToWaypoints::Request>();
+//             go_request->run = true;
+            
+//             auto go_response_callback = [this](
+//                 rclcpp::Client<mundus_mir_msgs::srv::GoToWaypoints>::SharedFuture future) {
+//                 // Successfully started going to avoidance waypoint
+//             };
+            
+//             go_to_waypoints_client_->async_send_request(go_request, go_response_callback);
+//         }
+//     };
+    
+//     add_waypoint_client_->async_send_request(add_request, add_response_callback);
+// }
+  
+
+void addDeviationWaypoint(float x, float y) {
+    RCLCPP_INFO(this->get_logger(), "Adding deviation waypoint x=%.2f, y=%.2f, z=%.2f, velocity=%.2f",
+                x, y, original_waypoint_.z, deviation_velocity_);
+    
     auto add_request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
     add_request->x = x;
     add_request->y = y;
@@ -230,6 +344,7 @@ void parseWaypointStatus(const std::string& status) {
     auto add_response_callback = [this](
         rclcpp::Client<mundus_mir_msgs::srv::AddWaypoint>::SharedFuture future) {
         auto response = future.get();
+        RCLCPP_INFO(this->get_logger(), "Add waypoint response accepted: %s", response->accepted ? "true" : "false");
         if (response->accepted) {
             // Start going to waypoint
             auto go_request = std::make_shared<mundus_mir_msgs::srv::GoToWaypoints::Request>();
@@ -237,16 +352,27 @@ void parseWaypointStatus(const std::string& status) {
             
             auto go_response_callback = [this](
                 rclcpp::Client<mundus_mir_msgs::srv::GoToWaypoints>::SharedFuture future) {
-                // Successfully started going to avoidance waypoint
+                auto response = future.get();
+                RCLCPP_INFO(this->get_logger(), "Go to waypoints response accepted: %s", 
+                          response->accepted ? "true" : "false");
+                if (response->accepted) {
+                    RCLCPP_INFO(this->get_logger(), "Successfully started going to avoidance waypoint!");
+                } else {
+                    RCLCPP_ERROR(this->get_logger(), "Failed to start going to avoidance waypoint!");
+                }
             };
             
+            RCLCPP_INFO(this->get_logger(), "Sending go to waypoints request...");
             go_to_waypoints_client_->async_send_request(go_request, go_response_callback);
+        } else {
+            RCLCPP_ERROR(this->get_logger(), "Failed to add avoidance waypoint!");
         }
     };
     
+    RCLCPP_INFO(this->get_logger(), "Sending add waypoint request...");
     add_waypoint_client_->async_send_request(add_request, add_response_callback);
 }
-  
+
   void checkWaypointStatus()
   {
     if (!is_avoiding_ && !is_recovering_) {
@@ -383,9 +509,9 @@ void parseWaypointStatus(const std::string& status) {
                 
                 // Log some sample intensities
                 if (beam_idx % 5 == 0 && range_idx % 20 == 0) {
-                    RCLCPP_INFO(this->get_logger(), "Beam %d, Range %zu (%.2f m): Intensity = %.6f, Bytes: %d,%d,%d,%d", 
-                               beam_idx, range_idx, msg->ranges[range_idx], intensity,
-                               bytes[0], bytes[1], bytes[2], bytes[3]);
+                    // RCLCPP_INFO(this->get_logger(), "Beam %d, Range %zu (%.2f m): Intensity = %.6f, Bytes: %d,%d,%d,%d", 
+                    //            beam_idx, range_idx, msg->ranges[range_idx], intensity,
+                    //            bytes[0], bytes[1], bytes[2], bytes[3]);
                 }
             }
             
@@ -453,7 +579,8 @@ void parseWaypointStatus(const std::string& status) {
   rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr avoidance_status_pub_;
   rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr enable_service_;
   rclcpp::TimerBase::SharedPtr status_timer_;
-  
+  rclcpp::TimerBase::SharedPtr startup_timer_;
+  bool startup_delay_passed_ = false;
   // Service clients
   rclcpp::Client<mundus_mir_msgs::srv::AddWaypoint>::SharedPtr add_waypoint_client_;
   rclcpp::Client<mundus_mir_msgs::srv::ClearWaypoints>::SharedPtr clear_waypoints_client_;

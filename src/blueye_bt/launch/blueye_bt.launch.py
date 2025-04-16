@@ -7,7 +7,7 @@ def generate_launch_description():
     rov_bt_pkg_dir = get_package_share_directory('blueye_bt')
     
     bt_dir = os.path.join(rov_bt_pkg_dir, 'behavior_trees')
-    behavior_tree_path = os.path.join(bt_dir, 'TestStateSequence.xml')
+    behavior_tree_path = os.path.join(bt_dir, 'MissionControl.xml')
     
     if not os.path.exists(behavior_tree_path):
         raise FileNotFoundError(f"Behavior tree file not found: {behavior_tree_path}")
@@ -71,28 +71,28 @@ def generate_launch_description():
     }],
     output='screen'
     )
-    # battery_node = Node(
-    #     package='gz_battery',
-    #     executable='gz_battery_node',
-    #     name='gz_battery',
-    #     output='screen'
-    # )
+    battery_node = Node(
+        package='gz_battery',
+        executable='gz_battery_node',
+        name='gz_battery',
+        output='screen'
+    )
 
-    # sonar_node = Node(
-    #     package='gz_sonar',
-    #     executable='gz_sonar',
-    #     name='gz_sonar',
-    #     output='screen'
-    # )
+    sonar_node = Node(
+        package='gz_sonar',
+        executable='gz_sonar',
+        name='gz_sonar',
+        output='screen'
+    )
 
     ld = LaunchDescription([
         blueye_mission_node,
         battery_management_node,
         dock_distance_node,
-        altitude_controller_node
-        # waypoint_obstacle_avoidance_node
-        # battery_node,
-        # sonar_node
+        altitude_controller_node,
+        # waypoint_obstacle_avoidance_node,
+        battery_node,
+        sonar_node,
     ])
     
     return ld
