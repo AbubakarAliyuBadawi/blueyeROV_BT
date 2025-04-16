@@ -31,11 +31,12 @@ BT::NodeStatus PublishState::tick() {
     const char* state_name = "Unknown";
     switch(state) {
         case 1: state_name = "Undocking"; break;
-        case 2: state_name = "Pipeline Inspection"; break;
-        case 3: state_name = "Wreckage Inspection"; break;
-        case 4: state_name = "Return To Dock"; break;
-        case 5: state_name = "Docking"; break;
-        case 99: state_name = "Emergency"; break;
+        case 2: state_name = "Transit_1"; break;
+        case 3: state_name = "Pipeline Inspection"; break;
+        case 4: state_name = "Transit_2"; break;
+        case 5: state_name = "Wreckage Inspection"; break;
+        case 6: state_name = "Homing"; break;
+        case 7: state_name = "Docking"; break;
     }
     
     RCLCPP_INFO(rclcpp::get_logger("publish_state"), "Mission state changed to: %d (%s)", state, state_name);

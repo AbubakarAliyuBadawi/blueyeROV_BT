@@ -1,7 +1,7 @@
 #include "blueye_bt/conditions/sonar_condition.hpp"
 
 CheckSonarStatus::CheckSonarStatus(const std::string& name, const BT::NodeConfiguration& config)
-    : BT::ConditionNode(name, config), sonar_ok_(false) {
+    : BT::ConditionNode(name, config), sonar_ok_(true) {
     
     node_ = rclcpp::Node::make_shared("sonar_check_node");
     

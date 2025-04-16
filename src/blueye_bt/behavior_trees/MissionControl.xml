@@ -1,106 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root BTCPP_format="4" main_tree_to_execute="MissionControl">
+<root BTCPP_format="4" main_tree_to_execute="BlueyeAutonomyControl">
     <!-- Include all the separate behavior tree files -->
     <include path="UnDocking.xml"/>
+    <include path="Transit_1.xml"/>
+    <include path="Transit_2.xml"/>
     <include path="PipeLineInspection.xml"/>
     <include path="WreckageInspection.xml"/>
-    <include path="ReturnToDock.xml"/>
+    <include path="Homing.xml"/>
     <include path="Docking.xml"/>
     <include path="SystemMonitor.xml"/>
-    
+
     <!-- Main mission control tree -->
-    <BehaviorTree ID="MissionControl">
-        <ReactiveSequence name="mission_control">
-            <!-- Initialize mission state -->
-            <Sequence name="initialize_mission">
-                <SetBlackboard output_key="emergency_triggered" value="false" />
+    <BehaviorTree ID="BlueyeAutonomyControl">
+    <Sequence name="initialize_and_monitor">
+      <SetBlackboard value="false" output_key="emergency_triggered"/>
+      <SetBlackboard value="true" output_key="mission_requires_sonar"/>
+      <SetBlackboard value="true" output_key="mission_requires_camera"/>
+
+      <ReactiveSequence name="monitor_and_execute">
+        <!-- System monitoring section -->
+        <ReactiveSequence name="system_monitors">
+          <!-- Battery check (continuous) -->
+          <Fallback name="battery_check">
+            <Sequence name="battery_low_return">
+                <CheckBatteryLevel />
+                <SetBlackboard output_key="emergency_triggered" value="true" />
+                <SetBlackboard output_key="failure_reason" value="Battery level critical" />
             </Sequence>
-            
-            <!-- Battery check (high priority) -->
-            <Fallback name="battery_check">
-                <!-- If battery is low (SUCCESS from CheckBatteryLevel), go directly to return sequence -->
-                <Sequence name="battery_low_return">
-                    <CheckBatteryLevel />
-                    <SetBlackboard output_key="emergency_triggered" value="true" />
-                    <SetBlackboard output_key="failure_reason" value="Battery level critical" />
-                </Sequence>
-                
-                <!-- Battery is OK (FAILURE from CheckBatteryLevel), continue with normal mission -->
-                <Sequence name="battery_ok">
-                    <!-- This always succeeds when battery is good -->
-                    <AlwaysSuccess />
-                </Sequence>
-            </Fallback>
-            
-            <!-- Run system monitoring throughout the mission -->
-            <SubTree ID="SystemMonitor" />
-            
-            <!-- Main mission execution with emergency logic -->
-            <Fallback name="mission_or_emergency">
-                <!-- Emergency sequence if triggered -->
-                <Sequence name="emergency_sequence">
-                    <CheckBlackboard key="emergency_triggered" expected_value="true"/>
-                    <LoadMissionRequirements phase="emergency_return"/>
-                    <SubTree ID="ReturnToDock"/>
-                    <SubTree ID="Docking"/>
-                </Sequence>
-                
-                <!-- Normal mission sequence -->
-                <Sequence name="normal_mission">
-                    <!-- UnDocking -->
-                    <Sequence name="undocking_phase">
-                        <LoadMissionRequirements phase="undocking"/>
-                        <SubTree ID="UnDocking"/>
-                    </Sequence>
-                    
-                    <!-- Pipeline inspection -->
-                    <Sequence name="pipeline_inspection_phase">
-                        <LoadMissionRequirements phase="pipeline_inspection"/>
-                        <SubTree ID="PipeLineInspection"/>
-                    </Sequence>
-                    
-                    <!-- Wreckage inspection -->
-                    <Sequence name="wreckage_inspection_phase">
-                        <LoadMissionRequirements phase="wreckage_inspection"/>
-                        <SubTree ID="WreckageInspection"/>
-                    </Sequence>
-                    
-                    <!-- Return to dock -->
-                    <Sequence name="return_phase">
-                        <LoadMissionRequirements phase="return_to_dock"/>
-                        <SubTree ID="ReturnToDock"/>
-                    </Sequence>
-                    
-                    <!-- Final docking -->
-                    <Sequence name="docking_phase">
-                        <LoadMissionRequirements phase="docking"/>
-                        <SubTree ID="Docking"/>
-                    </Sequence>
-                </Sequence>
-            </Fallback>
-        </ReactiveSequence>
-    </BehaviorTree>
-    
-    <!-- Description of Node Models (used by Groot) -->
-    <TreeNodesModel>
-        <Action ID="SetBlackboard">
-            <input_port name="output_key" type="String">Key to set</input_port>
-            <input_port name="value" type="String">Value to set</input_port>
-        </Action>
-        <Condition ID="CheckBlackboard">
-            <input_port name="key" type="String">Key to check</input_port>
-            <input_port name="expected_value" type="String">Expected value</input_port>
-        </Condition>
-        <Action ID="LoadMissionRequirements">
-            <input_port name="phase" type="String">Mission phase name</input_port>
-        </Action>
-        <Condition ID="CheckBatteryLevel" />
-        <Action ID="AlwaysSuccess" />
-        <SubTree ID="SystemMonitor" />
-        <SubTree ID="UnDocking" />
-        <SubTree ID="PipeLineInspection" />
-        <SubTree ID="WreckageInspection" />
-        <SubTree ID="ReturnToDock" />
-        <SubTree ID="Docking" />
-    </TreeNodesModel>
+            <Sequence name="battery_ok">
+                <AlwaysSuccess />
+            </Sequence>
+          </Fallback>
+        
+          <!-- Sonar monitoring -->
+          <ReactiveFallback name="sonar_check_fallback">
+            <CheckSonarStatus name="check_sonar" timeout_seconds="5.0"/>
+            <Sequence name="sonar_failure_sequence">
+              <SetBlackboard value="Sonar failure detected" output_key="failure_reason"/>
+              <SetBlackboard value="true" output_key="emergency_triggered"/>
+            </Sequence>
+          </ReactiveFallback>
+        
+          <!-- Camera monitoring -->
+          <ReactiveFallback name="camera_check_fallback">
+            <CheckCameraStatus name="check_camera" timeout_seconds="5.0"/>
+            <Sequence name="camera_failure_sequence">
+              <SetBlackboard value="Camera failure detected" output_key="failure_reason"/>
+              <SetBlackboard value="true" output_key="emergency_triggered"/>
+            </Sequence>
+          </ReactiveFallback>
+        
+          <!-- System watchdog -->
+          <ReactiveFallback name="watchdog_check_fallback">
+            <SystemWatchdog name="system_watchdog" max_failures="5"/>
+            <Sequence name="watchdog_failure_sequence">
+              <SetBlackboard value="System watchdog failure" output_key="failure_reason"/>
+              <SetBlackboard value="true" output_key="emergency_triggered"/>
+            </Sequence>
+          </ReactiveFallback>
+        </ReactiveSequence>        
+        
+        <!-- Mission execution with emergency abort -->
+        <Fallback name="mission_or_emergency">
+          <!-- Emergency handling including return to dock and docking -->
+          <Sequence name="handle_emergency">
+            <CheckBlackboard key="emergency_triggered" expected_value="true"/>
+            <!-- Include Return to Dock subtree -->
+            <SubTree ID="Homing" />
+            <PublishState state="6" />
+
+            <!-- Include Docking subtree -->
+            <SubTree ID="Docking" />
+            <PublishState state="7" />
+          </Sequence>
+          
+          <!-- Normal mission only executes if not in emergency -->
+          <Decorator ID="AbortOnCondition" condition="emergency_triggered">
+            <Sequence name="complete_mission">
+              <!-- Undocking -->
+              <SubTree ID="UnDocking" />
+              <PublishState state="1" />
+
+              <!-- Transit-->
+              <SubTree ID="Transit_1" />
+              <PublishState state="2" />
+              
+              <!-- Pipeline inspection -->
+              <SubTree ID="PipeLineInspection" />
+              <PublishState state="3" />
+
+              <!-- Transit-->
+              <SubTree ID="Transit_2" />
+              <PublishState state="4" />
+              
+              <!-- Wreckage inspection -->
+              <SubTree ID="WreckageInspection" />
+              <PublishState state="5" />
+              
+              <!-- Return to dock -->
+              <SubTree ID="Homing" />
+              <PublishState state="6" />
+              
+              <!-- Docking -->
+              <SubTree ID="Docking" />
+              <PublishState state="7" />
+            </Sequence>
+          </Decorator>
+        </Fallback>
+      </ReactiveSequence>
+    </Sequence>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Condition ID="CheckBlackboard">
+      <input_port name="key" type="String">Key to check</input_port>
+      <input_port name="expected_value" type="String">Expected value</input_port>
+    </Condition>
+    <Condition ID="CheckSonarStatus">
+      <input_port name="timeout_seconds" type="Double">Maximum time without messages before failure</input_port>
+    </Condition>
+    <Condition ID="CheckCameraStatus">
+      <input_port name="timeout_seconds" type="Double">Maximum time without messages before failure</input_port>
+    </Condition>
+    <Condition ID="SystemWatchdog">
+      <input_port name="max_failures" type="Int">Maximum consecutive failures before logging warning</input_port>
+      <output_port name="failing_topics" type="String">List of failing topics</output_port>
+    </Condition>
+    <Action ID="NavigateToWaypoint">
+      <input_port name="x" type="Double">X coordinate</input_port>
+      <input_port name="y" type="Double">Y coordinate</input_port>
+      <input_port name="z" type="Double">Z coordinate</input_port>
+      <input_port name="velocity" type="Double">Desired velocity</input_port>
+      <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+      <input_port name="heading" type="Double">Desired heading</input_port>
+    </Action>
+    <Action ID="StationKeeping">
+      <input_port name="x" type="Double">X coordinate</input_port>
+      <input_port name="y" type="Double">Y coordinate</input_port>
+      <input_port name="z" type="Double">Z coordinate</input_port>
+      <input_port name="heading" type="Double">Desired heading</input_port>
+      <input_port name="duration" type="Int">Duration in seconds</input_port>
+    </Action>
+    <Action ID="AltitudeControlAction">
+      <input_port name="enable" type="Boolean">Enable altitude control</input_port>
+      <input_port name="target_altitude" type="Double">Target altitude in meters</input_port>
+    </Action>
+    <Decorator ID="AbortOnCondition">
+      <input_port name="condition" type="String">Blackboard key to check for abortion</input_port>
+    </Decorator>
+    <Action ID="SetBlackboard">
+      <input_port name="output_key" type="String">Key to set</input_port>
+      <input_port name="value" type="String">Value to set</input_port>
+    </Action>
+    <Action ID="PublishState">
+      <input_port name="state" type="Int">Mission state ID</input_port>
+    </Action>
+    <SubTree ID="Docking" />
+    <SubTree ID="UnDocking" />
+    <SubTree ID="PipeLineInspection" />
+    <SubTree ID="WreckageInspection" />
+    <SubTree ID="Homing" />
+    <SubTree ID="Transit_1" />
+    <SubTree ID="Transit_2" />
+  </TreeNodesModel>
 </root>

@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root BTCPP_format="4" main_tree_to_execute="PipeLineInspection">
-    <!-- Main pipeline inspection tree -->
+<root BTCPP_format="4" main_tree_to_execute="CompleteInspection">
+    <!-- Main tree that runs both undocking and pipeline inspection -->
+    <BehaviorTree ID="CompleteInspection">
+        <Sequence name="complete_mission_sequence">
+            <!-- First run the undocking sequence -->
+            <SubTree ID="UnDocking" />
+            
+            <!-- Then run the pipeline inspection -->
+            <SubTree ID="PipeLineInspection" />
+        </Sequence>
+    </BehaviorTree>
+
+    <!-- Undocking subtree -->
+    <BehaviorTree ID="UnDocking">
+        <Sequence name="undocking_sequence">
+            <!-- Exit docking station -->
+            <NavigateToWaypoint name="navigate_from_dock"
+                x="-220.70"
+                y="60.50"
+                z="194.90"
+                velocity="0.1"
+                fixed_heading="true"
+                heading="3.14"/>
+                
+            <!-- Brief station keeping to stabilize -->
+            <StationKeeping name="station_keep_after_undock"
+                x="-220.70"
+                y="60.50"
+                z="194.90"
+                heading="3.14"
+                duration="40"/>
+        </Sequence>
+    </BehaviorTree>
+
+    <!-- Pipeline inspection subtree -->
     <BehaviorTree ID="PipeLineInspection">
-        <Sequence name="main_sequence">
+        <Sequence name="pipeline_sequence">
             <!-- Point 1: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point1"
                                x="-210.50" 
@@ -124,5 +157,7 @@
             <input_port name="heading" type="Double">Desired heading</input_port>
             <input_port name="duration" type="Int">Duration in seconds</input_port>
         </Action>
+        <SubTree ID="PipeLineInspection" />
+        <SubTree ID="UnDocking" />
     </TreeNodesModel>
 </root>

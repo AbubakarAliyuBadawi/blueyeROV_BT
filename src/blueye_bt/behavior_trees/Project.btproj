@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" project_name="Project">
+    <include path="Test2.xml"/>
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Condition ID="CheckBlackboard">
+            <input_port name="key" type="String">Key to check</input_port>
+            <input_port name="expected_value" type="String">Expected value</input_port>
+        </Condition>
+        <Condition ID="CheckSonarStatus">
+            <input_port name="timeout_seconds" type="Double">Maximum time without messages before failure</input_port>
+        </Condition>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+            <input_port name="duration" type="Int">Duration in seconds</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

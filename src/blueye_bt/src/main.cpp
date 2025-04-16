@@ -10,6 +10,7 @@
 #include "blueye_bt/behaviors/launch_docking_procedure.hpp"
 #include "blueye_bt/behaviors/wait_node.hpp"
 #include "blueye_bt/actions/publish_state.hpp"
+#include "blueye_bt/decorators/abort_on_condition_decorator.hpp"
 // #include "blueye_bt/loggers/timeline_logger.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
@@ -71,6 +72,9 @@ int main(int argc, char **argv) {
     factory.registerNodeType<BT::RetryNode>("RetryNode");
     factory.registerNodeType<BT::SequenceNode>("SequenceNode");
     factory.registerNodeType<CheckBlackboard>("CheckBlackboard");
+    factory.registerNodeType<AbortOnCondition>("AbortOnCondition");
+    factory.registerNodeType<BT::AlwaysFailureNode>("AlwaysFail");
+
 
     // Register LoadMissionRequirements
     factory.registerBuilder<LoadMissionRequirements>(
@@ -178,7 +182,7 @@ int main(int argc, char **argv) {
         // auto timeline_logger = std::make_shared<blueye_bt::TimelineLogger>(tree, g_node);
         // RCLCPP_INFO(g_node->get_logger(), "Timeline logger added. Data will be saved to /tmp/bt_timeline_data.csv");
 
-        const auto sleep_ms = std::chrono::milliseconds(100);
+        const auto sleep_ms = std::chrono::milliseconds(1);
         auto status = BT::NodeStatus::RUNNING;
 
         while (rclcpp::ok() && g_program_running) {
@@ -194,7 +198,8 @@ int main(int argc, char **argv) {
         RCLCPP_INFO(g_node->get_logger(), "Starting clean shutdown...");
         tree.haltTree();
         RCLCPP_INFO(g_node->get_logger(), "Tree halted successfully");
-        
+        g_mission_state_pub.reset();  // Explicitly reset the publisher
+        g_program_running = false;    // Make sure thread knows to stop
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         RCLCPP_INFO(g_node->get_logger(), "Shutdown complete");
 

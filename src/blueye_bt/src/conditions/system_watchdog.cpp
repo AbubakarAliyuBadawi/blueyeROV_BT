@@ -51,7 +51,7 @@ BT::NodeStatus SystemWatchdog::tick() {
   } else {
     consecutive_failures_++;
     
-    // REMOVE THE RESET LOGIC - Keep only the warning log
+    // REMOVE THE RESET LOGIC - Keep only the warning logo
     RCLCPP_WARN(node_->get_logger(), 
                "System unhealthy: %s. Failure count: %d/%d",
                failing_topics.c_str(), consecutive_failures_, max_failures_before_reset_);
