@@ -78,32 +78,32 @@
           <Decorator ID="AbortOnCondition" condition="emergency_triggered">
             <Sequence name="complete_mission">
               <!-- Undocking -->
-              <SubTree ID="UnDocking" />
               <PublishState state="1" />
+              <SubTree ID="UnDocking" />
 
               <!-- Transit-->
-              <SubTree ID="Transit_1" />
               <PublishState state="2" />
+              <SubTree ID="Transit_1" />
               
               <!-- Pipeline inspection -->
-              <SubTree ID="PipeLineInspection" />
               <PublishState state="3" />
+              <SubTree ID="PipeLineInspection" />
 
               <!-- Transit-->
-              <SubTree ID="Transit_2" />
               <PublishState state="4" />
+              <SubTree ID="Transit_2" />
               
               <!-- Wreckage inspection -->
-              <SubTree ID="WreckageInspection" />
               <PublishState state="5" />
+              <SubTree ID="WreckageInspection" />
               
               <!-- Return to dock -->
-              <SubTree ID="Homing" />
               <PublishState state="6" />
+              <SubTree ID="Homing" />
               
               <!-- Docking -->
-              <SubTree ID="Docking" />
               <PublishState state="7" />
+              <SubTree ID="Docking" />
             </Sequence>
           </Decorator>
         </Fallback>
