@@ -22,17 +22,17 @@
                         heading="1.57" 
                         duration="40"/>
 
-                        <!-- Enable altitude control with target of 3.0 meters -->
+            <!-- Enable altitude control with target of 3.0 meters -->
             <AltitudeControlAction name="enable_altitude_control" 
                                   enable="true" 
-                                  target_altitude="1.6"/>
+                                  target_altitude="1.5"/>
             
             <!-- Point 2: Navigate there -->
             <NavigateToWaypoint name="navigate_to_point2"
                                x="-211.00" 
                                y="134.70" 
                                z="193.00" 
-                               velocity="0.1" 
+                               velocity="0.2" 
                                fixed_heading="false" 
                                heading="1.57"/>
             
@@ -49,9 +49,17 @@
                                x="-232.80" 
                                y="134.70" 
                                z="193.00" 
-                               velocity="0.1" 
+                               velocity="0.2" 
                                fixed_heading="false" 
                                heading="3.14"/>
+
+            <!-- Point 4: Then station keep with correct heading -->
+                                <StationKeeping name="station_keep_point4"
+                                x="-232.80" 
+                                y="134.70" 
+                                z="193.00" 
+                                heading="3.14" 
+                                duration="40"/>
 
             <!-- Point 4: First navigate there -->
             <NavigateToWaypoint name="navigate_to_point4"
@@ -90,7 +98,7 @@
             <!-- Disable altitude control after the test -->
             <AltitudeControlAction name="disable_altitude_control" 
                                   enable="false" 
-                                  target_altitude="1.6"/>
+                                  target_altitude="1.5"/>
 
         </Sequence>
     </BehaviorTree>
