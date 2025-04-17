@@ -43,6 +43,7 @@ add_library(bt_nodes SHARED
   src/behaviors/launch_docking_procedure.cpp 
   src/behaviors/wait_node.cpp 
   src/actions/publish_state.cpp
+  src/behaviors/safe_navigate_to_waypoint.cpp
 )
 
 # Add dependencies to the BT nodes library
@@ -70,6 +71,7 @@ add_executable(dock_distance_calc src/dock_distance_calc.cpp)
 add_executable(blueye_bt src/main.cpp)
 add_executable(waypoint_obstacle_avoidance src/waypoint_obstacle_avoidance.cpp)
 add_executable(altitude_controller src/controllers/altitude_controller.cpp)
+add_executable(battery_percentage_node src/battery_percentage_node.cpp)
 
 # Link dependencies for each executable
 target_link_libraries(battery_management
@@ -90,6 +92,10 @@ target_link_libraries(waypoint_obstacle_avoidance
 
 target_link_libraries(altitude_controller 
   ${rclcpp_LIBRARIES})
+
+target_link_libraries(battery_percentage_node
+  ${rclcpp_LIBRARIES}
+)
 
 # Add dependencies to executables
 ament_target_dependencies(battery_management
@@ -134,12 +140,20 @@ ament_target_dependencies(altitude_controller
   std_srvs
 )
 
+ament_target_dependencies(battery_percentage_node
+  rclcpp
+  nav_msgs
+  std_msgs
+  mundus_mir_msgs
+)
+
 # Install targets
 install(TARGETS
   bt_nodes
   blueye_bt
   battery_management
   dock_distance_calc
+  battery_percentage_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}

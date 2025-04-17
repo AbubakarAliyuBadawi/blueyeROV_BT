@@ -156,6 +156,19 @@
     <Action ID="PublishState">
       <input_port name="state" type="Int">Mission state ID</input_port>
     </Action>
+    <Action ID="SafeNavigateToWaypoint">
+      <input_port name="x" type="Double">X coordinate</input_port>
+      <input_port name="y" type="Double">Y coordinate</input_port>
+      <input_port name="z" type="Double">Z coordinate</input_port>
+      <input_port name="velocity" type="Double">Desired velocity</input_port>
+      <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+      <input_port name="heading" type="Double">Desired heading</input_port>
+      <input_port name="safety_distance" type="Double">Minimum distance to obstacles</input_port>
+      <input_port name="deviation_distance" type="Double">Distance to deviation point</input_port>
+      <input_port name="deviation_velocity" type="Double">Velocity during avoidance</input_port>
+      <input_port name="obstacle_avoidance_enabled" type="Boolean">Enable obstacle avoidance</input_port>
+      <input_port name="waypoint_resume_delay" type="Double">Delay before returning to original path</input_port>
+  </Action>
     <SubTree ID="Docking" />
     <SubTree ID="UnDocking" />
     <SubTree ID="PipeLineInspection" />

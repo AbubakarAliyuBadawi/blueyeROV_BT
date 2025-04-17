@@ -10,8 +10,8 @@
 #include "blueye_bt/behaviors/launch_docking_procedure.hpp"
 #include "blueye_bt/behaviors/wait_node.hpp"
 #include "blueye_bt/actions/publish_state.hpp"
+#include "blueye_bt/behaviors/safe_navigate_to_waypoint.hpp"    
 #include "blueye_bt/decorators/abort_on_condition_decorator.hpp"
-// #include "blueye_bt/loggers/timeline_logger.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <signal.h>
 #include "behaviortree_cpp/behavior_tree.h"
@@ -160,6 +160,13 @@ int main(int argc, char **argv) {
         [](const std::string& name, const BT::NodeConfig& config)
         {
             return std::make_unique<PublishState>(name, config);
+        });
+
+    factory.registerBuilder<SafeNavigateToWaypoint>(
+        "SafeNavigateToWaypoint",
+        [](const std::string& name, const BT::NodeConfiguration& config)
+        {
+            return std::make_unique<SafeNavigateToWaypoint>(name, config);
         });
 
     try {
