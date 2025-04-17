@@ -7,7 +7,7 @@ def generate_launch_description():
     rov_bt_pkg_dir = get_package_share_directory('blueye_bt')
     
     bt_dir = os.path.join(rov_bt_pkg_dir, 'behavior_trees')
-    pipeline_mission_file = os.path.join(bt_dir, 'PipeLineInspection.xml')
+    pipeline_mission_file = os.path.join(bt_dir, 'TestPipelineInspection.xml')
     lawnmower_mission_file = os.path.join(bt_dir, 'lawnmower.xml')
     
     mission_manager_node = Node(

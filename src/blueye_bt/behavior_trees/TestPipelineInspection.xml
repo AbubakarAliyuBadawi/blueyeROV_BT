@@ -29,15 +29,18 @@
                             fixed_heading="false"
                             heading="1.57"/>
       </Parallel>
-      <AltitudeControlAction name="disable_altitude_control"
-                             enable="false"
-                             target_altitude="1.5"/>
-      <StationKeeping name="station_keep_point2"
-                      x="-210.60"
-                      y="134.70"
-                      z="192.37"
-                      heading="3.14"
-                      duration="40"/>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <AltitudeControlAction name="enable_altitude_control"
+                               enable="true"
+                               target_altitude="1.5"/>
+        <StationKeeping name="station_keep_point2"
+                        x="-210.60"
+                        y="134.70"
+                        z="192.37"
+                        heading="3.14"
+                        duration="40"/>
+      </Parallel>
       <Parallel failure_count="1"
                 success_count="-1">
         <AltitudeControlAction name="enable_altitude_control"
@@ -51,15 +54,18 @@
                             fixed_heading="false"
                             heading="3.14"/>
       </Parallel>
-      <AltitudeControlAction name="disable_altitude_control"
-                             enable="false"
-                             target_altitude="1.5"/>
-      <StationKeeping name="station_keep_point4"
-                      x="-232.80"
-                      y="134.70"
-                      z="195.30"
-                      heading="3.14"
-                      duration="40"/>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <AltitudeControlAction name="enable_altitude_control"
+                               enable="true"
+                               target_altitude="1.5"/>
+        <StationKeeping name="station_keep_point4"
+                        x="-232.80"
+                        y="134.70"
+                        z="193.00"
+                        heading="3.14"
+                        duration="40"/>
+      </Parallel>
       <Parallel failure_count="1"
                 success_count="-1">
         <AltitudeControlAction name="enable_altitude_control"
@@ -73,15 +79,18 @@
                             fixed_heading="false"
                             heading="-1.57"/>
       </Parallel>
-      <AltitudeControlAction name="disable_altitude_control"
-                             enable="false"
-                             target_altitude="1.5"/>
-      <StationKeeping name="station_keep_point4"
-                      x="-233.00"
-                      y="130.50"
-                      z="195.30"
-                      heading="3.14"
-                      duration="40"/>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <AltitudeControlAction name="enable_altitude_control"
+                               enable="true"
+                               target_altitude="1.5"/>
+        <StationKeeping name="station_keep_point4"
+                        x="-233.00"
+                        y="130.50"
+                        z="193.00"
+                        heading="3.14"
+                        duration="40"/>
+      </Parallel>
       <Parallel failure_count="1"
                 success_count="-1">
         <AltitudeControlAction name="enable_altitude_control"
@@ -95,18 +104,20 @@
                             fixed_heading="false"
                             heading="3.14"/>
       </Parallel>
-      <AltitudeControlAction name="disable_altitude_control"
-                             enable="false"
-                             target_altitude="1.5"/>
-      <StationKeeping name="station_keep_point5"
-                      x="-251.00"
-                      y="130.20"
-                      z="195.30"
-                      heading="-1.57"
-                      duration="40"/>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <AltitudeControlAction name="enable_altitude_control"
+                               enable="true"
+                               target_altitude="1.5"/>
+        <StationKeeping name="station_keep_point5"
+                        x="-251.00"
+                        y="130.20"
+                        z="193.00"
+                        heading="-1.57"
+                        duration="40"/>
+      </Parallel>
     </Sequence>
   </BehaviorTree>
-
   <!-- Description of Node Models (used by Groot) -->
   <TreeNodesModel>
     <Action ID="AltitudeControlAction">
@@ -142,5 +153,4 @@
                   type="Int">Duration in seconds</input_port>
     </Action>
   </TreeNodesModel>
-
 </root>

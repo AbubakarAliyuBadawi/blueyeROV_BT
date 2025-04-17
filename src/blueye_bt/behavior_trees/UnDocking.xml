@@ -18,7 +18,7 @@
                                y="60.50" 
                                z="194.90" 
                         heading="3.14" 
-                        duration="40"/>
+                        duration="20"/>
         </Sequence>
     </BehaviorTree>
     
