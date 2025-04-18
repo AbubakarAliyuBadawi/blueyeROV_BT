@@ -5,7 +5,7 @@
             <!-- Launch the external docking procedure -->
             <LaunchDockingProcedure name="launch_integrated_docking" />
             <!-- Wait for the docking to complete -->
-            <Wait name="wait_for_docking" duration="120" />
+            <Wait name="wait_for_docking" duration="140" />
             <!-- Extended charging wait period -->
             <Sequence name="charging_sequence">
                 <SetBlackboard output_key="status_message" value="ROV successfully docked and now charging" />
