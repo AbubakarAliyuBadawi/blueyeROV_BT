@@ -44,6 +44,7 @@ add_library(bt_nodes SHARED
   src/behaviors/wait_node.cpp 
   src/actions/publish_state.cpp
   src/behaviors/safe_navigate_to_waypoint.cpp
+  src/control_nodes/learning_mission_selector.cpp
 )
 
 # Add dependencies to the BT nodes library
