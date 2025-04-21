@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="TestLearningMission">
+    <include path="PipeLineInspection.xml"/>
+    <include path="WreckageInspection.xml"/>
+    <include path="Homing.xml"/>
+
+    <BehaviorTree ID="TestLearningMission">
+        <Sequence name="setup_sequence">
+            <!-- Set up blackboard with sensor status -->
+            <SetBlackboard output_key="camera_status" value="working"/>
+            <SetBlackboard output_key="sonar_status" value="working"/>
+            
+            <LearningMissionSelector name="mission_selector"
+                                learning_rate="0.1"
+                                discount_factor="0.9"
+                                exploration_rate="0.3"
+                                explanation="{explanation}">
+                <!-- Core mission phases that can be reordered by learning -->
+                <Sequence name="pipeline_inspection_mission">
+                    <PublishState state="3" />
+                    <LoadMissionRequirements phase="pipeline_inspection"/>
+                    <CheckBlackboard key="mission_requires_camera" expected_value="true"/>
+                    <SubTree ID="PipeLineInspection" />
+                </Sequence>
+                
+                <Sequence name="wreckage_inspection_mission">
+                    <PublishState state="5" />
+                    <LoadMissionRequirements phase="wreckage_inspection"/>
+                    <CheckBlackboard key="mission_requires_sonar" expected_value="true"/>
+                    <SubTree ID="WreckageInspection" />
+                </Sequence>
+                
+                <Sequence name="return_to_dock">
+                    <PublishState state="6" />
+                    <SubTree ID="Homing" />
+                </Sequence>
+            </LearningMissionSelector>
+</Sequence>
+</BehaviorTree>
+
+<!-- Description of Node Models (used by Groot) -->
+<TreeNodesModel>
+    <Condition ID="CheckBlackboard">
+        <input_port name="key" type="String">Key to check</input_port>
+        <input_port name="expected_value" type="String">Expected value</input_port>
+    </Condition>
+    <Action ID="SetBlackboard">
+        <input_port name="output_key" type="String">Key to set</input_port>
+        <input_port name="value" type="String">Value to set</input_port>
+    </Action>
+    <Action ID="LoadMissionRequirements">
+        <input_port name="phase" type="String">Phase of the mission</input_port>
+    </Action>
+    <Action ID="PublishState">
+        <input_port name="state" type="Int">Mission state ID</input_port>
+    </Action>
+</TreeNodesModel>`
+</root>

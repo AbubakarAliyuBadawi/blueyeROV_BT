@@ -1,6 +1,0 @@
-blueye_bt_alt:
-  ros__parameters:
-    mission_directory: ""
-    mission_name: "dock_undock_mission"
-    default_velocity: 0.4
-    timeout_seconds: 30.0
