@@ -7,7 +7,7 @@ def generate_launch_description():
     rov_bt_pkg_dir = get_package_share_directory('blueye_bt')
     
     bt_dir = os.path.join(rov_bt_pkg_dir, 'behavior_trees')
-    behavior_tree_path = os.path.join(bt_dir, 'TestLearningMission2.xml')
+    behavior_tree_path = os.path.join(bt_dir, 'TestRL.xml')
     
     if not os.path.exists(behavior_tree_path):
         raise FileNotFoundError(f"Behavior tree file not found: {behavior_tree_path}")
