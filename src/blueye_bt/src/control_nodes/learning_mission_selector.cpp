@@ -281,7 +281,6 @@ void LearningMissionSelector::updateQValue(const MissionState& state, const Miss
     static int update_count = 0;
     if (++update_count % 10 == 0) {
         saveQTable("/tmp/mission_q_table.txt");
-        // saveQTable("/home/badawi/Desktop/mission_q_table.txt");
     }
 }
 

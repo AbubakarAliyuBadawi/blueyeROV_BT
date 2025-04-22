@@ -155,6 +155,7 @@ int main(int argc, char **argv) {
         {
             return std::make_unique<Wait>(name, config);
         });
+        
     // Register the node in main()
     factory.registerBuilder<PublishState>(
         "PublishState",

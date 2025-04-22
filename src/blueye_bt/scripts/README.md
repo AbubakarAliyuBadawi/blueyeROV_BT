@@ -7,3 +7,8 @@ Saved simulated learning curve to learning_curve.png
 Saved sensor impact visualization to sensor_impact.png
 All visualizations saved to /home/badawi/Desktop/blueyeROV_BT/src/blueye_bt/scripts/rl_visualizations/rl_visualizations
 badawi@badawi:~/Desktop/blueyeROV_BT/src/blueye_bt/scripts$ 
+
+
+
+
+streamlit run /home/badawi/Desktop/blueyeROV_BT/src/blueye_bt/scripts/interactive_rl_dashboard.py

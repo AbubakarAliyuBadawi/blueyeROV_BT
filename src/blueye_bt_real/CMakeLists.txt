@@ -17,8 +17,6 @@ find_package(behaviortree_cpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-# Add Blueye SDK
-find_package(blueye_sdk REQUIRED)
 
 # Include directories
 include_directories(
@@ -27,55 +25,52 @@ include_directories(
   ${blueye_sdk_INCLUDE_DIRS}
 )
 
-# Add BT nodes library
-add_library(blueye_bt_nodes SHARED
-  src/actions/navigate_waypoint_action.cpp
-  src/conditions/battery_condition.cpp
+# Add BT nodes library with new name to avoid clash
+add_library(blueye_bt_real_nodes SHARED
+  src/behaviors/launch_mission_procedure.cpp
+  src/behaviors/wait_node_real.cpp 
+  src/behaviors/launch_docking_real.cpp
 )
 
-# Add dependencies to the BT nodes library
-ament_target_dependencies(blueye_bt_nodes
+ament_target_dependencies(blueye_bt_real_nodes
   rclcpp
   behaviortree_cpp
   std_msgs
   geometry_msgs
   sensor_msgs
-  blueye_sdk
 )
 
-# Add the main executable
-add_executable(blueye_bt_executor src/bt_executor_node.cpp src/main.cpp)
+# Main executable
+add_executable(blueye_bt_real src/main.cpp)
 
-target_link_libraries(blueye_bt_executor
-  blueye_bt_nodes
-  ${behaviortree_cpp_LIBRARIES}
-  ${blueye_sdk_LIBRARIES}
-)
-
-ament_target_dependencies(blueye_bt_executor
+ament_target_dependencies(blueye_bt_real
   rclcpp
   behaviortree_cpp
   std_msgs
   geometry_msgs
   sensor_msgs
-  blueye_sdk
+)
+
+target_link_libraries(blueye_bt_real
+  blueye_bt_real_nodes
 )
 
 # Install targets
 install(TARGETS
-  blueye_bt_nodes
-  blueye_bt_executor
+  blueye_bt_real_nodes
+  blueye_bt_real
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
-# Install directories
+# Install headers
 install(DIRECTORY
   include/
   DESTINATION include
 )
 
+# Install behavior tree files, launch files, and configs
 install(DIRECTORY
   behavior_trees
   launch
