@@ -21,7 +21,7 @@
                                    fixed_heading="false"
                                    heading="1.57"
                                    safety_distance="5.0"
-                                   deviation_distance="10.0"
+                                   deviation_dischattance="15.0"
                                    deviation_velocity="0.2"
                                    obstacle_avoidance_enabled="false"
                                    waypoint_resume_delay="0.1"/>
@@ -35,7 +35,7 @@
                                    fixed_heading="false"
                                    heading="1.57"
                                    safety_distance="5.0"
-                                   deviation_distance="10.0"
+                                   deviation_distance="15.0"
                                    deviation_velocity="0.2"
                                    obstacle_avoidance_enabled="false"
                                    waypoint_resume_delay="0.1"/>

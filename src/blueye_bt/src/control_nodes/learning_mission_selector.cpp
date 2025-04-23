@@ -53,6 +53,54 @@ BT::PortsList LearningMissionSelector::providedPorts() {
 }
 
 BT::NodeStatus LearningMissionSelector::tick() {
+    // If we're already executing a mission sequence, continue from where we left off
+    if (currently_executing_) {
+        // Get the current child we're executing
+        if (current_child_index_ >= current_order_.size()) {
+            // We've completed all children, this is a failure case
+            currently_executing_ = false;
+            
+            // Calculate reward for failure
+            double reward = calculateReward(current_state_, current_order_.back(), false);
+            
+            // Update Q-table
+            if (learning_enabled_) {
+                updateQValue(current_state_, current_order_, reward);
+            }
+            
+            return BT::NodeStatus::FAILURE;
+        }
+        
+        size_t idx = current_order_[current_child_index_];
+        BT::NodeStatus child_status = children_nodes_[idx]->executeTick();
+        
+        if (child_status == BT::NodeStatus::SUCCESS) {
+            // This mission succeeded
+            currently_executing_ = false;
+            
+            // Calculate reward
+            double reward = calculateReward(current_state_, idx, true);
+            
+            // Update Q-table if learning
+            if (learning_enabled_) {
+                updateQValue(current_state_, current_order_, reward);
+            }
+            
+            return BT::NodeStatus::SUCCESS;
+        }
+        else if (child_status == BT::NodeStatus::RUNNING) {
+            // Child is still running, just return RUNNING without changing anything
+            return BT::NodeStatus::RUNNING;
+        }
+        else {
+            // Child failed, move to next one
+            current_child_index_++;
+            return tick(); // Recursively try the next child
+        }
+    }
+    
+    // Only reach here if we're not currently executing a mission sequence
+    
     // Update parameters from ports
     getInput("learning_rate", learning_rate_);
     getInput("discount_factor", discount_factor_);
@@ -101,50 +149,14 @@ BT::NodeStatus LearningMissionSelector::tick() {
     
     explanation_ = ss.str();
     setOutput("explanation", explanation_);
-    RCLCPP_INFO(g_node->get_logger(), "Mission selection: %s", explanation_.c_str());
+    RCLCPP_INFO(g_node->get_logger(), "Starting new mission selection: %s", explanation_.c_str());
     
-    // Now execute children in the selected order
-    MissionOrder execution_sequence = current_order_;
-    MissionState starting_state = current_state_;
+    // Mark that we're starting a new execution sequence
+    currently_executing_ = true;
+    current_child_index_ = 0;
     
-    // Try each mission in the determined order
-    for (size_t idx : execution_sequence) {
-        if (idx >= children_nodes_.size()) {
-            RCLCPP_ERROR(g_node->get_logger(), "Invalid child index %zu (max: %zu)", idx, children_nodes_.size() - 1);
-            continue;
-        }
-        
-        BT::NodeStatus child_status = children_nodes_[idx]->executeTick();
-        
-        if (child_status == BT::NodeStatus::SUCCESS) {
-            // This mission succeeded
-            
-            // Calculate reward
-            double reward = calculateReward(starting_state, idx, true);
-            
-            // Update Q-table if learning
-            if (learning_enabled_) {
-                updateQValue(starting_state, current_order_, reward);
-            }
-            
-            return BT::NodeStatus::SUCCESS;
-        }
-        else if (child_status == BT::NodeStatus::RUNNING) {
-            // Child is still running
-            return BT::NodeStatus::RUNNING;
-        }
-        // If child returned FAILURE, try the next one
-    }
-    
-    // All children failed
-    double reward = calculateReward(starting_state, execution_sequence.back(), false);
-    
-    // Update Q-table if learning
-    if (learning_enabled_) {
-        updateQValue(starting_state, current_order_, reward);
-    }
-    
-    return BT::NodeStatus::FAILURE;
+    // Start with the first child by recursively calling tick
+    return tick();
 }
 
 std::string LearningMissionSelector::missionOrderToString(const MissionOrder& order) {
@@ -277,11 +289,19 @@ void LearningMissionSelector::updateQValue(const MissionState& state, const Miss
     double new_q = (1 - learning_rate_) * old_q + learning_rate_ * reward;
     q_table_[state][order] = new_q;
     
-    // Save Q-table occasionally (e.g., after significant updates)
+    // Log the update
+    RCLCPP_INFO(g_node->get_logger(), "Updated Q-value - State: %s, Order: %s", 
+               state.toString().c_str(), missionOrderToString(order).c_str());
+    RCLCPP_INFO(g_node->get_logger(), "   Old Value: %.2f → New Value: %.2f (Reward: %.2f)", 
+               old_q, new_q, reward);
+    
+    // Save Q-table after every update
+    saveQTable("/tmp/mission_q_table.txt");
+    
+    // Optional: Keep the counter for logging purposes only
     static int update_count = 0;
-    if (++update_count % 10 == 0) {
-        saveQTable("/tmp/mission_q_table.txt");
-    }
+    update_count++;
+    RCLCPP_INFO(g_node->get_logger(), "Q-table saved (update #%d)", update_count);
 }
 
 double LearningMissionSelector::calculateReward(const MissionState& state, size_t completed_task, bool success) {
