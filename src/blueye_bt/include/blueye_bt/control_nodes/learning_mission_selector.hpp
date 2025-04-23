@@ -54,6 +54,10 @@ private:
     MissionState current_state_;
     MissionOrder current_order_;
     std::vector<size_t> children_indices_;
+
+    // State tracking for execution
+    bool currently_executing_ = false;
+    size_t current_child_index_ = 0;
     
     // Learning parameters
     double learning_rate_;
