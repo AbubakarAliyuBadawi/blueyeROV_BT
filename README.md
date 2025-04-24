@@ -3,24 +3,31 @@ A behaviourTree package for the BlueyeROV mission planning
 
 ## Dependencies
 BehaviorTree.CPP: https://github.com/BehaviorTree/BehaviorTree.CPP (not free)
+Needs to be installed in src directory of repo
+
+Then everything can be compiled using: 
+colcon build
 
 ### BehaviorTree.CPP
-is implemented with ROS2 and subscribes to the topics it needs access to and publishes mission states (e.g. waypoint)
+Behaviour tree is implemented with BehaviorTree.CPP is implemented with ROS2 and subscribes to the topics it needs access to and publishes mission states (e.g. waypoint)
 
 ## How To Run Mission Planner
+
+### 1st Terminal Simulator
 You need to run the simulator seperately in a terminal first, use:
 ros2 launch mundus_mir_simulator_launch mundus_mir_pipeline_world.launch.py
 
-Behaviour tree is implemented with BehaviorTree.CPP
-
-Sonar is essential for mission, seperate package taken from blueye ws, currently obstacle avoidance is implemented with conventional way -> would be interesting to get Sam's code in here instead. 
-
-In another terminal run sonar with: 
+### 2nd Terminal Sonar
+Sonar is essential for mission, separate package taken from blueye ws, currently obstacle avoidance is implemented with conventional way -> would be interesting to get Sam's code in here instead. 
+Sonar is part of the Bhevaior Tree repo:
+cd bl
 ros2 run gz_sonar gz_sonar
 
+### 3rd Terminal Mission Planner
 To launch mission planner package (including battery package)
 ros2 launch blueye_bt blueye_bt.launch.py
 
+### 4th Terminal Visualization
 In another Terminal run (from Mundusmir simulator package):
 ros2 run blueye_visualization blueye_visualization 
 
