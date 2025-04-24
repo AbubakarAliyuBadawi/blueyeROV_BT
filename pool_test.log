@@ -238,3 +238,44 @@
 2025-04-22 18:56:41,014 - pool_test - INFO - Stopping active mission
 2025-04-22 18:56:41,015 - pool_test - WARNING - Error checking mission status: 'Mission' object has no attribute 'stop'
 2025-04-22 18:56:41,022 - pool_test - INFO - Disconnected from drone
+2025-04-23 20:12:34,100 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-04-23 20:12:34,100 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-23 20:12:34,100 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-23 20:12:34,812 - blueye.sdk.drone - INFO - Connection successful, client id: 7
+2025-04-23 20:12:34,813 - blueye.sdk.drone - INFO - Client id in control: 7
+2025-04-23 20:12:34,813 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-04-23 20:12:34,820 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-23 20:12:34,821 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-23 20:12:34,821 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-23 20:12:34,821 - pool_test - INFO - Resetting drone position to coordinates: 63.4415, 10.3483 with heading: 0.0°
+2025-04-23 20:12:34,821 - pool_test - INFO - Position reset command sent successfully
+2025-04-23 20:12:37,670 - pool_test - INFO - Mission aborted by user
+2025-04-23 20:12:37,670 - pool_test - INFO - Disconnecting from drone
+2025-04-23 20:12:37,677 - pool_test - INFO - Disconnected from drone
+2025-04-23 20:13:17,101 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-04-23 20:13:17,101 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-23 20:13:17,101 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-23 20:13:17,927 - blueye.sdk.drone - INFO - Connection successful, client id: 8
+2025-04-23 20:13:17,927 - blueye.sdk.drone - INFO - Client id in control: 8
+2025-04-23 20:13:17,928 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-04-23 20:13:17,938 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-23 20:13:17,939 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-23 20:13:17,940 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-23 20:13:17,940 - pool_test - INFO - Resetting drone position to coordinates: 63.4415, 10.3483 with heading: 0.0°
+2025-04-23 20:13:17,940 - pool_test - INFO - Position reset command sent successfully
+2025-04-23 20:13:37,960 - pool_test - INFO - Creating pipeline survey
+2025-04-23 20:13:37,961 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-04-23 20:13:37,962 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-04-23 20:13:37,962 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-04-23 20:13:37,962 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-04-23 20:13:37,963 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-04-23 20:13:37,963 - pool_test - INFO - Clearing any previous missions
+2025-04-23 20:13:38,963 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-04-23 20:13:39,976 - pool_test - INFO - Starting mission execution
+2025-04-23 20:13:39,977 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/11 instructions, Time: 0s/60s, Depth: -0.1m
+2025-04-23 20:13:41,980 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 1s/61s, Depth: -0.1m
+2025-04-23 20:13:43,635 - pool_test - INFO - Mission aborted by user
+2025-04-23 20:13:43,635 - pool_test - INFO - Disconnecting from drone
+2025-04-23 20:13:43,635 - pool_test - INFO - Stopping active mission
+2025-04-23 20:13:43,635 - pool_test - WARNING - Error checking mission status: 'Mission' object has no attribute 'stop'
+2025-04-23 20:13:43,645 - pool_test - INFO - Disconnected from drone

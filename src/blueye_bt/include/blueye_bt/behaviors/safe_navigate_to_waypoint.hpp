@@ -15,7 +15,7 @@ public:
         // Add obstacle avoidance parameters to the base class ports
         auto base_ports = NavigateToWaypoint::providedPorts();
         base_ports.insert(BT::InputPort<double>("safety_distance", 5.0, "Minimum distance to obstacles"));
-        base_ports.insert(BT::InputPort<double>("deviation_distance", 12.0, "Distance to deviation point"));
+        base_ports.insert(BT::InputPort<double>("deviation_distance", 20.0, "Distance to deviation point"));
         base_ports.insert(BT::InputPort<double>("deviation_velocity", 0.2, "Velocity during avoidance"));
         base_ports.insert(BT::InputPort<bool>("obstacle_avoidance_enabled", true, "Enable obstacle avoidance"));
         base_ports.insert(BT::InputPort<double>("waypoint_resume_delay", 0.1, "Delay before returning to original path"));
