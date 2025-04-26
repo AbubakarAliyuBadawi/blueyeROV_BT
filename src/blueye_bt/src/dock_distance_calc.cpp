@@ -9,7 +9,7 @@ class DockDistanceCalculator : public rclcpp::Node {
 public:
     DockDistanceCalculator() : Node("dock_distance_calculator") {
         // Hardcoded dock station coordinates
-        dock_position_ = {128.53, -168.43, 193.93};
+        dock_position_ = {-221.0, 59.0, 194.90};
 
         RCLCPP_INFO(this->get_logger(), "=== UPDATED DOCK COORDINATES (VERSION 2025-03-03) ===");
         RCLCPP_INFO(this->get_logger(), "Dock position set to: [%.2f, %.2f, %.2f]", 
@@ -17,7 +17,7 @@ public:
         
         // Create subscription to odometry
         odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
-            "/blueye/odometry_flu/gt",
+            "/blueye/odometry_frd/gt",
             10,
             std::bind(&DockDistanceCalculator::odometryCallback, this, std::placeholders::_1)
         );

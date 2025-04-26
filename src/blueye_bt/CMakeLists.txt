@@ -15,6 +15,8 @@ find_package(geometry_msgs REQUIRED)
 find_package(marine_acoustic_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(tf2 REQUIRED)
 
 # Include directories
 include_directories(
@@ -24,6 +26,7 @@ include_directories(
   ${mundus_mir_msgs_INCLUDE_DIRS}
   ${nav_msgs_INCLUDE_DIRS}
   ${std_msgs_INCLUDE_DIRS}
+  ${YAML_CPP_INCLUDE_DIRS}
 )
 
 # BT nodes library
@@ -34,6 +37,14 @@ add_library(bt_nodes SHARED
   src/conditions/camera_condition.cpp
   src/conditions/sonar_condition.cpp
   src/conditions/system_watchdog.cpp
+  src/behaviors/load_mission_requirements.cpp
+  src/conditions/blackboard_condition.cpp 
+  src/actions/altitude_control_action.cpp
+  src/behaviors/launch_docking_procedure.cpp 
+  src/behaviors/wait_node.cpp 
+  src/actions/publish_state.cpp
+  src/behaviors/safe_navigate_to_waypoint.cpp
+  src/control_nodes/learning_mission_selector.cpp
 )
 
 # Add dependencies to the BT nodes library
@@ -52,12 +63,16 @@ ament_target_dependencies(bt_nodes
 # Link BT nodes with BehaviorTree.CPP library
 target_link_libraries(bt_nodes
   ${behaviortree_cpp_LIBRARIES}
+  ${YAML_CPP_LIBRARIES}
 )
 
 # Add remaining executables
 add_executable(battery_management src/battery_management.cpp)
 add_executable(dock_distance_calc src/dock_distance_calc.cpp)
 add_executable(blueye_bt src/main.cpp)
+add_executable(waypoint_obstacle_avoidance src/waypoint_obstacle_avoidance.cpp)
+add_executable(altitude_controller src/controllers/altitude_controller.cpp)
+add_executable(battery_percentage_node src/battery_percentage_node.cpp)
 
 # Link dependencies for each executable
 target_link_libraries(battery_management
@@ -69,6 +84,17 @@ target_link_libraries(dock_distance_calc
 target_link_libraries(blueye_bt
   bt_nodes
   ${behaviortree_cpp_LIBRARIES}
+  ${rclcpp_LIBRARIES}
+)
+
+target_link_libraries(waypoint_obstacle_avoidance
+  ${rclcpp_LIBRARIES}
+)
+
+target_link_libraries(altitude_controller 
+  ${rclcpp_LIBRARIES})
+
+target_link_libraries(battery_percentage_node
   ${rclcpp_LIBRARIES}
 )
 
@@ -96,12 +122,39 @@ ament_target_dependencies(blueye_bt
   sensor_msgs
 )
 
+ament_target_dependencies(waypoint_obstacle_avoidance
+  rclcpp
+  nav_msgs
+  std_msgs
+  std_srvs
+  geometry_msgs
+  marine_acoustic_msgs
+  mundus_mir_msgs
+  tf2
+)
+
+ament_target_dependencies(altitude_controller
+  rclcpp
+  nav_msgs
+  geometry_msgs
+  marine_acoustic_msgs
+  std_srvs
+)
+
+ament_target_dependencies(battery_percentage_node
+  rclcpp
+  nav_msgs
+  std_msgs
+  mundus_mir_msgs
+)
+
 # Install targets
 install(TARGETS
   bt_nodes
   blueye_bt
   battery_management
   dock_distance_calc
+  battery_percentage_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
@@ -117,6 +170,22 @@ install(DIRECTORY
   launch
   config
   DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY
+  scripts/
+  DESTINATION lib/${PROJECT_NAME}/scripts
+  USE_SOURCE_PERMISSIONS
+)
+
+install(TARGETS
+  waypoint_obstacle_avoidance
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS
+  altitude_controller
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()

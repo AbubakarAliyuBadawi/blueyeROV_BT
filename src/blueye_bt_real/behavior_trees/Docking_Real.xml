@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="Docking">
+    <BehaviorTree ID="Docking">
+        <Sequence name="docking_sequence">
+            <!-- Launch the external docking procedure -->
+            <LaunchDockingProcedure name="launch_integrated_docking" />
+            <!-- Wait for the docking to complete -->
+            <Wait name="wait_for_docking" duration="140" />
+            <!-- Extended charging wait period -->
+            <Sequence name="charging_sequence">
+                <SetBlackboard output_key="status_message" value="ROV successfully docked and now charging" />
+                <Wait name="charging_time" duration="10000" />
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    
+    <TreeNodesModel>
+        <Action ID="LaunchDockingProcedure" />
+        <Action ID="Wait">
+            <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+        </Action>
+        <Action ID="SetBlackboard">
+            <input_port name="output_key" type="String">Key to set</input_port>
+            <input_port name="value" type="String">Value to set</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="PipelineDockingMission">
+    <BehaviorTree ID="PipelineDockingMission">
+        <!-- Main mission sequence -->
+        <Sequence name="full_mission_sequence">
+            <!-- Execute the pipeline mission first -->
+            <LaunchMissionProcedure 
+                name="pipeline_inspection_mission" 
+                script_path="~/Desktop/blueyeROV_BT/launch_mission.sh"
+                drone_ip="192.168.1.101"
+                start_lat="63.441475"
+                start_lon="10.348348"
+                start_heading="0.0"/>
+            
+            <!-- Then execute the docking procedure -->
+            <LaunchMissionProcedure name="launch_integrated_docking" />
+                        
+            <!-- Extended charging wait period -->
+            <Sequence name="charging_sequence">
+                <SetBlackboard output_key="status_message" value="ROV successfully docked and now charging" />
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    
+    <TreeNodesModel>
+        <Action ID="LaunchMissionProcedure">
+            <input_port name="script_path" type="String">Path to the mission script</input_port>
+            <input_port name="drone_ip" type="String">IP address of the drone</input_port>
+            <input_port name="start_lat" type="Double">Starting latitude</input_port>
+            <input_port name="start_lon" type="Double">Starting longitude</input_port>
+            <input_port name="start_heading" type="Double">Starting heading in degrees</input_port>
+        </Action>
+        <!-- Remove LaunchDockingProcedure node since it's no longer used -->
+    </TreeNodesModel>
+</root>

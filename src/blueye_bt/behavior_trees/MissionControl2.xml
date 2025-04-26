@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="MissionControl2">
+    <!-- Include all the separate behavior tree files -->
+    <include path="UnDocking.xml"/>
+    <include path="SafeNavigation.xml"/>
+    
+    <!-- Main mission control tree -->
+    <BehaviorTree ID="MissionControl2">
+        <Sequence name="mission_control2">
+            <SubTree ID="UnDocking"/>
+            <SubTree ID="SafeNavigation"/>
+        </Sequence>
+           
+    </BehaviorTree>
+    
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="StationKeeping">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+            <input_port name="duration" type="Int">Duration in seconds</input_port>
+        </Action>
+        <Action ID="SafeNavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+            <input_port name="safety_distance" type="Double">Minimum distance to obstacles</input_port>
+            <input_port name="deviation_distance" type="Double">Distance to deviation point</input_port>
+            <input_port name="deviation_velocity" type="Double">Velocity during avoidance</input_port>
+            <input_port name="obstacle_avoidance_enabled" type="Boolean">Enable obstacle avoidance</input_port>
+            <input_port name="waypoint_resume_delay" type="Double">Delay before returning to original path</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

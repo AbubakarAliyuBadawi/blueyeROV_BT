@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="Transit_1">
+    <!-- Test tree for altitude control with obstacle avoidance -->
+    <BehaviorTree ID="Transit_1">
+        <Sequence name="main_sequence">
+
+            <!-- Point 1: Navigate  -->
+            <NavigateToWaypoint name="navigate_to_point1"
+                        x="-217.30" 
+                        y="71.90" 
+                        z="194.90" 
+                        velocity="0.4" 
+                        fixed_heading="false" 
+                        heading="0.0"/>
+                                   
+            <SafeNavigateToWaypoint name="navigate_to_point2"
+                                   x="-210.50"
+                                   y="95.50"
+                                   z="194.90"
+                                   velocity="0.4"
+                                   fixed_heading="false"
+                                   heading="1.57"
+                                   safety_distance="5.0"
+                                   deviation_distance="20.0"
+                                   deviation_velocity="0.2"
+                                   obstacle_avoidance_enabled="false"
+                                   waypoint_resume_delay="0.1"/>
+                                   
+            <!-- Point 2: Navigate there with obstacle avoidance -->
+            <SafeNavigateToWaypoint name="navigate_to_point2"
+                                   x="-210.50"
+                                   y="108.00"
+                                   z="194.90"
+                                   velocity="0.4"
+                                   fixed_heading="false"
+                                   heading="1.57"
+                                   safety_distance="5.0"
+                                   deviation_distance="20.0"
+                                   deviation_velocity="0.2"
+                                   obstacle_avoidance_enabled="false"
+                                   waypoint_resume_delay="0.1"/>
+        </Sequence>
+    </BehaviorTree>
+    
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="NavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+        </Action>
+        <Action ID="SafeNavigateToWaypoint">
+            <input_port name="x" type="Double">X coordinate</input_port>
+            <input_port name="y" type="Double">Y coordinate</input_port>
+            <input_port name="z" type="Double">Z coordinate</input_port>
+            <input_port name="velocity" type="Double">Desired velocity</input_port>
+            <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+            <input_port name="heading" type="Double">Desired heading</input_port>
+            <input_port name="safety_distance" type="Double">Minimum distance to obstacles</input_port>
+            <input_port name="deviation_distance" type="Double">Distance to deviation point</input_port>
+            <input_port name="deviation_velocity" type="Double">Velocity during avoidance</input_port>
+            <input_port name="obstacle_avoidance_enabled" type="Boolean">Enable obstacle avoidance</input_port>
+            <input_port name="waypoint_resume_delay" type="Double">Delay before returning to original path</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>
