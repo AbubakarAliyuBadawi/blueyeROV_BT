@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+      main_tree_to_execute="TestLearningMission">
+  <include path="PipeLineInspection.xml"/>
+  <include path="UnDocking.xml"/>
+  <include path="WreckageInspection.xml"/>
+  <include path="Docking.xml"/>
+  <include path="Homing.xml"/>
+
+  <BehaviorTree ID="TestLearningMission">
+    <Sequence name="setup_sequence">
+      <Sequence name="docking">
+        <PublishState state="1"/>
+        <SubTree ID="UnDocking"/>
+      </Sequence>
+      <SetBlackboard value="working"
+                     output_key="camera_status"/>
+      <SetBlackboard value="working"
+                     output_key="sonar_status"/>
+      <LearningMissionSelector name="mission_selector"
+                               learning_rate="0.1"
+                               discount_factor="0.9"
+                               exploration_rate="0.3"
+                               explanation="{explanation}">
+        <Sequence name="pipeline_inspection_mission">
+          <PublishState state="2"/>
+          <LoadMissionRequirements phase="pipeline_inspection"/>
+          <CheckBlackboard key="mission_requires_camera"
+                           expected_value="true"/>
+          <SubTree ID="PipeLineInspection"
+                   _autoremap="true"/>
+        </Sequence>
+        <Sequence name="wreckage_inspection_mission">
+          <PublishState state="3"/>
+          <LoadMissionRequirements phase="wreckage_inspection"/>
+          <CheckBlackboard key="mission_requires_sonar"
+                           expected_value="true"/>
+          <SubTree ID="WreckageInspection"/>
+        </Sequence>
+        <Sequence name="return_to_dock">
+          <PublishState state="4"/>
+          <SubTree ID="Homing"/>
+        </Sequence>
+      </LearningMissionSelector>
+      <Sequence name="docking">
+        <PublishState state="5"/>
+        <SubTree ID="Docking"
+                 _autoremap="false"/>
+      </Sequence>
+    </Sequence>
+  </BehaviorTree>
+
+   <!-- Description of Node Models (used by Groot) -->
+   <TreeNodesModel>
+    <Condition ID="CheckBlackboard">
+      <input_port name="key" type="String">Key to check</input_port>
+      <input_port name="expected_value" type="String">Expected value</input_port>
+    </Condition>
+    <Condition ID="CheckSonarStatus">
+      <input_port name="timeout_seconds" type="Double">Maximum time without messages before failure</input_port>
+    </Condition>
+    <Condition ID="CheckCameraStatus">
+      <input_port name="timeout_seconds" type="Double">Maximum time without messages before failure</input_port>
+    </Condition>
+    <Condition ID="SystemWatchdog">
+      <input_port name="max_failures" type="Int">Maximum consecutive failures before logging warning</input_port>
+      <output_port name="failing_topics" type="String">List of failing topics</output_port>
+    </Condition>
+    <Action ID="NavigateToWaypoint">
+      <input_port name="x" type="Double">X coordinate</input_port>
+      <input_port name="y" type="Double">Y coordinate</input_port>
+      <input_port name="z" type="Double">Z coordinate</input_port>
+      <input_port name="velocity" type="Double">Desired velocity</input_port>
+      <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+      <input_port name="heading" type="Double">Desired heading</input_port>
+    </Action>
+    <Action ID="StationKeeping">
+      <input_port name="x" type="Double">X coordinate</input_port>
+      <input_port name="y" type="Double">Y coordinate</input_port>
+      <input_port name="z" type="Double">Z coordinate</input_port>
+      <input_port name="heading" type="Double">Desired heading</input_port>
+      <input_port name="duration" type="Int">Duration in seconds</input_port>
+    </Action>
+    <Action ID="AltitudeControlAction">
+      <input_port name="enable" type="Boolean">Enable altitude control</input_port>
+      <input_port name="target_altitude" type="Double">Target altitude in meters</input_port>
+    </Action>
+    <Decorator ID="AbortOnCondition">
+      <input_port name="condition" type="String">Blackboard key to check for abortion</input_port>
+    </Decorator>
+    <Action ID="SetBlackboard">
+      <input_port name="output_key" type="String">Key to set</input_port>
+      <input_port name="value" type="String">Value to set</input_port>
+    </Action>
+    <Action ID="PublishState">
+      <input_port name="state" type="Int">Mission state ID</input_port>
+    </Action>
+    <Action ID="SafeNavigateToWaypoint">
+      <input_port name="x" type="Double">X coordinate</input_port>
+      <input_port name="y" type="Double">Y coordinate</input_port>
+      <input_port name="z" type="Double">Z coordinate</input_port>
+      <input_port name="velocity" type="Double">Desired velocity</input_port>
+      <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+      <input_port name="heading" type="Double">Desired heading</input_port>
+      <input_port name="safety_distance" type="Double">Minimum distance to obstacles</input_port>
+      <input_port name="deviation_distance" type="Double">Distance to deviation point</input_port>
+      <input_port name="deviation_velocity" type="Double">Velocity during avoidance</input_port>
+      <input_port name="obstacle_avoidance_enabled" type="Boolean">Enable obstacle avoidance</input_port>
+      <input_port name="waypoint_resume_delay" type="Double">Delay before returning to original path</input_port>
+  </Action>
+    <SubTree ID="Docking" />
+    <SubTree ID="UnDocking" />
+    <SubTree ID="PipeLineInspection" />
+    <SubTree ID="WreckageInspection" />
+    <SubTree ID="Homing" />
+    <SubTree ID="Transit_1" />
+    <SubTree ID="Transit_2" />
+  </TreeNodesModel>
+
+</root>

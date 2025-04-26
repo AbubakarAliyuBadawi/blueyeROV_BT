@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="TestLearningMission">
+    <BehaviorTree ID="TestLearningMission">
+        <Sequence name="setup_sequence">
+            <!-- Set up blackboard with sensor status -->
+            <SetBlackboard output_key="camera_status" value="working"/>
+            <SetBlackboard output_key="sonar_status" value="working"/>
+            
+            <!-- Main learning node with simplified children -->
+            <LearningMissionSelector name="mission_selector"
+                               learning_rate="0.1"
+                               discount_factor="0.9"
+                               exploration_rate="0.3"
+                               explanation="{explanation}">
+                <!-- Simple test actions instead of complex subtrees -->
+                <AlwaysSuccess name="task_1"/>
+                <AlwaysSuccess name="task_2"/>
+                <AlwaysSuccess name="task_3"/>
+            </LearningMissionSelector>
+        </Sequence>
+    </BehaviorTree>
+</root>

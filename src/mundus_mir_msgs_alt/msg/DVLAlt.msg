@@ -1,0 +1,12 @@
+std_msgs/Header header
+geometry_msgs/Vector3 vel_body
+geometry_msgs/Vector3 uncertainty_vel
+float64 vel_beam1
+float64 vel_beam2
+float64 vel_beam3
+float64 uncertainty_beam1
+float64 uncertainty_beam2
+float64 uncertainty_beam3
+float64 pressure
+float64 temperature
+bool vel_valid

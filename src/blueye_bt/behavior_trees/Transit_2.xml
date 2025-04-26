@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="Transit_2">
+
+    <!-- Test tree for altitude control -->
+    <BehaviorTree ID="Transit_2">
+        <Sequence name="main_sequence">
+            
+            <!-- Point 1: Navigate  -->
+            <NavigateToWaypoint name="navigate_to_point1"
+                               x="-235.00" 
+                               y="155.90" 
+                               z="189.00" 
+                               velocity="0.3" 
+                               fixed_heading="false" 
+                               heading="0.0"/>
+            
+            <!-- Point 2: Navigate there -->
+            <NavigateToWaypoint name="navigate_to_point2"
+                               x="-206.00" 
+                               y="169.00" 
+                               z="189.00" 
+                               velocity="0.3" 
+                               fixed_heading="false" 
+                               heading="1.57"/>
+            </Sequence>
+        </BehaviorTree>
+                
+        <!-- Description of Node Models (used by Groot) -->
+        <TreeNodesModel>    
+            <Action ID="NavigateToWaypoint">
+                <input_port name="x" type="Double">X coordinate</input_port>
+                <input_port name="y" type="Double">Y coordinate</input_port>
+                <input_port name="z" type="Double">Z coordinate</input_port>
+                <input_port name="velocity" type="Double">Desired velocity</input_port>
+                <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+                <input_port name="heading" type="Double">Desired heading</input_port>
+            </Action>
+            <Action ID="SafeNavigateToWaypoint">
+                <input_port name="x" type="Double">X coordinate</input_port>
+                <input_port name="y" type="Double">Y coordinate</input_port>
+                <input_port name="z" type="Double">Z coordinate</input_port>
+                <input_port name="velocity" type="Double">Desired velocity</input_port>
+                <input_port name="fixed_heading" type="Boolean">Whether to use fixed heading</input_port>
+                <input_port name="heading" type="Double">Desired heading</input_port>
+                <input_port name="safety_distance" type="Double">Minimum distance to obstacles</input_port>
+                <input_port name="deviation_distance" type="Double">Distance to deviation point</input_port>
+                <input_port name="deviation_velocity" type="Double">Velocity during avoidance</input_port>
+                <input_port name="obstacle_avoidance_enabled" type="Boolean">Enable obstacle avoidance</input_port>
+                <input_port name="waypoint_resume_delay" type="Double">Delay before returning to original path</input_port>
+            </Action>
+        </TreeNodesModel>
+            
+            </root>
+            
