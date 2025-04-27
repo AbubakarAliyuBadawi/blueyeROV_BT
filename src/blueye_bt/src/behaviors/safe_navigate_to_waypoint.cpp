@@ -241,6 +241,10 @@ float SafeNavigateToWaypoint::findMinDistanceInSector(const marine_acoustic_msgs
 
 bool SafeNavigateToWaypoint::checkForObstacles() {
     // Check if center sector has obstacle within safety distance
+
+    if (g_node->now() < avoidance_cooldown_end_) {
+        return false;
+    }
     if (min_dist_center_ < safety_distance_) {
         RCLCPP_INFO(g_node->get_logger(), "Obstacle detected! Distance (%.2f) < Safety threshold (%.2f)",
                     min_dist_center_, safety_distance_);
@@ -258,10 +262,14 @@ void SafeNavigateToWaypoint::startObstacleAvoidance() {
     
     // Create deviation waypoint
     // Determine if we should go left or right - go towards the side with more space
-    bool go_left = min_dist_left_ > min_dist_right_;
+    // bool go_left = min_dist_left_ > min_dist_right_;
+    bool go_left = min_dist_left_ < min_dist_right_;
     
     // Calculate 25-degree deviation angle
-    float deviation_angle = current_yaw_ + (go_left ? (25.0 * M_PI/180.0) : -(25.0 * M_PI/180.0));
+    // float deviation_angle = current_yaw_ + (go_left ? (25.0 * M_PI/180.0) : -(25.0 * M_PI/180.0));
+
+    // Calculate 40-degree deviation angle instead of 25-degree
+    float deviation_angle = current_yaw_ + (go_left ? (40.0 * M_PI/180.0) : -(40.0 * M_PI/180.0));
     
     // Calculate deviation point
     avoidance_waypoint_.x = current_pose_.position.x + deviation_distance_ * cos(deviation_angle);
@@ -310,8 +318,13 @@ void SafeNavigateToWaypoint::returnToOriginalWaypoint() {
     RCLCPP_INFO(g_node->get_logger(), "Recovery complete, returning to original waypoint");
     
     is_recovering_ = false;
-    avoidance_cooldown_end_ = g_node->now() + rclcpp::Duration::from_seconds(10.0); 
+    avoidance_cooldown_end_ = g_node->now() + rclcpp::Duration::from_seconds(15.0); 
     
+    // Reset distance values to ensure we're not using stale data
+    min_dist_left_ = std::numeric_limits<float>::max();
+    min_dist_center_ = std::numeric_limits<float>::max();
+    min_dist_right_ = std::numeric_limits<float>::max();
+
     // Clear existing waypoints
     if (!sa_clearWaypoints()) {
         RCLCPP_ERROR(g_node->get_logger(), "Failed to clear waypoints for return");

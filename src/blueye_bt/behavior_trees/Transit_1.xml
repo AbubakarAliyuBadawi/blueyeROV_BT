@@ -20,24 +20,24 @@
                                    velocity="0.4"
                                    fixed_heading="false"
                                    heading="1.57"
-                                   safety_distance="5.0"
-                                   deviation_distance="20.0"
-                                   deviation_velocity="0.2"
-                                   obstacle_avoidance_enabled="false"
+                                   safety_distance="2.0"
+                                   deviation_distance="60.0"
+                                   deviation_velocity="0.3"
+                                   obstacle_avoidance_enabled="true"
                                    waypoint_resume_delay="0.1"/>
                                    
             <!-- Point 2: Navigate there with obstacle avoidance -->
             <SafeNavigateToWaypoint name="navigate_to_point2"
                                    x="-210.50"
-                                   y="108.00"
+                                   y="97.00"
                                    z="194.90"
                                    velocity="0.4"
                                    fixed_heading="false"
                                    heading="1.57"
-                                   safety_distance="5.0"
-                                   deviation_distance="20.0"
-                                   deviation_velocity="0.2"
-                                   obstacle_avoidance_enabled="false"
+                                   safety_distance="2.0"
+                                   deviation_distance="60.0"
+                                   deviation_velocity="0.3"
+                                   obstacle_avoidance_enabled="true"
                                    waypoint_resume_delay="0.1"/>
         </Sequence>
     </BehaviorTree>
