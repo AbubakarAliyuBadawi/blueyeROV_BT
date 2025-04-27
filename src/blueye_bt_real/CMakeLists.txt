@@ -30,6 +30,10 @@ add_library(blueye_bt_real_nodes SHARED
   src/behaviors/launch_mission_procedure.cpp
   src/behaviors/wait_node_real.cpp 
   src/behaviors/launch_docking_real.cpp
+  src/behaviors/launch_depth_mission.cpp
+  src/conditions/BatteryLevelCondition.cpp
+  src/behaviors/goto_waypoint.cpp
+  src/behaviors/goto_waypoint_cc.cpp
 )
 
 ament_target_dependencies(blueye_bt_real_nodes

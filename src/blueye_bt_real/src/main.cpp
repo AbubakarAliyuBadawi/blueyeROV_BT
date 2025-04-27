@@ -11,6 +11,10 @@
 #include "blueye_bt_real/behaviors/launch_mission_procedure.hpp"
 #include "blueye_bt_real/behaviors/wait_node_real.hpp"
 #include "blueye_bt_real/behaviors/launch_docking_real.hpp"
+#include "blueye_bt_real/behaviors/launch_depth_mission.hpp"
+#include "blueye_bt_real/conditions/BatteryLevelCondition.hpp"
+#include "blueye_bt_real/behaviors/goto_waypoint.hpp"
+#include "blueye_bt_real/behaviors/goto_waypoint_cc.hpp"
 
 
 // Global node for service clients
@@ -61,11 +65,38 @@ int main(int argc, char **argv) {
         
     // Register the node in main()
     factory.registerBuilder<LaunchDockingProcedure>(
-    "LaunchDockingProcedure",
-    [](const std::string& name, const BT::NodeConfig& config) {
-        return std::make_unique<LaunchDockingProcedure>(name, config);
-    });
+        "LaunchDockingProcedure",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<LaunchDockingProcedure>(name, config);
+        });
 
+    // Register LaunchSimpleDepthMission
+    factory.registerBuilder<LaunchSimpleDepthMission>(
+        "LaunchSimpleDepthMission",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<LaunchSimpleDepthMission>(name, config);
+        });
+
+    // Register BatteryLevelCondition
+    factory.registerBuilder<BatteryLevelCondition>(
+        "BatteryLevelCondition",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<BatteryLevelCondition>(name, config);
+        });
+
+    // Register GoToWaypoint - Add this block
+    factory.registerBuilder<GoToWaypoint>(
+        "GoToWaypoint",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<GoToWaypoint>(name, config);
+        });
+
+    // Register GoToWaypoint - Add this block
+    factory.registerBuilder<GoToWaypointCC>(
+        "GoToWaypointCC",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<GoToWaypointCC>(name, config);
+        });
 
 try {
         std::string mission_file;

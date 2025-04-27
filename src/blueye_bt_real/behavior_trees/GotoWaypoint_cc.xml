@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="PipelineWaypointsWithDocking">
+    <BehaviorTree ID="PipelineWaypointsWithDocking">
+        <Sequence name="pipeline_inspection_sequence">
+            <Wait name="Starting_Delay" duration="3"/>
+            
+            <!-- First waypoint initializes the connection -->
+            <GoToWaypointCC name="pipeline_point_1" 
+                waypoint_lat="63.4406620" 
+                waypoint_lon="10.3488502" 
+                depth="0.5"
+                initialize_connection="true"/>
+                
+            <!-- Pipeline inspection waypoints -->
+            <GoToWaypointCC name="pipeline_point_2" 
+                waypoint_lat="63.4406063" 
+                waypoint_lon="10.3488254" 
+                depth="0.5"
+                initialize_connection="false"/>
+                
+            <GoToWaypointCC name="pipeline_point_3" 
+                waypoint_lat="63.4406029" 
+                waypoint_lon="10.3489612" 
+                depth="0.5"
+                initialize_connection="false"/>
+                
+            <GoToWaypointCC name="pipeline_point_4" 
+                waypoint_lat="63.4406575" 
+                waypoint_lon="10.3489893" 
+                depth="0.5"
+                initialize_connection="false"/>
+                
+            <!-- Navigate to docking station -->
+            <GoToWaypointCC name="docking_station_approach" 
+                waypoint_lat="63.4406991" 
+                waypoint_lon="10.3489964" 
+                depth="2.3"
+                initialize_connection="false"/>
+                
+            <!-- Execute docking procedure -->
+            <LaunchDockingProcedure name="docking_maneuver"/>
+            
+            <!-- Completed mission notification -->
+            <SetBlackboard value="Pipeline inspection completed and ROV docked successfully" 
+                output_key="status_message"/>
+        </Sequence>
+    </BehaviorTree>
+    
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="GoToWaypointCC">
+            <input_port name="waypoint_lat" type="Double">Target latitude</input_port>
+            <input_port name="waypoint_lon" type="Double">Target longitude</input_port>
+            <input_port name="depth" type="Double" default="1.0">Target depth in meters</input_port>
+            <input_port name="drone_ip" type="String" default="192.168.1.101">IP address of the drone</input_port>
+            <input_port name="initialize_connection" type="Bool" default="false">Whether to initialize a new connection</input_port>
+        </Action>
+        <Action ID="Wait">
+            <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+        </Action>
+        <Action ID="LaunchDockingProcedure"/>
+    </TreeNodesModel>
+</root>

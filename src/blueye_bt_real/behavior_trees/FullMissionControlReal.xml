@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="MissionControlReal">
+    <BehaviorTree ID="MissionControlReal">
+        <Sequence name="full_mission_sequence">
+            <Wait name="Getting_Ready" duration="10"/>
+            
+            <!-- Fallback between emergency docking and normal mission -->
+            <ReactiveFallback name="mission_with_battery_monitoring">
+                <!-- Emergency sequence to execute if battery is low -->
+                <Sequence name="emergency_sequence">
+                    <!-- Check if battery level is below threshold -->
+                    <BatteryLevelCondition name="check_battery" threshold="20"/>
+                    
+                    <!-- Emergency return to dock -->
+                    <Sequence name="emergency_return_and_dock">
+                        <!-- Navigate to docking station position -->
+                        <GoToWaypoint name="goto_docking_station"
+                            waypoint_lat="63.4406991"
+                            waypoint_lon="10.3489964"
+                            depth="2.0"
+                            drone_ip="192.168.1.101"/>
+                            
+                        <!-- Execute docking procedure once at position -->
+                        <LaunchDockingProcedure name="emergency_docking_maneuver"/>
+                        
+                        <!-- Update status message -->
+                        <SetBlackboard value="EMERGENCY: Low battery, ROV has docked and is now charging"
+                            output_key="status_message"/>
+                    </Sequence>
+                </Sequence>
+                
+                <!-- Normal mission sequence (only runs if battery is OK) -->
+                <Sequence name="normal_mission">
+                    <LaunchMissionProcedure name="pipeline_inspection_mission"
+                        script_path="~/Desktop/blueyeROV_BT/launch_mission.sh"
+                        drone_ip="192.168.1.101"
+                        start_lat="63.441475"
+                        start_lon="10.348348"
+                        start_heading="0.0"/>
+                    <LaunchDockingProcedure name="planned_docking_maneuver"/>
+                    <Sequence name="docked_&amp;_charging">
+                        <SetBlackboard value="ROV successfully docked and now charging"
+                            output_key="status_message"/>
+                        <Wait name="charging_time" duration="10000"/>
+                    </Sequence>
+                </Sequence>
+            </ReactiveFallback>
+        </Sequence>
+    </BehaviorTree>
+    
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="LaunchDockingProcedure"/>
+        <Action ID="LaunchMissionProcedure">
+            <input_port name="script_path" type="String">Path to the mission script</input_port>
+            <input_port name="drone_ip" type="String">IP address of the drone</input_port>
+            <input_port name="start_lat" type="Double">Starting latitude</input_port>
+            <input_port name="start_lon" type="Double">Starting longitude</input_port>
+            <input_port name="start_heading" type="Double">Starting heading in degrees</input_port>
+        </Action>
+        <Action ID="Wait">
+            <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+        </Action>
+        <Condition ID="BatteryLevelCondition">
+            <input_port name="threshold" type="Double" default="20.0">Battery percentage threshold</input_port>
+            <output_port name="battery_level" type="Double">Current battery level percentage</output_port>
+        </Condition>
+        <Action ID="GoToWaypoint">
+            <input_port name="waypoint_lat" type="Double">Target latitude</input_port>
+            <input_port name="waypoint_lon" type="Double">Target longitude</input_port>
+            <input_port name="depth" type="Double" default="1.0">Target depth in meters</input_port>
+            <input_port name="drone_ip" type="String" default="192.168.1.101">IP address of the drone</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

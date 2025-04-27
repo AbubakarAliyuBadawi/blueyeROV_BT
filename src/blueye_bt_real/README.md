@@ -1,0 +1,1 @@
+ros2 launch blueye_bt_real your_launch_file.py behavior_tree_path:=/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt_real/behavior_trees/GotoWaypoint.xml

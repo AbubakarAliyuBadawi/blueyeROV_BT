@@ -279,3 +279,17 @@
 2025-04-23 20:13:43,635 - pool_test - INFO - Stopping active mission
 2025-04-23 20:13:43,635 - pool_test - WARNING - Error checking mission status: 'Mission' object has no attribute 'stop'
 2025-04-23 20:13:43,645 - pool_test - INFO - Disconnected from drone
+2025-04-26 04:13:32,383 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-04-26 04:13:32,384 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 04:13:32,384 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 04:13:43,445 - pool_test - INFO - Mission aborted by user
+2025-04-26 04:14:45,085 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-04-26 04:14:45,085 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 04:14:45,085 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 04:15:15,116 - pool_test - ERROR - Failed to connect to drone: Could not establish connection with drone
+2025-04-26 04:15:15,116 - pool_test - ERROR - Failed to connect to drone. Exiting.
+2025-04-26 04:15:16,184 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-04-26 04:15:16,184 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 04:15:16,184 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 04:15:46,217 - pool_test - ERROR - Failed to connect to drone: Could not establish connection with drone
+2025-04-26 04:15:46,217 - pool_test - ERROR - Failed to connect to drone. Exiting.
