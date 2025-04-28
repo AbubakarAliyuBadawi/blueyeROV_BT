@@ -6,34 +6,40 @@
             
             <!-- First waypoint initializes the connection -->
             <GoToWaypointCC name="pipeline_point_1" 
-                waypoint_lat="63.4406620" 
-                waypoint_lon="10.3488502" 
+                waypoint_lat="63.44070" 
+                waypoint_lon="10.34899"
+                depth="0.5"
+            initialize_connection="true"/>
+
+            <!-- Pipeline inspection waypoints -->
+            <GoToWaypointCC name="pipeline_point_1" 
+                waypoint_lat="63.44068" 
+                waypoint_lon="10.34895"
                 depth="0.5"
                 initialize_connection="true"/>
                 
-            <!-- Pipeline inspection waypoints -->
             <GoToWaypointCC name="pipeline_point_2" 
-                waypoint_lat="63.4406063" 
-                waypoint_lon="10.3488254" 
+                waypoint_lat="63.44065" 
+                waypoint_lon="10.34895"  
                 depth="0.5"
                 initialize_connection="false"/>
                 
             <GoToWaypointCC name="pipeline_point_3" 
-                waypoint_lat="63.4406029" 
-                waypoint_lon="10.3489612" 
+                waypoint_lat="63.44065" 
+                waypoint_lon="10.34901" 
                 depth="0.5"
                 initialize_connection="false"/>
                 
             <GoToWaypointCC name="pipeline_point_4" 
-                waypoint_lat="63.4406575" 
-                waypoint_lon="10.3489893" 
+                waypoint_lat="63.44068" 
+                waypoint_lon="10.34901" 
                 depth="0.5"
                 initialize_connection="false"/>
                 
             <!-- Navigate to docking station -->
             <GoToWaypointCC name="docking_station_approach" 
-                waypoint_lat="63.4406991" 
-                waypoint_lon="10.3489964" 
+                waypoint_lat="63.44070" 
+                waypoint_lon="10.34899" 
                 depth="2.3"
                 initialize_connection="false"/>
                 

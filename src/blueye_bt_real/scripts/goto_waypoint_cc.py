@@ -18,7 +18,7 @@ from blueye.protocol.types.mission_planning import DepthZeroReference
 from blueye.protocol.types.message_formats import LatLongPosition
 
 # Import position reset extension
-from reset_position import extend_ctrl_client
+from mission_planner_scripts.reset_drone_position import extend_ctrl_client
 
 # File path for storing the connection object
 CONNECTION_CACHE_FILE = "/tmp/blueye_drone_connection.pkl"

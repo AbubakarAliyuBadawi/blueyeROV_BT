@@ -17,7 +17,7 @@ from blueye.protocol.types.mission_planning import DepthZeroReference
 from blueye.protocol.types.message_formats import LatLongPosition
 
 # Import position reset extension
-from reset_position import extend_ctrl_client
+from mission_planner_scripts.reset_drone_position import extend_ctrl_client
 
 def main():
     # Command line arguments (minimal version for simplicity)

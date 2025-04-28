@@ -1,5 +1,5 @@
-#ifndef GOTO_WAYPOINT_HPP
-#define GOTO_WAYPOINT_HPP
+#ifndef GOTO_WAYPOINT_CC_HPP
+#define GOTO_WAYPOINT_CC_HPP
 
 #include <string>
 #include "behaviortree_cpp/action_node.h"
@@ -23,4 +23,4 @@ public:
     BT::NodeStatus tick() override;
 };
 
-#endif // GOTO_WAYPOINT_HPP
+#endif // GOTO_WAYPOINT_CC_HPP
