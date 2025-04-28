@@ -11,7 +11,15 @@ public:
     
     static BT::PortsList providedPorts()
     {
-        return { };  // No parameters needed for simple version
+        return {
+            BT::InputPort<std::string>("script_path", "Path to the depth mission script"),
+            BT::InputPort<std::string>("drone_ip", "IP address of the drone"),
+            BT::InputPort<double>("start_lat", "Starting latitude"),
+            BT::InputPort<double>("start_lon", "Starting longitude"),
+            BT::InputPort<double>("start_heading", "Starting heading in degrees"),
+            BT::InputPort<double>("target_depth", "Target depth in meters"),
+            BT::InputPort<int>("duration", "Duration to maintain depth in seconds"),
+        };
     }
     
     BT::NodeStatus tick() override;

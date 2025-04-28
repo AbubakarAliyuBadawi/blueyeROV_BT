@@ -17,6 +17,7 @@ find_package(behaviortree_cpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
 
 # Include directories
 include_directories(
@@ -34,6 +35,7 @@ add_library(blueye_bt_real_nodes SHARED
   src/conditions/BatteryLevelCondition.cpp
   src/behaviors/goto_waypoint.cpp
   src/behaviors/goto_waypoint_cc.cpp
+  src/behaviors/activate_auto_modes.cpp
 )
 
 ament_target_dependencies(blueye_bt_real_nodes
@@ -42,6 +44,7 @@ ament_target_dependencies(blueye_bt_real_nodes
   std_msgs
   geometry_msgs
   sensor_msgs
+  std_srvs
 )
 
 # Main executable

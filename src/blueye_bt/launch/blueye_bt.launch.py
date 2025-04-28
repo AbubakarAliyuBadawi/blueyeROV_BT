@@ -84,7 +84,7 @@ def generate_launch_description():
         altitude_controller_node,
         battery_percentage_node,
         battery_node,
-        sonar_node,
+        # sonar_node,
     ])
     
     return ld

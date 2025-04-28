@@ -1,5 +1,4 @@
 #include "blueye_bt_real/behaviors/goto_waypoint_cc.hpp"
-#include <cstdlib>
 #include <sstream>
 #include <rclcpp/rclcpp.hpp>
 

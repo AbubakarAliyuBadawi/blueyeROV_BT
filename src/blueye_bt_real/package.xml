@@ -14,6 +14,7 @@
   <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
   <!-- Add the Blueye SDK package name here if it's available as a ROS package -->
   <!-- <depend>blueye_sdk</depend> -->
 

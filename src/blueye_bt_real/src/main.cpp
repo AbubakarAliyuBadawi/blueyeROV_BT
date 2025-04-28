@@ -15,7 +15,7 @@
 #include "blueye_bt_real/conditions/BatteryLevelCondition.hpp"
 #include "blueye_bt_real/behaviors/goto_waypoint.hpp"
 #include "blueye_bt_real/behaviors/goto_waypoint_cc.hpp"
-
+#include "blueye_bt_real/behaviors/activate_auto_modes.hpp"
 
 // Global node for service clients
 rclcpp::Node::SharedPtr g_node;
@@ -96,6 +96,13 @@ int main(int argc, char **argv) {
         "GoToWaypointCC",
         [](const std::string& name, const BT::NodeConfig& config) {
             return std::make_unique<GoToWaypointCC>(name, config);
+        });
+
+    // Register ActivateAutoModes
+    factory.registerBuilder<ActivateAutoModes>(
+        "ActivateAutoModes",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<ActivateAutoModes>(name, config);
         });
 
 try {
