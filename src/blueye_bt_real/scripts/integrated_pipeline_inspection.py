@@ -1,0 +1,311 @@
+#!/usr/bin/env python3
+"""
+Integrated Pipeline Inspection Mission Script for Blueye Drone
+
+This script executes a mission with multiple waypoints in a single mission:
+1. Navigate to start point
+2-5. Navigate along pipeline inspection waypoints
+6. Navigate to docking position (optional)
+
+Usage:
+  python integrated_pipeline_inspection.py [--drone-ip IP_ADDRESS] [--goto-docking BOOL]
+"""
+
+import sys
+import time
+import os
+import logging
+import argparse
+
+import blueye.protocol as bp
+from blueye.sdk import Drone
+from blueye.protocol.types.mission_planning import DepthZeroReference
+from blueye.protocol.types.message_formats import LatLongPosition
+
+# Import position reset extension - adjust the import path if needed
+from mission_planner_scripts.reset_drone_position import extend_ctrl_client
+
+def setup_logging(log_file="pipeline_mission.log", log_level="INFO"):
+    """Set up logging configuration."""
+    # Create log directory if needed
+    log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), log_file)
+    
+    # Set up logging level
+    level = getattr(logging, log_level.upper())
+    
+    # Configure logging
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_path),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    
+    return logging.getLogger("pipeline_mission")
+
+def parse_arguments():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description='Run a pipeline inspection mission')
+    
+    # Drone settings
+    parser.add_argument('--drone-ip', type=str, default="192.168.1.101",
+                        help='IP address of the Blueye drone')
+    
+    # Mission settings
+    parser.add_argument('--goto-docking', type=str, default="true", 
+                        help='Whether to go to docking station at the end (true/false)')
+    
+    # Parse arguments
+    return parser.parse_args()
+
+def connect_to_drone(ip, logger):
+    """Connect to the drone."""
+    logger.info(f"Connecting to drone at {ip}")
+    try:
+        drone = Drone(
+            ip=ip,
+            auto_connect=True,
+            timeout=30,
+        )
+        
+        logger.info(f"Connected to drone: {drone.serial_number}")
+        logger.info(f"Drone software version: {drone.software_version}")
+        
+        if not drone.in_control:
+            logger.info("Taking control of drone...")
+            drone.take_control()
+            logger.info("Control of drone acquired")
+        
+        # Extend the drone with the reset_position functionality
+        drone = extend_ctrl_client(drone)
+        logger.info("Drone control client extended with reset_position functionality")
+        
+        return drone
+        
+    except Exception as e:
+        logger.error(f"Failed to connect to drone: {str(e)}")
+        return None
+
+def create_pipeline_mission(goto_docking, logger):
+    """Create a mission with pipeline survey waypoints and optionally docking station."""
+    logger.info("Creating pipeline inspection mission")
+    
+    # Define all waypoints
+    waypoints = [
+        {"lat": 63.44070, "lon": 10.34899, "depth": 0.2, "name": "Start Point"},
+        {"lat": 63.44068, "lon": 10.34895, "depth": 0.2, "name": "Pipeline Point 1"},
+        {"lat": 63.44065, "lon": 10.34895, "depth": 0.2, "name": "Pipeline Point 2"},
+        {"lat": 63.44065, "lon": 10.34901, "depth": 0.2, "name": "Pipeline Point 3"},
+        {"lat": 63.44068, "lon": 10.34901, "depth": 0.2, "name": "Pipeline Point 4"}
+    ]
+    
+    # Add docking station if requested
+    if goto_docking:
+        waypoints.append({"lat": 63.44070, "lon": 10.34899, "depth": 2.3, "name": "Docking Station"})
+    
+    # Create the instructions for the mission
+    instructions = []
+    instruction_id = 1
+    
+    # Step 1: Configure auto-depth mode
+    control_mode = bp.Instruction(
+        id=instruction_id,
+        control_mode_command=bp.ControlModeCommand(
+            control_mode_vertical=bp.ControlModeVertical.CONTROL_MODE_VERTICAL_AUTO_DEPTH,
+            control_mode_horizontal=bp.ControlModeHorizontal.CONTROL_MODE_HORIZONTAL_AUTO_HEADING
+        ),
+        auto_continue=True
+    )
+    instructions.append(control_mode)
+    instruction_id += 1
+    
+    # For each waypoint, add instructions
+    for point in waypoints:
+        # Set depth for this waypoint
+        depth_set_point = bp.DepthSetPoint(
+            depth=point["depth"],
+            speed_to_depth=0.2,
+            depth_zero_reference=DepthZeroReference.DEPTH_ZERO_REFERENCE_SURFACE
+        )
+        
+        goto_depth = bp.Instruction(
+            id=instruction_id,
+            depth_set_point_command=bp.DepthSetPointCommand(
+                depth_set_point=depth_set_point
+            ),
+            auto_continue=True
+        )
+        instructions.append(goto_depth)
+        instruction_id += 1
+        
+        # Navigate to waypoint
+        waypoint = bp.Waypoint(
+            id=instruction_id,
+            name=point["name"],
+            global_position=LatLongPosition(
+                latitude=point["lat"],
+                longitude=point["lon"]
+            ),
+            circle_of_acceptance=1.0,
+            speed_to_target=0.3,
+            depth_set_point=depth_set_point
+        )
+        
+        goto_waypoint = bp.Instruction(
+            id=instruction_id,
+            waypoint_command=bp.WaypointCommand(
+                waypoint=waypoint
+            ),
+            auto_continue=True
+        )
+        instructions.append(goto_waypoint)
+        instruction_id += 1
+        logger.info(f"Added waypoint: {point['name']} ({point['lat']}, {point['lon']}) at {point['depth']}m depth")
+        
+        # Add a short wait at each waypoint
+        wait_instruction = bp.Instruction(
+            id=instruction_id,
+            wait_for_command=bp.WaitForCommand(
+                wait_for_seconds=2.0
+            ),
+            auto_continue=True
+        )
+        instructions.append(wait_instruction)
+        instruction_id += 1
+    
+    # Create the mission
+    mission = bp.Mission(
+        id=1,
+        name="Pipeline Inspection",
+        instructions=instructions,
+        default_surge_speed=0.3,
+        default_heave_speed=0.2,
+        default_circle_of_acceptance=1.0
+    )
+    
+    return mission
+
+def run_mission_with_retries(drone, mission, logger, max_retries=3):
+    """Run the mission and retry if aborted."""
+    if not drone or not drone.connected:
+        logger.error("Drone not connected. Cannot run mission.")
+        return False
+    
+    retry_count = 0
+    
+    try:
+        # Clear any existing missions
+        logger.info("Clearing any previous missions")
+        drone.mission.clear()
+        time.sleep(1)
+        
+        # Send the new mission
+        logger.info(f"Sending new mission: {mission.name}")
+        drone.mission.send_new(mission)
+        time.sleep(1)
+        
+        # Main mission execution loop with retries
+        while retry_count <= max_retries:
+            # Start or resume the mission
+            if retry_count == 0:
+                logger.info("Starting mission execution")
+            else:
+                logger.info(f"Resuming mission execution (attempt {retry_count + 1}/{max_retries + 1})")
+            
+            drone.mission.run()  # This will automatically continue from where it stopped
+            
+            # Monitor mission progress
+            while True:
+                # Get current mission status
+                status = drone.mission.get_status()
+                
+                # Log current status
+                state_msg = f"Mission: {status.state.name}, "
+                state_msg += f"Progress: {len(status.completed_instruction_ids)}/{status.total_number_of_instructions} instructions, "
+                state_msg += f"Time: {status.time_elapsed}s/{status.time_elapsed + status.estimated_time_to_complete}s"
+                try:
+                    depth = drone.depth
+                    state_msg += f", Depth: {depth:.1f}m"
+                except:
+                    pass
+                logger.info(state_msg)
+                
+                # Check mission state
+                if status.state == bp.MissionState.MISSION_STATE_COMPLETED:
+                    logger.info("Mission completed successfully")
+                    return True
+                elif status.state == bp.MissionState.MISSION_STATE_ABORTED:
+                    logger.warning(f"Mission was aborted (attempt {retry_count + 1}/{max_retries + 1})")
+                    
+                    if retry_count < max_retries:
+                        # Instantly retry
+                        retry_count += 1
+                        break  # Break out of the inner loop to retry mission.run()
+                    else:
+                        logger.warning(f"Maximum retry attempts ({max_retries}) reached. Mission failed.")
+                        return False
+                elif status.state in [
+                    bp.MissionState.MISSION_STATE_FAILED_TO_LOAD_MISSION,
+                    bp.MissionState.MISSION_STATE_FAILED_TO_START_MISSION
+                ]:
+                    logger.error(f"Mission failed with state: {status.state.name}")
+                    return False
+                
+                time.sleep(2)  # Poll every 2 seconds
+            
+    except Exception as e:
+        logger.error(f"Error during mission execution: {str(e)}")
+        # Try to stop the mission if there's an error
+        try:
+            drone.mission.stop()
+        except:
+            pass
+        return False
+
+def main():
+    """Main function."""
+    # Parse command line arguments
+    args = parse_arguments()
+    
+    # Convert string "true"/"false" to boolean
+    goto_docking = args.goto_docking.lower() in ['true', 't', '1', 'yes', 'y']
+    
+    # Set up logging
+    logger = setup_logging()
+    logger.info(f"Starting Integrated Pipeline Inspection Mission (goto_docking={goto_docking})")
+    
+    drone = None
+    success = False
+    
+    try:
+        # Connect to the drone
+        drone = connect_to_drone(args.drone_ip, logger)
+        if not drone:
+            logger.error("Failed to connect to drone. Exiting.")
+            return 1
+        
+        # Create the multi-waypoint mission
+        mission = create_pipeline_mission(goto_docking, logger)
+        
+        # Run the mission with automatic resumption
+        success = run_mission_with_retries(drone, mission, logger)
+        
+        logger.info(f"Mission {'completed successfully' if success else 'failed'}")
+        return 0 if success else 1
+        
+    except KeyboardInterrupt:
+        logger.info("Mission aborted by user")
+        return 130  # Standard exit code for SIGINT
+        
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        return 1
+        
+    finally:
+        # We don't disconnect from the drone here so that other behaviors can use it
+        pass
+
+if __name__ == "__main__":
+    sys.exit(main())

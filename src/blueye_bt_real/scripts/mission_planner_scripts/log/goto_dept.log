@@ -1,0 +1,4 @@
+2025-04-28 13:03:24,445 - depth_mission - INFO - Starting Simple Depth Mission to 1.5m for 180s
+2025-04-28 13:03:24,445 - depth_mission - INFO - Connecting to drone at 192.168.1.101
+2025-04-28 13:03:24,445 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-28 13:03:26,265 - depth_mission - INFO - Mission aborted by user

@@ -1,0 +1,64 @@
+2025-04-26 02:30:39,539 - depth_mission - INFO - Starting Simple Depth Mission to 1.5m for 180s
+2025-04-26 02:30:39,539 - depth_mission - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 02:30:39,539 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 02:30:48,694 - depth_mission - INFO - Mission aborted by user
+2025-04-26 15:06:46,354 - depth_mission - INFO - Starting Simple Depth Mission to 1.5m for 180s
+2025-04-26 15:06:46,354 - depth_mission - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 15:06:46,354 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 15:07:05,969 - depth_mission - INFO - Mission aborted by user
+2025-04-26 15:07:09,061 - depth_mission - INFO - Starting Simple Depth Mission to 1.5m for 180s
+2025-04-26 15:07:09,061 - depth_mission - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 15:07:09,061 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 15:07:09,774 - blueye.sdk.drone - INFO - Connection successful, client id: 9
+2025-04-26 15:07:09,774 - blueye.sdk.drone - INFO - Client id in control: 8
+2025-04-26 15:07:09,774 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-04-26 15:07:09,775 - depth_mission - INFO - Connected to drone: BYEDP220009
+2025-04-26 15:07:09,775 - depth_mission - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-26 15:07:09,775 - depth_mission - INFO - Taking control of drone...
+2025-04-26 15:07:09,794 - depth_mission - INFO - Control of drone acquired
+2025-04-26 15:07:09,794 - depth_mission - INFO - Drone control client extended with reset_position functionality
+2025-04-26 15:07:09,794 - depth_mission - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-04-26 15:07:09,795 - depth_mission - INFO - Position reset command sent successfully
+2025-04-26 15:07:14,800 - depth_mission - INFO - Creating simple depth mission to 1.5m for 180 seconds
+2025-04-26 15:07:14,800 - depth_mission - INFO - Clearing any previous missions
+2025-04-26 15:07:15,803 - depth_mission - INFO - Sending new mission: Simple Depth Mission
+2025-04-26 15:07:15,854 - depth_mission - ERROR - Error during mission execution: No response received from drone before timeout
+2025-04-26 15:07:15,854 - depth_mission - INFO - Mission failed
+2025-04-26 15:07:15,854 - depth_mission - INFO - Disconnecting from drone
+2025-04-26 15:07:15,881 - depth_mission - INFO - Disconnected from drone
+2025-04-26 15:07:25,613 - depth_mission - INFO - Starting Simple Depth Mission to 1.5m for 180s
+2025-04-26 15:07:25,613 - depth_mission - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 15:07:25,613 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 15:07:26,496 - blueye.sdk.drone - INFO - Connection successful, client id: 10
+2025-04-26 15:07:26,496 - blueye.sdk.drone - INFO - Client id in control: 10
+2025-04-26 15:07:26,498 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-04-26 15:07:26,505 - depth_mission - INFO - Connected to drone: BYEDP220009
+2025-04-26 15:07:26,506 - depth_mission - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-26 15:07:26,506 - depth_mission - INFO - Drone control client extended with reset_position functionality
+2025-04-26 15:07:26,506 - depth_mission - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-04-26 15:07:26,507 - depth_mission - INFO - Position reset command sent successfully
+2025-04-26 15:07:31,512 - depth_mission - INFO - Creating simple depth mission to 1.5m for 180 seconds
+2025-04-26 15:07:31,512 - depth_mission - INFO - Clearing any previous missions
+2025-04-26 15:07:32,514 - depth_mission - INFO - Sending new mission: Simple Depth Mission
+2025-04-26 15:07:33,527 - depth_mission - ERROR - Failed to load mission. State: MISSION_STATE_INACTIVE
+2025-04-26 15:07:33,527 - depth_mission - INFO - Mission failed
+2025-04-26 15:07:33,528 - depth_mission - INFO - Disconnecting from drone
+2025-04-26 15:07:33,537 - depth_mission - INFO - Disconnected from drone
+2025-04-26 15:07:53,756 - depth_mission - INFO - Starting Simple Depth Mission to 1.5m for 180s
+2025-04-26 15:07:53,756 - depth_mission - INFO - Connecting to drone at 192.168.1.101
+2025-04-26 15:07:53,756 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-26 15:07:54,548 - blueye.sdk.drone - INFO - Connection successful, client id: 11
+2025-04-26 15:07:54,549 - blueye.sdk.drone - INFO - Client id in control: 11
+2025-04-26 15:07:54,549 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-04-26 15:07:54,573 - depth_mission - INFO - Connected to drone: BYEDP220009
+2025-04-26 15:07:54,573 - depth_mission - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-26 15:07:54,573 - depth_mission - INFO - Drone control client extended with reset_position functionality
+2025-04-26 15:07:54,573 - depth_mission - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-04-26 15:07:54,573 - depth_mission - INFO - Position reset command sent successfully
+2025-04-26 15:07:59,579 - depth_mission - INFO - Creating simple depth mission to 1.5m for 180 seconds
+2025-04-26 15:07:59,581 - depth_mission - INFO - Clearing any previous missions
+2025-04-26 15:08:00,582 - depth_mission - INFO - Sending new mission: Simple Depth Mission
+2025-04-26 15:08:01,593 - depth_mission - ERROR - Failed to load mission. State: MISSION_STATE_INACTIVE
+2025-04-26 15:08:01,593 - depth_mission - INFO - Mission failed
+2025-04-26 15:08:01,593 - depth_mission - INFO - Disconnecting from drone
+2025-04-26 15:08:01,605 - depth_mission - INFO - Disconnected from drone

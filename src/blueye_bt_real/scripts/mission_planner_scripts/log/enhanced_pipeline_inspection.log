@@ -1,0 +1,1524 @@
+2025-04-29 18:57:52,259 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-04-29 18:57:52,259 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-29 18:57:52,259 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-29 18:57:53,015 - blueye.sdk.drone - INFO - Connection successful, client id: 59
+2025-04-29 18:57:53,015 - blueye.sdk.drone - INFO - Client id in control: 59
+2025-04-29 18:57:53,015 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-04-29 18:57:53,029 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-29 18:57:53,029 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-29 18:57:53,029 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-29 18:57:53,030 - pool_test - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-04-29 18:57:53,030 - pool_test - INFO - Position reset command sent successfully
+2025-04-29 18:58:03,040 - pool_test - INFO - Creating pipeline survey
+2025-04-29 18:58:03,041 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-04-29 18:58:03,042 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-04-29 18:58:03,042 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-04-29 18:58:03,042 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-04-29 18:58:03,043 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-04-29 18:58:03,043 - pool_test - INFO - Clearing any previous missions
+2025-04-29 18:58:04,043 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-04-29 18:58:05,057 - pool_test - INFO - Starting mission execution
+2025-04-29 18:58:05,058 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/174s, Depth: -0.3m
+2025-04-29 18:58:07,061 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/11 instructions, Time: 0s/215s, Depth: -0.3m
+2025-04-29 18:58:09,064 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 3s/63s, Depth: -0.3m
+2025-04-29 18:58:11,067 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 5s/65s, Depth: -0.3m
+2025-04-29 18:58:13,070 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 7s/67s, Depth: -0.3m
+2025-04-29 18:58:15,073 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 9s/69s, Depth: -0.2m
+2025-04-29 18:58:17,075 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 11s/71s, Depth: -0.1m
+2025-04-29 18:58:19,076 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 13s/73s, Depth: -0.0m
+2025-04-29 18:58:21,080 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 15s/75s, Depth: 0.1m
+2025-04-29 18:58:23,083 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 17s/77s, Depth: 0.3m
+2025-04-29 18:58:25,086 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 19s/79s, Depth: 0.4m
+2025-04-29 18:58:27,089 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 21s/81s, Depth: 0.6m
+2025-04-29 18:58:29,092 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 23s/83s, Depth: 0.7m
+2025-04-29 18:58:31,094 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 25s/85s, Depth: 0.9m
+2025-04-29 18:58:33,097 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 27s/87s, Depth: 1.1m
+2025-04-29 18:58:35,100 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 29s/89s, Depth: 1.3m
+2025-04-29 18:58:37,103 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 31s/91s, Depth: 1.4m
+2025-04-29 18:58:39,106 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 33s/93s, Depth: 1.5m
+2025-04-29 18:58:41,109 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 35s/95s, Depth: 1.6m
+2025-04-29 18:58:43,112 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 37s/97s, Depth: 1.7m
+2025-04-29 18:58:45,115 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 39s/99s, Depth: 1.7m
+2025-04-29 18:58:47,118 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 41s/101s, Depth: 1.8m
+2025-04-29 18:58:49,121 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 43s/103s, Depth: 1.9m
+2025-04-29 18:58:51,123 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 45s/105s, Depth: 1.9m
+2025-04-29 18:58:53,126 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 47s/264s, Depth: 1.9m
+2025-04-29 18:58:55,129 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 49s/266s, Depth: 1.9m
+2025-04-29 18:58:57,132 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 51s/268s, Depth: 1.8m
+2025-04-29 18:58:59,135 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 53s/270s, Depth: 1.8m
+2025-04-29 18:59:01,137 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 55s/273s, Depth: 1.8m
+2025-04-29 18:59:03,139 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 57s/276s, Depth: 1.9m
+2025-04-29 18:59:05,142 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 59s/279s, Depth: 1.9m
+2025-04-29 18:59:07,145 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 61s/282s, Depth: 1.9m
+2025-04-29 18:59:09,148 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 61s/283s, Depth: 1.9m
+2025-04-29 18:59:09,148 - pool_test - WARNING - Mission was aborted (attempt 1/6)
+2025-04-29 18:59:09,148 - pool_test - INFO - Instantly resuming mission execution (attempt 2/6)
+2025-04-29 18:59:09,149 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 61s/283s, Depth: 1.9m
+2025-04-29 18:59:09,149 - pool_test - WARNING - Mission was aborted (attempt 2/6)
+2025-04-29 18:59:09,149 - pool_test - INFO - Instantly resuming mission execution (attempt 3/6)
+2025-04-29 18:59:09,150 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 61s/283s, Depth: 1.9m
+2025-04-29 18:59:09,150 - pool_test - WARNING - Mission was aborted (attempt 3/6)
+2025-04-29 18:59:09,150 - pool_test - INFO - Instantly resuming mission execution (attempt 4/6)
+2025-04-29 18:59:09,151 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 61s/283s, Depth: 1.9m
+2025-04-29 18:59:09,151 - pool_test - WARNING - Mission was aborted (attempt 4/6)
+2025-04-29 18:59:09,151 - pool_test - INFO - Instantly resuming mission execution (attempt 5/6)
+2025-04-29 18:59:09,152 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 61s/283s, Depth: 1.9m
+2025-04-29 18:59:09,152 - pool_test - WARNING - Mission was aborted (attempt 5/6)
+2025-04-29 18:59:09,152 - pool_test - INFO - Instantly resuming mission execution (attempt 6/6)
+2025-04-29 18:59:09,152 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 61s/283s, Depth: 1.9m
+2025-04-29 18:59:09,152 - pool_test - WARNING - Mission was aborted (attempt 6/6)
+2025-04-29 18:59:09,152 - pool_test - WARNING - Maximum retry attempts (5) reached. Mission failed.
+2025-04-29 18:59:09,152 - pool_test - INFO - Mission failed
+2025-04-29 18:59:09,153 - pool_test - INFO - Disconnecting from drone
+2025-04-29 18:59:09,163 - pool_test - INFO - Disconnected from drone
+2025-04-29 19:05:41,107 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-04-29 19:05:41,107 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-29 19:05:41,107 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-29 19:05:41,920 - blueye.sdk.drone - INFO - Connection successful, client id: 63
+2025-04-29 19:05:41,920 - blueye.sdk.drone - INFO - Client id in control: 62
+2025-04-29 19:05:41,921 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-04-29 19:05:41,921 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-29 19:05:41,922 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-29 19:05:41,922 - pool_test - INFO - Taking control of drone...
+2025-04-29 19:05:41,956 - pool_test - INFO - Control of drone acquired
+2025-04-29 19:05:41,956 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-29 19:05:41,956 - pool_test - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-04-29 19:05:41,956 - pool_test - INFO - Position reset command sent successfully
+2025-04-29 19:05:51,966 - pool_test - INFO - Creating pipeline survey
+2025-04-29 19:05:51,968 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-04-29 19:05:51,968 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-04-29 19:05:51,969 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-04-29 19:05:51,969 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-04-29 19:05:51,969 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-04-29 19:05:51,970 - pool_test - INFO - Clearing any previous missions
+2025-04-29 19:05:52,970 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-04-29 19:05:53,990 - pool_test - INFO - Starting mission execution
+2025-04-29 19:05:53,991 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/11 instructions, Time: 0s/60s, Depth: -0.3m
+2025-04-29 19:05:55,995 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 1s/61s, Depth: -0.3m
+2025-04-29 19:05:57,998 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 3s/63s, Depth: -0.3m
+2025-04-29 19:06:00,001 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 5s/65s, Depth: -0.3m
+2025-04-29 19:06:02,004 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 7s/67s, Depth: -0.2m
+2025-04-29 19:06:04,007 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 9s/69s, Depth: -0.1m
+2025-04-29 19:06:06,011 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 11s/71s, Depth: 0.0m
+2025-04-29 19:06:08,014 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 13s/73s, Depth: 0.1m
+2025-04-29 19:06:10,017 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 15s/75s, Depth: 0.3m
+2025-04-29 19:06:12,020 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 17s/77s, Depth: 0.5m
+2025-04-29 19:06:14,023 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 19s/236s, Depth: 0.5m
+2025-04-29 19:06:16,026 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 21s/238s, Depth: 0.5m
+2025-04-29 19:06:18,029 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 23s/240s, Depth: 0.4m
+2025-04-29 19:06:20,031 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 25s/242s, Depth: 0.3m
+2025-04-29 19:06:22,034 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 27s/244s, Depth: 0.3m
+2025-04-29 19:06:24,037 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 29s/247s, Depth: 0.3m
+2025-04-29 19:06:26,040 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 31s/250s, Depth: 0.3m
+2025-04-29 19:06:28,044 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 32s/252s, Depth: 0.4m
+2025-04-29 19:06:28,044 - pool_test - WARNING - Mission was aborted (attempt 1/6)
+2025-04-29 19:06:28,045 - pool_test - INFO - Instantly resuming mission execution (attempt 2/6)
+2025-04-29 19:06:28,045 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 32s/252s, Depth: 0.4m
+2025-04-29 19:06:28,046 - pool_test - WARNING - Mission was aborted (attempt 2/6)
+2025-04-29 19:06:28,046 - pool_test - INFO - Instantly resuming mission execution (attempt 3/6)
+2025-04-29 19:06:28,047 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 32s/252s, Depth: 0.4m
+2025-04-29 19:06:28,048 - pool_test - WARNING - Mission was aborted (attempt 3/6)
+2025-04-29 19:06:28,048 - pool_test - INFO - Instantly resuming mission execution (attempt 4/6)
+2025-04-29 19:06:28,048 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 32s/252s, Depth: 0.4m
+2025-04-29 19:06:28,048 - pool_test - WARNING - Mission was aborted (attempt 4/6)
+2025-04-29 19:06:28,049 - pool_test - INFO - Instantly resuming mission execution (attempt 5/6)
+2025-04-29 19:06:28,049 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 32s/252s, Depth: 0.4m
+2025-04-29 19:06:28,049 - pool_test - WARNING - Mission was aborted (attempt 5/6)
+2025-04-29 19:06:28,049 - pool_test - INFO - Instantly resuming mission execution (attempt 6/6)
+2025-04-29 19:06:28,050 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/11 instructions, Time: 32s/252s, Depth: 0.4m
+2025-04-29 19:06:28,050 - pool_test - WARNING - Mission was aborted (attempt 6/6)
+2025-04-29 19:06:28,050 - pool_test - WARNING - Maximum retry attempts (5) reached. Mission failed.
+2025-04-29 19:06:28,050 - pool_test - INFO - Mission failed
+2025-04-29 19:06:28,050 - pool_test - INFO - Disconnecting from drone
+2025-04-29 19:06:28,061 - pool_test - INFO - Disconnected from drone
+2025-04-29 19:13:57,436 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-04-29 19:13:57,436 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-29 19:13:57,436 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-29 19:13:58,356 - blueye.sdk.drone - INFO - Connection successful, client id: 69
+2025-04-29 19:13:58,356 - blueye.sdk.drone - INFO - Client id in control: 68
+2025-04-29 19:13:58,357 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-04-29 19:13:58,357 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-29 19:13:58,357 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-29 19:13:58,357 - pool_test - INFO - Taking control of drone...
+2025-04-29 19:13:58,374 - pool_test - INFO - Control of drone acquired
+2025-04-29 19:13:58,375 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-29 19:13:58,375 - pool_test - INFO - Resetting drone position to coordinates: 63.440662, 10.3488502 with heading: 180.0°
+2025-04-29 19:13:58,375 - pool_test - INFO - Position reset command sent successfully
+2025-04-29 19:14:08,380 - pool_test - INFO - Creating pipeline survey
+2025-04-29 19:14:08,381 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-04-29 19:14:08,382 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-04-29 19:14:08,382 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-04-29 19:14:08,382 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-04-29 19:14:08,383 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-04-29 19:14:08,383 - pool_test - INFO - Clearing any previous missions
+2025-04-29 19:14:09,383 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-04-29 19:14:10,397 - pool_test - INFO - Starting mission execution
+2025-04-29 19:14:10,398 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/20s, Depth: -0.3m
+2025-04-29 19:14:12,399 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 0s/60s, Depth: -0.3m
+2025-04-29 19:14:14,402 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 2s/62s, Depth: -0.3m
+2025-04-29 19:14:16,405 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 4s/64s, Depth: -0.3m
+2025-04-29 19:14:18,408 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 6s/66s, Depth: -0.3m
+2025-04-29 19:14:20,411 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 8s/68s, Depth: -0.2m
+2025-04-29 19:14:22,413 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.1m
+2025-04-29 19:14:24,416 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,417 - pool_test - WARNING - Mission was aborted (attempt 1/101)
+2025-04-29 19:14:24,417 - pool_test - INFO - Instantly resuming mission execution (attempt 2/101)
+2025-04-29 19:14:24,417 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,417 - pool_test - WARNING - Mission was aborted (attempt 2/101)
+2025-04-29 19:14:24,417 - pool_test - INFO - Instantly resuming mission execution (attempt 3/101)
+2025-04-29 19:14:24,418 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,418 - pool_test - WARNING - Mission was aborted (attempt 3/101)
+2025-04-29 19:14:24,418 - pool_test - INFO - Instantly resuming mission execution (attempt 4/101)
+2025-04-29 19:14:24,418 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,418 - pool_test - WARNING - Mission was aborted (attempt 4/101)
+2025-04-29 19:14:24,418 - pool_test - INFO - Instantly resuming mission execution (attempt 5/101)
+2025-04-29 19:14:24,419 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,419 - pool_test - WARNING - Mission was aborted (attempt 5/101)
+2025-04-29 19:14:24,420 - pool_test - INFO - Instantly resuming mission execution (attempt 6/101)
+2025-04-29 19:14:24,421 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,421 - pool_test - WARNING - Mission was aborted (attempt 6/101)
+2025-04-29 19:14:24,421 - pool_test - INFO - Instantly resuming mission execution (attempt 7/101)
+2025-04-29 19:14:24,421 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,422 - pool_test - WARNING - Mission was aborted (attempt 7/101)
+2025-04-29 19:14:24,422 - pool_test - INFO - Instantly resuming mission execution (attempt 8/101)
+2025-04-29 19:14:24,422 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,422 - pool_test - WARNING - Mission was aborted (attempt 8/101)
+2025-04-29 19:14:24,422 - pool_test - INFO - Instantly resuming mission execution (attempt 9/101)
+2025-04-29 19:14:24,423 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,423 - pool_test - WARNING - Mission was aborted (attempt 9/101)
+2025-04-29 19:14:24,423 - pool_test - INFO - Instantly resuming mission execution (attempt 10/101)
+2025-04-29 19:14:24,423 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,423 - pool_test - WARNING - Mission was aborted (attempt 10/101)
+2025-04-29 19:14:24,423 - pool_test - INFO - Instantly resuming mission execution (attempt 11/101)
+2025-04-29 19:14:24,423 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,423 - pool_test - WARNING - Mission was aborted (attempt 11/101)
+2025-04-29 19:14:24,424 - pool_test - INFO - Instantly resuming mission execution (attempt 12/101)
+2025-04-29 19:14:24,424 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,424 - pool_test - WARNING - Mission was aborted (attempt 12/101)
+2025-04-29 19:14:24,424 - pool_test - INFO - Instantly resuming mission execution (attempt 13/101)
+2025-04-29 19:14:24,424 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,424 - pool_test - WARNING - Mission was aborted (attempt 13/101)
+2025-04-29 19:14:24,424 - pool_test - INFO - Instantly resuming mission execution (attempt 14/101)
+2025-04-29 19:14:24,424 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,424 - pool_test - WARNING - Mission was aborted (attempt 14/101)
+2025-04-29 19:14:24,424 - pool_test - INFO - Instantly resuming mission execution (attempt 15/101)
+2025-04-29 19:14:24,425 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,425 - pool_test - WARNING - Mission was aborted (attempt 15/101)
+2025-04-29 19:14:24,425 - pool_test - INFO - Instantly resuming mission execution (attempt 16/101)
+2025-04-29 19:14:24,425 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,425 - pool_test - WARNING - Mission was aborted (attempt 16/101)
+2025-04-29 19:14:24,425 - pool_test - INFO - Instantly resuming mission execution (attempt 17/101)
+2025-04-29 19:14:24,425 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,425 - pool_test - WARNING - Mission was aborted (attempt 17/101)
+2025-04-29 19:14:24,425 - pool_test - INFO - Instantly resuming mission execution (attempt 18/101)
+2025-04-29 19:14:24,426 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,426 - pool_test - WARNING - Mission was aborted (attempt 18/101)
+2025-04-29 19:14:24,426 - pool_test - INFO - Instantly resuming mission execution (attempt 19/101)
+2025-04-29 19:14:24,426 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,426 - pool_test - WARNING - Mission was aborted (attempt 19/101)
+2025-04-29 19:14:24,426 - pool_test - INFO - Instantly resuming mission execution (attempt 20/101)
+2025-04-29 19:14:24,426 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,426 - pool_test - WARNING - Mission was aborted (attempt 20/101)
+2025-04-29 19:14:24,426 - pool_test - INFO - Instantly resuming mission execution (attempt 21/101)
+2025-04-29 19:14:24,426 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,427 - pool_test - WARNING - Mission was aborted (attempt 21/101)
+2025-04-29 19:14:24,427 - pool_test - INFO - Instantly resuming mission execution (attempt 22/101)
+2025-04-29 19:14:24,427 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,427 - pool_test - WARNING - Mission was aborted (attempt 22/101)
+2025-04-29 19:14:24,427 - pool_test - INFO - Instantly resuming mission execution (attempt 23/101)
+2025-04-29 19:14:24,427 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,427 - pool_test - WARNING - Mission was aborted (attempt 23/101)
+2025-04-29 19:14:24,427 - pool_test - INFO - Instantly resuming mission execution (attempt 24/101)
+2025-04-29 19:14:24,428 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,428 - pool_test - WARNING - Mission was aborted (attempt 24/101)
+2025-04-29 19:14:24,428 - pool_test - INFO - Instantly resuming mission execution (attempt 25/101)
+2025-04-29 19:14:24,428 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,428 - pool_test - WARNING - Mission was aborted (attempt 25/101)
+2025-04-29 19:14:24,428 - pool_test - INFO - Instantly resuming mission execution (attempt 26/101)
+2025-04-29 19:14:24,428 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,428 - pool_test - WARNING - Mission was aborted (attempt 26/101)
+2025-04-29 19:14:24,428 - pool_test - INFO - Instantly resuming mission execution (attempt 27/101)
+2025-04-29 19:14:24,428 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,428 - pool_test - WARNING - Mission was aborted (attempt 27/101)
+2025-04-29 19:14:24,429 - pool_test - INFO - Instantly resuming mission execution (attempt 28/101)
+2025-04-29 19:14:24,429 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,429 - pool_test - WARNING - Mission was aborted (attempt 28/101)
+2025-04-29 19:14:24,429 - pool_test - INFO - Instantly resuming mission execution (attempt 29/101)
+2025-04-29 19:14:24,429 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,429 - pool_test - WARNING - Mission was aborted (attempt 29/101)
+2025-04-29 19:14:24,429 - pool_test - INFO - Instantly resuming mission execution (attempt 30/101)
+2025-04-29 19:14:24,429 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,429 - pool_test - WARNING - Mission was aborted (attempt 30/101)
+2025-04-29 19:14:24,429 - pool_test - INFO - Instantly resuming mission execution (attempt 31/101)
+2025-04-29 19:14:24,430 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,430 - pool_test - WARNING - Mission was aborted (attempt 31/101)
+2025-04-29 19:14:24,430 - pool_test - INFO - Instantly resuming mission execution (attempt 32/101)
+2025-04-29 19:14:24,430 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,430 - pool_test - WARNING - Mission was aborted (attempt 32/101)
+2025-04-29 19:14:24,430 - pool_test - INFO - Instantly resuming mission execution (attempt 33/101)
+2025-04-29 19:14:24,430 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,430 - pool_test - WARNING - Mission was aborted (attempt 33/101)
+2025-04-29 19:14:24,430 - pool_test - INFO - Instantly resuming mission execution (attempt 34/101)
+2025-04-29 19:14:24,430 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,431 - pool_test - WARNING - Mission was aborted (attempt 34/101)
+2025-04-29 19:14:24,431 - pool_test - INFO - Instantly resuming mission execution (attempt 35/101)
+2025-04-29 19:14:24,431 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,431 - pool_test - WARNING - Mission was aborted (attempt 35/101)
+2025-04-29 19:14:24,431 - pool_test - INFO - Instantly resuming mission execution (attempt 36/101)
+2025-04-29 19:14:24,431 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,431 - pool_test - WARNING - Mission was aborted (attempt 36/101)
+2025-04-29 19:14:24,431 - pool_test - INFO - Instantly resuming mission execution (attempt 37/101)
+2025-04-29 19:14:24,431 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,431 - pool_test - WARNING - Mission was aborted (attempt 37/101)
+2025-04-29 19:14:24,432 - pool_test - INFO - Instantly resuming mission execution (attempt 38/101)
+2025-04-29 19:14:24,432 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,432 - pool_test - WARNING - Mission was aborted (attempt 38/101)
+2025-04-29 19:14:24,432 - pool_test - INFO - Instantly resuming mission execution (attempt 39/101)
+2025-04-29 19:14:24,432 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,432 - pool_test - WARNING - Mission was aborted (attempt 39/101)
+2025-04-29 19:14:24,432 - pool_test - INFO - Instantly resuming mission execution (attempt 40/101)
+2025-04-29 19:14:24,432 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,432 - pool_test - WARNING - Mission was aborted (attempt 40/101)
+2025-04-29 19:14:24,432 - pool_test - INFO - Instantly resuming mission execution (attempt 41/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,433 - pool_test - WARNING - Mission was aborted (attempt 41/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Instantly resuming mission execution (attempt 42/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,433 - pool_test - WARNING - Mission was aborted (attempt 42/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Instantly resuming mission execution (attempt 43/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,433 - pool_test - WARNING - Mission was aborted (attempt 43/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Instantly resuming mission execution (attempt 44/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,433 - pool_test - WARNING - Mission was aborted (attempt 44/101)
+2025-04-29 19:14:24,433 - pool_test - INFO - Instantly resuming mission execution (attempt 45/101)
+2025-04-29 19:14:24,434 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,434 - pool_test - WARNING - Mission was aborted (attempt 45/101)
+2025-04-29 19:14:24,434 - pool_test - INFO - Instantly resuming mission execution (attempt 46/101)
+2025-04-29 19:14:24,434 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,434 - pool_test - WARNING - Mission was aborted (attempt 46/101)
+2025-04-29 19:14:24,434 - pool_test - INFO - Instantly resuming mission execution (attempt 47/101)
+2025-04-29 19:14:24,434 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,434 - pool_test - WARNING - Mission was aborted (attempt 47/101)
+2025-04-29 19:14:24,434 - pool_test - INFO - Instantly resuming mission execution (attempt 48/101)
+2025-04-29 19:14:24,434 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,435 - pool_test - WARNING - Mission was aborted (attempt 48/101)
+2025-04-29 19:14:24,435 - pool_test - INFO - Instantly resuming mission execution (attempt 49/101)
+2025-04-29 19:14:24,435 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,435 - pool_test - WARNING - Mission was aborted (attempt 49/101)
+2025-04-29 19:14:24,435 - pool_test - INFO - Instantly resuming mission execution (attempt 50/101)
+2025-04-29 19:14:24,435 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,435 - pool_test - WARNING - Mission was aborted (attempt 50/101)
+2025-04-29 19:14:24,435 - pool_test - INFO - Instantly resuming mission execution (attempt 51/101)
+2025-04-29 19:14:24,435 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,436 - pool_test - WARNING - Mission was aborted (attempt 51/101)
+2025-04-29 19:14:24,436 - pool_test - INFO - Instantly resuming mission execution (attempt 52/101)
+2025-04-29 19:14:24,436 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,436 - pool_test - WARNING - Mission was aborted (attempt 52/101)
+2025-04-29 19:14:24,436 - pool_test - INFO - Instantly resuming mission execution (attempt 53/101)
+2025-04-29 19:14:24,436 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,436 - pool_test - WARNING - Mission was aborted (attempt 53/101)
+2025-04-29 19:14:24,436 - pool_test - INFO - Instantly resuming mission execution (attempt 54/101)
+2025-04-29 19:14:24,436 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,437 - pool_test - WARNING - Mission was aborted (attempt 54/101)
+2025-04-29 19:14:24,437 - pool_test - INFO - Instantly resuming mission execution (attempt 55/101)
+2025-04-29 19:14:24,437 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,437 - pool_test - WARNING - Mission was aborted (attempt 55/101)
+2025-04-29 19:14:24,437 - pool_test - INFO - Instantly resuming mission execution (attempt 56/101)
+2025-04-29 19:14:24,437 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,437 - pool_test - WARNING - Mission was aborted (attempt 56/101)
+2025-04-29 19:14:24,437 - pool_test - INFO - Instantly resuming mission execution (attempt 57/101)
+2025-04-29 19:14:24,437 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,437 - pool_test - WARNING - Mission was aborted (attempt 57/101)
+2025-04-29 19:14:24,437 - pool_test - INFO - Instantly resuming mission execution (attempt 58/101)
+2025-04-29 19:14:24,438 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,438 - pool_test - WARNING - Mission was aborted (attempt 58/101)
+2025-04-29 19:14:24,438 - pool_test - INFO - Instantly resuming mission execution (attempt 59/101)
+2025-04-29 19:14:24,438 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,438 - pool_test - WARNING - Mission was aborted (attempt 59/101)
+2025-04-29 19:14:24,438 - pool_test - INFO - Instantly resuming mission execution (attempt 60/101)
+2025-04-29 19:14:24,438 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,438 - pool_test - WARNING - Mission was aborted (attempt 60/101)
+2025-04-29 19:14:24,438 - pool_test - INFO - Instantly resuming mission execution (attempt 61/101)
+2025-04-29 19:14:24,438 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,439 - pool_test - WARNING - Mission was aborted (attempt 61/101)
+2025-04-29 19:14:24,439 - pool_test - INFO - Instantly resuming mission execution (attempt 62/101)
+2025-04-29 19:14:24,439 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,439 - pool_test - WARNING - Mission was aborted (attempt 62/101)
+2025-04-29 19:14:24,439 - pool_test - INFO - Instantly resuming mission execution (attempt 63/101)
+2025-04-29 19:14:24,439 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,439 - pool_test - WARNING - Mission was aborted (attempt 63/101)
+2025-04-29 19:14:24,439 - pool_test - INFO - Instantly resuming mission execution (attempt 64/101)
+2025-04-29 19:14:24,439 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,440 - pool_test - WARNING - Mission was aborted (attempt 64/101)
+2025-04-29 19:14:24,440 - pool_test - INFO - Instantly resuming mission execution (attempt 65/101)
+2025-04-29 19:14:24,440 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,440 - pool_test - WARNING - Mission was aborted (attempt 65/101)
+2025-04-29 19:14:24,440 - pool_test - INFO - Instantly resuming mission execution (attempt 66/101)
+2025-04-29 19:14:24,440 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,440 - pool_test - WARNING - Mission was aborted (attempt 66/101)
+2025-04-29 19:14:24,440 - pool_test - INFO - Instantly resuming mission execution (attempt 67/101)
+2025-04-29 19:14:24,440 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,440 - pool_test - WARNING - Mission was aborted (attempt 67/101)
+2025-04-29 19:14:24,440 - pool_test - INFO - Instantly resuming mission execution (attempt 68/101)
+2025-04-29 19:14:24,441 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,441 - pool_test - WARNING - Mission was aborted (attempt 68/101)
+2025-04-29 19:14:24,441 - pool_test - INFO - Instantly resuming mission execution (attempt 69/101)
+2025-04-29 19:14:24,441 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,441 - pool_test - WARNING - Mission was aborted (attempt 69/101)
+2025-04-29 19:14:24,441 - pool_test - INFO - Instantly resuming mission execution (attempt 70/101)
+2025-04-29 19:14:24,441 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,441 - pool_test - WARNING - Mission was aborted (attempt 70/101)
+2025-04-29 19:14:24,441 - pool_test - INFO - Instantly resuming mission execution (attempt 71/101)
+2025-04-29 19:14:24,441 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,442 - pool_test - WARNING - Mission was aborted (attempt 71/101)
+2025-04-29 19:14:24,442 - pool_test - INFO - Instantly resuming mission execution (attempt 72/101)
+2025-04-29 19:14:24,442 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,442 - pool_test - WARNING - Mission was aborted (attempt 72/101)
+2025-04-29 19:14:24,442 - pool_test - INFO - Instantly resuming mission execution (attempt 73/101)
+2025-04-29 19:14:24,442 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,442 - pool_test - WARNING - Mission was aborted (attempt 73/101)
+2025-04-29 19:14:24,442 - pool_test - INFO - Instantly resuming mission execution (attempt 74/101)
+2025-04-29 19:14:24,442 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,443 - pool_test - WARNING - Mission was aborted (attempt 74/101)
+2025-04-29 19:14:24,443 - pool_test - INFO - Instantly resuming mission execution (attempt 75/101)
+2025-04-29 19:14:24,443 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,443 - pool_test - WARNING - Mission was aborted (attempt 75/101)
+2025-04-29 19:14:24,443 - pool_test - INFO - Instantly resuming mission execution (attempt 76/101)
+2025-04-29 19:14:24,443 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,443 - pool_test - WARNING - Mission was aborted (attempt 76/101)
+2025-04-29 19:14:24,443 - pool_test - INFO - Instantly resuming mission execution (attempt 77/101)
+2025-04-29 19:14:24,443 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,443 - pool_test - WARNING - Mission was aborted (attempt 77/101)
+2025-04-29 19:14:24,444 - pool_test - INFO - Instantly resuming mission execution (attempt 78/101)
+2025-04-29 19:14:24,444 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,444 - pool_test - WARNING - Mission was aborted (attempt 78/101)
+2025-04-29 19:14:24,444 - pool_test - INFO - Instantly resuming mission execution (attempt 79/101)
+2025-04-29 19:14:24,444 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,444 - pool_test - WARNING - Mission was aborted (attempt 79/101)
+2025-04-29 19:14:24,444 - pool_test - INFO - Instantly resuming mission execution (attempt 80/101)
+2025-04-29 19:14:24,444 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,444 - pool_test - WARNING - Mission was aborted (attempt 80/101)
+2025-04-29 19:14:24,444 - pool_test - INFO - Instantly resuming mission execution (attempt 81/101)
+2025-04-29 19:14:24,445 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,445 - pool_test - WARNING - Mission was aborted (attempt 81/101)
+2025-04-29 19:14:24,445 - pool_test - INFO - Instantly resuming mission execution (attempt 82/101)
+2025-04-29 19:14:24,445 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,445 - pool_test - WARNING - Mission was aborted (attempt 82/101)
+2025-04-29 19:14:24,445 - pool_test - INFO - Instantly resuming mission execution (attempt 83/101)
+2025-04-29 19:14:24,445 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,445 - pool_test - WARNING - Mission was aborted (attempt 83/101)
+2025-04-29 19:14:24,445 - pool_test - INFO - Instantly resuming mission execution (attempt 84/101)
+2025-04-29 19:14:24,446 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,446 - pool_test - WARNING - Mission was aborted (attempt 84/101)
+2025-04-29 19:14:24,446 - pool_test - INFO - Instantly resuming mission execution (attempt 85/101)
+2025-04-29 19:14:24,446 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,446 - pool_test - WARNING - Mission was aborted (attempt 85/101)
+2025-04-29 19:14:24,446 - pool_test - INFO - Instantly resuming mission execution (attempt 86/101)
+2025-04-29 19:14:24,446 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,446 - pool_test - WARNING - Mission was aborted (attempt 86/101)
+2025-04-29 19:14:24,446 - pool_test - INFO - Instantly resuming mission execution (attempt 87/101)
+2025-04-29 19:14:24,447 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,447 - pool_test - WARNING - Mission was aborted (attempt 87/101)
+2025-04-29 19:14:24,447 - pool_test - INFO - Instantly resuming mission execution (attempt 88/101)
+2025-04-29 19:14:24,447 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,447 - pool_test - WARNING - Mission was aborted (attempt 88/101)
+2025-04-29 19:14:24,447 - pool_test - INFO - Instantly resuming mission execution (attempt 89/101)
+2025-04-29 19:14:24,447 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,447 - pool_test - WARNING - Mission was aborted (attempt 89/101)
+2025-04-29 19:14:24,447 - pool_test - INFO - Instantly resuming mission execution (attempt 90/101)
+2025-04-29 19:14:24,447 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,448 - pool_test - WARNING - Mission was aborted (attempt 90/101)
+2025-04-29 19:14:24,448 - pool_test - INFO - Instantly resuming mission execution (attempt 91/101)
+2025-04-29 19:14:24,448 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,448 - pool_test - WARNING - Mission was aborted (attempt 91/101)
+2025-04-29 19:14:24,448 - pool_test - INFO - Instantly resuming mission execution (attempt 92/101)
+2025-04-29 19:14:24,448 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,448 - pool_test - WARNING - Mission was aborted (attempt 92/101)
+2025-04-29 19:14:24,448 - pool_test - INFO - Instantly resuming mission execution (attempt 93/101)
+2025-04-29 19:14:24,448 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,448 - pool_test - WARNING - Mission was aborted (attempt 93/101)
+2025-04-29 19:14:24,448 - pool_test - INFO - Instantly resuming mission execution (attempt 94/101)
+2025-04-29 19:14:24,449 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,449 - pool_test - WARNING - Mission was aborted (attempt 94/101)
+2025-04-29 19:14:24,449 - pool_test - INFO - Instantly resuming mission execution (attempt 95/101)
+2025-04-29 19:14:24,449 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,449 - pool_test - WARNING - Mission was aborted (attempt 95/101)
+2025-04-29 19:14:24,449 - pool_test - INFO - Instantly resuming mission execution (attempt 96/101)
+2025-04-29 19:14:24,449 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,449 - pool_test - WARNING - Mission was aborted (attempt 96/101)
+2025-04-29 19:14:24,449 - pool_test - INFO - Instantly resuming mission execution (attempt 97/101)
+2025-04-29 19:14:24,449 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,449 - pool_test - WARNING - Mission was aborted (attempt 97/101)
+2025-04-29 19:14:24,450 - pool_test - INFO - Instantly resuming mission execution (attempt 98/101)
+2025-04-29 19:14:24,450 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,450 - pool_test - WARNING - Mission was aborted (attempt 98/101)
+2025-04-29 19:14:24,450 - pool_test - INFO - Instantly resuming mission execution (attempt 99/101)
+2025-04-29 19:14:24,450 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,450 - pool_test - WARNING - Mission was aborted (attempt 99/101)
+2025-04-29 19:14:24,450 - pool_test - INFO - Instantly resuming mission execution (attempt 100/101)
+2025-04-29 19:14:24,450 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,451 - pool_test - WARNING - Mission was aborted (attempt 100/101)
+2025-04-29 19:14:24,451 - pool_test - INFO - Instantly resuming mission execution (attempt 101/101)
+2025-04-29 19:14:24,451 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 1/11 instructions, Time: 10s/70s, Depth: -0.2m
+2025-04-29 19:14:24,451 - pool_test - WARNING - Mission was aborted (attempt 101/101)
+2025-04-29 19:14:24,451 - pool_test - WARNING - Maximum retry attempts (100) reached. Mission failed.
+2025-04-29 19:14:24,451 - pool_test - INFO - Mission failed
+2025-04-29 19:14:24,451 - pool_test - INFO - Disconnecting from drone
+2025-04-29 19:14:24,458 - pool_test - INFO - Disconnected from drone
+2025-04-29 19:16:33,023 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-04-29 19:16:33,023 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-29 19:16:33,023 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-29 19:16:33,823 - blueye.sdk.drone - INFO - Connection successful, client id: 74
+2025-04-29 19:16:33,824 - blueye.sdk.drone - INFO - Client id in control: 73
+2025-04-29 19:16:33,824 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-04-29 19:16:33,824 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-29 19:16:33,824 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-29 19:16:33,824 - pool_test - INFO - Taking control of drone...
+2025-04-29 19:16:33,837 - pool_test - INFO - Control of drone acquired
+2025-04-29 19:16:33,838 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-29 19:16:33,838 - pool_test - INFO - Resetting drone position to coordinates: 63.440662, 10.3488502 with heading: 180.0°
+2025-04-29 19:16:33,838 - pool_test - INFO - Position reset command sent successfully
+2025-04-29 19:16:43,847 - pool_test - INFO - Creating pipeline survey
+2025-04-29 19:16:43,848 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-04-29 19:16:43,849 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-04-29 19:16:43,849 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-04-29 19:16:43,849 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-04-29 19:16:43,849 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-04-29 19:16:43,850 - pool_test - INFO - Clearing any previous missions
+2025-04-29 19:16:44,851 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-04-29 19:16:45,872 - pool_test - INFO - Starting mission execution
+2025-04-29 19:16:45,873 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/11 instructions, Time: 0s/60s, Depth: -0.3m
+2025-04-29 19:16:47,876 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 1s/61s, Depth: -0.3m
+2025-04-29 19:16:49,879 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 3s/63s, Depth: -0.3m
+2025-04-29 19:16:51,882 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 5s/65s, Depth: -0.3m
+2025-04-29 19:16:53,884 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 7s/67s, Depth: -0.2m
+2025-04-29 19:16:55,887 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 9s/69s, Depth: -0.1m
+2025-04-29 19:16:57,890 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 11s/71s, Depth: 0.0m
+2025-04-29 19:16:59,893 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 13s/73s, Depth: 0.2m
+2025-04-29 19:17:01,896 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 15s/75s, Depth: 0.3m
+2025-04-29 19:17:03,899 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 16s/76s, Depth: 0.5m
+2025-04-29 19:17:05,902 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/11 instructions, Time: 19s/80s, Depth: 0.5m
+2025-04-29 19:17:07,904 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/11 instructions, Time: 21s/80s, Depth: 0.5m
+2025-04-29 19:17:09,907 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 23s/77s, Depth: 0.4m
+2025-04-29 19:17:11,909 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 25s/79s, Depth: 0.3m
+2025-04-29 19:17:13,912 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 27s/81s, Depth: 0.2m
+2025-04-29 19:17:15,915 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 29s/83s, Depth: 0.2m
+2025-04-29 19:17:17,918 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 31s/85s, Depth: 0.2m
+2025-04-29 19:17:19,921 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 33s/88s, Depth: 0.2m
+2025-04-29 19:17:21,924 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 35s/90s, Depth: 0.3m
+2025-04-29 19:17:23,927 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 37s/93s, Depth: 0.3m
+2025-04-29 19:17:25,930 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,930 - pool_test - WARNING - Mission was aborted (attempt 1/101)
+2025-04-29 19:17:25,930 - pool_test - INFO - Instantly resuming mission execution (attempt 2/101)
+2025-04-29 19:17:25,931 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,931 - pool_test - WARNING - Mission was aborted (attempt 2/101)
+2025-04-29 19:17:25,931 - pool_test - INFO - Instantly resuming mission execution (attempt 3/101)
+2025-04-29 19:17:25,932 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,932 - pool_test - WARNING - Mission was aborted (attempt 3/101)
+2025-04-29 19:17:25,932 - pool_test - INFO - Instantly resuming mission execution (attempt 4/101)
+2025-04-29 19:17:25,932 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,932 - pool_test - WARNING - Mission was aborted (attempt 4/101)
+2025-04-29 19:17:25,932 - pool_test - INFO - Instantly resuming mission execution (attempt 5/101)
+2025-04-29 19:17:25,933 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,933 - pool_test - WARNING - Mission was aborted (attempt 5/101)
+2025-04-29 19:17:25,933 - pool_test - INFO - Instantly resuming mission execution (attempt 6/101)
+2025-04-29 19:17:25,933 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,933 - pool_test - WARNING - Mission was aborted (attempt 6/101)
+2025-04-29 19:17:25,933 - pool_test - INFO - Instantly resuming mission execution (attempt 7/101)
+2025-04-29 19:17:25,933 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,934 - pool_test - WARNING - Mission was aborted (attempt 7/101)
+2025-04-29 19:17:25,934 - pool_test - INFO - Instantly resuming mission execution (attempt 8/101)
+2025-04-29 19:17:25,934 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,934 - pool_test - WARNING - Mission was aborted (attempt 8/101)
+2025-04-29 19:17:25,934 - pool_test - INFO - Instantly resuming mission execution (attempt 9/101)
+2025-04-29 19:17:25,935 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,935 - pool_test - WARNING - Mission was aborted (attempt 9/101)
+2025-04-29 19:17:25,935 - pool_test - INFO - Instantly resuming mission execution (attempt 10/101)
+2025-04-29 19:17:25,935 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,935 - pool_test - WARNING - Mission was aborted (attempt 10/101)
+2025-04-29 19:17:25,935 - pool_test - INFO - Instantly resuming mission execution (attempt 11/101)
+2025-04-29 19:17:25,936 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,936 - pool_test - WARNING - Mission was aborted (attempt 11/101)
+2025-04-29 19:17:25,936 - pool_test - INFO - Instantly resuming mission execution (attempt 12/101)
+2025-04-29 19:17:25,936 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,936 - pool_test - WARNING - Mission was aborted (attempt 12/101)
+2025-04-29 19:17:25,936 - pool_test - INFO - Instantly resuming mission execution (attempt 13/101)
+2025-04-29 19:17:25,936 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,937 - pool_test - WARNING - Mission was aborted (attempt 13/101)
+2025-04-29 19:17:25,937 - pool_test - INFO - Instantly resuming mission execution (attempt 14/101)
+2025-04-29 19:17:25,937 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,937 - pool_test - WARNING - Mission was aborted (attempt 14/101)
+2025-04-29 19:17:25,937 - pool_test - INFO - Instantly resuming mission execution (attempt 15/101)
+2025-04-29 19:17:25,937 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,937 - pool_test - WARNING - Mission was aborted (attempt 15/101)
+2025-04-29 19:17:25,937 - pool_test - INFO - Instantly resuming mission execution (attempt 16/101)
+2025-04-29 19:17:25,937 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,937 - pool_test - WARNING - Mission was aborted (attempt 16/101)
+2025-04-29 19:17:25,937 - pool_test - INFO - Instantly resuming mission execution (attempt 17/101)
+2025-04-29 19:17:25,938 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,938 - pool_test - WARNING - Mission was aborted (attempt 17/101)
+2025-04-29 19:17:25,938 - pool_test - INFO - Instantly resuming mission execution (attempt 18/101)
+2025-04-29 19:17:25,938 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,938 - pool_test - WARNING - Mission was aborted (attempt 18/101)
+2025-04-29 19:17:25,938 - pool_test - INFO - Instantly resuming mission execution (attempt 19/101)
+2025-04-29 19:17:25,938 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,938 - pool_test - WARNING - Mission was aborted (attempt 19/101)
+2025-04-29 19:17:25,938 - pool_test - INFO - Instantly resuming mission execution (attempt 20/101)
+2025-04-29 19:17:25,938 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,939 - pool_test - WARNING - Mission was aborted (attempt 20/101)
+2025-04-29 19:17:25,939 - pool_test - INFO - Instantly resuming mission execution (attempt 21/101)
+2025-04-29 19:17:25,939 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,939 - pool_test - WARNING - Mission was aborted (attempt 21/101)
+2025-04-29 19:17:25,939 - pool_test - INFO - Instantly resuming mission execution (attempt 22/101)
+2025-04-29 19:17:25,940 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,940 - pool_test - WARNING - Mission was aborted (attempt 22/101)
+2025-04-29 19:17:25,940 - pool_test - INFO - Instantly resuming mission execution (attempt 23/101)
+2025-04-29 19:17:25,940 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,940 - pool_test - WARNING - Mission was aborted (attempt 23/101)
+2025-04-29 19:17:25,940 - pool_test - INFO - Instantly resuming mission execution (attempt 24/101)
+2025-04-29 19:17:25,940 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,940 - pool_test - WARNING - Mission was aborted (attempt 24/101)
+2025-04-29 19:17:25,940 - pool_test - INFO - Instantly resuming mission execution (attempt 25/101)
+2025-04-29 19:17:25,940 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,940 - pool_test - WARNING - Mission was aborted (attempt 25/101)
+2025-04-29 19:17:25,941 - pool_test - INFO - Instantly resuming mission execution (attempt 26/101)
+2025-04-29 19:17:25,941 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,941 - pool_test - WARNING - Mission was aborted (attempt 26/101)
+2025-04-29 19:17:25,941 - pool_test - INFO - Instantly resuming mission execution (attempt 27/101)
+2025-04-29 19:17:25,941 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,941 - pool_test - WARNING - Mission was aborted (attempt 27/101)
+2025-04-29 19:17:25,941 - pool_test - INFO - Instantly resuming mission execution (attempt 28/101)
+2025-04-29 19:17:25,941 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,941 - pool_test - WARNING - Mission was aborted (attempt 28/101)
+2025-04-29 19:17:25,941 - pool_test - INFO - Instantly resuming mission execution (attempt 29/101)
+2025-04-29 19:17:25,942 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,942 - pool_test - WARNING - Mission was aborted (attempt 29/101)
+2025-04-29 19:17:25,942 - pool_test - INFO - Instantly resuming mission execution (attempt 30/101)
+2025-04-29 19:17:25,942 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,942 - pool_test - WARNING - Mission was aborted (attempt 30/101)
+2025-04-29 19:17:25,942 - pool_test - INFO - Instantly resuming mission execution (attempt 31/101)
+2025-04-29 19:17:25,942 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,942 - pool_test - WARNING - Mission was aborted (attempt 31/101)
+2025-04-29 19:17:25,942 - pool_test - INFO - Instantly resuming mission execution (attempt 32/101)
+2025-04-29 19:17:25,942 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,942 - pool_test - WARNING - Mission was aborted (attempt 32/101)
+2025-04-29 19:17:25,943 - pool_test - INFO - Instantly resuming mission execution (attempt 33/101)
+2025-04-29 19:17:25,943 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,943 - pool_test - WARNING - Mission was aborted (attempt 33/101)
+2025-04-29 19:17:25,943 - pool_test - INFO - Instantly resuming mission execution (attempt 34/101)
+2025-04-29 19:17:25,943 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,943 - pool_test - WARNING - Mission was aborted (attempt 34/101)
+2025-04-29 19:17:25,943 - pool_test - INFO - Instantly resuming mission execution (attempt 35/101)
+2025-04-29 19:17:25,943 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,943 - pool_test - WARNING - Mission was aborted (attempt 35/101)
+2025-04-29 19:17:25,943 - pool_test - INFO - Instantly resuming mission execution (attempt 36/101)
+2025-04-29 19:17:25,944 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,944 - pool_test - WARNING - Mission was aborted (attempt 36/101)
+2025-04-29 19:17:25,944 - pool_test - INFO - Instantly resuming mission execution (attempt 37/101)
+2025-04-29 19:17:25,944 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,944 - pool_test - WARNING - Mission was aborted (attempt 37/101)
+2025-04-29 19:17:25,944 - pool_test - INFO - Instantly resuming mission execution (attempt 38/101)
+2025-04-29 19:17:25,944 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,944 - pool_test - WARNING - Mission was aborted (attempt 38/101)
+2025-04-29 19:17:25,944 - pool_test - INFO - Instantly resuming mission execution (attempt 39/101)
+2025-04-29 19:17:25,944 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,945 - pool_test - WARNING - Mission was aborted (attempt 39/101)
+2025-04-29 19:17:25,945 - pool_test - INFO - Instantly resuming mission execution (attempt 40/101)
+2025-04-29 19:17:25,945 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,945 - pool_test - WARNING - Mission was aborted (attempt 40/101)
+2025-04-29 19:17:25,945 - pool_test - INFO - Instantly resuming mission execution (attempt 41/101)
+2025-04-29 19:17:25,945 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,945 - pool_test - WARNING - Mission was aborted (attempt 41/101)
+2025-04-29 19:17:25,945 - pool_test - INFO - Instantly resuming mission execution (attempt 42/101)
+2025-04-29 19:17:25,945 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,945 - pool_test - WARNING - Mission was aborted (attempt 42/101)
+2025-04-29 19:17:25,945 - pool_test - INFO - Instantly resuming mission execution (attempt 43/101)
+2025-04-29 19:17:25,946 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,946 - pool_test - WARNING - Mission was aborted (attempt 43/101)
+2025-04-29 19:17:25,946 - pool_test - INFO - Instantly resuming mission execution (attempt 44/101)
+2025-04-29 19:17:25,946 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,946 - pool_test - WARNING - Mission was aborted (attempt 44/101)
+2025-04-29 19:17:25,946 - pool_test - INFO - Instantly resuming mission execution (attempt 45/101)
+2025-04-29 19:17:25,946 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,946 - pool_test - WARNING - Mission was aborted (attempt 45/101)
+2025-04-29 19:17:25,946 - pool_test - INFO - Instantly resuming mission execution (attempt 46/101)
+2025-04-29 19:17:25,946 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,947 - pool_test - WARNING - Mission was aborted (attempt 46/101)
+2025-04-29 19:17:25,947 - pool_test - INFO - Instantly resuming mission execution (attempt 47/101)
+2025-04-29 19:17:25,947 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,947 - pool_test - WARNING - Mission was aborted (attempt 47/101)
+2025-04-29 19:17:25,947 - pool_test - INFO - Instantly resuming mission execution (attempt 48/101)
+2025-04-29 19:17:25,947 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,947 - pool_test - WARNING - Mission was aborted (attempt 48/101)
+2025-04-29 19:17:25,947 - pool_test - INFO - Instantly resuming mission execution (attempt 49/101)
+2025-04-29 19:17:25,947 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,947 - pool_test - WARNING - Mission was aborted (attempt 49/101)
+2025-04-29 19:17:25,947 - pool_test - INFO - Instantly resuming mission execution (attempt 50/101)
+2025-04-29 19:17:25,948 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,948 - pool_test - WARNING - Mission was aborted (attempt 50/101)
+2025-04-29 19:17:25,948 - pool_test - INFO - Instantly resuming mission execution (attempt 51/101)
+2025-04-29 19:17:25,948 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,948 - pool_test - WARNING - Mission was aborted (attempt 51/101)
+2025-04-29 19:17:25,948 - pool_test - INFO - Instantly resuming mission execution (attempt 52/101)
+2025-04-29 19:17:25,948 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,949 - pool_test - WARNING - Mission was aborted (attempt 52/101)
+2025-04-29 19:17:25,949 - pool_test - INFO - Instantly resuming mission execution (attempt 53/101)
+2025-04-29 19:17:25,949 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,949 - pool_test - WARNING - Mission was aborted (attempt 53/101)
+2025-04-29 19:17:25,949 - pool_test - INFO - Instantly resuming mission execution (attempt 54/101)
+2025-04-29 19:17:25,949 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,949 - pool_test - WARNING - Mission was aborted (attempt 54/101)
+2025-04-29 19:17:25,949 - pool_test - INFO - Instantly resuming mission execution (attempt 55/101)
+2025-04-29 19:17:25,949 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,950 - pool_test - WARNING - Mission was aborted (attempt 55/101)
+2025-04-29 19:17:25,950 - pool_test - INFO - Instantly resuming mission execution (attempt 56/101)
+2025-04-29 19:17:25,950 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,950 - pool_test - WARNING - Mission was aborted (attempt 56/101)
+2025-04-29 19:17:25,950 - pool_test - INFO - Instantly resuming mission execution (attempt 57/101)
+2025-04-29 19:17:25,950 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,950 - pool_test - WARNING - Mission was aborted (attempt 57/101)
+2025-04-29 19:17:25,950 - pool_test - INFO - Instantly resuming mission execution (attempt 58/101)
+2025-04-29 19:17:25,950 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,950 - pool_test - WARNING - Mission was aborted (attempt 58/101)
+2025-04-29 19:17:25,950 - pool_test - INFO - Instantly resuming mission execution (attempt 59/101)
+2025-04-29 19:17:25,951 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,951 - pool_test - WARNING - Mission was aborted (attempt 59/101)
+2025-04-29 19:17:25,951 - pool_test - INFO - Instantly resuming mission execution (attempt 60/101)
+2025-04-29 19:17:25,951 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,951 - pool_test - WARNING - Mission was aborted (attempt 60/101)
+2025-04-29 19:17:25,951 - pool_test - INFO - Instantly resuming mission execution (attempt 61/101)
+2025-04-29 19:17:25,951 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,952 - pool_test - WARNING - Mission was aborted (attempt 61/101)
+2025-04-29 19:17:25,952 - pool_test - INFO - Instantly resuming mission execution (attempt 62/101)
+2025-04-29 19:17:25,952 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,952 - pool_test - WARNING - Mission was aborted (attempt 62/101)
+2025-04-29 19:17:25,952 - pool_test - INFO - Instantly resuming mission execution (attempt 63/101)
+2025-04-29 19:17:25,952 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,952 - pool_test - WARNING - Mission was aborted (attempt 63/101)
+2025-04-29 19:17:25,952 - pool_test - INFO - Instantly resuming mission execution (attempt 64/101)
+2025-04-29 19:17:25,952 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,952 - pool_test - WARNING - Mission was aborted (attempt 64/101)
+2025-04-29 19:17:25,952 - pool_test - INFO - Instantly resuming mission execution (attempt 65/101)
+2025-04-29 19:17:25,953 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,953 - pool_test - WARNING - Mission was aborted (attempt 65/101)
+2025-04-29 19:17:25,953 - pool_test - INFO - Instantly resuming mission execution (attempt 66/101)
+2025-04-29 19:17:25,953 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,953 - pool_test - WARNING - Mission was aborted (attempt 66/101)
+2025-04-29 19:17:25,953 - pool_test - INFO - Instantly resuming mission execution (attempt 67/101)
+2025-04-29 19:17:25,953 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,953 - pool_test - WARNING - Mission was aborted (attempt 67/101)
+2025-04-29 19:17:25,953 - pool_test - INFO - Instantly resuming mission execution (attempt 68/101)
+2025-04-29 19:17:25,954 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,954 - pool_test - WARNING - Mission was aborted (attempt 68/101)
+2025-04-29 19:17:25,954 - pool_test - INFO - Instantly resuming mission execution (attempt 69/101)
+2025-04-29 19:17:25,954 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,954 - pool_test - WARNING - Mission was aborted (attempt 69/101)
+2025-04-29 19:17:25,954 - pool_test - INFO - Instantly resuming mission execution (attempt 70/101)
+2025-04-29 19:17:25,954 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,954 - pool_test - WARNING - Mission was aborted (attempt 70/101)
+2025-04-29 19:17:25,954 - pool_test - INFO - Instantly resuming mission execution (attempt 71/101)
+2025-04-29 19:17:25,954 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,954 - pool_test - WARNING - Mission was aborted (attempt 71/101)
+2025-04-29 19:17:25,955 - pool_test - INFO - Instantly resuming mission execution (attempt 72/101)
+2025-04-29 19:17:25,955 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,955 - pool_test - WARNING - Mission was aborted (attempt 72/101)
+2025-04-29 19:17:25,955 - pool_test - INFO - Instantly resuming mission execution (attempt 73/101)
+2025-04-29 19:17:25,955 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,955 - pool_test - WARNING - Mission was aborted (attempt 73/101)
+2025-04-29 19:17:25,955 - pool_test - INFO - Instantly resuming mission execution (attempt 74/101)
+2025-04-29 19:17:25,955 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,956 - pool_test - WARNING - Mission was aborted (attempt 74/101)
+2025-04-29 19:17:25,956 - pool_test - INFO - Instantly resuming mission execution (attempt 75/101)
+2025-04-29 19:17:25,956 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,956 - pool_test - WARNING - Mission was aborted (attempt 75/101)
+2025-04-29 19:17:25,956 - pool_test - INFO - Instantly resuming mission execution (attempt 76/101)
+2025-04-29 19:17:25,956 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,956 - pool_test - WARNING - Mission was aborted (attempt 76/101)
+2025-04-29 19:17:25,956 - pool_test - INFO - Instantly resuming mission execution (attempt 77/101)
+2025-04-29 19:17:25,956 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,956 - pool_test - WARNING - Mission was aborted (attempt 77/101)
+2025-04-29 19:17:25,956 - pool_test - INFO - Instantly resuming mission execution (attempt 78/101)
+2025-04-29 19:17:25,957 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,957 - pool_test - WARNING - Mission was aborted (attempt 78/101)
+2025-04-29 19:17:25,957 - pool_test - INFO - Instantly resuming mission execution (attempt 79/101)
+2025-04-29 19:17:25,957 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,957 - pool_test - WARNING - Mission was aborted (attempt 79/101)
+2025-04-29 19:17:25,957 - pool_test - INFO - Instantly resuming mission execution (attempt 80/101)
+2025-04-29 19:17:25,957 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,957 - pool_test - WARNING - Mission was aborted (attempt 80/101)
+2025-04-29 19:17:25,957 - pool_test - INFO - Instantly resuming mission execution (attempt 81/101)
+2025-04-29 19:17:25,957 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,958 - pool_test - WARNING - Mission was aborted (attempt 81/101)
+2025-04-29 19:17:25,958 - pool_test - INFO - Instantly resuming mission execution (attempt 82/101)
+2025-04-29 19:17:25,958 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,958 - pool_test - WARNING - Mission was aborted (attempt 82/101)
+2025-04-29 19:17:25,958 - pool_test - INFO - Instantly resuming mission execution (attempt 83/101)
+2025-04-29 19:17:25,958 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,958 - pool_test - WARNING - Mission was aborted (attempt 83/101)
+2025-04-29 19:17:25,958 - pool_test - INFO - Instantly resuming mission execution (attempt 84/101)
+2025-04-29 19:17:25,958 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,958 - pool_test - WARNING - Mission was aborted (attempt 84/101)
+2025-04-29 19:17:25,958 - pool_test - INFO - Instantly resuming mission execution (attempt 85/101)
+2025-04-29 19:17:25,959 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,959 - pool_test - WARNING - Mission was aborted (attempt 85/101)
+2025-04-29 19:17:25,959 - pool_test - INFO - Instantly resuming mission execution (attempt 86/101)
+2025-04-29 19:17:25,959 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,959 - pool_test - WARNING - Mission was aborted (attempt 86/101)
+2025-04-29 19:17:25,959 - pool_test - INFO - Instantly resuming mission execution (attempt 87/101)
+2025-04-29 19:17:25,959 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,959 - pool_test - WARNING - Mission was aborted (attempt 87/101)
+2025-04-29 19:17:25,959 - pool_test - INFO - Instantly resuming mission execution (attempt 88/101)
+2025-04-29 19:17:25,960 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,960 - pool_test - WARNING - Mission was aborted (attempt 88/101)
+2025-04-29 19:17:25,960 - pool_test - INFO - Instantly resuming mission execution (attempt 89/101)
+2025-04-29 19:17:25,960 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,960 - pool_test - WARNING - Mission was aborted (attempt 89/101)
+2025-04-29 19:17:25,960 - pool_test - INFO - Instantly resuming mission execution (attempt 90/101)
+2025-04-29 19:17:25,960 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,960 - pool_test - WARNING - Mission was aborted (attempt 90/101)
+2025-04-29 19:17:25,960 - pool_test - INFO - Instantly resuming mission execution (attempt 91/101)
+2025-04-29 19:17:25,961 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,961 - pool_test - WARNING - Mission was aborted (attempt 91/101)
+2025-04-29 19:17:25,961 - pool_test - INFO - Instantly resuming mission execution (attempt 92/101)
+2025-04-29 19:17:25,961 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,961 - pool_test - WARNING - Mission was aborted (attempt 92/101)
+2025-04-29 19:17:25,961 - pool_test - INFO - Instantly resuming mission execution (attempt 93/101)
+2025-04-29 19:17:25,961 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,961 - pool_test - WARNING - Mission was aborted (attempt 93/101)
+2025-04-29 19:17:25,961 - pool_test - INFO - Instantly resuming mission execution (attempt 94/101)
+2025-04-29 19:17:25,962 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,962 - pool_test - WARNING - Mission was aborted (attempt 94/101)
+2025-04-29 19:17:25,962 - pool_test - INFO - Instantly resuming mission execution (attempt 95/101)
+2025-04-29 19:17:25,962 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,962 - pool_test - WARNING - Mission was aborted (attempt 95/101)
+2025-04-29 19:17:25,962 - pool_test - INFO - Instantly resuming mission execution (attempt 96/101)
+2025-04-29 19:17:25,962 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,962 - pool_test - WARNING - Mission was aborted (attempt 96/101)
+2025-04-29 19:17:25,962 - pool_test - INFO - Instantly resuming mission execution (attempt 97/101)
+2025-04-29 19:17:25,962 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,962 - pool_test - WARNING - Mission was aborted (attempt 97/101)
+2025-04-29 19:17:25,963 - pool_test - INFO - Instantly resuming mission execution (attempt 98/101)
+2025-04-29 19:17:25,963 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,963 - pool_test - WARNING - Mission was aborted (attempt 98/101)
+2025-04-29 19:17:25,963 - pool_test - INFO - Instantly resuming mission execution (attempt 99/101)
+2025-04-29 19:17:25,963 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,963 - pool_test - WARNING - Mission was aborted (attempt 99/101)
+2025-04-29 19:17:25,963 - pool_test - INFO - Instantly resuming mission execution (attempt 100/101)
+2025-04-29 19:17:25,964 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,964 - pool_test - WARNING - Mission was aborted (attempt 100/101)
+2025-04-29 19:17:25,964 - pool_test - INFO - Instantly resuming mission execution (attempt 101/101)
+2025-04-29 19:17:25,964 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/95s, Depth: 0.3m
+2025-04-29 19:17:25,964 - pool_test - WARNING - Mission was aborted (attempt 101/101)
+2025-04-29 19:17:25,964 - pool_test - WARNING - Maximum retry attempts (100) reached. Mission failed.
+2025-04-29 19:17:25,964 - pool_test - INFO - Mission failed
+2025-04-29 19:17:25,964 - pool_test - INFO - Disconnecting from drone
+2025-04-29 19:17:25,973 - pool_test - INFO - Disconnected from drone
+2025-04-29 19:20:22,799 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-04-29 19:20:22,799 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-29 19:20:22,799 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-29 19:20:23,589 - blueye.sdk.drone - INFO - Connection successful, client id: 78
+2025-04-29 19:20:23,589 - blueye.sdk.drone - INFO - Client id in control: 77
+2025-04-29 19:20:23,589 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-04-29 19:20:23,589 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-29 19:20:23,590 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-29 19:20:23,590 - pool_test - INFO - Taking control of drone...
+2025-04-29 19:20:23,617 - pool_test - INFO - Control of drone acquired
+2025-04-29 19:20:23,617 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-29 19:20:23,617 - pool_test - INFO - Resetting drone position to coordinates: 63.440662, 10.3488502 with heading: 163.0°
+2025-04-29 19:20:23,617 - pool_test - INFO - Position reset command sent successfully
+2025-04-29 19:20:33,628 - pool_test - INFO - Creating pipeline survey
+2025-04-29 19:20:33,629 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-04-29 19:20:33,629 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-04-29 19:20:33,629 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-04-29 19:20:33,630 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-04-29 19:20:33,630 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-04-29 19:20:33,630 - pool_test - INFO - Clearing any previous missions
+2025-04-29 19:20:34,632 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-04-29 19:20:35,644 - pool_test - INFO - Starting mission execution
+2025-04-29 19:20:35,645 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/11 instructions, Time: 0s/60s, Depth: -0.3m
+2025-04-29 19:20:37,648 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 1s/61s, Depth: -0.3m
+2025-04-29 19:20:39,650 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 3s/63s, Depth: -0.3m
+2025-04-29 19:20:41,652 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 5s/65s, Depth: -0.3m
+2025-04-29 19:20:43,655 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 7s/67s, Depth: -0.2m
+2025-04-29 19:20:45,658 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 9s/69s, Depth: -0.1m
+2025-04-29 19:20:47,661 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 11s/71s, Depth: 0.0m
+2025-04-29 19:20:49,663 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 13s/73s, Depth: 0.2m
+2025-04-29 19:20:51,666 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/11 instructions, Time: 15s/75s, Depth: 0.3m
+2025-04-29 19:20:53,668 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/11 instructions, Time: 17s/78s, Depth: 0.5m
+2025-04-29 19:20:55,671 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/11 instructions, Time: 19s/78s, Depth: 0.5m
+2025-04-29 19:20:57,673 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/11 instructions, Time: 21s/78s, Depth: 0.5m
+2025-04-29 19:20:59,675 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 23s/78s, Depth: 0.4m
+2025-04-29 19:21:01,678 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 25s/80s, Depth: 0.3m
+2025-04-29 19:21:03,680 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 27s/82s, Depth: 0.3m
+2025-04-29 19:21:05,682 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 29s/84s, Depth: 0.2m
+2025-04-29 19:21:07,685 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 31s/86s, Depth: 0.2m
+2025-04-29 19:21:09,688 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 33s/89s, Depth: 0.3m
+2025-04-29 19:21:11,691 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 35s/92s, Depth: 0.3m
+2025-04-29 19:21:13,692 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/11 instructions, Time: 37s/95s, Depth: 0.3m
+2025-04-29 19:21:15,695 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,696 - pool_test - WARNING - Mission was aborted (attempt 1/101)
+2025-04-29 19:21:15,696 - pool_test - INFO - Instantly resuming mission execution (attempt 2/101)
+2025-04-29 19:21:15,696 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,696 - pool_test - WARNING - Mission was aborted (attempt 2/101)
+2025-04-29 19:21:15,696 - pool_test - INFO - Instantly resuming mission execution (attempt 3/101)
+2025-04-29 19:21:15,697 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,697 - pool_test - WARNING - Mission was aborted (attempt 3/101)
+2025-04-29 19:21:15,697 - pool_test - INFO - Instantly resuming mission execution (attempt 4/101)
+2025-04-29 19:21:15,698 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,698 - pool_test - WARNING - Mission was aborted (attempt 4/101)
+2025-04-29 19:21:15,698 - pool_test - INFO - Instantly resuming mission execution (attempt 5/101)
+2025-04-29 19:21:15,698 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,698 - pool_test - WARNING - Mission was aborted (attempt 5/101)
+2025-04-29 19:21:15,699 - pool_test - INFO - Instantly resuming mission execution (attempt 6/101)
+2025-04-29 19:21:15,699 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,699 - pool_test - WARNING - Mission was aborted (attempt 6/101)
+2025-04-29 19:21:15,699 - pool_test - INFO - Instantly resuming mission execution (attempt 7/101)
+2025-04-29 19:21:15,700 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,700 - pool_test - WARNING - Mission was aborted (attempt 7/101)
+2025-04-29 19:21:15,700 - pool_test - INFO - Instantly resuming mission execution (attempt 8/101)
+2025-04-29 19:21:15,700 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,701 - pool_test - WARNING - Mission was aborted (attempt 8/101)
+2025-04-29 19:21:15,701 - pool_test - INFO - Instantly resuming mission execution (attempt 9/101)
+2025-04-29 19:21:15,701 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,701 - pool_test - WARNING - Mission was aborted (attempt 9/101)
+2025-04-29 19:21:15,701 - pool_test - INFO - Instantly resuming mission execution (attempt 10/101)
+2025-04-29 19:21:15,701 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,702 - pool_test - WARNING - Mission was aborted (attempt 10/101)
+2025-04-29 19:21:15,702 - pool_test - INFO - Instantly resuming mission execution (attempt 11/101)
+2025-04-29 19:21:15,702 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,702 - pool_test - WARNING - Mission was aborted (attempt 11/101)
+2025-04-29 19:21:15,702 - pool_test - INFO - Instantly resuming mission execution (attempt 12/101)
+2025-04-29 19:21:15,702 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,702 - pool_test - WARNING - Mission was aborted (attempt 12/101)
+2025-04-29 19:21:15,702 - pool_test - INFO - Instantly resuming mission execution (attempt 13/101)
+2025-04-29 19:21:15,702 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,702 - pool_test - WARNING - Mission was aborted (attempt 13/101)
+2025-04-29 19:21:15,703 - pool_test - INFO - Instantly resuming mission execution (attempt 14/101)
+2025-04-29 19:21:15,703 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,703 - pool_test - WARNING - Mission was aborted (attempt 14/101)
+2025-04-29 19:21:15,703 - pool_test - INFO - Instantly resuming mission execution (attempt 15/101)
+2025-04-29 19:21:15,703 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,703 - pool_test - WARNING - Mission was aborted (attempt 15/101)
+2025-04-29 19:21:15,703 - pool_test - INFO - Instantly resuming mission execution (attempt 16/101)
+2025-04-29 19:21:15,704 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,704 - pool_test - WARNING - Mission was aborted (attempt 16/101)
+2025-04-29 19:21:15,704 - pool_test - INFO - Instantly resuming mission execution (attempt 17/101)
+2025-04-29 19:21:15,704 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,704 - pool_test - WARNING - Mission was aborted (attempt 17/101)
+2025-04-29 19:21:15,704 - pool_test - INFO - Instantly resuming mission execution (attempt 18/101)
+2025-04-29 19:21:15,704 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,704 - pool_test - WARNING - Mission was aborted (attempt 18/101)
+2025-04-29 19:21:15,704 - pool_test - INFO - Instantly resuming mission execution (attempt 19/101)
+2025-04-29 19:21:15,704 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,705 - pool_test - WARNING - Mission was aborted (attempt 19/101)
+2025-04-29 19:21:15,705 - pool_test - INFO - Instantly resuming mission execution (attempt 20/101)
+2025-04-29 19:21:15,705 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,705 - pool_test - WARNING - Mission was aborted (attempt 20/101)
+2025-04-29 19:21:15,705 - pool_test - INFO - Instantly resuming mission execution (attempt 21/101)
+2025-04-29 19:21:15,705 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,705 - pool_test - WARNING - Mission was aborted (attempt 21/101)
+2025-04-29 19:21:15,705 - pool_test - INFO - Instantly resuming mission execution (attempt 22/101)
+2025-04-29 19:21:15,705 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,705 - pool_test - WARNING - Mission was aborted (attempt 22/101)
+2025-04-29 19:21:15,705 - pool_test - INFO - Instantly resuming mission execution (attempt 23/101)
+2025-04-29 19:21:15,706 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,706 - pool_test - WARNING - Mission was aborted (attempt 23/101)
+2025-04-29 19:21:15,706 - pool_test - INFO - Instantly resuming mission execution (attempt 24/101)
+2025-04-29 19:21:15,706 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,706 - pool_test - WARNING - Mission was aborted (attempt 24/101)
+2025-04-29 19:21:15,706 - pool_test - INFO - Instantly resuming mission execution (attempt 25/101)
+2025-04-29 19:21:15,706 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,706 - pool_test - WARNING - Mission was aborted (attempt 25/101)
+2025-04-29 19:21:15,706 - pool_test - INFO - Instantly resuming mission execution (attempt 26/101)
+2025-04-29 19:21:15,706 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,707 - pool_test - WARNING - Mission was aborted (attempt 26/101)
+2025-04-29 19:21:15,707 - pool_test - INFO - Instantly resuming mission execution (attempt 27/101)
+2025-04-29 19:21:15,707 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,707 - pool_test - WARNING - Mission was aborted (attempt 27/101)
+2025-04-29 19:21:15,707 - pool_test - INFO - Instantly resuming mission execution (attempt 28/101)
+2025-04-29 19:21:15,707 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,707 - pool_test - WARNING - Mission was aborted (attempt 28/101)
+2025-04-29 19:21:15,707 - pool_test - INFO - Instantly resuming mission execution (attempt 29/101)
+2025-04-29 19:21:15,707 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,708 - pool_test - WARNING - Mission was aborted (attempt 29/101)
+2025-04-29 19:21:15,708 - pool_test - INFO - Instantly resuming mission execution (attempt 30/101)
+2025-04-29 19:21:15,708 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,708 - pool_test - WARNING - Mission was aborted (attempt 30/101)
+2025-04-29 19:21:15,708 - pool_test - INFO - Instantly resuming mission execution (attempt 31/101)
+2025-04-29 19:21:15,708 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,708 - pool_test - WARNING - Mission was aborted (attempt 31/101)
+2025-04-29 19:21:15,708 - pool_test - INFO - Instantly resuming mission execution (attempt 32/101)
+2025-04-29 19:21:15,708 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,708 - pool_test - WARNING - Mission was aborted (attempt 32/101)
+2025-04-29 19:21:15,708 - pool_test - INFO - Instantly resuming mission execution (attempt 33/101)
+2025-04-29 19:21:15,709 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,709 - pool_test - WARNING - Mission was aborted (attempt 33/101)
+2025-04-29 19:21:15,709 - pool_test - INFO - Instantly resuming mission execution (attempt 34/101)
+2025-04-29 19:21:15,709 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,709 - pool_test - WARNING - Mission was aborted (attempt 34/101)
+2025-04-29 19:21:15,709 - pool_test - INFO - Instantly resuming mission execution (attempt 35/101)
+2025-04-29 19:21:15,709 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,709 - pool_test - WARNING - Mission was aborted (attempt 35/101)
+2025-04-29 19:21:15,709 - pool_test - INFO - Instantly resuming mission execution (attempt 36/101)
+2025-04-29 19:21:15,710 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,710 - pool_test - WARNING - Mission was aborted (attempt 36/101)
+2025-04-29 19:21:15,710 - pool_test - INFO - Instantly resuming mission execution (attempt 37/101)
+2025-04-29 19:21:15,710 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,710 - pool_test - WARNING - Mission was aborted (attempt 37/101)
+2025-04-29 19:21:15,710 - pool_test - INFO - Instantly resuming mission execution (attempt 38/101)
+2025-04-29 19:21:15,710 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,710 - pool_test - WARNING - Mission was aborted (attempt 38/101)
+2025-04-29 19:21:15,710 - pool_test - INFO - Instantly resuming mission execution (attempt 39/101)
+2025-04-29 19:21:15,710 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,711 - pool_test - WARNING - Mission was aborted (attempt 39/101)
+2025-04-29 19:21:15,711 - pool_test - INFO - Instantly resuming mission execution (attempt 40/101)
+2025-04-29 19:21:15,711 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,711 - pool_test - WARNING - Mission was aborted (attempt 40/101)
+2025-04-29 19:21:15,711 - pool_test - INFO - Instantly resuming mission execution (attempt 41/101)
+2025-04-29 19:21:15,711 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,711 - pool_test - WARNING - Mission was aborted (attempt 41/101)
+2025-04-29 19:21:15,711 - pool_test - INFO - Instantly resuming mission execution (attempt 42/101)
+2025-04-29 19:21:15,711 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,711 - pool_test - WARNING - Mission was aborted (attempt 42/101)
+2025-04-29 19:21:15,711 - pool_test - INFO - Instantly resuming mission execution (attempt 43/101)
+2025-04-29 19:21:15,712 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,712 - pool_test - WARNING - Mission was aborted (attempt 43/101)
+2025-04-29 19:21:15,712 - pool_test - INFO - Instantly resuming mission execution (attempt 44/101)
+2025-04-29 19:21:15,712 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,712 - pool_test - WARNING - Mission was aborted (attempt 44/101)
+2025-04-29 19:21:15,712 - pool_test - INFO - Instantly resuming mission execution (attempt 45/101)
+2025-04-29 19:21:15,712 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,712 - pool_test - WARNING - Mission was aborted (attempt 45/101)
+2025-04-29 19:21:15,712 - pool_test - INFO - Instantly resuming mission execution (attempt 46/101)
+2025-04-29 19:21:15,712 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,712 - pool_test - WARNING - Mission was aborted (attempt 46/101)
+2025-04-29 19:21:15,713 - pool_test - INFO - Instantly resuming mission execution (attempt 47/101)
+2025-04-29 19:21:15,713 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,713 - pool_test - WARNING - Mission was aborted (attempt 47/101)
+2025-04-29 19:21:15,713 - pool_test - INFO - Instantly resuming mission execution (attempt 48/101)
+2025-04-29 19:21:15,713 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,713 - pool_test - WARNING - Mission was aborted (attempt 48/101)
+2025-04-29 19:21:15,713 - pool_test - INFO - Instantly resuming mission execution (attempt 49/101)
+2025-04-29 19:21:15,713 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,713 - pool_test - WARNING - Mission was aborted (attempt 49/101)
+2025-04-29 19:21:15,713 - pool_test - INFO - Instantly resuming mission execution (attempt 50/101)
+2025-04-29 19:21:15,714 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,714 - pool_test - WARNING - Mission was aborted (attempt 50/101)
+2025-04-29 19:21:15,714 - pool_test - INFO - Instantly resuming mission execution (attempt 51/101)
+2025-04-29 19:21:15,714 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,714 - pool_test - WARNING - Mission was aborted (attempt 51/101)
+2025-04-29 19:21:15,714 - pool_test - INFO - Instantly resuming mission execution (attempt 52/101)
+2025-04-29 19:21:15,714 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,714 - pool_test - WARNING - Mission was aborted (attempt 52/101)
+2025-04-29 19:21:15,714 - pool_test - INFO - Instantly resuming mission execution (attempt 53/101)
+2025-04-29 19:21:15,714 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,715 - pool_test - WARNING - Mission was aborted (attempt 53/101)
+2025-04-29 19:21:15,715 - pool_test - INFO - Instantly resuming mission execution (attempt 54/101)
+2025-04-29 19:21:15,715 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,715 - pool_test - WARNING - Mission was aborted (attempt 54/101)
+2025-04-29 19:21:15,715 - pool_test - INFO - Instantly resuming mission execution (attempt 55/101)
+2025-04-29 19:21:15,715 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,715 - pool_test - WARNING - Mission was aborted (attempt 55/101)
+2025-04-29 19:21:15,715 - pool_test - INFO - Instantly resuming mission execution (attempt 56/101)
+2025-04-29 19:21:15,715 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,715 - pool_test - WARNING - Mission was aborted (attempt 56/101)
+2025-04-29 19:21:15,715 - pool_test - INFO - Instantly resuming mission execution (attempt 57/101)
+2025-04-29 19:21:15,716 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,716 - pool_test - WARNING - Mission was aborted (attempt 57/101)
+2025-04-29 19:21:15,716 - pool_test - INFO - Instantly resuming mission execution (attempt 58/101)
+2025-04-29 19:21:15,716 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,716 - pool_test - WARNING - Mission was aborted (attempt 58/101)
+2025-04-29 19:21:15,716 - pool_test - INFO - Instantly resuming mission execution (attempt 59/101)
+2025-04-29 19:21:15,716 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,716 - pool_test - WARNING - Mission was aborted (attempt 59/101)
+2025-04-29 19:21:15,716 - pool_test - INFO - Instantly resuming mission execution (attempt 60/101)
+2025-04-29 19:21:15,716 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,716 - pool_test - WARNING - Mission was aborted (attempt 60/101)
+2025-04-29 19:21:15,717 - pool_test - INFO - Instantly resuming mission execution (attempt 61/101)
+2025-04-29 19:21:15,717 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,717 - pool_test - WARNING - Mission was aborted (attempt 61/101)
+2025-04-29 19:21:15,717 - pool_test - INFO - Instantly resuming mission execution (attempt 62/101)
+2025-04-29 19:21:15,717 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,717 - pool_test - WARNING - Mission was aborted (attempt 62/101)
+2025-04-29 19:21:15,717 - pool_test - INFO - Instantly resuming mission execution (attempt 63/101)
+2025-04-29 19:21:15,717 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,717 - pool_test - WARNING - Mission was aborted (attempt 63/101)
+2025-04-29 19:21:15,718 - pool_test - INFO - Instantly resuming mission execution (attempt 64/101)
+2025-04-29 19:21:15,718 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,718 - pool_test - WARNING - Mission was aborted (attempt 64/101)
+2025-04-29 19:21:15,718 - pool_test - INFO - Instantly resuming mission execution (attempt 65/101)
+2025-04-29 19:21:15,718 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,718 - pool_test - WARNING - Mission was aborted (attempt 65/101)
+2025-04-29 19:21:15,718 - pool_test - INFO - Instantly resuming mission execution (attempt 66/101)
+2025-04-29 19:21:15,718 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,718 - pool_test - WARNING - Mission was aborted (attempt 66/101)
+2025-04-29 19:21:15,718 - pool_test - INFO - Instantly resuming mission execution (attempt 67/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,719 - pool_test - WARNING - Mission was aborted (attempt 67/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Instantly resuming mission execution (attempt 68/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,719 - pool_test - WARNING - Mission was aborted (attempt 68/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Instantly resuming mission execution (attempt 69/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,719 - pool_test - WARNING - Mission was aborted (attempt 69/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Instantly resuming mission execution (attempt 70/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,719 - pool_test - WARNING - Mission was aborted (attempt 70/101)
+2025-04-29 19:21:15,719 - pool_test - INFO - Instantly resuming mission execution (attempt 71/101)
+2025-04-29 19:21:15,720 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,720 - pool_test - WARNING - Mission was aborted (attempt 71/101)
+2025-04-29 19:21:15,720 - pool_test - INFO - Instantly resuming mission execution (attempt 72/101)
+2025-04-29 19:21:15,720 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,720 - pool_test - WARNING - Mission was aborted (attempt 72/101)
+2025-04-29 19:21:15,720 - pool_test - INFO - Instantly resuming mission execution (attempt 73/101)
+2025-04-29 19:21:15,721 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,721 - pool_test - WARNING - Mission was aborted (attempt 73/101)
+2025-04-29 19:21:15,721 - pool_test - INFO - Instantly resuming mission execution (attempt 74/101)
+2025-04-29 19:21:15,721 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,721 - pool_test - WARNING - Mission was aborted (attempt 74/101)
+2025-04-29 19:21:15,721 - pool_test - INFO - Instantly resuming mission execution (attempt 75/101)
+2025-04-29 19:21:15,721 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,721 - pool_test - WARNING - Mission was aborted (attempt 75/101)
+2025-04-29 19:21:15,721 - pool_test - INFO - Instantly resuming mission execution (attempt 76/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,722 - pool_test - WARNING - Mission was aborted (attempt 76/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Instantly resuming mission execution (attempt 77/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,722 - pool_test - WARNING - Mission was aborted (attempt 77/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Instantly resuming mission execution (attempt 78/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,722 - pool_test - WARNING - Mission was aborted (attempt 78/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Instantly resuming mission execution (attempt 79/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,722 - pool_test - WARNING - Mission was aborted (attempt 79/101)
+2025-04-29 19:21:15,722 - pool_test - INFO - Instantly resuming mission execution (attempt 80/101)
+2025-04-29 19:21:15,723 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,723 - pool_test - WARNING - Mission was aborted (attempt 80/101)
+2025-04-29 19:21:15,723 - pool_test - INFO - Instantly resuming mission execution (attempt 81/101)
+2025-04-29 19:21:15,723 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,723 - pool_test - WARNING - Mission was aborted (attempt 81/101)
+2025-04-29 19:21:15,723 - pool_test - INFO - Instantly resuming mission execution (attempt 82/101)
+2025-04-29 19:21:15,723 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,723 - pool_test - WARNING - Mission was aborted (attempt 82/101)
+2025-04-29 19:21:15,723 - pool_test - INFO - Instantly resuming mission execution (attempt 83/101)
+2025-04-29 19:21:15,723 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,724 - pool_test - WARNING - Mission was aborted (attempt 83/101)
+2025-04-29 19:21:15,724 - pool_test - INFO - Instantly resuming mission execution (attempt 84/101)
+2025-04-29 19:21:15,724 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,724 - pool_test - WARNING - Mission was aborted (attempt 84/101)
+2025-04-29 19:21:15,724 - pool_test - INFO - Instantly resuming mission execution (attempt 85/101)
+2025-04-29 19:21:15,724 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,724 - pool_test - WARNING - Mission was aborted (attempt 85/101)
+2025-04-29 19:21:15,724 - pool_test - INFO - Instantly resuming mission execution (attempt 86/101)
+2025-04-29 19:21:15,724 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,724 - pool_test - WARNING - Mission was aborted (attempt 86/101)
+2025-04-29 19:21:15,725 - pool_test - INFO - Instantly resuming mission execution (attempt 87/101)
+2025-04-29 19:21:15,725 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,725 - pool_test - WARNING - Mission was aborted (attempt 87/101)
+2025-04-29 19:21:15,725 - pool_test - INFO - Instantly resuming mission execution (attempt 88/101)
+2025-04-29 19:21:15,725 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,725 - pool_test - WARNING - Mission was aborted (attempt 88/101)
+2025-04-29 19:21:15,725 - pool_test - INFO - Instantly resuming mission execution (attempt 89/101)
+2025-04-29 19:21:15,725 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,725 - pool_test - WARNING - Mission was aborted (attempt 89/101)
+2025-04-29 19:21:15,726 - pool_test - INFO - Instantly resuming mission execution (attempt 90/101)
+2025-04-29 19:21:15,726 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,726 - pool_test - WARNING - Mission was aborted (attempt 90/101)
+2025-04-29 19:21:15,726 - pool_test - INFO - Instantly resuming mission execution (attempt 91/101)
+2025-04-29 19:21:15,726 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,726 - pool_test - WARNING - Mission was aborted (attempt 91/101)
+2025-04-29 19:21:15,726 - pool_test - INFO - Instantly resuming mission execution (attempt 92/101)
+2025-04-29 19:21:15,726 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,726 - pool_test - WARNING - Mission was aborted (attempt 92/101)
+2025-04-29 19:21:15,726 - pool_test - INFO - Instantly resuming mission execution (attempt 93/101)
+2025-04-29 19:21:15,727 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,727 - pool_test - WARNING - Mission was aborted (attempt 93/101)
+2025-04-29 19:21:15,727 - pool_test - INFO - Instantly resuming mission execution (attempt 94/101)
+2025-04-29 19:21:15,727 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,727 - pool_test - WARNING - Mission was aborted (attempt 94/101)
+2025-04-29 19:21:15,727 - pool_test - INFO - Instantly resuming mission execution (attempt 95/101)
+2025-04-29 19:21:15,727 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,727 - pool_test - WARNING - Mission was aborted (attempt 95/101)
+2025-04-29 19:21:15,727 - pool_test - INFO - Instantly resuming mission execution (attempt 96/101)
+2025-04-29 19:21:15,728 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,728 - pool_test - WARNING - Mission was aborted (attempt 96/101)
+2025-04-29 19:21:15,728 - pool_test - INFO - Instantly resuming mission execution (attempt 97/101)
+2025-04-29 19:21:15,728 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,728 - pool_test - WARNING - Mission was aborted (attempt 97/101)
+2025-04-29 19:21:15,728 - pool_test - INFO - Instantly resuming mission execution (attempt 98/101)
+2025-04-29 19:21:15,728 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,728 - pool_test - WARNING - Mission was aborted (attempt 98/101)
+2025-04-29 19:21:15,728 - pool_test - INFO - Instantly resuming mission execution (attempt 99/101)
+2025-04-29 19:21:15,729 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,729 - pool_test - WARNING - Mission was aborted (attempt 99/101)
+2025-04-29 19:21:15,729 - pool_test - INFO - Instantly resuming mission execution (attempt 100/101)
+2025-04-29 19:21:15,729 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,729 - pool_test - WARNING - Mission was aborted (attempt 100/101)
+2025-04-29 19:21:15,729 - pool_test - INFO - Instantly resuming mission execution (attempt 101/101)
+2025-04-29 19:21:15,729 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/11 instructions, Time: 38s/97s, Depth: 0.4m
+2025-04-29 19:21:15,730 - pool_test - WARNING - Mission was aborted (attempt 101/101)
+2025-04-29 19:21:15,730 - pool_test - WARNING - Maximum retry attempts (100) reached. Mission failed.
+2025-04-29 19:21:15,730 - pool_test - INFO - Mission failed
+2025-04-29 19:21:15,730 - pool_test - INFO - Disconnecting from drone
+2025-04-29 19:21:15,746 - pool_test - INFO - Disconnected from drone
+2025-04-29 19:24:55,090 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-04-29 19:24:55,090 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-29 19:24:55,090 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-29 19:24:56,319 - blueye.sdk.drone - INFO - Connection successful, client id: 82
+2025-04-29 19:24:56,320 - blueye.sdk.drone - INFO - Client id in control: 81
+2025-04-29 19:24:56,320 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-04-29 19:24:56,320 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-29 19:24:56,321 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-29 19:24:56,321 - pool_test - INFO - Taking control of drone...
+2025-04-29 19:24:56,371 - pool_test - ERROR - Failed to connect to drone: No response received from drone before timeout
+2025-04-29 19:24:56,372 - pool_test - ERROR - Failed to connect to drone. Exiting.
+2025-04-29 19:25:05,441 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-04-29 19:25:05,441 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-04-29 19:25:05,441 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-04-29 19:25:06,150 - blueye.sdk.drone - INFO - Connection successful, client id: 83
+2025-04-29 19:25:06,150 - blueye.sdk.drone - INFO - Client id in control: 81
+2025-04-29 19:25:06,151 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-04-29 19:25:06,151 - pool_test - INFO - Connected to drone: BYEDP220009
+2025-04-29 19:25:06,152 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-04-29 19:25:06,152 - pool_test - INFO - Taking control of drone...
+2025-04-29 19:25:06,164 - pool_test - INFO - Control of drone acquired
+2025-04-29 19:25:06,164 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-04-29 19:25:06,164 - pool_test - INFO - Resetting drone position to coordinates: 63.440662, 10.3488502 with heading: 163.0°
+2025-04-29 19:25:06,164 - pool_test - INFO - Position reset command sent successfully
+2025-04-29 19:25:16,174 - pool_test - INFO - Creating pipeline survey
+2025-04-29 19:25:16,176 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-04-29 19:25:16,176 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-04-29 19:25:16,176 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-04-29 19:25:16,176 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-04-29 19:25:16,177 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-04-29 19:25:16,177 - pool_test - INFO - Clearing any previous missions
+2025-04-29 19:25:17,178 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-04-29 19:25:18,195 - pool_test - INFO - Starting mission execution
+2025-04-29 19:25:18,195 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/25s, Depth: -0.3m
+2025-04-29 19:25:20,198 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 0s/40s, Depth: -0.3m
+2025-04-29 19:25:22,201 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 2s/42s, Depth: -0.3m
+2025-04-29 19:25:24,204 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 4s/44s, Depth: -0.3m
+2025-04-29 19:25:26,207 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 6s/46s, Depth: -0.2m
+2025-04-29 19:25:28,210 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 8s/48s, Depth: -0.1m
+2025-04-29 19:25:30,213 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 10s/50s, Depth: 0.0m
+2025-04-29 19:25:32,216 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 12s/52s, Depth: 0.2m
+2025-04-29 19:25:34,219 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 14s/54s, Depth: 0.3m
+2025-04-29 19:25:36,222 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 16s/56s, Depth: 0.5m
+2025-04-29 19:25:38,225 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 18s/58s, Depth: 0.5m
+2025-04-29 19:25:40,228 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 20s/60s, Depth: 0.5m
+2025-04-29 19:25:42,230 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 22s/62s, Depth: 0.4m
+2025-04-29 19:25:44,232 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 24s/64s, Depth: 0.3m
+2025-04-29 19:25:46,235 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 26s/66s, Depth: 0.3m
+2025-04-29 19:25:48,238 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 28s/68s, Depth: 0.2m
+2025-04-29 19:25:50,239 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 30s/70s, Depth: 0.2m
+2025-04-29 19:25:52,242 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 32s/72s, Depth: 0.2m
+2025-04-29 19:25:54,244 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 34s/74s, Depth: 0.2m
+2025-04-29 19:25:56,247 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 36s/75s, Depth: 0.1m
+2025-04-29 19:25:58,250 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/7 instructions, Time: 38s/77s, Depth: 0.1m
+2025-04-29 19:26:00,253 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,253 - pool_test - WARNING - Mission was aborted (attempt 1/101)
+2025-04-29 19:26:00,253 - pool_test - INFO - Instantly resuming mission execution (attempt 2/101)
+2025-04-29 19:26:00,254 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,254 - pool_test - WARNING - Mission was aborted (attempt 2/101)
+2025-04-29 19:26:00,254 - pool_test - INFO - Instantly resuming mission execution (attempt 3/101)
+2025-04-29 19:26:00,255 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,255 - pool_test - WARNING - Mission was aborted (attempt 3/101)
+2025-04-29 19:26:00,255 - pool_test - INFO - Instantly resuming mission execution (attempt 4/101)
+2025-04-29 19:26:00,256 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,256 - pool_test - WARNING - Mission was aborted (attempt 4/101)
+2025-04-29 19:26:00,256 - pool_test - INFO - Instantly resuming mission execution (attempt 5/101)
+2025-04-29 19:26:00,256 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,256 - pool_test - WARNING - Mission was aborted (attempt 5/101)
+2025-04-29 19:26:00,256 - pool_test - INFO - Instantly resuming mission execution (attempt 6/101)
+2025-04-29 19:26:00,257 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,257 - pool_test - WARNING - Mission was aborted (attempt 6/101)
+2025-04-29 19:26:00,257 - pool_test - INFO - Instantly resuming mission execution (attempt 7/101)
+2025-04-29 19:26:00,257 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,257 - pool_test - WARNING - Mission was aborted (attempt 7/101)
+2025-04-29 19:26:00,257 - pool_test - INFO - Instantly resuming mission execution (attempt 8/101)
+2025-04-29 19:26:00,258 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,258 - pool_test - WARNING - Mission was aborted (attempt 8/101)
+2025-04-29 19:26:00,258 - pool_test - INFO - Instantly resuming mission execution (attempt 9/101)
+2025-04-29 19:26:00,258 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,259 - pool_test - WARNING - Mission was aborted (attempt 9/101)
+2025-04-29 19:26:00,259 - pool_test - INFO - Instantly resuming mission execution (attempt 10/101)
+2025-04-29 19:26:00,259 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,259 - pool_test - WARNING - Mission was aborted (attempt 10/101)
+2025-04-29 19:26:00,259 - pool_test - INFO - Instantly resuming mission execution (attempt 11/101)
+2025-04-29 19:26:00,259 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,259 - pool_test - WARNING - Mission was aborted (attempt 11/101)
+2025-04-29 19:26:00,259 - pool_test - INFO - Instantly resuming mission execution (attempt 12/101)
+2025-04-29 19:26:00,260 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,260 - pool_test - WARNING - Mission was aborted (attempt 12/101)
+2025-04-29 19:26:00,260 - pool_test - INFO - Instantly resuming mission execution (attempt 13/101)
+2025-04-29 19:26:00,260 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,260 - pool_test - WARNING - Mission was aborted (attempt 13/101)
+2025-04-29 19:26:00,260 - pool_test - INFO - Instantly resuming mission execution (attempt 14/101)
+2025-04-29 19:26:00,260 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,260 - pool_test - WARNING - Mission was aborted (attempt 14/101)
+2025-04-29 19:26:00,260 - pool_test - INFO - Instantly resuming mission execution (attempt 15/101)
+2025-04-29 19:26:00,260 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,261 - pool_test - WARNING - Mission was aborted (attempt 15/101)
+2025-04-29 19:26:00,261 - pool_test - INFO - Instantly resuming mission execution (attempt 16/101)
+2025-04-29 19:26:00,261 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,261 - pool_test - WARNING - Mission was aborted (attempt 16/101)
+2025-04-29 19:26:00,261 - pool_test - INFO - Instantly resuming mission execution (attempt 17/101)
+2025-04-29 19:26:00,261 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,261 - pool_test - WARNING - Mission was aborted (attempt 17/101)
+2025-04-29 19:26:00,261 - pool_test - INFO - Instantly resuming mission execution (attempt 18/101)
+2025-04-29 19:26:00,261 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,262 - pool_test - WARNING - Mission was aborted (attempt 18/101)
+2025-04-29 19:26:00,262 - pool_test - INFO - Instantly resuming mission execution (attempt 19/101)
+2025-04-29 19:26:00,262 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,262 - pool_test - WARNING - Mission was aborted (attempt 19/101)
+2025-04-29 19:26:00,262 - pool_test - INFO - Instantly resuming mission execution (attempt 20/101)
+2025-04-29 19:26:00,262 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,262 - pool_test - WARNING - Mission was aborted (attempt 20/101)
+2025-04-29 19:26:00,262 - pool_test - INFO - Instantly resuming mission execution (attempt 21/101)
+2025-04-29 19:26:00,262 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,262 - pool_test - WARNING - Mission was aborted (attempt 21/101)
+2025-04-29 19:26:00,262 - pool_test - INFO - Instantly resuming mission execution (attempt 22/101)
+2025-04-29 19:26:00,263 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,263 - pool_test - WARNING - Mission was aborted (attempt 22/101)
+2025-04-29 19:26:00,263 - pool_test - INFO - Instantly resuming mission execution (attempt 23/101)
+2025-04-29 19:26:00,263 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,263 - pool_test - WARNING - Mission was aborted (attempt 23/101)
+2025-04-29 19:26:00,263 - pool_test - INFO - Instantly resuming mission execution (attempt 24/101)
+2025-04-29 19:26:00,263 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,263 - pool_test - WARNING - Mission was aborted (attempt 24/101)
+2025-04-29 19:26:00,263 - pool_test - INFO - Instantly resuming mission execution (attempt 25/101)
+2025-04-29 19:26:00,264 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,264 - pool_test - WARNING - Mission was aborted (attempt 25/101)
+2025-04-29 19:26:00,264 - pool_test - INFO - Instantly resuming mission execution (attempt 26/101)
+2025-04-29 19:26:00,265 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,265 - pool_test - WARNING - Mission was aborted (attempt 26/101)
+2025-04-29 19:26:00,265 - pool_test - INFO - Instantly resuming mission execution (attempt 27/101)
+2025-04-29 19:26:00,265 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,265 - pool_test - WARNING - Mission was aborted (attempt 27/101)
+2025-04-29 19:26:00,266 - pool_test - INFO - Instantly resuming mission execution (attempt 28/101)
+2025-04-29 19:26:00,266 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,266 - pool_test - WARNING - Mission was aborted (attempt 28/101)
+2025-04-29 19:26:00,266 - pool_test - INFO - Instantly resuming mission execution (attempt 29/101)
+2025-04-29 19:26:00,267 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,267 - pool_test - WARNING - Mission was aborted (attempt 29/101)
+2025-04-29 19:26:00,267 - pool_test - INFO - Instantly resuming mission execution (attempt 30/101)
+2025-04-29 19:26:00,267 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,267 - pool_test - WARNING - Mission was aborted (attempt 30/101)
+2025-04-29 19:26:00,267 - pool_test - INFO - Instantly resuming mission execution (attempt 31/101)
+2025-04-29 19:26:00,267 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,268 - pool_test - WARNING - Mission was aborted (attempt 31/101)
+2025-04-29 19:26:00,268 - pool_test - INFO - Instantly resuming mission execution (attempt 32/101)
+2025-04-29 19:26:00,268 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,268 - pool_test - WARNING - Mission was aborted (attempt 32/101)
+2025-04-29 19:26:00,268 - pool_test - INFO - Instantly resuming mission execution (attempt 33/101)
+2025-04-29 19:26:00,269 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,269 - pool_test - WARNING - Mission was aborted (attempt 33/101)
+2025-04-29 19:26:00,269 - pool_test - INFO - Instantly resuming mission execution (attempt 34/101)
+2025-04-29 19:26:00,269 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,269 - pool_test - WARNING - Mission was aborted (attempt 34/101)
+2025-04-29 19:26:00,269 - pool_test - INFO - Instantly resuming mission execution (attempt 35/101)
+2025-04-29 19:26:00,269 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,270 - pool_test - WARNING - Mission was aborted (attempt 35/101)
+2025-04-29 19:26:00,270 - pool_test - INFO - Instantly resuming mission execution (attempt 36/101)
+2025-04-29 19:26:00,270 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,270 - pool_test - WARNING - Mission was aborted (attempt 36/101)
+2025-04-29 19:26:00,270 - pool_test - INFO - Instantly resuming mission execution (attempt 37/101)
+2025-04-29 19:26:00,270 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,270 - pool_test - WARNING - Mission was aborted (attempt 37/101)
+2025-04-29 19:26:00,270 - pool_test - INFO - Instantly resuming mission execution (attempt 38/101)
+2025-04-29 19:26:00,270 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,270 - pool_test - WARNING - Mission was aborted (attempt 38/101)
+2025-04-29 19:26:00,270 - pool_test - INFO - Instantly resuming mission execution (attempt 39/101)
+2025-04-29 19:26:00,271 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,271 - pool_test - WARNING - Mission was aborted (attempt 39/101)
+2025-04-29 19:26:00,271 - pool_test - INFO - Instantly resuming mission execution (attempt 40/101)
+2025-04-29 19:26:00,271 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,271 - pool_test - WARNING - Mission was aborted (attempt 40/101)
+2025-04-29 19:26:00,271 - pool_test - INFO - Instantly resuming mission execution (attempt 41/101)
+2025-04-29 19:26:00,271 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,271 - pool_test - WARNING - Mission was aborted (attempt 41/101)
+2025-04-29 19:26:00,271 - pool_test - INFO - Instantly resuming mission execution (attempt 42/101)
+2025-04-29 19:26:00,271 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,272 - pool_test - WARNING - Mission was aborted (attempt 42/101)
+2025-04-29 19:26:00,272 - pool_test - INFO - Instantly resuming mission execution (attempt 43/101)
+2025-04-29 19:26:00,272 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,272 - pool_test - WARNING - Mission was aborted (attempt 43/101)
+2025-04-29 19:26:00,272 - pool_test - INFO - Instantly resuming mission execution (attempt 44/101)
+2025-04-29 19:26:00,272 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,272 - pool_test - WARNING - Mission was aborted (attempt 44/101)
+2025-04-29 19:26:00,272 - pool_test - INFO - Instantly resuming mission execution (attempt 45/101)
+2025-04-29 19:26:00,272 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,272 - pool_test - WARNING - Mission was aborted (attempt 45/101)
+2025-04-29 19:26:00,272 - pool_test - INFO - Instantly resuming mission execution (attempt 46/101)
+2025-04-29 19:26:00,273 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,273 - pool_test - WARNING - Mission was aborted (attempt 46/101)
+2025-04-29 19:26:00,273 - pool_test - INFO - Instantly resuming mission execution (attempt 47/101)
+2025-04-29 19:26:00,273 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,273 - pool_test - WARNING - Mission was aborted (attempt 47/101)
+2025-04-29 19:26:00,273 - pool_test - INFO - Instantly resuming mission execution (attempt 48/101)
+2025-04-29 19:26:00,273 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,273 - pool_test - WARNING - Mission was aborted (attempt 48/101)
+2025-04-29 19:26:00,273 - pool_test - INFO - Instantly resuming mission execution (attempt 49/101)
+2025-04-29 19:26:00,274 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,274 - pool_test - WARNING - Mission was aborted (attempt 49/101)
+2025-04-29 19:26:00,274 - pool_test - INFO - Instantly resuming mission execution (attempt 50/101)
+2025-04-29 19:26:00,274 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,274 - pool_test - WARNING - Mission was aborted (attempt 50/101)
+2025-04-29 19:26:00,274 - pool_test - INFO - Instantly resuming mission execution (attempt 51/101)
+2025-04-29 19:26:00,274 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,274 - pool_test - WARNING - Mission was aborted (attempt 51/101)
+2025-04-29 19:26:00,274 - pool_test - INFO - Instantly resuming mission execution (attempt 52/101)
+2025-04-29 19:26:00,274 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,275 - pool_test - WARNING - Mission was aborted (attempt 52/101)
+2025-04-29 19:26:00,275 - pool_test - INFO - Instantly resuming mission execution (attempt 53/101)
+2025-04-29 19:26:00,275 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,275 - pool_test - WARNING - Mission was aborted (attempt 53/101)
+2025-04-29 19:26:00,275 - pool_test - INFO - Instantly resuming mission execution (attempt 54/101)
+2025-04-29 19:26:00,275 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,275 - pool_test - WARNING - Mission was aborted (attempt 54/101)
+2025-04-29 19:26:00,275 - pool_test - INFO - Instantly resuming mission execution (attempt 55/101)
+2025-04-29 19:26:00,275 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,275 - pool_test - WARNING - Mission was aborted (attempt 55/101)
+2025-04-29 19:26:00,276 - pool_test - INFO - Instantly resuming mission execution (attempt 56/101)
+2025-04-29 19:26:00,276 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,276 - pool_test - WARNING - Mission was aborted (attempt 56/101)
+2025-04-29 19:26:00,276 - pool_test - INFO - Instantly resuming mission execution (attempt 57/101)
+2025-04-29 19:26:00,276 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,276 - pool_test - WARNING - Mission was aborted (attempt 57/101)
+2025-04-29 19:26:00,276 - pool_test - INFO - Instantly resuming mission execution (attempt 58/101)
+2025-04-29 19:26:00,276 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,276 - pool_test - WARNING - Mission was aborted (attempt 58/101)
+2025-04-29 19:26:00,276 - pool_test - INFO - Instantly resuming mission execution (attempt 59/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,277 - pool_test - WARNING - Mission was aborted (attempt 59/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Instantly resuming mission execution (attempt 60/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,277 - pool_test - WARNING - Mission was aborted (attempt 60/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Instantly resuming mission execution (attempt 61/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,277 - pool_test - WARNING - Mission was aborted (attempt 61/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Instantly resuming mission execution (attempt 62/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,277 - pool_test - WARNING - Mission was aborted (attempt 62/101)
+2025-04-29 19:26:00,277 - pool_test - INFO - Instantly resuming mission execution (attempt 63/101)
+2025-04-29 19:26:00,278 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,278 - pool_test - WARNING - Mission was aborted (attempt 63/101)
+2025-04-29 19:26:00,278 - pool_test - INFO - Instantly resuming mission execution (attempt 64/101)
+2025-04-29 19:26:00,278 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,278 - pool_test - WARNING - Mission was aborted (attempt 64/101)
+2025-04-29 19:26:00,278 - pool_test - INFO - Instantly resuming mission execution (attempt 65/101)
+2025-04-29 19:26:00,278 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,278 - pool_test - WARNING - Mission was aborted (attempt 65/101)
+2025-04-29 19:26:00,278 - pool_test - INFO - Instantly resuming mission execution (attempt 66/101)
+2025-04-29 19:26:00,278 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,279 - pool_test - WARNING - Mission was aborted (attempt 66/101)
+2025-04-29 19:26:00,279 - pool_test - INFO - Instantly resuming mission execution (attempt 67/101)
+2025-04-29 19:26:00,279 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,279 - pool_test - WARNING - Mission was aborted (attempt 67/101)
+2025-04-29 19:26:00,279 - pool_test - INFO - Instantly resuming mission execution (attempt 68/101)
+2025-04-29 19:26:00,279 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,279 - pool_test - WARNING - Mission was aborted (attempt 68/101)
+2025-04-29 19:26:00,279 - pool_test - INFO - Instantly resuming mission execution (attempt 69/101)
+2025-04-29 19:26:00,279 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,279 - pool_test - WARNING - Mission was aborted (attempt 69/101)
+2025-04-29 19:26:00,279 - pool_test - INFO - Instantly resuming mission execution (attempt 70/101)
+2025-04-29 19:26:00,280 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,280 - pool_test - WARNING - Mission was aborted (attempt 70/101)
+2025-04-29 19:26:00,280 - pool_test - INFO - Instantly resuming mission execution (attempt 71/101)
+2025-04-29 19:26:00,280 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,280 - pool_test - WARNING - Mission was aborted (attempt 71/101)
+2025-04-29 19:26:00,280 - pool_test - INFO - Instantly resuming mission execution (attempt 72/101)
+2025-04-29 19:26:00,280 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,280 - pool_test - WARNING - Mission was aborted (attempt 72/101)
+2025-04-29 19:26:00,280 - pool_test - INFO - Instantly resuming mission execution (attempt 73/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,281 - pool_test - WARNING - Mission was aborted (attempt 73/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Instantly resuming mission execution (attempt 74/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,281 - pool_test - WARNING - Mission was aborted (attempt 74/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Instantly resuming mission execution (attempt 75/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,281 - pool_test - WARNING - Mission was aborted (attempt 75/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Instantly resuming mission execution (attempt 76/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,281 - pool_test - WARNING - Mission was aborted (attempt 76/101)
+2025-04-29 19:26:00,281 - pool_test - INFO - Instantly resuming mission execution (attempt 77/101)
+2025-04-29 19:26:00,282 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,282 - pool_test - WARNING - Mission was aborted (attempt 77/101)
+2025-04-29 19:26:00,282 - pool_test - INFO - Instantly resuming mission execution (attempt 78/101)
+2025-04-29 19:26:00,282 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,282 - pool_test - WARNING - Mission was aborted (attempt 78/101)
+2025-04-29 19:26:00,282 - pool_test - INFO - Instantly resuming mission execution (attempt 79/101)
+2025-04-29 19:26:00,282 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,282 - pool_test - WARNING - Mission was aborted (attempt 79/101)
+2025-04-29 19:26:00,282 - pool_test - INFO - Instantly resuming mission execution (attempt 80/101)
+2025-04-29 19:26:00,282 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,283 - pool_test - WARNING - Mission was aborted (attempt 80/101)
+2025-04-29 19:26:00,283 - pool_test - INFO - Instantly resuming mission execution (attempt 81/101)
+2025-04-29 19:26:00,283 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,283 - pool_test - WARNING - Mission was aborted (attempt 81/101)
+2025-04-29 19:26:00,283 - pool_test - INFO - Instantly resuming mission execution (attempt 82/101)
+2025-04-29 19:26:00,283 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,283 - pool_test - WARNING - Mission was aborted (attempt 82/101)
+2025-04-29 19:26:00,283 - pool_test - INFO - Instantly resuming mission execution (attempt 83/101)
+2025-04-29 19:26:00,284 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,284 - pool_test - WARNING - Mission was aborted (attempt 83/101)
+2025-04-29 19:26:00,284 - pool_test - INFO - Instantly resuming mission execution (attempt 84/101)
+2025-04-29 19:26:00,284 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,284 - pool_test - WARNING - Mission was aborted (attempt 84/101)
+2025-04-29 19:26:00,284 - pool_test - INFO - Instantly resuming mission execution (attempt 85/101)
+2025-04-29 19:26:00,285 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,285 - pool_test - WARNING - Mission was aborted (attempt 85/101)
+2025-04-29 19:26:00,285 - pool_test - INFO - Instantly resuming mission execution (attempt 86/101)
+2025-04-29 19:26:00,285 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,285 - pool_test - WARNING - Mission was aborted (attempt 86/101)
+2025-04-29 19:26:00,285 - pool_test - INFO - Instantly resuming mission execution (attempt 87/101)
+2025-04-29 19:26:00,285 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,285 - pool_test - WARNING - Mission was aborted (attempt 87/101)
+2025-04-29 19:26:00,285 - pool_test - INFO - Instantly resuming mission execution (attempt 88/101)
+2025-04-29 19:26:00,286 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,286 - pool_test - WARNING - Mission was aborted (attempt 88/101)
+2025-04-29 19:26:00,286 - pool_test - INFO - Instantly resuming mission execution (attempt 89/101)
+2025-04-29 19:26:00,286 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,286 - pool_test - WARNING - Mission was aborted (attempt 89/101)
+2025-04-29 19:26:00,286 - pool_test - INFO - Instantly resuming mission execution (attempt 90/101)
+2025-04-29 19:26:00,287 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,287 - pool_test - WARNING - Mission was aborted (attempt 90/101)
+2025-04-29 19:26:00,287 - pool_test - INFO - Instantly resuming mission execution (attempt 91/101)
+2025-04-29 19:26:00,287 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,287 - pool_test - WARNING - Mission was aborted (attempt 91/101)
+2025-04-29 19:26:00,287 - pool_test - INFO - Instantly resuming mission execution (attempt 92/101)
+2025-04-29 19:26:00,287 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,287 - pool_test - WARNING - Mission was aborted (attempt 92/101)
+2025-04-29 19:26:00,288 - pool_test - INFO - Instantly resuming mission execution (attempt 93/101)
+2025-04-29 19:26:00,288 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,288 - pool_test - WARNING - Mission was aborted (attempt 93/101)
+2025-04-29 19:26:00,288 - pool_test - INFO - Instantly resuming mission execution (attempt 94/101)
+2025-04-29 19:26:00,288 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,288 - pool_test - WARNING - Mission was aborted (attempt 94/101)
+2025-04-29 19:26:00,288 - pool_test - INFO - Instantly resuming mission execution (attempt 95/101)
+2025-04-29 19:26:00,288 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,288 - pool_test - WARNING - Mission was aborted (attempt 95/101)
+2025-04-29 19:26:00,288 - pool_test - INFO - Instantly resuming mission execution (attempt 96/101)
+2025-04-29 19:26:00,289 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,289 - pool_test - WARNING - Mission was aborted (attempt 96/101)
+2025-04-29 19:26:00,289 - pool_test - INFO - Instantly resuming mission execution (attempt 97/101)
+2025-04-29 19:26:00,289 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,289 - pool_test - WARNING - Mission was aborted (attempt 97/101)
+2025-04-29 19:26:00,289 - pool_test - INFO - Instantly resuming mission execution (attempt 98/101)
+2025-04-29 19:26:00,289 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,289 - pool_test - WARNING - Mission was aborted (attempt 98/101)
+2025-04-29 19:26:00,289 - pool_test - INFO - Instantly resuming mission execution (attempt 99/101)
+2025-04-29 19:26:00,289 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,290 - pool_test - WARNING - Mission was aborted (attempt 99/101)
+2025-04-29 19:26:00,290 - pool_test - INFO - Instantly resuming mission execution (attempt 100/101)
+2025-04-29 19:26:00,290 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,290 - pool_test - WARNING - Mission was aborted (attempt 100/101)
+2025-04-29 19:26:00,290 - pool_test - INFO - Instantly resuming mission execution (attempt 101/101)
+2025-04-29 19:26:00,290 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 3/7 instructions, Time: 38s/76s, Depth: -0.0m
+2025-04-29 19:26:00,291 - pool_test - WARNING - Mission was aborted (attempt 101/101)
+2025-04-29 19:26:00,291 - pool_test - WARNING - Maximum retry attempts (100) reached. Mission failed.
+2025-04-29 19:26:00,291 - pool_test - INFO - Mission failed
+2025-04-29 19:26:00,291 - pool_test - INFO - Disconnecting from drone
+2025-04-29 19:26:00,302 - pool_test - INFO - Disconnected from drone

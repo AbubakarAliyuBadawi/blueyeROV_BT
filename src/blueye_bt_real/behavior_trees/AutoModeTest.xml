@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="AutoModeTest">
+<BehaviorTree ID="AutoModeTest">
+  <Sequence name="auto_mode_sequence">
+    <Wait name="initial_wait" duration="3"/>
+        <ActivateAutoModes 
+        depth_hold="true" 
+        heading_hold="true"
+        hold_duration="10" />
+    <GoToWaypointCC name="test_waypoint"
+        waypoint_lat="63.4407"
+        waypoint_lon="10.349" 
+        depth="0.5" 
+        drone_ip="192.168.1.101"
+        initialize_connection="true" />
+    <ActivateAutoModes 
+        depth_hold="true" 
+        heading_hold="true"
+        hold_duration="10" />
+    <LaunchDockingProcedure name="launch_integrated_docking" />
+
+  </Sequence>
+</BehaviorTree>
+
+<!-- Description of Node Models (used by Groot) -->
+<TreeNodesModel>
+  <Action ID="Wait">
+    <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+  </Action>
+  <Action ID="ActivateAutoModes">
+    <input_port name="depth_hold" type="Bool" default="true">Enable depth hold mode</input_port>
+    <input_port name="heading_hold" type="Bool" default="true">Enable heading hold mode</input_port>
+    <input_port name="hold_duration" type="Int" default="10">Duration to hold position in seconds</input_port>
+  </Action>
+  <Action ID="GoToWaypointCC">
+    <input_port name="waypoint_lat" type="Double">Target latitude</input_port>
+    <input_port name="waypoint_lon" type="Double">Target longitude</input_port>
+    <input_port name="depth" type="Double" default="1.0">Target depth in meters</input_port>
+    <input_port name="drone_ip" type="String" default="192.168.1.101">IP address of the drone</input_port>
+    <input_port name="initialize_connection" type="Bool" default="false">Whether to initialize a new connection</input_port>
+  </Action>
+  <Action ID="LaunchDockingProcedure" />
+</TreeNodesModel>
+</root>

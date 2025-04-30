@@ -26,14 +26,13 @@ public:
 private:
     // ROS subscription
     rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr battery_sub_;
-    
-    // Store the latest battery percentage
+    // Store the latest battery percentage and related values
     double battery_percentage_;
+    double current_;            // Current in amps
+    double charging_current_;   // Charging current in amps
     std::mutex mutex_;
-    
     // Callback for battery messages
     void batteryCallback(const geometry_msgs::msg::Pose::SharedPtr msg);
-    
     // Flag to know if we've received any battery data
     bool has_battery_data_;
 };

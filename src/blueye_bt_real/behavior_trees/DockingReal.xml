@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="Docking">
+    <BehaviorTree ID="Docking">
+        <Sequence name="docking_sequence">
+            <!-- Launch the external docking procedure -->
+            <LaunchDockingProcedure name="launch_integrated_docking" />
+            <!-- Wait for the docking to complete -->
+            <Wait name="wait_for_docking" duration="10" />
+            <!-- Extended charging wait period -->
+            <Sequence name="charging_sequence">
+                <SetBlackboard output_key="status_message" value="ROV successfully docked and now charging" />
+                <Wait name="charging_time" duration="10000" />
+            </Sequence>
+        </Sequence>
+    </BehaviorTree>
+    
+    <TreeNodesModel>
+        <Action ID="LaunchDockingProcedure" />
+        <Action ID="Wait">
+            <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+        </Action>
+        <Action ID="SetBlackboard">
+            <input_port name="output_key" type="String">Key to set</input_port>
+            <input_port name="value" type="String">Value to set</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>
