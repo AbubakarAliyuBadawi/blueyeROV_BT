@@ -18,13 +18,23 @@ BatteryLevelCondition::BatteryLevelCondition(const std::string& name, const BT::
 
 void BatteryLevelCondition::batteryCallback(const geometry_msgs::msg::Pose::SharedPtr msg)
 {
-    // In your blueye_commands.py, the battery percentage is stored in position.y:
-    // battery_msg.position.y = msg.battery.relative_state_of_charge
     std::lock_guard<std::mutex> lock(mutex_);
-    battery_percentage_ = msg->position.y;
-    has_battery_data_ = true;
     
-    RCLCPP_DEBUG(g_node->get_logger(), "Received battery level: %.1f%%", battery_percentage_);
+    // Calculate battery percentage based on runtime_to_empty
+    float time_remaining = msg->orientation.x; // runtime_to_empty in seconds
+    float full_runtime = 20400.0; // Estimate of 5.6 hours (20400 seconds) at full charge
+    
+    // Calculate percentage and clamp to reasonable range (0-100%)
+    battery_percentage_ = (time_remaining / full_runtime) * 100.0;
+    battery_percentage_ = std::max(0.0, std::min(100.0, battery_percentage_));
+    
+    // Store current, voltage, and other values for debugging if needed
+    current_ = msg->position.z;  // Store current for potential future use
+    charging_current_ = msg->position.x;  // Store charging current
+    
+    has_battery_data_ = true;
+    RCLCPP_INFO(g_node->get_logger(), "Estimated battery level: %.1f%% (runtime: %.1f s, current: %.2f A)", 
+               battery_percentage_, time_remaining, current_);
 }
 
 BT::NodeStatus BatteryLevelCondition::tick()

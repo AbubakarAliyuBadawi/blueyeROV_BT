@@ -16,6 +16,8 @@
 #include "blueye_bt_real/behaviors/goto_waypoint.hpp"
 #include "blueye_bt_real/behaviors/goto_waypoint_cc.hpp"
 #include "blueye_bt_real/behaviors/activate_auto_modes.hpp"
+#include "blueye_bt_real/conditions/CheckBlackboardBool.hpp"
+#include "blueye_bt_real/behaviors/pipeline_inspection_mission.hpp"
 
 // Global node for service clients
 rclcpp::Node::SharedPtr g_node;
@@ -45,8 +47,8 @@ int main(int argc, char **argv) {
     factory.registerNodeType<BT::RetryNode>("RetryNode");
     factory.registerNodeType<BT::SequenceNode>("SequenceNode");
     factory.registerNodeType<BT::AlwaysFailureNode>("AlwaysFail");
-
-
+    factory.registerNodeType<BT::ParallelNode>("ParallelNode");
+    
     // Register LaunchDockingProcedure
     factory.registerBuilder<LaunchMissionProcedure>(
         "LaunchMissionProcedure",
@@ -103,6 +105,19 @@ int main(int argc, char **argv) {
         "ActivateAutoModes",
         [](const std::string& name, const BT::NodeConfig& config) {
             return std::make_unique<ActivateAutoModes>(name, config);
+        });
+
+    factory.registerBuilder<blueye_bt_real::CheckBlackboardBool>(
+        "CheckBlackboardBool",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<blueye_bt_real::CheckBlackboardBool>(name, config);
+        });
+
+    // Register PipelineInspectionMission
+    factory.registerBuilder<PipelineInspectionMission>(
+        "PipelineInspectionMission",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<PipelineInspectionMission>(name, config);
         });
 
 try {

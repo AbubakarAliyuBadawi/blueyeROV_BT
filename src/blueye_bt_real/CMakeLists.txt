@@ -36,6 +36,7 @@ add_library(blueye_bt_real_nodes SHARED
   src/behaviors/goto_waypoint.cpp
   src/behaviors/goto_waypoint_cc.cpp
   src/behaviors/activate_auto_modes.cpp
+  src/behaviors/pipeline_inspection_mission.cpp
 )
 
 ament_target_dependencies(blueye_bt_real_nodes

@@ -1,75 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root BTCPP_format="4" main_tree_to_execute="MissionControlReal">
-    <BehaviorTree ID="MissionControlReal">
-        <Sequence name="full_mission_sequence">
-            <Wait name="Getting_Ready" duration="10"/>
-            
-            <!-- Fallback between emergency docking and normal mission -->
-            <ReactiveFallback name="mission_with_battery_monitoring">
-                <!-- Emergency sequence to execute if battery is low -->
-                <Sequence name="emergency_sequence">
-                    <!-- Check if battery level is below threshold -->
-                    <BatteryLevelCondition name="check_battery" threshold="20"/>
-                    
-                    <!-- Emergency return to dock -->
-                    <Sequence name="emergency_return_and_dock">
-                        <!-- Navigate to docking station position -->
-                        <GoToWaypoint name="goto_docking_station"
-                            waypoint_lat="63.4406991"
-                            waypoint_lon="10.3489964"
-                            depth="2.0"
-                            drone_ip="192.168.1.101"/>
-                            
-                        <!-- Execute docking procedure once at position -->
-                        <LaunchDockingProcedure name="emergency_docking_maneuver"/>
-                        
-                        <!-- Update status message -->
-                        <SetBlackboard value="EMERGENCY: Low battery, ROV has docked and is now charging"
-                            output_key="status_message"/>
-                    </Sequence>
-                </Sequence>
-                
-                <!-- Normal mission sequence (only runs if battery is OK) -->
-                <Sequence name="normal_mission">
-                    <LaunchMissionProcedure name="pipeline_inspection_mission"
-                        script_path="~/Desktop/blueyeROV_BT/launch_mission.sh"
-                        drone_ip="192.168.1.101"
-                        start_lat="63.441475"
-                        start_lon="10.348348"
-                        start_heading="0.0"/>
-                    <LaunchDockingProcedure name="planned_docking_maneuver"/>
-                    <Sequence name="docked_&amp;_charging">
-                        <SetBlackboard value="ROV successfully docked and now charging"
-                            output_key="status_message"/>
-                        <Wait name="charging_time" duration="10000"/>
-                    </Sequence>
-                </Sequence>
-            </ReactiveFallback>
+<root BTCPP_format="4"
+      main_tree_to_execute="AutoModeTest">
+  <BehaviorTree ID="AutoModeTest">
+    <Sequence>
+      <SetBlackboard value="false"
+                     output_key="low_battery"/>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Sequence name="battery_monitor">
+          <Repeat num_cycles="-1">
+            <Sequence>
+              <Wait duration="10"/>
+              <BatteryLevelCondition threshold="20.0"/>
+              <SetBlackboard value="true"
+                             output_key="low_battery"/>
+              <AlwaysFailure/>
+            </Sequence>
+          </Repeat>
+          <Sequence name="emergency_return">
+            <GoToWaypointCC name="return_to_docking"
+                            waypoint_lat="63.44070"
+                            waypoint_lon="10.34899"
+                            depth="2.3"
+                            drone_ip="192.168.1.101"
+                            initialize_connection="false"/>
+            <ActivateAutoModes depth_hold="true"
+                               heading_hold="true"
+                               hold_duration="10"/>
+            <LaunchDockingProcedure name="emergency_docking"/>
+          </Sequence>
         </Sequence>
-    </BehaviorTree>
-    
-    <!-- Description of Node Models (used by Groot) -->
-    <TreeNodesModel>
-        <Action ID="LaunchDockingProcedure"/>
-        <Action ID="LaunchMissionProcedure">
-            <input_port name="script_path" type="String">Path to the mission script</input_port>
-            <input_port name="drone_ip" type="String">IP address of the drone</input_port>
-            <input_port name="start_lat" type="Double">Starting latitude</input_port>
-            <input_port name="start_lon" type="Double">Starting longitude</input_port>
-            <input_port name="start_heading" type="Double">Starting heading in degrees</input_port>
-        </Action>
-        <Action ID="Wait">
-            <input_port name="duration" type="Int">Wait duration in seconds</input_port>
-        </Action>
-        <Condition ID="BatteryLevelCondition">
-            <input_port name="threshold" type="Double" default="20.0">Battery percentage threshold</input_port>
-            <output_port name="battery_level" type="Double">Current battery level percentage</output_port>
-        </Condition>
-        <Action ID="GoToWaypoint">
-            <input_port name="waypoint_lat" type="Double">Target latitude</input_port>
-            <input_port name="waypoint_lon" type="Double">Target longitude</input_port>
-            <input_port name="depth" type="Double" default="1.0">Target depth in meters</input_port>
-            <input_port name="drone_ip" type="String" default="192.168.1.101">IP address of the drone</input_port>
-        </Action>
-    </TreeNodesModel>
+        <Sequence name="normal_mission">
+          <Fallback>
+            <CheckBlackboardBool key="low_battery"
+                                 expected_value="true"
+                                 invert_result="false"/>
+            <ActivateAutoModes depth_hold="true"
+                               heading_hold="true"
+                               hold_duration="10"/>
+          </Fallback>
+          <Fallback>
+            <CheckBlackboardBool key="low_battery"
+                                 expected_value="true"
+                                 invert_result="false"/>
+            <GoToWaypointCC name="test_waypoint"
+                            waypoint_lat="63.4407"
+                            waypoint_lon="10.349"
+                            depth="0.5"
+                            drone_ip="192.168.1.101"
+                            initialize_connection="true"/>
+          </Fallback>
+          <Fallback>
+            <CheckBlackboardBool key="low_battery"
+                                 expected_value="true"
+                                 invert_result="false"/>
+            <GoToWaypointCC name="pipeline_point_2"
+                            waypoint_lat="63.44065"
+                            waypoint_lon="10.34895"
+                            depth="0.5"
+                            drone_ip="192.168.1.101"
+                            initialize_connection="false"/>
+          </Fallback>
+          <Fallback>
+            <CheckBlackboardBool key="low_battery"
+                                 expected_value="true"
+                                 invert_result="false"/>
+            <ActivateAutoModes depth_hold="true"
+                               heading_hold="true"
+                               hold_duration="10"/>
+          </Fallback>
+          <Fallback>
+            <CheckBlackboardBool key="low_battery"
+                                 expected_value="true"
+                                 invert_result="false"/>
+            <LaunchDockingProcedure name="launch_integrated_docking"/>
+          </Fallback>
+        </Sequence>
+      </Parallel>
+    </Sequence>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="ActivateAutoModes">
+      <input_port name="depth_hold"
+                  default="true"
+                  type="Bool">Enable depth hold mode</input_port>
+      <input_port name="heading_hold"
+                  default="true"
+                  type="Bool">Enable heading hold mode</input_port>
+      <input_port name="hold_duration"
+                  default="10"
+                  type="Int">Duration to hold position in seconds</input_port>
+    </Action>
+    <Condition ID="BatteryLevelCondition">
+      <input_port name="threshold"
+                  default="20.0"
+                  type="Double">Battery percentage threshold</input_port>
+      <output_port name="battery_level"
+                   type="Double">Current battery level percentage</output_port>
+    </Condition>
+    <Condition ID="CheckBlackboardBool">
+      <input_port name="key"
+                  type="String">Key to check in blackboard</input_port>
+      <input_port name="expected_value"
+                  default="true"
+                  type="Bool">Expected value</input_port>
+      <input_port name="invert_result"
+                  default="false"
+                  type="Bool">Invert the result of the check</input_port>
+    </Condition>
+    <Action ID="GoToWaypointCC">
+      <input_port name="waypoint_lat"
+                  type="Double">Target latitude</input_port>
+      <input_port name="waypoint_lon"
+                  type="Double">Target longitude</input_port>
+      <input_port name="depth"
+                  default="1.0"
+                  type="Double">Target depth in meters</input_port>
+      <input_port name="drone_ip"
+                  default="192.168.1.101"
+                  type="String">IP address of the drone</input_port>
+      <input_port name="initialize_connection"
+                  default="false"
+                  type="Bool">Whether to initialize a new connection</input_port>
+    </Action>
+    <Action ID="LaunchDockingProcedure"/>
+    <Action ID="Wait">
+      <input_port name="duration"
+                  type="Int">Wait duration in seconds</input_port>
+    </Action>
+  </TreeNodesModel>
+
 </root>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" main_tree_to_execute="BatteryTest">
+<BehaviorTree ID="BatteryTest">
+  <Sequence name="battery_monitoring">
+    <!-- Check if battery is low -->
+    <Wait duration="5"/>
+    
+    <Inverter>
+      <BatteryLevelCondition name="check_battery" threshold="80.0"/>
+    </Inverter>
+
+    <!-- This sequence executes when battery is NOT low (above threshold) -->
+    <Sequence name="normal_operation">
+      <ActivateAutoModes depth_hold="true" heading_hold="true" hold_duration="5"/>
+      <GoToWaypointCC waypoint_lat="63.44070" waypoint_lon="10.34899" depth="0.5" initialize_connection="false"/>
+      <GoToWaypointCC waypoint_lat="63.44065" waypoint_lon="10.34895" depth="0.5" initialize_connection="false"/>
+      <ActivateAutoModes depth_hold="true" heading_hold="true" hold_duration="10"/>
+    </Sequence>
+  </Sequence>
+</BehaviorTree>
+
+<!-- Description of Node Models (used by Groot) -->
+<TreeNodesModel>
+  <Condition ID="BatteryLevelCondition">
+    <input_port name="threshold" type="Double" default="20.0">Battery percentage threshold</input_port>
+    <output_port name="battery_level" type="Double">Current battery level percentage</output_port>
+  </Condition>
+  <Action ID="Wait">
+    <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+  </Action>
+  <Action ID="ActivateAutoModes">
+    <input_port name="depth_hold" type="Bool" default="true">Enable depth hold mode</input_port>
+    <input_port name="heading_hold" type="Bool" default="true">Enable heading hold mode</input_port>
+    <input_port name="hold_duration" type="Int" default="10">Duration to hold position in seconds</input_port>
+  </Action>
+  <Action ID="GoToWaypointCC">
+    <input_port name="waypoint_lat" type="Double">Target latitude</input_port>
+    <input_port name="waypoint_lon" type="Double">Target longitude</input_port>
+    <input_port name="depth" type="Double" default="1.0">Target depth in meters</input_port>
+    <input_port name="drone_ip" type="String" default="192.168.1.101">IP address of the drone</input_port>
+    <input_port name="initialize_connection" type="Bool" default="false">Whether to initialize a new connection</input_port>
+  </Action>
+</TreeNodesModel>
+</root>
