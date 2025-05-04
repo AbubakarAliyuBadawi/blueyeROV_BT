@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+      main_tree_to_execute="BlueyeAutonomyControl">
+  <include path="UnDocking.xml"/>
+
+  <include path="Transit_1.xml"/>
+
+  <include path="Transit_2.xml"/>
+
+  <include path="PipeLineInspection.xml"/>
+
+  <include path="WreckageInspection.xml"/>
+
+  <include path="Homing.xml"/>
+
+  <include path="Docking.xml"/>
+
+  <include path="SystemMonitor.xml"/>
+
+  <BehaviorTree ID="BlueyeAutonomyControl">
+    <Sequence name="initialize_and_monitor">
+      <SetBlackboard value="false"
+                     output_key="emergency_triggered"/>
+      <SetBlackboard value="true"
+                     output_key="mission_requires_sonar"/>
+      <SetBlackboard value="true"
+                     output_key="mission_requires_camera"/>
+      <ReactiveSequence name="monitor_and_execute">
+        <ReactiveFallback name="sonar_check_fallback">
+          <CheckSonarStatus name="check_sonar"
+                            timeout_seconds="1.0"/>
+          <Sequence name="sonar_failure_sequence">
+            <SetBlackboard value="Sonar failure detected"
+                           output_key="failure_reason"/>
+            <SetBlackboard value="true"
+                           output_key="emergency_triggered"/>
+          </Sequence>
+        </ReactiveFallback>
+        <Fallback name="mission_or_emergency">
+          <Sequence name="handle_emergency">
+            <CheckBlackboard key="emergency_triggered"
+                             expected_value="true"/>
+            <PublishState state="6"/>
+            <NavigateToWaypoint name="navigate_to_point1"
+                                x="-207.70"
+                                y="74.50"
+                                z="194.90"
+                                velocity="0.4"
+                                fixed_heading="false"
+                                heading="0.0"/>
+            <NavigateToWaypoint name="navigate_to_point1"
+                                x="-219.70"
+                                y="60.50"
+                                z="194.90"
+                                velocity="0.4"
+                                fixed_heading="false"
+                                heading="0.0"/>
+            <PublishState state="7"/>
+            <SubTree ID="Docking"/>
+            <StationKeeping name="station_keep_point6"
+                            x="-219.70"
+                            y="60.50"
+                            z="194.90"
+                            heading="3.14"
+                            duration="60"/>
+          </Sequence>
+          <AbortOnCondition condition="emergency_triggered">
+            <Sequence name="complete_mission">
+              <PublishState state="1"/>
+              <SubTree ID="UnDocking"/>
+              <PublishState state="2"/>
+              <SubTree ID="Transit_1"/>
+              <PublishState state="3"/>
+              <SubTree ID="PipeLineInspection"/>
+              <PublishState state="4"/>
+              <SubTree ID="Transit_2"/>
+              <PublishState state="5"/>
+              <SubTree ID="WreckageInspection"/>
+              <PublishState state="6"/>
+              <SubTree ID="Homing"/>
+              <PublishState state="7"/>
+              <SubTree ID="Docking"/>
+            </Sequence>
+          </AbortOnCondition>
+        </Fallback>
+      </ReactiveSequence>
+    </Sequence>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Decorator ID="AbortOnCondition">
+      <input_port name="condition"
+                  type="String">Blackboard key to check for abortion</input_port>
+    </Decorator>
+    <Action ID="CheckBlackboard"
+            editable="true">
+      <input_port name="key"/>
+      <input_port name="expected_value"/>
+    </Action>
+    <Condition ID="CheckSonarStatus">
+      <input_port name="timeout_seconds"
+                  type="Double">Maximum time without messages before failure</input_port>
+    </Condition>
+    <Action ID="NavigateToWaypoint">
+      <input_port name="x"
+                  type="Double">X coordinate</input_port>
+      <input_port name="y"
+                  type="Double">Y coordinate</input_port>
+      <input_port name="z"
+                  type="Double">Z coordinate</input_port>
+      <input_port name="velocity"
+                  type="Double">Desired velocity</input_port>
+      <input_port name="fixed_heading"
+                  type="Boolean">Whether to use fixed heading</input_port>
+      <input_port name="heading"
+                  type="Double">Desired heading</input_port>
+    </Action>
+    <Action ID="PublishState">
+      <input_port name="state"
+                  type="Int">Mission state ID</input_port>
+    </Action>
+    <Action ID="StationKeeping">
+      <input_port name="x"
+                  type="Double">X coordinate</input_port>
+      <input_port name="y"
+                  type="Double">Y coordinate</input_port>
+      <input_port name="z"
+                  type="Double">Z coordinate</input_port>
+      <input_port name="heading"
+                  type="Double">Desired heading</input_port>
+      <input_port name="duration"
+                  type="Int">Duration in seconds</input_port>
+    </Action>
+  </TreeNodesModel>
+
+</root>
