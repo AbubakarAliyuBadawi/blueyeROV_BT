@@ -1,8 +1,0 @@
-std_msgs/Header header
-
-geometry_msgs/Vector3 prop_action_linear
-geometry_msgs/Vector3 deriv_action_linear
-geometry_msgs/Vector3 integral_action_linear
-float64 prop_action_angular
-float64 deriv_action_angular
-float64 integral_action_angular

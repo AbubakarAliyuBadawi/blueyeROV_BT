@@ -6,7 +6,7 @@ CheckSonarStatus::CheckSonarStatus(const std::string& name, const BT::NodeConfig
     node_ = rclcpp::Node::make_shared("sonar_check_node");
     
     // Get configuration from ports using the reference method of getInput
-    double timeout = 10.0; // Increased default value for development
+    double timeout = 1.0; // Increased default value for development
     if (getInput("timeout_seconds", timeout)) {
         timeout_seconds_ = timeout;
     }

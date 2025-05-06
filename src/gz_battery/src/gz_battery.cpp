@@ -74,7 +74,7 @@ void GZ_Battery::battery_callback() {
     }
 
     // Normalize power consumption to slow depletion
-    const double depletion_factor = 2000.0; // Adjust this factor for desired runtime
+    const double depletion_factor = 3000.0; // Adjust this factor for desired runtime
     const double normalized_power = total_power_consumption / depletion_factor;
 
     // Adjust persistent state of charge (SOC)

@@ -1,6 +1,0 @@
-string mission_type     # Name of mission to switch to (e.g., "pipeline", "lawnmower")
-bool force_switch       # If true, force immediate switch without finishing current task
----
-bool success            # Whether mission switch was successful
-string current_mission  # The currently active mission after the call
-string message          # Additional information or error messages
