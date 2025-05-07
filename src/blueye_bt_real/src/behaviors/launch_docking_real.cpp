@@ -10,7 +10,7 @@ BT::NodeStatus LaunchDockingProcedure::tick() {
     RCLCPP_INFO(rclcpp::get_logger("launch_docking"), "Launching docking procedure");
     
     // Launch the docking script as a background process
-    std::string cmd = "~/Desktop/blueyeROV_BT/launch_docking_real.sh &";
+    std::string cmd = "~/Desktop/blueyeROV_BT/src/bash_scripts/launch_docking_real.sh &";
     int result = system(cmd.c_str());
     
     if (result != 0) {

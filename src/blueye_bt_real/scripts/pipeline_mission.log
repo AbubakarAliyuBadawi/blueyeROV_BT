@@ -1,0 +1,87 @@
+2025-05-06 13:12:28,665 - pipeline_mission - INFO - Starting Integrated Pipeline Inspection Mission (goto_docking=True)
+2025-05-06 13:12:28,665 - pipeline_mission - INFO - Connecting to drone at 192.168.1.101
+2025-05-06 13:12:28,665 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-06 13:12:29,394 - blueye.sdk.drone - INFO - Connection successful, client id: 5
+2025-05-06 13:12:29,394 - blueye.sdk.drone - INFO - Client id in control: 4
+2025-05-06 13:12:29,394 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-06 13:12:29,394 - pipeline_mission - INFO - Connected to drone: BYEDP220003
+2025-05-06 13:12:29,395 - pipeline_mission - INFO - Drone software version: 3.3.70-honister-master
+2025-05-06 13:12:29,395 - pipeline_mission - INFO - Taking control of drone...
+2025-05-06 13:12:29,427 - pipeline_mission - INFO - Control of drone acquired
+2025-05-06 13:12:29,427 - pipeline_mission - INFO - Drone control client extended with reset_position functionality
+2025-05-06 13:12:29,428 - pipeline_mission - INFO - Creating pipeline inspection mission
+2025-05-06 13:12:29,428 - pipeline_mission - INFO - Added waypoint: Start Point (63.4407, 10.34899) at 0.2m depth
+2025-05-06 13:12:29,429 - pipeline_mission - INFO - Added waypoint: Pipeline Point 1 (63.44068, 10.34895) at 0.2m depth
+2025-05-06 13:12:29,429 - pipeline_mission - INFO - Added waypoint: Pipeline Point 2 (63.44065, 10.34895) at 0.2m depth
+2025-05-06 13:12:29,429 - pipeline_mission - INFO - Added waypoint: Pipeline Point 3 (63.44065, 10.34901) at 0.2m depth
+2025-05-06 13:12:29,429 - pipeline_mission - INFO - Added waypoint: Pipeline Point 4 (63.44068, 10.34901) at 0.2m depth
+2025-05-06 13:12:29,430 - pipeline_mission - INFO - Added waypoint: Docking Station (63.4407, 10.34899) at 2.3m depth
+2025-05-06 13:12:29,430 - pipeline_mission - INFO - Clearing any previous missions
+2025-05-06 13:12:30,431 - pipeline_mission - INFO - Sending new mission: Pipeline Inspection
+2025-05-06 13:12:30,482 - pipeline_mission - ERROR - Error during mission execution: No response received from drone before timeout
+2025-05-06 13:12:30,482 - pipeline_mission - INFO - Mission failed
+2025-05-06 13:12:40,698 - pipeline_mission - INFO - Starting Integrated Pipeline Inspection Mission (goto_docking=True)
+2025-05-06 13:12:40,698 - pipeline_mission - INFO - Connecting to drone at 192.168.1.101
+2025-05-06 13:12:40,698 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-06 13:12:41,367 - blueye.sdk.drone - INFO - Connection successful, client id: 6
+2025-05-06 13:12:41,368 - blueye.sdk.drone - INFO - Client id in control: 6
+2025-05-06 13:12:41,368 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-06 13:12:41,383 - pipeline_mission - INFO - Connected to drone: BYEDP220003
+2025-05-06 13:12:41,383 - pipeline_mission - INFO - Drone software version: 3.3.70-honister-master
+2025-05-06 13:12:41,384 - pipeline_mission - INFO - Drone control client extended with reset_position functionality
+2025-05-06 13:12:41,384 - pipeline_mission - INFO - Creating pipeline inspection mission
+2025-05-06 13:12:41,384 - pipeline_mission - INFO - Added waypoint: Start Point (63.4407, 10.34899) at 0.2m depth
+2025-05-06 13:12:41,385 - pipeline_mission - INFO - Added waypoint: Pipeline Point 1 (63.44068, 10.34895) at 0.2m depth
+2025-05-06 13:12:41,385 - pipeline_mission - INFO - Added waypoint: Pipeline Point 2 (63.44065, 10.34895) at 0.2m depth
+2025-05-06 13:12:41,385 - pipeline_mission - INFO - Added waypoint: Pipeline Point 3 (63.44065, 10.34901) at 0.2m depth
+2025-05-06 13:12:41,385 - pipeline_mission - INFO - Added waypoint: Pipeline Point 4 (63.44068, 10.34901) at 0.2m depth
+2025-05-06 13:12:41,386 - pipeline_mission - INFO - Added waypoint: Docking Station (63.4407, 10.34899) at 2.3m depth
+2025-05-06 13:12:41,386 - pipeline_mission - INFO - Clearing any previous missions
+2025-05-06 13:12:42,387 - pipeline_mission - INFO - Sending new mission: Pipeline Inspection
+2025-05-06 13:12:43,413 - pipeline_mission - INFO - Starting mission execution
+2025-05-06 13:12:43,425 - pipeline_mission - ERROR - Error during mission execution: 'NoneType' object has no attribute 'state'
+2025-05-06 13:12:43,425 - pipeline_mission - INFO - Mission failed
+2025-05-06 13:13:02,286 - pipeline_mission - INFO - Starting Integrated Pipeline Inspection Mission (goto_docking=True)
+2025-05-06 13:13:02,286 - pipeline_mission - INFO - Connecting to drone at 192.168.1.101
+2025-05-06 13:13:02,286 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-06 13:13:03,023 - blueye.sdk.drone - INFO - Connection successful, client id: 7
+2025-05-06 13:13:03,023 - blueye.sdk.drone - INFO - Client id in control: 7
+2025-05-06 13:13:03,023 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-06 13:13:03,037 - pipeline_mission - INFO - Connected to drone: BYEDP220003
+2025-05-06 13:13:03,038 - pipeline_mission - INFO - Drone software version: 3.3.70-honister-master
+2025-05-06 13:13:03,038 - pipeline_mission - INFO - Drone control client extended with reset_position functionality
+2025-05-06 13:13:03,038 - pipeline_mission - INFO - Creating pipeline inspection mission
+2025-05-06 13:13:03,038 - pipeline_mission - INFO - Added waypoint: Start Point (63.4407, 10.34899) at 0.2m depth
+2025-05-06 13:13:03,039 - pipeline_mission - INFO - Added waypoint: Pipeline Point 1 (63.44068, 10.34895) at 0.2m depth
+2025-05-06 13:13:03,039 - pipeline_mission - INFO - Added waypoint: Pipeline Point 2 (63.44065, 10.34895) at 0.2m depth
+2025-05-06 13:13:03,039 - pipeline_mission - INFO - Added waypoint: Pipeline Point 3 (63.44065, 10.34901) at 0.2m depth
+2025-05-06 13:13:03,039 - pipeline_mission - INFO - Added waypoint: Pipeline Point 4 (63.44068, 10.34901) at 0.2m depth
+2025-05-06 13:13:03,040 - pipeline_mission - INFO - Added waypoint: Docking Station (63.4407, 10.34899) at 2.3m depth
+2025-05-06 13:13:03,040 - pipeline_mission - INFO - Clearing any previous missions
+2025-05-06 13:13:04,041 - pipeline_mission - INFO - Sending new mission: Pipeline Inspection
+2025-05-06 13:13:05,059 - pipeline_mission - INFO - Starting mission execution
+2025-05-06 13:13:05,082 - pipeline_mission - ERROR - Error during mission execution: 'NoneType' object has no attribute 'state'
+2025-05-06 13:13:05,082 - pipeline_mission - INFO - Mission failed
+2025-05-06 13:35:51,059 - pipeline_mission - INFO - Starting Integrated Pipeline Inspection Mission (goto_docking=True)
+2025-05-06 13:35:51,060 - pipeline_mission - INFO - Connecting to drone at 192.168.1.101
+2025-05-06 13:35:51,060 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-06 13:35:51,934 - blueye.sdk.drone - INFO - Connection successful, client id: 10
+2025-05-06 13:35:51,934 - blueye.sdk.drone - INFO - Client id in control: 10
+2025-05-06 13:35:51,934 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-06 13:35:51,950 - pipeline_mission - INFO - Connected to drone: BYEDP220003
+2025-05-06 13:35:51,950 - pipeline_mission - INFO - Drone software version: 4.2.9-styhead-master
+2025-05-06 13:35:51,950 - pipeline_mission - INFO - Drone control client extended with reset_position functionality
+2025-05-06 13:35:51,950 - pipeline_mission - INFO - Creating pipeline inspection mission
+2025-05-06 13:35:51,951 - pipeline_mission - INFO - Added waypoint: Start Point (63.4407, 10.34899) at 0.2m depth
+2025-05-06 13:35:51,951 - pipeline_mission - INFO - Added waypoint: Pipeline Point 1 (63.44068, 10.34895) at 0.2m depth
+2025-05-06 13:35:51,951 - pipeline_mission - INFO - Added waypoint: Pipeline Point 2 (63.44065, 10.34895) at 0.2m depth
+2025-05-06 13:35:51,952 - pipeline_mission - INFO - Added waypoint: Pipeline Point 3 (63.44065, 10.34901) at 0.2m depth
+2025-05-06 13:35:51,952 - pipeline_mission - INFO - Added waypoint: Pipeline Point 4 (63.44068, 10.34901) at 0.2m depth
+2025-05-06 13:35:51,952 - pipeline_mission - INFO - Added waypoint: Docking Station (63.4407, 10.34899) at 2.3m depth
+2025-05-06 13:35:51,953 - pipeline_mission - INFO - Clearing any previous missions
+2025-05-06 13:35:52,954 - pipeline_mission - INFO - Sending new mission: Pipeline Inspection
+2025-05-06 13:35:53,968 - pipeline_mission - INFO - Starting mission execution
+2025-05-06 13:35:53,969 - pipeline_mission - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/1s, Depth: -0.0m
+2025-05-06 13:35:55,971 - pipeline_mission - INFO - Mission: MISSION_STATE_FAILED_TO_START_MISSION, Progress: 0/19 instructions, Time: 0s/37s, Depth: -0.0m
+2025-05-06 13:35:55,972 - pipeline_mission - ERROR - Mission failed with state: MISSION_STATE_FAILED_TO_START_MISSION
+2025-05-06 13:35:55,972 - pipeline_mission - INFO - Mission failed
