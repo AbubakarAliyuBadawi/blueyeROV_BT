@@ -20,7 +20,7 @@
       <ReactiveSequence name="monitor_and_execute">
         <!-- System monitoring section -->
         <ReactiveSequence name="system_monitors">
-          <!-- Battery check (continuous) -->
+          <!-- Battery check (continuoaus) -->
           <Fallback name="battery_check">
             <Sequence name="battery_low_return">
                 <CheckBatteryLevel />

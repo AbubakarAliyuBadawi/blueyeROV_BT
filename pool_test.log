@@ -293,3 +293,61 @@
 2025-04-26 04:15:16,184 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
 2025-04-26 04:15:46,217 - pool_test - ERROR - Failed to connect to drone: Could not establish connection with drone
 2025-04-26 04:15:46,217 - pool_test - ERROR - Failed to connect to drone. Exiting.
+2025-05-06 13:31:03,944 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-05-06 13:31:03,944 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-06 13:31:03,944 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-06 13:31:04,662 - blueye.sdk.drone - INFO - Connection successful, client id: 5
+2025-05-06 13:31:04,662 - blueye.sdk.drone - INFO - Client id in control: 4
+2025-05-06 13:31:04,662 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-06 13:31:04,662 - pool_test - INFO - Connected to drone: BYEDP220003
+2025-05-06 13:31:04,662 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-05-06 13:31:04,662 - pool_test - INFO - Taking control of drone...
+2025-05-06 13:31:04,685 - pool_test - INFO - Control of drone acquired
+2025-05-06 13:31:04,685 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-06 13:31:04,685 - pool_test - INFO - Resetting drone position to coordinates: 63.4415, 10.3483 with heading: 0.0°
+2025-05-06 13:31:04,685 - pool_test - INFO - Position reset command sent successfully
+2025-05-06 13:31:14,695 - pool_test - INFO - Creating pipeline survey
+2025-05-06 13:31:14,697 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440685, 10.34896) at 0.5m depth
+2025-05-06 13:31:14,697 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.440665, 10.34893) at 0.5m depth
+2025-05-06 13:31:14,698 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.44067, 10.34898) at 0.5m depth
+2025-05-06 13:31:14,698 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.440685, 10.348985) at 0.5m depth
+2025-05-06 13:31:14,699 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-05-06 13:31:14,699 - pool_test - INFO - Clearing any previous missions
+2025-05-06 13:31:15,700 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-06 13:31:16,715 - pool_test - ERROR - Failed to load mission. State: MISSION_STATE_INACTIVE
+2025-05-06 13:31:16,715 - pool_test - INFO - Mission failed
+2025-05-06 13:31:16,715 - pool_test - INFO - Disconnecting from drone
+2025-05-06 13:31:16,724 - pool_test - INFO - Disconnected from drone
+2025-05-06 13:31:16,725 - pool_test - INFO - Mission failed
+2025-05-06 13:31:47,118 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-05-06 13:31:47,118 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-06 13:31:47,119 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-06 13:31:47,967 - blueye.sdk.drone - INFO - Connection successful, client id: 6
+2025-05-06 13:31:47,968 - blueye.sdk.drone - INFO - Client id in control: 6
+2025-05-06 13:31:47,968 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-06 13:31:47,992 - pool_test - INFO - Connected to drone: BYEDP220003
+2025-05-06 13:31:47,993 - pool_test - INFO - Drone software version: 4.2.9-styhead-master
+2025-05-06 13:31:47,993 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-06 13:31:47,994 - pool_test - INFO - Resetting drone position to coordinates: 63.4415, 10.3483 with heading: 0.0°
+2025-05-06 13:31:47,994 - pool_test - INFO - Position reset command sent successfully
+2025-05-06 13:31:58,005 - pool_test - INFO - Creating pipeline survey
+2025-05-06 13:31:58,006 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440685, 10.34896) at 0.5m depth
+2025-05-06 13:31:58,007 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.440665, 10.34893) at 0.5m depth
+2025-05-06 13:31:58,007 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.44067, 10.34898) at 0.5m depth
+2025-05-06 13:31:58,008 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.440685, 10.348985) at 0.5m depth
+2025-05-06 13:31:58,008 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-05-06 13:31:58,008 - pool_test - INFO - Clearing any previous missions
+2025-05-06 13:31:59,010 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-06 13:32:00,022 - pool_test - INFO - Starting mission execution
+2025-05-06 13:32:00,023 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/11 instructions, Time: 0s/33s, Depth: -0.0m
+2025-05-06 13:32:02,025 - pool_test - INFO - Mission: MISSION_STATE_FAILED_TO_START_MISSION, Progress: 0/11 instructions, Time: 0s/34s, Depth: -0.0m
+2025-05-06 13:32:02,026 - pool_test - ERROR - Mission failed with state: MISSION_STATE_FAILED_TO_START_MISSION
+2025-05-06 13:32:02,026 - pool_test - INFO - Mission failed
+2025-05-06 13:32:02,026 - pool_test - INFO - Disconnecting from drone
+2025-05-06 13:32:02,035 - pool_test - INFO - Disconnected from drone
+2025-05-06 13:32:02,035 - pool_test - INFO - Mission failed
+2025-05-06 14:11:04,390 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset
+2025-05-06 14:11:04,391 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-06 14:11:04,391 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-06 14:11:05,165 - pool_test - ERROR - Failed to connect to drone: Could not establish connection with drone
+2025-05-06 14:11:05,165 - pool_test - ERROR - Failed to connect to drone. Exiting.
