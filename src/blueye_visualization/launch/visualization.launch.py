@@ -7,8 +7,8 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='blueye_visualization',
-            executable='rov_visual_2d_xy',
-            name='rov_visual_2d_xy'
+            executable='rov_enhanced_2d_trajectory',
+            name='rov_enhanced_2d_trajectory',
         ),
         Node(
             package='blueye_visualization',

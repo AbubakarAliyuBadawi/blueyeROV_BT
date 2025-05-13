@@ -43,40 +43,14 @@ class ROVTrajectoryPlotter(Node):
         self.current_desired_depth = None
         self.current_desired_heading = None
         
-        # Create the figure with 4 subplots
-        # self.fig, self.axs = plt.subplots(4, 1, figsize=(12, 10), sharex=True)
-        self.fig, self.axs = plt.subplots(5, 1, figsize=(12, 12), sharex=True)
+        # Last update time for heading integration
+        self.last_heading_update_time = None
+        self.last_cmd_vel_time = None
+        self.last_heading_log_time = 0
+        self.prev_cmd_vel_log_time = 0
         
-        # Configure subplots
-        self.axs[0].set_ylabel('North [m]')
-        self.axs[0].set_title('Estimated and desired position in north direction over time')
-        self.axs[0].grid(False)  # Remove grid
-        
-        self.axs[1].set_ylabel('East [m]')
-        self.axs[1].set_title('Estimated and desired position in east direction over time')
-        self.axs[1].grid(False)  # Remove grid
-        
-        self.axs[2].set_ylabel('Depth [m]')
-        self.axs[2].set_title('Estimated and desired depth over time')
-        self.axs[2].grid(False)  # Remove grid
-        
-        self.axs[3].set_ylabel('Heading [rad]')
-        self.axs[3].set_xlabel('Time [s]')
-        self.axs[3].set_title('Estimated and desired heading over time')
-        self.axs[3].grid(False)  # Remove grid
-        
-        # Create empty line objects for plotting
-        self.north_actual_line, = self.axs[0].plot([], [], 'b-', label='$\\hat{x}$')
-        self.north_desired_line, = self.axs[0].plot([], [], 'r-', label='$x_d$')
-        
-        self.east_actual_line, = self.axs[1].plot([], [], 'b-', label='$\\hat{y}$')
-        self.east_desired_line, = self.axs[1].plot([], [], 'r-', label='$y_d$')
-        
-        self.depth_actual_line, = self.axs[2].plot([], [], 'b-', label='$\\hat{d}$')
-        self.depth_desired_line, = self.axs[2].plot([], [], 'r-', label='$d_d$')
-        
-        self.heading_actual_line, = self.axs[3].plot([], [], 'b-', label='$\\hat{\\psi}$')
-        self.heading_desired_line, = self.axs[3].plot([], [], 'r-', label='$\\psi_d$')
+        # Store last omega_z value to check if it's significant
+        self.last_omega_z = 0.0
         
         # Add mission state tracking
         self.mission_states = []
@@ -91,14 +65,58 @@ class ROVTrajectoryPlotter(Node):
             7: "Docking"
         }
         
-        # Configure mission state subplot
-        self.axs[4].set_ylabel('State')
+        # Create the figure with 5 subplots
+        self.fig, self.axs = plt.subplots(5, 1, figsize=(12, 12), sharex=True)
+        
+        # Configure mission state subplot (first - index 0)
+        self.axs[0].set_ylabel('State')
+        self.axs[0].set_title('Mission State over time')
+        self.axs[0].set_yticks(range(1, 8))
+        self.axs[0].set_yticklabels(list(self.state_names.values()))
+        self.mission_state_line, = self.axs[0].plot([], [], 'purple', linewidth=2, label='State')
+        self.axs[0].set_ylim(0.5, 7.5)
+        self.axs[0].grid(False)  # Add grid for mission state
+        
+        # Configure north position subplot (second - index 1)
+        self.axs[1].set_ylabel('North [m]')
+        self.axs[1].set_title('Estimated and desired position in north direction over time')
+        self.axs[1].grid(False)  # Remove grid
+        
+        # Configure east position subplot (third - index 2)
+        self.axs[2].set_ylabel('East [m]')
+        self.axs[2].set_title('Estimated and desired position in east direction over time')
+        self.axs[2].grid(False)  # Remove grid
+        
+        # Configure depth subplot (fourth - index 3)
+        self.axs[3].set_ylabel('Depth [m]')
+        self.axs[3].set_title('Estimated and desired depth over time')
+        self.axs[3].grid(False)  # Remove grid
+        
+        # Configure heading subplot (fifth - index 4)
+        self.axs[4].set_ylabel('Heading [rad]')
         self.axs[4].set_xlabel('Time [s]')
-        self.axs[4].set_title('Mission State over time')
-        self.axs[4].set_yticks(range(1, 8))
-        self.axs[4].set_yticklabels(list(self.state_names.values()))
-        self.mission_state_line, = self.axs[4].plot([], [], 'purple', linewidth=2, label='State')
-        self.axs[4].set_ylim(0.5, 7.5)
+        self.axs[4].set_title('Estimated and desired heading over time')
+        self.axs[4].grid(False)  # Remove grid
+        self.axs[4].set_ylim(-4.0, 4.0)  # Set initial y-axis limits to -4 to 4
+        
+        # Create empty line objects for plotting
+        # Mission state line already created above
+        
+        # North position lines (index 1)
+        self.north_actual_line, = self.axs[1].plot([], [], 'b-', label='$\\hat{x}$')
+        self.north_desired_line, = self.axs[1].plot([], [], 'r-', label='$x_d$')
+        
+        # East position lines (index 2)
+        self.east_actual_line, = self.axs[2].plot([], [], 'b-', label='$\\hat{y}$')
+        self.east_desired_line, = self.axs[2].plot([], [], 'r-', label='$y_d$')
+        
+        # Depth lines (index 3)
+        self.depth_actual_line, = self.axs[3].plot([], [], 'b-', label='$\\hat{d}$')
+        self.depth_desired_line, = self.axs[3].plot([], [], 'r-', label='$d_d$')
+        
+        # Heading lines (index 4)
+        self.heading_actual_line, = self.axs[4].plot([], [], 'b-', label='$\\hat{\\psi}$')
+        self.heading_desired_line, = self.axs[4].plot([], [], 'r-', label='$\\psi_d$')
         
         # Add legends to each subplot
         for ax in self.axs:
@@ -147,6 +165,36 @@ class ROVTrajectoryPlotter(Node):
         
         self.get_logger().info("ROV Trajectory Plotter initialized")
     
+    def quaternion_to_heading(self, qx, qy, qz, qw):
+        """
+        Convert quaternion to heading angle.
+        
+        Since we're in an FRD frame:
+        - 0 rad = Forward direction
+        - π/2 rad = Right
+        - π rad = Backward
+        - -π/2 rad = Left
+        """
+        # Extract yaw (heading) from quaternion
+        heading = math.atan2(2.0 * (qw * qz + qx * qy), 1.0 - 2.0 * (qy * qy + qz * qz))
+        
+        # Ensure the heading is in the range [-π, π]
+        heading = ((heading + math.pi) % (2 * math.pi)) - math.pi
+        
+        return heading
+    
+    def angle_diff(self, angle1, angle2):
+        """
+        Calculate the shortest difference between two angles, accounting for wrap-around.
+        Returns the difference in the range [-π, π]
+        """
+        diff = angle1 - angle2
+        while diff > math.pi:
+            diff -= 2 * math.pi
+        while diff < -math.pi:
+            diff += 2 * math.pi
+        return diff
+    
     def odom_callback(self, msg):
         with self.plot_lock:
             # Record current time
@@ -168,10 +216,29 @@ class ROVTrajectoryPlotter(Node):
             qz = msg.pose.pose.orientation.z
             qw = msg.pose.pose.orientation.w
             
-            # Convert quaternion to heading (yaw) - NED frame
-            r = Rotation.from_quat([qx, qy, qz, qw])
-            roll, pitch, yaw = r.as_euler('xyz')
-            self.heading_actual.append(yaw)
+            # Convert quaternion to heading (yaw) - FRD frame
+            heading = self.quaternion_to_heading(qx, qy, qz, qw)
+            
+            # Handle discontinuities by checking for large jumps from previous heading
+            if len(self.heading_actual) > 0:
+                prev_heading = self.heading_actual[-1]
+                diff = self.angle_diff(heading, prev_heading)
+                
+                # If we have a large jump (over 3 radians) that's close to 2π, 
+                # it's likely a wrap-around that we should eliminate
+                if abs(diff) > 3.0 and abs(abs(diff) - 2*math.pi) < 0.2:
+                    # Adjust the new heading to be on the same side as the previous one
+                    if diff > 0:
+                        heading = heading - 2*math.pi
+                    else:
+                        heading = heading + 2*math.pi
+                    
+            # Log actual heading periodically
+            if current_time - self.last_heading_log_time > 5.0:
+                self.last_heading_log_time = current_time
+                # self.get_logger().info(f"Actual heading: {heading:.3f} rad, quat: [{qx:.3f}, {qy:.3f}, {qz:.3f}, {qw:.3f}]")
+            
+            self.heading_actual.append(heading)
             
             # If we don't have desired values yet, use actual as placeholder
             if self.current_desired_north is None:
@@ -180,8 +247,24 @@ class ROVTrajectoryPlotter(Node):
                 self.current_desired_east = -position.x
             if self.current_desired_depth is None:
                 self.current_desired_depth = position.z
+                
+            # MODIFIED: Always ensure desired heading matches actual heading if not explicitly set
             if self.current_desired_heading is None:
-                self.current_desired_heading = yaw
+                self.current_desired_heading = heading
+                # self.get_logger().info(f"Initialized desired heading to match actual: {heading:.3f} rad")
+            
+            # MODIFIED: Check if the last received angular velocity was significant
+            # If not, sync the desired heading with actual
+            significant_angular_vel = False
+            if hasattr(self, 'last_omega_z') and abs(self.last_omega_z) > 0.1:
+                significant_angular_vel = True
+                
+            # Reset desired heading to match actual if no significant rotation commands
+            if not significant_angular_vel:
+                # Use angle_diff to properly compare angles with wrap-around
+                if abs(self.angle_diff(self.current_desired_heading, heading)) > 0.2:
+                    # self.get_logger().info(f"Syncing desired heading to actual: {self.current_desired_heading:.3f} -> {heading:.3f} rad")
+                    self.current_desired_heading = heading
             
             # Append current desired values
             self.north_desired.append(self.current_desired_north)
@@ -214,30 +297,66 @@ class ROVTrajectoryPlotter(Node):
                 
     def cmd_vel_callback(self, msg):
         with self.plot_lock:
-            # Extract velocity components - these are in the NED frame based on your data
+            # Get current time for dt calculation
+            current_time = time.time() - self.start_time
+            
+            # Log the incoming velocity command periodically
             vx = msg.twist.linear.x
             vy = msg.twist.linear.y
             vz = msg.twist.linear.z
             omega_z = msg.twist.angular.z
             
+            # Store the latest angular velocity for the odom_callback to check
+            self.last_omega_z = omega_z
+            
+            if current_time - self.prev_cmd_vel_log_time > 5.0:
+                self.prev_cmd_vel_log_time = current_time
+                # self.get_logger().info(f"Received velocity command: vx={vx:.3f}, vy={vy:.3f}, omega_z={omega_z:.3f}")
+                if self.current_desired_heading is not None:
+                    self.get_logger().info(f"Current desired heading: {self.current_desired_heading:.3f} rad")
+            
+            # ADDED: Update last command velocity time
+            self.last_cmd_vel_time = current_time
+            
+            # Save previous heading for comparison
+            prev_heading = self.current_desired_heading if self.current_desired_heading is not None else 0.0
+            
+            # Calculate dt since last heading update
+            dt = 0.1  # Default if this is the first update
+            if self.last_heading_update_time is not None:
+                dt = current_time - self.last_heading_update_time
+                dt = min(dt, 0.5)  # Limit dt to prevent large jumps
+            
+            self.last_heading_update_time = current_time
+            
             # Check if the current_desired_heading is initialized
             if self.current_desired_heading is None:
-                self.current_desired_heading = 0.0  # Default value
+                # If we get here, we should have an actual heading already
+                if len(self.heading_actual) > 0:
+                    self.current_desired_heading = self.heading_actual[-1]
+                    self.get_logger().info(f"Initializing desired heading to actual: {self.current_desired_heading:.3f} rad")
+                else:
+                    self.current_desired_heading = 0.0  # Fallback default value
+                    self.get_logger().info("Initialized desired heading to default 0.0 rad")
             
-            # Calculate desired heading from angular velocity
-            if abs(omega_z) > 0.001:
-                # Integrate angular velocity for heading change
-                if len(self.heading_desired) > 0:
-                    dt = 0.1  # Assume 10Hz update rate
-                    self.current_desired_heading = self.heading_desired[-1] + omega_z * dt
+            # MODIFIED: ONLY update heading when there's a significant angular velocity
+            # We no longer use linear velocity direction for heading
+            if abs(omega_z) > 0.1:  # Only update heading for significant angular velocity (increased from 0.001)
+                # Small angle change using angular velocity
+                angle_change = omega_z * dt
+                new_heading = self.current_desired_heading + angle_change
                 
-                # Normalize heading to [-pi, pi]
-                self.current_desired_heading = ((self.current_desired_heading + math.pi) % (2 * math.pi)) - math.pi
-            
-            # For now, we'll just use the velocity direction for heading
-            if abs(vx) > 0.01 or abs(vy) > 0.01:
-                # In NED frame, heading is direction of velocity
-                self.current_desired_heading = math.atan2(vy, vx)
+                # Normalize to [-pi, pi] maintaining continuity
+                while new_heading > math.pi:
+                    new_heading -= 2.0 * math.pi
+                while new_heading < -math.pi:
+                    new_heading += 2.0 * math.pi
+                    
+                self.current_desired_heading = new_heading
+                
+                # Log heading update
+                if abs(self.angle_diff(new_heading, prev_heading)) > 0.1:  # Only log significant changes
+                    self.get_logger().info(f"Heading updated from angular velocity: {prev_heading:.3f} -> {new_heading:.3f} rad, omega_z: {omega_z:.3f}")
     
     def update_waypoint_status(self):
         """Fetch current waypoint status from the controller service"""
@@ -278,6 +397,9 @@ class ROVTrajectoryPlotter(Node):
                         self.current_desired_north = y           # Y coordinate is North
                         self.current_desired_east = -x           # Negative X coordinate is East
                         self.current_desired_depth = z
+                        
+                        # Log updated waypoint (for debugging)
+                        self.get_logger().debug(f"Updated waypoint: N={y}, E={-x}, D={z}")
             elif "Station Keep On Position:" in status:
                 # Extract station keeping position
                 match = re.search(r"Station Keep On Position: ([-\d.]+), ([-\d.]+), ([-\d.]+)", status)
@@ -290,9 +412,8 @@ class ROVTrajectoryPlotter(Node):
                         self.current_desired_east = -x
                         self.current_desired_depth = z
                         
-            # Log current waypoint info for debugging
-            self.get_logger().debug(f"Current desired positions - N: {self.current_desired_north}, " +
-                                   f"E: {self.current_desired_east}, D: {self.current_desired_depth}")
+                        # Log station keeping (for debugging)
+                        # self.get_logger().debug(f"Station keeping: N={y}, E={-x}, D={z}")
                         
         except Exception as e:
             self.get_logger().error(f"Error processing waypoint status: {e}")
@@ -301,8 +422,6 @@ class ROVTrajectoryPlotter(Node):
         # Update all line data
         if len(self.time_points) > 0:
             with self.plot_lock:  # Use thread lock to prevent race conditions
-                if self.mission_states and self.mission_times:
-                    self.mission_state_line.set_data(self.mission_times, self.mission_states)
                 # Make sure all arrays are the same length
                 min_length = min(len(self.time_points), 
                             len(self.north_actual), 
@@ -319,6 +438,10 @@ class ROVTrajectoryPlotter(Node):
                     
                 times = self.time_points[:min_length]
                 
+                # Update mission state plot (now first)
+                if self.mission_states and self.mission_times:
+                    self.mission_state_line.set_data(self.mission_times, self.mission_states)
+                
                 # Update actual data
                 self.north_actual_line.set_data(times, self.north_actual[:min_length])
                 self.east_actual_line.set_data(times, self.east_actual[:min_length])
@@ -331,18 +454,23 @@ class ROVTrajectoryPlotter(Node):
                 self.depth_desired_line.set_data(times, self.depth_desired[:min_length])
                 self.heading_desired_line.set_data(times, self.heading_desired[:min_length])
                 
-                # Update axis limits
-                for i, ax in enumerate(self.axs):
-                    ax.relim()
-                    ax.autoscale_view()
-                    
+                # Update axis limits for position, depth, and heading plots
+                for i in range(1, 4):  # Skip mission state plot and heading plot
+                    self.axs[i].relim()
+                    self.axs[i].autoscale_view()
+                
+                # Update mission state plot limits if needed
+                if self.mission_times:
+                    self.axs[0].set_xlim(0, max(max(self.mission_times) * 1.1, 10))
+                
                 # Set common x-axis limits
                 if times:
                     max_time = max(times)
-                    self.axs[3].set_xlim(0, max(500, max_time * 1.1))
+                    for ax in self.axs:
+                        ax.set_xlim(0, max(800, max_time * 1.1))
                     
                     # Set Y-axis limits for heading to make it easier to read
-                    self.axs[3].set_ylim(-3.5, 3.5)  # Range slightly larger than -pi to pi
+                    self.axs[4].set_ylim(-4.0, 4.0)  # Fixed range of -4 to 4 for heading
 
 def main(args=None):
     rclpy.init(args=args)

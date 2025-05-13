@@ -42,7 +42,7 @@ class SystemHealthVisualizer(Node):
         self.current_battery = 100.0
         
         # Create figure with subplots
-        self.fig, self.axs = plt.subplots(4, 1, figsize=(12, 8), sharex=True)
+        self.fig, self.axs = plt.subplots(4, 1, figsize=(10, 8), sharex=True)
         
         # Configure the plots
         titles = ['Camera Status', 'Sonar Status', 'System Status', 'Battery Percentage']

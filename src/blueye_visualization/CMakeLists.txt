@@ -10,18 +10,6 @@ install(
 )
 
 install(PROGRAMS
-  scripts/rov_visual_2d_xy.py
-  DESTINATION lib/${PROJECT_NAME}
-  RENAME rov_visual_2d_xy
-)
-
-install(PROGRAMS
-  scripts/rov_visual_2d_z.py
-  DESTINATION lib/${PROJECT_NAME}
-  RENAME rov_visual_2d_z
-)
-
-install(PROGRAMS
   scripts/rov_viz_matplotlib_3d.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME rov_viz_matplotlib_3d
@@ -49,6 +37,12 @@ install(PROGRAMS
   scripts/obstacle_avoidance_visualizer.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME obstacle_avoidance_visualizer
+)
+
+install(PROGRAMS
+  scripts/rov_enhanced_2d_trajectory.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME rov_enhanced_2d_trajectory
 )
 
 install(
