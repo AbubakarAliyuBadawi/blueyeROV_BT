@@ -164,7 +164,7 @@ class ObstacleAvoidanceVisualizer(Node):
                     # Only add detection point if we don't already have one nearby
                     if not self.detected_obstacles or np.min([np.linalg.norm(np.array(d) - self.current_position[:2]) for d in self.detected_obstacles]) > 1.0:
                         self.detected_obstacles.append(self.current_position[:2].copy())
-                        self.get_logger().info(f"Obstacle detected near position {self.current_position[:2]}")
+                        # self.get_logger().info(f"Obstacle detected near position {self.current_position[:2]}")
     
     def generate_oa_waypoints(self):
         """Generate obstacle avoidance waypoints for visualization"""
