@@ -107,12 +107,12 @@
                            _autoremap="false"/>
                 </Sequence>
                 <Sequence name="return_to_dock">
-                  <PublishState state="6"/>
+                  <PublishState state="5"/>
                   <SubTree ID="Homing"
                            _autoremap="true"/>
                 </Sequence>
               </LearningMissionSelector>
-              <PublishState state="7"/>
+              <PublishState state="6"/>
               <SubTree ID="Docking"/>
             </Sequence>
           </AbortOnCondition>
