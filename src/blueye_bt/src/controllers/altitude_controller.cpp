@@ -37,7 +37,7 @@ AltitudeController::AltitudeController() : Node("altitude_controller"),
         std::bind(&AltitudeController::enableAltitudeControlCallback, this, 
                  std::placeholders::_1, std::placeholders::_2));
     
-    RCLCPP_INFO(this->get_logger(), "Altitude controller initialized. Target: %.2f m, Enabled: %s",
+    RCLCPP_DEBUG(this->get_logger(), "Altitude controller initialized. Target: %.2f m, Enabled: %s",
                target_altitude_, altitude_control_enabled_ ? "true" : "false");
 }
 
@@ -97,7 +97,7 @@ void AltitudeController::cmdVelCallback(const geometry_msgs::msg::TwistStamped::
             // Override the z velocity
             modified_msg->twist.linear.z = z_vel;
             
-            RCLCPP_INFO(this->get_logger(), 
+            RCLCPP_DEBUG(this->get_logger(), 
                       "Altitude control active: altitude=%.2f, target=%.2f, z_vel=%.2f",
                       current_altitude_, target_altitude_, z_vel);
         } else {

@@ -22,6 +22,24 @@ install(PROGRAMS
 )
 
 install(PROGRAMS
+  scripts/rov_trajectory_plotter_rl.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME rov_trajectory_plotter_rl
+)
+
+install(PROGRAMS
+  scripts/2d_rl.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME 2d_rl
+)
+
+install(PROGRAMS
+  scripts/3d_rl.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME 3d_rl
+)
+
+install(PROGRAMS
   scripts/mission_state_visualizer.py
   DESTINATION lib/${PROJECT_NAME}
   RENAME mission_state_visualizer

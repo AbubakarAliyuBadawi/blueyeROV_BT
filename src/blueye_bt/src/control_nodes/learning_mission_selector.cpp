@@ -13,6 +13,13 @@ LearningMissionSelector::LearningMissionSelector(const std::string& name, const 
     discount_factor_ = 0.9;
     exploration_rate_ = 0.3;
 
+    // Debug info about expected children
+    RCLCPP_INFO(g_node->get_logger(), "LearningMissionSelector '%s' initialized.", name.c_str());
+    RCLCPP_INFO(g_node->get_logger(), "This node should have 3 children in order:");
+    RCLCPP_INFO(g_node->get_logger(), "  0: Pipeline Inspection");
+    RCLCPP_INFO(g_node->get_logger(), "  1: Wreckage Inspection");
+    RCLCPP_INFO(g_node->get_logger(), "  2: Return to Dock");
+
     // Set up subscriptions for sensor data
     battery_sub_ = g_node->create_subscription<std_msgs::msg::Float64>(
         "/blueye/battery_percentage", 10,
@@ -38,7 +45,7 @@ LearningMissionSelector::LearningMissionSelector(const std::string& name, const 
     last_sonar_msg_time_ = g_node->now();
 
     // Try to load Q-table from file
-    loadQTable("/tmp/mission_q_table.txt");
+    loadQTable("/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt/scripts/mission_q_table.txt");
     
     RCLCPP_INFO(g_node->get_logger(), "Learning Mission Selector initialized");
 }
@@ -53,6 +60,16 @@ BT::PortsList LearningMissionSelector::providedPorts() {
 }
 
 BT::NodeStatus LearningMissionSelector::tick() {
+    // Print children info the first time for debugging
+    static bool first_tick = true;
+    if (first_tick) {
+        RCLCPP_INFO(g_node->get_logger(), "Children nodes (%zu):", children_nodes_.size());
+        for (size_t i = 0; i < children_nodes_.size(); ++i) {
+            RCLCPP_INFO(g_node->get_logger(), "  Child %zu: %s", i, children_nodes_[i]->name().c_str());
+        }
+        first_tick = false;
+    }
+
     // If we're already executing a mission sequence, continue from where we left off
     if (currently_executing_) {
         // Get the current child we're executing
@@ -71,7 +88,15 @@ BT::NodeStatus LearningMissionSelector::tick() {
             return BT::NodeStatus::FAILURE;
         }
         
+        // Safety check for valid indices
         size_t idx = current_order_[current_child_index_];
+        if (idx >= children_nodes_.size()) {
+            RCLCPP_ERROR(g_node->get_logger(), 
+                        "Invalid child index: %zu (max: %zu). Using index 0 instead.", 
+                        idx, children_nodes_.size()-1);
+            idx = 0;  // Default to first child
+        }
+        
         BT::NodeStatus child_status = children_nodes_[idx]->executeTick();
         
         if (child_status == BT::NodeStatus::SUCCESS) {
@@ -160,11 +185,11 @@ BT::NodeStatus LearningMissionSelector::tick() {
 }
 
 std::string LearningMissionSelector::missionOrderToString(const MissionOrder& order) {
+    // FIXED: Correct mapping of indices to match the actual children in the behavior tree
     std::map<int, std::string> taskNames = {
-        {0, "Undocking"},
-        {1, "Pipeline Inspection"},
-        {2, "Wreckage Inspection"},
-        {3, "Return to Dock"}
+        {0, "Pipeline Inspection"},
+        {1, "Wreckage Inspection"},
+        {2, "Return to Dock"}
     };
     
     std::stringstream ss;
@@ -233,8 +258,23 @@ LearningMissionSelector::MissionOrder LearningMissionSelector::getRandomOrder() 
 }
 
 LearningMissionSelector::MissionOrder LearningMissionSelector::getBestOrder(const MissionState& state) {
+    // FIXED: Force Return to Dock first when battery is low
+    if (state.battery_level == 0) {
+        MissionOrder safe_order = {2};  // Index 2 = Return to Dock
+        // You can add the other missions after Return if desired
+        if (children_nodes_.size() > 1) {
+            safe_order.push_back(0);  // Pipeline Inspection
+            safe_order.push_back(1);  // Wreckage Inspection
+        }
+        
+        RCLCPP_WARN(g_node->get_logger(), "Low battery level! Forcing Return to Dock as first task");
+        return safe_order;
+    }
+    
     // If state not in Q-table, return random order
     if (q_table_.find(state) == q_table_.end() || q_table_[state].empty()) {
+        RCLCPP_INFO(g_node->get_logger(), "No Q-values for state %s, using random order", 
+                   state.toString().c_str());
         return getRandomOrder();
     }
     
@@ -248,6 +288,9 @@ LearningMissionSelector::MissionOrder LearningMissionSelector::getBestOrder(cons
             best_order = order;
         }
     }
+    
+    RCLCPP_INFO(g_node->get_logger(), "Best order from Q-table: %s (Q=%.2f)", 
+               missionOrderToString(best_order).c_str(), best_value);
     
     return best_order;
 }
@@ -296,7 +339,7 @@ void LearningMissionSelector::updateQValue(const MissionState& state, const Miss
                old_q, new_q, reward);
     
     // Save Q-table after every update
-    saveQTable("/tmp/mission_q_table.txt");
+    saveQTable("/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt/scripts/new_mission_q_table.txt");
     
     // Optional: Keep the counter for logging purposes only
     static int update_count = 0;
@@ -308,26 +351,32 @@ double LearningMissionSelector::calculateReward(const MissionState& state, size_
     // Base reward for success or failure
     double reward = success ? 10.0 : -5.0;
     
-    // Extra reward for completing missions with low battery (efficiency)
-    if (success && state.battery_level == 0) {
-        reward += 5.0;
-    }
-    
-    // Extra reward for using working sensors appropriately
-    if (success) {
-        // Pipeline inspection typically needs camera
-        if (completed_task == 1 && state.camera_working) {
-            reward += 3.0;
+    // FIXED: Adjust battery rewards to prioritize return to dock when battery is low
+    if (state.battery_level == 0) {  // Low battery
+        if (completed_task == 2) {  // Return to Dock (index 2)
+            // Major reward for correctly returning when battery low
+            reward += 20.0;
+        } else {
+            // Major penalty for not returning when battery low
+            reward -= 15.0;
         }
-        // Wreckage inspection typically needs sonar
-        if (completed_task == 2 && state.sonar_working) {
-            reward += 3.0;
+    } else {
+        // Extra reward for completing missions with medium battery (efficiency)
+        if (success && state.battery_level == 1) {
+            reward += 5.0;
         }
-    }
-    
-    // Penalty for not returning to dock when battery is low
-    if (state.battery_level == 0 && completed_task != 3) {
-        reward -= 4.0;
+        
+        // Extra reward for using working sensors appropriately
+        if (success) {
+            // Pipeline inspection (index 0) typically needs camera
+            if (completed_task == 0 && state.camera_working) {
+                reward += 3.0;
+            }
+            // Wreckage inspection (index 1) typically needs sonar
+            if (completed_task == 1 && state.sonar_working) {
+                reward += 3.0;
+            }
+        }
     }
     
     return reward;
@@ -394,6 +443,9 @@ void LearningMissionSelector::loadQTable(const std::string& filename) {
         size_t entries;
         file >> entries;
         
+        // Clear existing table
+        q_table_.clear();
+        
         // Read each entry
         for (size_t i = 0; i < entries; ++i) {
             // Read state
@@ -418,11 +470,49 @@ void LearningMissionSelector::loadQTable(const std::string& filename) {
             double q_value;
             file >> q_value;
             
-            // Store in Q-table
-            q_table_[state][order] = q_value;
+            // FIXED: Validate order indices against children count
+            bool valid_indices = true;
+            for (size_t idx : order) {
+                if (idx >= 3) {  // We expect 3 children max (0, 1, 2)
+                    RCLCPP_WARN(g_node->get_logger(), 
+                              "Invalid task index %zu in Q-table (max expected: 2). Skipping entry.", idx);
+                    valid_indices = false;
+                    break;
+                }
+            }
+            
+            // Store in Q-table if indices are valid
+            if (valid_indices) {
+                q_table_[state][order] = q_value;
+            }
         }
         
         RCLCPP_INFO(g_node->get_logger(), "Q-table loaded from %s (%zu states)", filename.c_str(), q_table_.size());
+        
+        // Print a summary of the Q-table values
+        RCLCPP_INFO(g_node->get_logger(), "Q-table summary:");
+        for (const auto& [state, actions] : q_table_) {
+            if (!actions.empty()) {
+                // Find best action for this state
+                double best_value = -std::numeric_limits<double>::max();
+                MissionOrder best_order;
+                
+                for (const auto& [order, value] : actions) {
+                    if (value > best_value) {
+                        best_value = value;
+                        best_order = order;
+                    }
+                }
+                
+                // Only print if we found a valid best action
+                if (best_value > -std::numeric_limits<double>::max()) {
+                    RCLCPP_INFO(g_node->get_logger(), "State: %s → Best order: %s (Q=%.2f)",
+                            state.toString().c_str(),
+                            missionOrderToString(best_order).c_str(),
+                            best_value);
+                }
+            }
+        }
     } catch (const std::exception& e) {
         RCLCPP_ERROR(g_node->get_logger(), "Error loading Q-table: %s", e.what());
     }
