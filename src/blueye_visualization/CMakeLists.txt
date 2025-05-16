@@ -63,6 +63,18 @@ install(PROGRAMS
   RENAME rov_enhanced_2d_trajectory
 )
 
+install(PROGRAMS
+  scripts/rl_visualization.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME rl_visualization
+)
+
+install(PROGRAMS
+  scripts/rl_explanation_publisher.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME rl_explanation_publisher
+)
+
 install(
   DIRECTORY resource/
   DESTINATION share/${PROJECT_NAME}/
