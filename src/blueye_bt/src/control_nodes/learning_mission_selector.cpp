@@ -3,22 +3,23 @@
 #include <numeric>
 #include <limits>
 #include <tuple>
+#include <fstream>
 #include <sstream>
+
+// Define the static constants for mission state indices
+const size_t LearningMissionSelector::STATE_TRANSIT_1;
+const size_t LearningMissionSelector::STATE_PIPELINE;
+const size_t LearningMissionSelector::STATE_TRANSIT_2;
+const size_t LearningMissionSelector::STATE_WRECKAGE;
+const size_t LearningMissionSelector::STATE_RETURN;
 
 LearningMissionSelector::LearningMissionSelector(const std::string& name, const BT::NodeConfiguration& config)
     : BT::ControlNode(name, config) {
     
-    // Default parameters
+    // Default parameters - increase exploration rate to encourage more randomness
     learning_rate_ = 0.1;
     discount_factor_ = 0.9;
-    exploration_rate_ = 0.3;
-
-    // Debug info about expected children
-    RCLCPP_INFO(g_node->get_logger(), "LearningMissionSelector '%s' initialized.", name.c_str());
-    RCLCPP_INFO(g_node->get_logger(), "This node should have 3 children in order:");
-    RCLCPP_INFO(g_node->get_logger(), "  0: Pipeline Inspection");
-    RCLCPP_INFO(g_node->get_logger(), "  1: Wreckage Inspection");
-    RCLCPP_INFO(g_node->get_logger(), "  2: Return to Dock");
+    exploration_rate_ = 0.8;  // Increased to 0.8 to favor random exploration at the start
 
     // Set up subscriptions for sensor data
     battery_sub_ = g_node->create_subscription<std_msgs::msg::Float64>(
@@ -44,41 +45,77 @@ LearningMissionSelector::LearningMissionSelector(const std::string& name, const 
     last_camera_msg_time_ = g_node->now();
     last_sonar_msg_time_ = g_node->now();
 
-    // Try to load Q-table from file
-    loadQTable("/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt/scripts/mission_q_table.txt");
+    // Comment out this line to start without loading the existing Q-table
+    // loadQTable("/tmp/mission_q_table.txt");
     
-    RCLCPP_INFO(g_node->get_logger(), "Learning Mission Selector initialized");
+    RCLCPP_INFO(g_node->get_logger(), "Learning Mission Selector initialized with fresh Q-table");
+    RCLCPP_INFO(g_node->get_logger(), "Using high exploration rate (%.1f) to encourage random ordering", exploration_rate_);
 }
 
 BT::PortsList LearningMissionSelector::providedPorts() {
     return {
         BT::InputPort<double>("learning_rate", 0.1, "Alpha parameter for Q-learning"),
         BT::InputPort<double>("discount_factor", 0.9, "Gamma parameter for Q-learning"),
-        BT::InputPort<double>("exploration_rate", 0.3, "Epsilon for exploration strategy"),
+        BT::InputPort<double>("exploration_rate", 0.8, "Epsilon for exploration strategy"),
         BT::OutputPort<std::string>("explanation", "Explanation of decision making")
     };
 }
 
 BT::NodeStatus LearningMissionSelector::tick() {
-    // Print children info the first time for debugging
-    static bool first_tick = true;
-    if (first_tick) {
-        RCLCPP_INFO(g_node->get_logger(), "Children nodes (%zu):", children_nodes_.size());
-        for (size_t i = 0; i < children_nodes_.size(); ++i) {
-            RCLCPP_INFO(g_node->get_logger(), "  Child %zu: %s", i, children_nodes_[i]->name().c_str());
-        }
-        first_tick = false;
-    }
-
     // If we're already executing a mission sequence, continue from where we left off
     if (currently_executing_) {
         // Get the current child we're executing
         if (current_child_index_ >= current_order_.size()) {
-            // We've completed all children, this is a failure case
+            // We've completed all middle states
+            currently_executing_ = false;
+            middle_states_completed_ = true;
+            
+            // Calculate reward for success
+            double reward = calculateReward(current_state_, current_order_.back(), true);
+            
+            // Update Q-table
+            if (learning_enabled_) {
+                updateQValue(current_state_, current_order_, reward);
+            }
+            
+            return BT::NodeStatus::SUCCESS;
+        }
+        
+        size_t idx = current_order_[current_child_index_];
+        BT::NodeStatus child_status = children_nodes_[idx]->executeTick();
+        
+        if (child_status == BT::NodeStatus::SUCCESS) {
+            // This mission step succeeded, move to next one
+            current_child_index_++;
+            
+            // If we have more steps, continue running
+            if (current_child_index_ < current_order_.size()) {
+                return BT::NodeStatus::RUNNING;
+            } else {
+                // We've completed all children in this order
+                currently_executing_ = false;
+                
+                // Calculate reward for success of the whole sequence
+                double reward = calculateReward(current_state_, current_order_.back(), true);
+                
+                // Update Q-table
+                if (learning_enabled_) {
+                    updateQValue(current_state_, current_order_, reward);
+                }
+                
+                return BT::NodeStatus::SUCCESS;
+            }
+        }
+        else if (child_status == BT::NodeStatus::RUNNING) {
+            // Child is still running, just return RUNNING
+            return BT::NodeStatus::RUNNING;
+        }
+        else {
+            // Child failed, mission fails
             currently_executing_ = false;
             
             // Calculate reward for failure
-            double reward = calculateReward(current_state_, current_order_.back(), false);
+            double reward = calculateReward(current_state_, current_order_[current_child_index_], false);
             
             // Update Q-table
             if (learning_enabled_) {
@@ -86,41 +123,6 @@ BT::NodeStatus LearningMissionSelector::tick() {
             }
             
             return BT::NodeStatus::FAILURE;
-        }
-        
-        // Safety check for valid indices
-        size_t idx = current_order_[current_child_index_];
-        if (idx >= children_nodes_.size()) {
-            RCLCPP_ERROR(g_node->get_logger(), 
-                        "Invalid child index: %zu (max: %zu). Using index 0 instead.", 
-                        idx, children_nodes_.size()-1);
-            idx = 0;  // Default to first child
-        }
-        
-        BT::NodeStatus child_status = children_nodes_[idx]->executeTick();
-        
-        if (child_status == BT::NodeStatus::SUCCESS) {
-            // This mission succeeded
-            currently_executing_ = false;
-            
-            // Calculate reward
-            double reward = calculateReward(current_state_, idx, true);
-            
-            // Update Q-table if learning
-            if (learning_enabled_) {
-                updateQValue(current_state_, current_order_, reward);
-            }
-            
-            return BT::NodeStatus::SUCCESS;
-        }
-        else if (child_status == BT::NodeStatus::RUNNING) {
-            // Child is still running, just return RUNNING without changing anything
-            return BT::NodeStatus::RUNNING;
-        }
-        else {
-            // Child failed, move to next one
-            current_child_index_++;
-            return tick(); // Recursively try the next child
         }
     }
     
@@ -146,14 +148,20 @@ BT::NodeStatus LearningMissionSelector::tick() {
         }
     }
     
-    // Select mission order using epsilon-greedy policy
+    // Modified selection to prefer random exploration more initially
     bool exploring = false;
-    if (learning_enabled_ && (std::uniform_real_distribution<>(0, 1)(rng_) < exploration_rate_)) {
-        // Exploration: try a random permutation
-        current_order_ = getRandomOrder();
+    // Always explore during first few runs, then use epsilon-greedy
+    static int run_count = 0;
+    if (run_count < 5 || (learning_enabled_ && (std::uniform_real_distribution<>(0, 1)(rng_) < exploration_rate_))) {
+        // Exploration: try a random but valid permutation
+        do {
+            current_order_ = getRandomOrder();
+        } while (!validateMissionOrder(current_order_));
         exploring = true;
+        
+        run_count++;
     } else {
-        // Exploitation: try the best order according to Q-values
+        // Exploitation: try the best valid order according to Q-values
         current_order_ = getBestOrder(current_state_);
     }
     
@@ -168,28 +176,36 @@ BT::NodeStatus LearningMissionSelector::tick() {
         ss << "Alternative options considered:\n";
         auto top3 = getTopOrders(current_state_, 3);
         for (size_t i = 1; i < std::min(top3.size(), size_t(3)); ++i) {
-            ss << "  " << missionOrderToString(top3[i].first) << " (value: " << top3[i].second << ")\n";
+            if (validateMissionOrder(top3[i].first)) {
+                ss << "  " << missionOrderToString(top3[i].first) << " (value: " << top3[i].second << ")\n";
+            }
         }
     }
     
     explanation_ = ss.str();
     setOutput("explanation", explanation_);
-    RCLCPP_INFO(g_node->get_logger(), "Starting new mission selection: %s", explanation_.c_str());
-    
+    // Add this line to write to file
+    std::ofstream outfile("/tmp/rl_explanation.txt");
+    outfile << explanation_;
+    outfile.close();
+
+    RCLCPP_INFO(g_node->get_logger(), "Starting mission selection: %s", explanation_.c_str());
+
     // Mark that we're starting a new execution sequence
     currently_executing_ = true;
     current_child_index_ = 0;
     
-    // Start with the first child by recursively calling tick
-    return tick();
+    // Start the sequence - returning RUNNING since we're not done yet
+    return BT::NodeStatus::RUNNING;
 }
 
 std::string LearningMissionSelector::missionOrderToString(const MissionOrder& order) {
-    // FIXED: Correct mapping of indices to match the actual children in the behavior tree
     std::map<int, std::string> taskNames = {
-        {0, "Pipeline Inspection"},
-        {1, "Wreckage Inspection"},
-        {2, "Return to Dock"}
+        {STATE_TRANSIT_1, "Transit 1"},
+        {STATE_PIPELINE, "Pipeline Inspection"},
+        {STATE_TRANSIT_2, "Transit 2"},
+        {STATE_WRECKAGE, "Wreckage Inspection"},
+        {STATE_RETURN, "Homing (Return to Dock)"}
     };
     
     std::stringstream ss;
@@ -246,7 +262,7 @@ LearningMissionSelector::MissionState LearningMissionSelector::getCurrentState()
     // Discretize distance
     if (current_distance_to_dock_ < 50.0) state.distance_to_dock = 0;      // Near
     else if (current_distance_to_dock_ < 150.0) state.distance_to_dock = 1; // Medium
-    else state.distance_to_dock = 2;   
+    else state.distance_to_dock = 2;                                       // Far
     
     return state;
 }
@@ -257,40 +273,59 @@ LearningMissionSelector::MissionOrder LearningMissionSelector::getRandomOrder() 
     return order;
 }
 
-LearningMissionSelector::MissionOrder LearningMissionSelector::getBestOrder(const MissionState& state) {
-    // FIXED: Force Return to Dock first when battery is low
-    if (state.battery_level == 0) {
-        MissionOrder safe_order = {2};  // Index 2 = Return to Dock
-        // You can add the other missions after Return if desired
-        if (children_nodes_.size() > 1) {
-            safe_order.push_back(0);  // Pipeline Inspection
-            safe_order.push_back(1);  // Wreckage Inspection
+bool LearningMissionSelector::validateMissionOrder(const MissionOrder& order) {
+    // Check for Transit_1 before Pipeline Inspection
+    bool transit1_found = false;
+    bool pipeline_found = false;
+    
+    // Check for Transit_2 before Wreckage Inspection
+    bool transit2_found = false;
+    bool wreckage_found = false;
+    
+    for (size_t idx : order) {
+        if (idx == STATE_TRANSIT_1) transit1_found = true;
+        if (idx == STATE_PIPELINE) {
+            if (!transit1_found) return false; // Transit_1 must come before Pipeline
+            pipeline_found = true;
         }
         
-        RCLCPP_WARN(g_node->get_logger(), "Low battery level! Forcing Return to Dock as first task");
-        return safe_order;
+        if (idx == STATE_TRANSIT_2) transit2_found = true;
+        if (idx == STATE_WRECKAGE) {
+            if (!transit2_found) return false; // Transit_2 must come before Wreckage
+            wreckage_found = true;
+        }
     }
     
-    // If state not in Q-table, return random order
+    return true;
+}
+
+LearningMissionSelector::MissionOrder LearningMissionSelector::getBestOrder(const MissionState& state) {
+    // If state not in Q-table, return random valid order
     if (q_table_.find(state) == q_table_.end() || q_table_[state].empty()) {
-        RCLCPP_INFO(g_node->get_logger(), "No Q-values for state %s, using random order", 
-                   state.toString().c_str());
-        return getRandomOrder();
+        MissionOrder random_order;
+        do {
+            random_order = getRandomOrder();
+        } while (!validateMissionOrder(random_order));
+        return random_order;
     }
     
-    // Find action with highest Q-value
+    // Find action with highest Q-value that passes validation
     MissionOrder best_order;
     double best_value = -std::numeric_limits<double>::max();
     
     for (const auto& [order, value] : q_table_[state]) {
-        if (value > best_value) {
+        if (value > best_value && validateMissionOrder(order)) {
             best_value = value;
             best_order = order;
         }
     }
     
-    RCLCPP_INFO(g_node->get_logger(), "Best order from Q-table: %s (Q=%.2f)", 
-               missionOrderToString(best_order).c_str(), best_value);
+    // If no valid order found, generate a random valid one
+    if (best_order.empty()) {
+        do {
+            best_order = getRandomOrder();
+        } while (!validateMissionOrder(best_order));
+    }
     
     return best_order;
 }
@@ -301,7 +336,10 @@ LearningMissionSelector::getTopOrders(const MissionState& state, int n) {
     
     if (q_table_.find(state) != q_table_.end()) {
         for (const auto& [order, value] : q_table_[state]) {
-            orders.push_back({order, value});
+            // Only add valid orders
+            if (validateMissionOrder(order)) {
+                orders.push_back({order, value});
+            }
         }
         
         // Sort by value, descending
@@ -309,10 +347,25 @@ LearningMissionSelector::getTopOrders(const MissionState& state, int n) {
                 [](const auto& a, const auto& b) { return a.second > b.second; });
     }
     
-    // If less than n entries, add random orders
+    // If less than n entries, add random valid orders
     while (orders.size() < static_cast<size_t>(n)) {
-        MissionOrder random_order = getRandomOrder();
-        orders.push_back({random_order, 0.0});
+        MissionOrder random_order;
+        do {
+            random_order = getRandomOrder();
+        } while (!validateMissionOrder(random_order));
+        
+        // Check if this random order is already in the list
+        bool exists = false;
+        for (const auto& [existing_order, _] : orders) {
+            if (existing_order == random_order) {
+                exists = true;
+                break;
+            }
+        }
+        
+        if (!exists) {
+            orders.push_back({random_order, 0.0});
+        }
     }
     
     return orders;
@@ -339,7 +392,7 @@ void LearningMissionSelector::updateQValue(const MissionState& state, const Miss
                old_q, new_q, reward);
     
     // Save Q-table after every update
-    saveQTable("/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt/scripts/new_mission_q_table.txt");
+    saveQTable("/tmp/mission_q_table.txt");
     
     // Optional: Keep the counter for logging purposes only
     static int update_count = 0;
@@ -351,32 +404,40 @@ double LearningMissionSelector::calculateReward(const MissionState& state, size_
     // Base reward for success or failure
     double reward = success ? 10.0 : -5.0;
     
-    // FIXED: Adjust battery rewards to prioritize return to dock when battery is low
-    if (state.battery_level == 0) {  // Low battery
-        if (completed_task == 2) {  // Return to Dock (index 2)
-            // Major reward for correctly returning when battery low
-            reward += 20.0;
-        } else {
-            // Major penalty for not returning when battery low
-            reward -= 15.0;
-        }
-    } else {
-        // Extra reward for completing missions with medium battery (efficiency)
-        if (success && state.battery_level == 1) {
-            reward += 5.0;
+    // Extra reward for completing missions with low battery (efficiency)
+    if (success && state.battery_level == 0) {
+        reward += 5.0;
+    }
+    
+    // Extra reward for using working sensors appropriately
+    if (success) {
+        // Transit points
+        if ((completed_task == STATE_TRANSIT_1 || completed_task == STATE_TRANSIT_2)) {
+            // Transit successfully completed
+            reward += 1.0;
         }
         
-        // Extra reward for using working sensors appropriately
-        if (success) {
-            // Pipeline inspection (index 0) typically needs camera
-            if (completed_task == 0 && state.camera_working) {
-                reward += 3.0;
-            }
-            // Wreckage inspection (index 1) typically needs sonar
-            if (completed_task == 1 && state.sonar_working) {
-                reward += 3.0;
-            }
+        // Pipeline inspection typically needs camera
+        if (completed_task == STATE_PIPELINE && state.camera_working) {
+            reward += 3.0;
         }
+        
+        // Wreckage inspection typically needs sonar
+        if (completed_task == STATE_WRECKAGE && state.sonar_working) {
+            reward += 3.0;
+        }
+    }
+    
+    // Penalty for not returning to dock when battery is low
+    if (state.battery_level == 0 && completed_task != STATE_RETURN) {
+        reward -= 4.0;
+    }
+    
+    // Extra reward for optimal ordering
+    // If transit missions are completed early with high battery
+    if ((completed_task == STATE_TRANSIT_1 || completed_task == STATE_TRANSIT_2) && 
+        state.battery_level == 2) {
+        reward += 2.0;
     }
     
     return reward;
@@ -443,9 +504,6 @@ void LearningMissionSelector::loadQTable(const std::string& filename) {
         size_t entries;
         file >> entries;
         
-        // Clear existing table
-        q_table_.clear();
-        
         // Read each entry
         for (size_t i = 0; i < entries; ++i) {
             // Read state
@@ -470,49 +528,11 @@ void LearningMissionSelector::loadQTable(const std::string& filename) {
             double q_value;
             file >> q_value;
             
-            // FIXED: Validate order indices against children count
-            bool valid_indices = true;
-            for (size_t idx : order) {
-                if (idx >= 3) {  // We expect 3 children max (0, 1, 2)
-                    RCLCPP_WARN(g_node->get_logger(), 
-                              "Invalid task index %zu in Q-table (max expected: 2). Skipping entry.", idx);
-                    valid_indices = false;
-                    break;
-                }
-            }
-            
-            // Store in Q-table if indices are valid
-            if (valid_indices) {
-                q_table_[state][order] = q_value;
-            }
+            // Store in Q-table
+            q_table_[state][order] = q_value;
         }
         
         RCLCPP_INFO(g_node->get_logger(), "Q-table loaded from %s (%zu states)", filename.c_str(), q_table_.size());
-        
-        // Print a summary of the Q-table values
-        RCLCPP_INFO(g_node->get_logger(), "Q-table summary:");
-        for (const auto& [state, actions] : q_table_) {
-            if (!actions.empty()) {
-                // Find best action for this state
-                double best_value = -std::numeric_limits<double>::max();
-                MissionOrder best_order;
-                
-                for (const auto& [order, value] : actions) {
-                    if (value > best_value) {
-                        best_value = value;
-                        best_order = order;
-                    }
-                }
-                
-                // Only print if we found a valid best action
-                if (best_value > -std::numeric_limits<double>::max()) {
-                    RCLCPP_INFO(g_node->get_logger(), "State: %s → Best order: %s (Q=%.2f)",
-                            state.toString().c_str(),
-                            missionOrderToString(best_order).c_str(),
-                            best_value);
-                }
-            }
-        }
     } catch (const std::exception& e) {
         RCLCPP_ERROR(g_node->get_logger(), "Error loading Q-table: %s", e.what());
     }
