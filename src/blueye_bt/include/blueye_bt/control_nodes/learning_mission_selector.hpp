@@ -29,7 +29,7 @@ private:
         int battery_level;      // 0: Low, 1: Medium, 2: High
         bool camera_working;    // true if camera is operational
         bool sonar_working;     // true if sonar is operational
-        double distance_to_dock; // discretized: 0: Near, 1: Medium, 2: Far
+        int distance_to_dock;   // discretized: 0: Near, 1: Medium, 2: Far
         
         // For Q-table lookup, we need states to be comparable
         bool operator<(const MissionState& other) const {
@@ -59,6 +59,18 @@ private:
     bool currently_executing_ = false;
     size_t current_child_index_ = 0;
     
+    // Added state tracking for expanded mission
+    bool first_state_completed_ = false;
+    bool middle_states_in_progress_ = false;
+    bool middle_states_completed_ = false;
+    
+    // State constants for clarity (mapping to children indices)
+    static const size_t STATE_TRANSIT_1 = 0;
+    static const size_t STATE_PIPELINE = 1;
+    static const size_t STATE_TRANSIT_2 = 2;
+    static const size_t STATE_WRECKAGE = 3;
+    static const size_t STATE_RETURN = 4;
+    
     // Learning parameters
     double learning_rate_;
     double discount_factor_;
@@ -71,7 +83,7 @@ private:
     std::string explanation_;
 
     // Sensor state tracking
-    double current_battery_percentage_ = 100.0;  // Default to 80%
+    double current_battery_percentage_ = 100.0;  // Default to 100%
     rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr battery_sub_;
     
     // Camera status tracking
@@ -87,7 +99,7 @@ private:
     double sonar_timeout_seconds_ = 10.0;
 
     // Distance to dock tracking
-    double current_distance_to_dock_ = 0.0;  // Default to 50m
+    double current_distance_to_dock_ = 0.0;  // Default to 0m
     rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr distance_sub_;
 
     // Callback for battery percentage
@@ -135,6 +147,9 @@ private:
     double calculateReward(const MissionState& state, size_t completed_task, bool success);
     void saveQTable(const std::string& filename);
     void loadQTable(const std::string& filename);
+    
+    // Added validation methods for task ordering constraints
+    bool validateMissionOrder(const MissionOrder& order);
 };
 
 #endif // LEARNING_MISSION_SELECTOR_HPP
