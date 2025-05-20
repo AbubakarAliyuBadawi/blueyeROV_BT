@@ -107,7 +107,7 @@ class Blueye3DVisualizerNode(Node):
         # Set initial axis limits with some padding
         self.ax.set_xlim(-5, 5)
         self.ax.set_ylim(-5, 5)
-        self.ax.set_zlim(-5, 5)
+        self.ax.set_zlim(5, -5)
         
         # Add legend
         self.ax.legend(loc='upper right')
@@ -250,7 +250,7 @@ class Blueye3DVisualizerNode(Node):
                 # Set new limits
                 self.ax.set_xlim(x_min, x_max)
                 self.ax.set_ylim(y_min, y_max)
-                self.ax.set_zlim(z_min, z_max)
+                self.ax.set_zlim(z_max, z_min)
 
 def main(args=None):
     """Main function."""

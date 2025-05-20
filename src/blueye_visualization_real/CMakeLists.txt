@@ -3,6 +3,7 @@ project(blueye_visualization_real)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
+find_package(blueye_msgs_real REQUIRED)
 
 install(
   DIRECTORY include/
@@ -21,6 +22,21 @@ install(PROGRAMS
 
 install(PROGRAMS
   scripts/blueye_telemetry.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  scripts/blueye_trajectory.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  scripts/foxglobe_telemetry.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  scripts/blueye_ros2_bridge.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
