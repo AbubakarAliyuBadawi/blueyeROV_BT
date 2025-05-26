@@ -15,6 +15,7 @@
 #include "blueye_bt_real/conditions/BatteryLevelCondition.hpp"
 #include "blueye_bt_real/behaviors/goto_waypoint.hpp"
 #include "blueye_bt_real/behaviors/goto_waypoint_cc.hpp"
+#include "blueye_bt_real/behaviors/publish_state.hpp"
 #include "blueye_bt_real/behaviors/activate_auto_modes.hpp"
 #include "blueye_bt_real/conditions/CheckBlackboardBool.hpp"
 #include "blueye_bt_real/behaviors/pipeline_inspection_mission.hpp"
@@ -40,7 +41,7 @@ int main(int argc, char **argv) {
     rclcpp::init(argc, argv);
     g_node = rclcpp::Node::make_shared("blueye_bt_real");
     g_node->declare_parameter("behavior_tree_path", "");
-
+    g_mission_state_pub = g_node->create_publisher<std_msgs::msg::Int32>("/mission_state", 10);
     BT::BehaviorTreeFactory factory;
 
     // Register basic BT nodes
@@ -120,6 +121,13 @@ int main(int argc, char **argv) {
             return std::make_unique<PipelineInspectionMission>(name, config);
         });
 
+    // Register the node in main()
+    factory.registerBuilder<PublishState>(
+        "PublishState",
+        [](const std::string& name, const BT::NodeConfig& config)
+        {
+            return std::make_unique<PublishState>(name, config);
+        });
 try {
         std::string mission_file;
         if (!g_node->get_parameter("behavior_tree_path", mission_file)) {
