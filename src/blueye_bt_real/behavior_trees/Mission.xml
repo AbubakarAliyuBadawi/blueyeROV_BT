@@ -3,38 +3,45 @@
       main_tree_to_execute="Mission">
   <BehaviorTree ID="Mission">
     <Fallback name="mission_with_emergency_fallback">
-      <Sequence name="emergency_fallback">
-        <BatteryLevelCondition name="check_battery"
-                   threshold="20.0"/>
-        <Sequence name="emergency_sequence">
-          <ActivateAutoModes depth_hold="true"
-                             heading_hold="true"
-                             hold_duration="5"/>
-          <GoToWaypointCC waypoint_lat="63.44070"
-                          waypoint_lon="10.34899"
-                          depth="0.5"
-                          drone_ip="192.168.1.101"
-                          initialize_connection="false"/>
-          <ActivateAutoModes depth_hold="true"
-                             heading_hold="true"
-                             hold_duration="5"/>
-          <LaunchDockingProcedure name="launch_integrated_docking"/>
-        </Sequence>
+      <Sequence name="normal_mission_with_battery_check">
+        <ReactiveSequence name="continuous_battery_check">
+          <Inverter>
+            <BatteryLevelCondition name="check_battery"
+                                   threshold="20.0"/>
+          </Inverter>
+          <Sequence name="mission_sequence">
+            <PublishState state="1"/>
+            <Wait duration="5"/>
+            <ActivateAutoModes depth_hold="true"
+                               heading_hold="true"
+                               hold_duration="5"/>
+            <LaunchMissionProcedure name="pipeline_inspection_mission"
+                                    script_path="~/Desktop/blueyeROV_BT/launch_mission.sh"
+                                    drone_ip="192.168.1.101"
+                                    start_lat="63.441475"
+                                    start_lon="10.348348"
+                                    start_heading="0.0"/>
+            <LaunchDockingProcedure name="launch_integrated_docking"/>
+            <SetBlackboard value="ROV successfully docked and now charging"
+                           output_key="status_message"/>
+          </Sequence>
+        </ReactiveSequence>
       </Sequence>
-      <Sequence name="mission_sequence">
+      <Sequence name="emergency_sequence">
+        <PublishState state="1"/>
         <Wait duration="5"/>
         <ActivateAutoModes depth_hold="true"
                            heading_hold="true"
                            hold_duration="5"/>
-        <LaunchMissionProcedure name="pipeline_inspection_mission"
-                                script_path="~/Desktop/blueyeROV_BT/launch_mission.sh"
-                                drone_ip="192.168.1.101"
-                                start_lat="63.441475"
-                                start_lon="10.348348"
-                                start_heading="0.0"/>
+        <GoToWaypointCC waypoint_lat="63.44070"
+                        waypoint_lon="10.34899"
+                        depth="0.5"
+                        drone_ip="192.168.1.101"
+                        initialize_connection="false"/>
+        <ActivateAutoModes depth_hold="true"
+                           heading_hold="true"
+                           hold_duration="5"/>
         <LaunchDockingProcedure name="launch_integrated_docking"/>
-        <SetBlackboard value="ROV successfully docked and now charging"
-                       output_key="status_message"/>
       </Sequence>
     </Fallback>
   </BehaviorTree>
@@ -87,13 +94,14 @@
       <input_port name="start_heading"
                   type="Double">Starting heading in degrees</input_port>
     </Action>
+    <Action ID="PublishState">
+      <input_port name="state"
+                  type="Int">Mission state ID</input_port>
+    </Action>
     <Action ID="Wait">
       <input_port name="duration"
                   type="Int">Wait duration in seconds</input_port>
     </Action>
-    <Action ID="SetBlackboard">
-      <input_port name="value" type="String">Value to set</input_port>
-      <output_port name="output_key" type="String">Key to set</output_port>
-    </Action>
   </TreeNodesModel>
+
 </root>
