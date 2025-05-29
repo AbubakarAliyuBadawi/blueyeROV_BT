@@ -39,27 +39,45 @@ def generate_launch_description():
         output='screen'
     )
     
-    # Create the 2D visualization node
-    visualization_2d_node = Node(
+    # # Create the 2D visualization node
+    # visualization_2d_node = Node(
+    #     package='blueye_visualization_real',
+    #     executable='blueye_visulization_2d_real.py',
+    #     name='blueye_visualization_2d_node',
+    #     output='screen'
+    # )
+    
+    # # Create the 3D visualization node
+    # visualization_3d_node = Node(
+    #     package='blueye_visualization_real',
+    #     executable='blueye_visulization_3d_real.py',
+    #     name='blueye_visualization_3d_node',
+    #     output='screen'
+    # )
+    
+    # Create the 3D visualization node
+    visualization_3d_enhanced_node = Node(
         package='blueye_visualization_real',
-        executable='blueye_visulization_2d_real.py',
-        name='blueye_visualization_2d_node',
+        executable='blueye_visulization_3d_enhanced_real.py',
+        name='blueye_visualization_3d_enhanced_node',
         output='screen'
     )
     
-    # Create the 3D visualization node
-    visualization_3d_node = Node(
+    # Create the 2D visualization node
+    visualization_2d_enhanced_node = Node(
         package='blueye_visualization_real',
-        executable='blueye_visulization_3d_real.py',
-        name='blueye_visualization_3d_node',
+        executable='blueye_visulization_2d_enhanced_real.py',
+        name='blueye_visualization_2d_enhanced_node',
         output='screen'
     )
     
     # Return the launch description
     return LaunchDescription([
-        drone_ip_arg,
-        publish_rate_arg,
-        telemetry_node,
-        visualization_2d_node,
-        visualization_3d_node
+        # drone_ip_arg,
+        # publish_rate_arg,
+        # telemetry_node,
+        # visualization_2d_node,
+        # visualization_3d_node,
+        visualization_3d_enhanced_node,
+        visualization_2d_enhanced_node
     ])
