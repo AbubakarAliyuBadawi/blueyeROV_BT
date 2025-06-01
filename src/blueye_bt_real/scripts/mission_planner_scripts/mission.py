@@ -2,14 +2,14 @@
 """
 Pool Test Mission Script for Blueye Drone with Position Reset and Auto Resume
 
-This script executes an autonomous pipeline inspection and docking mission with 5 waypoints:
-1-4. Navigate along pipeline waypoints at 0.5 meters depth
-5. Navigate to the docking station and descend to 2.3 meters for docking
+This script executes an autonomous pipeline inspection and docking mission with 3 waypoints:
+1-3. Navigate along pipeline waypoints at surface depth (0.0m)
+4. Navigate to the docking station at surface depth (0.0m)
 
 Usage:
   python mission_with_auto_resume.py [--drone-ip IP_ADDRESS] [--timeout SECONDS]
 """
-
+import json
 import argparse
 import sys
 import time
@@ -23,8 +23,41 @@ from blueye.sdk import Drone
 from blueye.protocol.types.mission_planning import DepthZeroReference
 from blueye.protocol.types.message_formats import LatLongPosition
 
-# Import our position reset extension
-from reset_drone_position import extend_ctrl_client
+
+def extend_ctrl_client(drone):
+    """
+    Extend the CtrlClient class of a connected drone with a reset_position method.
+    Args:
+        drone (Drone): The connected Blueye drone.
+    Returns:
+        The drone with extended functionality.
+    """
+    # Add the reset_position method to the CtrlClient instance
+    def reset_position(lat, lon, heading=None):
+        """
+        Reset the drone's position to a specified GPS coordinate.
+        Args:
+            lat (float): Latitude in decimal degrees.
+            lon (float): Longitude in decimal degrees.
+            heading (float, optional): Heading in degrees (0-359). If None, uses drone compass.
+        """
+        # Create reset position settings
+        reset_settings = {
+            "heading_source_during_reset": bp.HeadingSource.HEADING_SOURCE_MANUAL_INPUT if heading is not None else bp.HeadingSource.HEADING_SOURCE_DRONE_COMPASS,
+            "manual_heading": heading if heading is not None else 0.0,
+            "reset_coordinate_source": bp.ResetCoordinateSource.RESET_COORDINATE_SOURCE_MANUAL,
+            "reset_coordinate": {
+                "latitude": lat,
+                "longitude": lon
+            },
+        }
+        # Create and send the reset position message
+        msg = bp.ResetPositionCtrl(settings=reset_settings)
+        drone._ctrl_client._messages_to_send.put(msg)
+    
+    # Attach the method to the CtrlClient
+    drone._ctrl_client.reset_position = reset_position
+    return drone
 
 
 def setup_logging(log_file="log/enhanced_pipeline_inspection.log", log_level="INFO"):
@@ -58,14 +91,6 @@ def parse_arguments():
                         help='IP address of the Blueye drone')
     parser.add_argument('--timeout', type=int, default=30,
                         help='Connection timeout for the drone in seconds')
-    
-    # Starting position settings
-    parser.add_argument('--start-lat', type=float, default=63.441475,
-                        help='Starting latitude position to set')
-    parser.add_argument('--start-lon', type=float, default=10.348348,
-                        help='Starting longitude position to set')
-    parser.add_argument('--start-heading', type=float, default=0.0,
-                        help='Starting heading in degrees')
     
     # Mission retry settings
     parser.add_argument('--max-retries', type=int, default=5,
@@ -104,16 +129,16 @@ def connect_to_drone(ip, timeout, logger):
         return None
 
 
-def reset_drone_position(drone, lat, lon, heading, logger):
-    """Reset the drone's position."""
-    logger.info(f"Resetting drone position to coordinates: {lat}, {lon} with heading: {heading}°")
+def reset_drone_position(drone, lat, lon, logger):
+    """Reset the drone's position using drone compass for heading."""
+    logger.info(f"Resetting drone position to coordinates: {lat}, {lon} using drone compass for heading")
     try:
-        # Call our added reset_position method
-        drone._ctrl_client.reset_position(lat, lon, heading)
-        logger.info("Position reset command sent successfully")
+        # Call our added reset_position method with no heading (uses drone compass)
+        drone._ctrl_client.reset_position(lat, lon)
+        logger.info("Position reset command sent successfully (using drone compass)")
         
         # Give some time for the position to be updated
-        time.sleep(10)
+        time.sleep(2)
         return True
     except Exception as e:
         logger.error(f"Failed to reset drone position: {str(e)}")
@@ -125,16 +150,16 @@ def create_mission(logger):
     logger.info("Creating pipeline survey")
     
     pipeline_waypoints = [
-    {"lat": 63.4406620, "lon": 10.3488502, "name": "Pipeline Point 1"},
-    {"lat": 63.4406063, "lon": 10.3488254, "name": "Pipeline Point 2"},
-    {"lat": 63.4406029, "lon": 10.3489612, "name": "Pipeline Point 3"},
-    {"lat": 63.4406575, "lon": 10.3489893, "name": "Pipeline Point 4"},
+        {"lat": 63.4414001130402, "lon": 10.348227918148, "name": "Pipeline Point 1"},
+        {"lat": 63.4413996633213, "lon": 10.3483355417848, "name": "Pipeline Point 2"},
+        {"lat": 63.4414320430591, "lon": 10.3482845798135, "name": "Pipeline Point 3"},
     ]
     docking_station = {
-    "lat": 63.4406991,
-    "lon": 10.3489964,
-    "name": "Docking Station",
-    "depth": 2.3
+        "lat": 63.4414548287786,
+        "lon": 10.3482882678509,
+        "name": "Docking Station",
+        # ADD DOCKING STATION DEPTH
+        "depth": 1.0
     }
     
     # Create the instructions for the mission
@@ -153,10 +178,11 @@ def create_mission(logger):
     instructions.append(control_mode)
     instruction_id += 1
     
-    # Step 2: Set pipeline inspection depth (0.5 meters)
+    # Step 2: Set pipeline inspection depth (0.0 meters - surface)
     pipeline_depth_set_point = bp.DepthSetPoint(
-        depth=0.5,  # Shallow depth for pipeline inspection
-        speed_to_depth=0.5,  # 0.1 m/s
+        # ADD DEPTH TO PIPELINE WAYPOINTS
+        depth=1.0, 
+        speed_to_depth=0.5,
         depth_zero_reference=DepthZeroReference.DEPTH_ZERO_REFERENCE_SURFACE
     )
     
@@ -179,8 +205,8 @@ def create_mission(logger):
                 latitude=point["lat"],
                 longitude=point["lon"]
             ),
-            circle_of_acceptance=1.0,  # 1 meter acceptance radius
-            speed_to_target=0.5,  # 0.3 m/s
+            circle_of_acceptance=0.5,
+            speed_to_target=0.2,
             depth_set_point=pipeline_depth_set_point
         )
         
@@ -193,23 +219,23 @@ def create_mission(logger):
         )
         instructions.append(goto_waypoint)
         instruction_id += 1
-        logger.info(f"Added waypoint: {point['name']} ({point['lat']}, {point['lon']}) at 0.5m depth")
+        logger.info(f"Added waypoint: {point['name']} ({point['lat']}, {point['lon']}) at 0.0m depth")
         
         # Add a wait instruction to stabilize at each waypoint (optional)
-        # wait_instruction = bp.Instruction(
-        #     id=instruction_id,
-        #     wait_for_command=bp.WaitForCommand(
-        #         wait_for_seconds=5.0  # Wait 5 seconds at each waypoint
-        #     ),
-        #     auto_continue=True
-        # )
-        # instructions.append(wait_instruction)
-        # instruction_id += 1
+        wait_instruction = bp.Instruction(
+            id=instruction_id,
+            wait_for_command=bp.WaitForCommand(
+                wait_for_seconds=10.0
+            ),
+            auto_continue=True
+        )
+        instructions.append(wait_instruction)
+        instruction_id += 1
     
     # Step 7: Set docking depth
     docking_depth_set_point = bp.DepthSetPoint(
         depth=docking_station["depth"],
-        speed_to_depth=0.5,  # 0.2 m/s
+        speed_to_depth=0.5, 
         depth_zero_reference=DepthZeroReference.DEPTH_ZERO_REFERENCE_SURFACE
     )
     
@@ -221,8 +247,8 @@ def create_mission(logger):
             latitude=docking_station["lat"],
             longitude=docking_station["lon"]
         ),
-        circle_of_acceptance=0.5,  # 0.5 meter acceptance radius (more precise for docking)
-        speed_to_target=0.5,  # Slower approach speed for docking
+        circle_of_acceptance=0.5,  
+        speed_to_target=0.5, 
         depth_set_point=docking_depth_set_point
     )
     
@@ -242,12 +268,80 @@ def create_mission(logger):
         id=1,
         name="Pipeline Survey",
         instructions=instructions,
-        default_surge_speed=0.5,
+        default_surge_speed=0.2,
         default_heave_speed=0.5,
-        default_circle_of_acceptance=1.0
+        default_circle_of_acceptance=0.5
     )
     
     return mission
+
+
+def save_mission_to_json(mission, filename="mission.json", logger=None):
+    """Save the mission to a JSON file for cross-checking."""
+    try:
+        # Convert mission to dictionary format
+        mission_dict = {
+            "id": mission.id,
+            "name": mission.name,
+            "default_surge_speed": mission.default_surge_speed,
+            "default_heave_speed": mission.default_heave_speed,
+            "default_circle_of_acceptance": mission.default_circle_of_acceptance,
+            "instructions": []
+        }
+        
+        # Convert each instruction to dictionary
+        for instruction in mission.instructions:
+            instr_dict = {
+                "id": instruction.id,
+                "auto_continue": instruction.auto_continue
+            }
+            
+            # Handle different instruction types
+            if instruction.control_mode_command:
+                instr_dict["type"] = "control_mode"
+                instr_dict["control_mode_vertical"] = instruction.control_mode_command.control_mode_vertical.name
+                instr_dict["control_mode_horizontal"] = instruction.control_mode_command.control_mode_horizontal.name
+                
+            elif instruction.depth_set_point_command:
+                instr_dict["type"] = "depth_set_point"
+                instr_dict["depth"] = instruction.depth_set_point_command.depth_set_point.depth
+                instr_dict["speed_to_depth"] = instruction.depth_set_point_command.depth_set_point.speed_to_depth
+                instr_dict["depth_zero_reference"] = instruction.depth_set_point_command.depth_set_point.depth_zero_reference.name
+                
+            elif instruction.waypoint_command:
+                instr_dict["type"] = "waypoint"
+                waypoint = instruction.waypoint_command.waypoint
+                instr_dict["name"] = waypoint.name
+                instr_dict["latitude"] = waypoint.global_position.latitude
+                instr_dict["longitude"] = waypoint.global_position.longitude
+                instr_dict["circle_of_acceptance"] = waypoint.circle_of_acceptance
+                instr_dict["speed_to_target"] = waypoint.speed_to_target
+                instr_dict["depth"] = waypoint.depth_set_point.depth
+                
+            elif instruction.wait_for_command:
+                instr_dict["type"] = "wait"
+                instr_dict["wait_for_seconds"] = instruction.wait_for_command.wait_for_seconds
+            
+            mission_dict["instructions"].append(instr_dict)
+        
+        # Save to JSON file
+        with open(filename, 'w') as f:
+            json.dump(mission_dict, f, indent=2)
+        
+        if logger:
+            logger.info(f"Mission saved to {filename}")
+        else:
+            print(f"Mission saved to {filename}")
+            
+        return True
+        
+    except Exception as e:
+        error_msg = f"Failed to save mission to JSON: {str(e)}"
+        if logger:
+            logger.error(error_msg)
+        else:
+            print(error_msg)
+        return False
 
 
 def run_mission_with_instant_resume(drone, mission, max_duration, logger, max_retries=10):
@@ -382,13 +476,18 @@ def main():
             logger.error("Failed to connect to drone. Exiting.")
             return 1
         
-        # Reset the drone's position to the provided starting coordinates
-        if not reset_drone_position(drone, args.start_lat, args.start_lon, args.start_heading, logger):
+        # Reset the drone's position to the hardcoded starting coordinates (using drone compass)
+        start_lat = 63.4414548287786
+        start_lon = 10.3482882678509
+        
+        if not reset_drone_position(drone, start_lat, start_lon, logger):
             logger.error("Failed to reset drone position. Exiting.")
             return 1
         
         # Create the mission
         mission = create_mission(logger)
+        
+        save_mission_to_json(mission, "mission.json", logger)
         
         # Run the mission with instant auto-resume
         success = run_mission_with_instant_resume(drone, mission, 1800, logger, args.max_retries)
@@ -414,6 +513,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-    
-    
-# python mission_with_auto_resume.py --drone-ip 192.168.1.101 --start-lat 63.4406996 --start-lon 10.3489307 --max-retries 10
