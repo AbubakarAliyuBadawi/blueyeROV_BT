@@ -34,6 +34,7 @@ add_library(blueye_bt_real_nodes SHARED
   src/behaviors/activate_auto_modes.cpp
   src/behaviors/pipeline_inspection_mission.cpp
   src/behaviors/publish_state.cpp
+  src/behaviors/launch_undocking_real.cpp
 )
 
 ament_target_dependencies(blueye_bt_real_nodes

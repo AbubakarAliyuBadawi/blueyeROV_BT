@@ -16,6 +16,9 @@ import time
 import logging
 from pathlib import Path
 from datetime import datetime
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Point
 
 # Import required Blueye SDK components
 import blueye.protocol as bp
@@ -24,23 +27,71 @@ from blueye.protocol.types.mission_planning import DepthZeroReference
 from blueye.protocol.types.message_formats import LatLongPosition
 
 
-def extend_ctrl_client(drone):
+def extend_ctrl_client(drone, logger=None, use_hardcoded_gps=True):
     """
     Extend the CtrlClient class of a connected drone with a reset_position method.
     Args:
         drone (Drone): The connected Blueye drone.
+        logger: Logger instance (optional).
+        use_hardcoded_gps (bool): If True, use hardcoded GPS. If False, use GPS topic.
     Returns:
         The drone with extended functionality.
     """
-    # Add the reset_position method to the CtrlClient instance
-    def reset_position(lat, lon, heading=None):
+    # Hardcoded GPS coordinates
+    HARDCODED_LAT = 63.4414548287786
+    HARDCODED_LON = 10.3482882678509
+    
+    def reset_position(lat=None, lon=None, heading=None):
         """
         Reset the drone's position to a specified GPS coordinate.
         Args:
-            lat (float): Latitude in decimal degrees.
-            lon (float): Longitude in decimal degrees.
+            lat (float, optional): Latitude in decimal degrees.
+            lon (float, optional): Longitude in decimal degrees.
             heading (float, optional): Heading in degrees (0-359). If None, uses drone compass.
         """
+        # If lat/lon not provided, use hardcoded or get from topic based on flag
+        if lat is None or lon is None:
+            if use_hardcoded_gps:
+                # Use hardcoded coordinates
+                lat, lon = HARDCODED_LAT, HARDCODED_LON
+                if logger:
+                    logger.info(f"Using hardcoded GPS position: {lat}, {lon}")
+            else:
+                # Use GPS topic
+                if logger:
+                    logger.info("Getting current GPS position from /blueye/gps topic")
+                
+                # Initialize ROS if not already done
+                if not rclpy.ok():
+                    rclpy.init()
+                
+                # Create temporary node and get one GPS message
+                temp_node = Node('temp_gps_reader')
+                
+                try:
+                    msg = None
+                    def gps_callback(data):
+                        nonlocal msg
+                        msg = data
+                    
+                    subscription = temp_node.create_subscription(Point, '/blueye/gps', gps_callback, 10)
+                    
+                    # Spin once to get the message
+                    while msg is None:
+                        rclpy.spin_once(temp_node, timeout_sec=0.1)
+                    
+                    lat, lon = msg.x, msg.y
+                    if logger:
+                        logger.info(f"Using current GPS position: {lat}, {lon}")
+                    
+                    temp_node.destroy_node()
+                    
+                except Exception as e:
+                    if logger:
+                        logger.error(f"Failed to get GPS position: {str(e)}")
+                    temp_node.destroy_node()
+                    raise e
+        
         # Create reset position settings
         reset_settings = {
             "heading_source_during_reset": bp.HeadingSource.HEADING_SOURCE_MANUAL_INPUT if heading is not None else bp.HeadingSource.HEADING_SOURCE_DRONE_COMPASS,
@@ -51,16 +102,20 @@ def extend_ctrl_client(drone):
                 "longitude": lon
             },
         }
+        
         # Create and send the reset position message
-        msg = bp.ResetPositionCtrl(settings=reset_settings)
-        drone._ctrl_client._messages_to_send.put(msg)
+        reset_msg = bp.ResetPositionCtrl(settings=reset_settings)
+        drone._ctrl_client._messages_to_send.put(reset_msg)
+        
+        if logger:
+            heading_source = "drone compass" if heading is None else f"manual ({heading}°)"
+            logger.info(f"Position reset sent: lat={lat}, lon={lon}, heading={heading_source}")
     
     # Attach the method to the CtrlClient
     drone._ctrl_client.reset_position = reset_position
     return drone
 
-
-def setup_logging(log_file="log/enhanced_pipeline_inspection.log", log_level="INFO"):
+def setup_logging(log_file="log/mission.log", log_level="INFO"):
     """Set up logging configuration."""
     # Create log directory if needed
     log_path = Path(log_file)
@@ -104,11 +159,7 @@ def connect_to_drone(ip, timeout, logger):
     """Connect to the drone."""
     logger.info(f"Connecting to drone at {ip}")
     try:
-        drone = Drone(
-            ip=ip,
-            auto_connect=True,
-            timeout=timeout,
-        )
+        drone = Drone(ip=ip, auto_connect=True, timeout=timeout)
         
         logger.info(f"Connected to drone: {drone.serial_number}")
         logger.info(f"Drone software version: {drone.software_version}")
@@ -119,7 +170,9 @@ def connect_to_drone(ip, timeout, logger):
             logger.info("Control of drone acquired")
         
         # Extend the drone with the reset_position functionality
-        drone = extend_ctrl_client(drone)
+        # Set use_hardcoded_gps=True to use hardcoded coordinates
+        # Set use_hardcoded_gps=False to use GPS topic
+        drone = extend_ctrl_client(drone, logger, use_hardcoded_gps=True)
         logger.info("Drone control client extended with reset_position functionality")
         
         return drone
@@ -129,15 +182,11 @@ def connect_to_drone(ip, timeout, logger):
         return None
 
 
-def reset_drone_position(drone, lat, lon, logger):
-    """Reset the drone's position using drone compass for heading."""
-    logger.info(f"Resetting drone position to coordinates: {lat}, {lon} using drone compass for heading")
+def reset_drone_position(drone, logger):
+    """Reset the drone's position using current GPS coordinates."""
     try:
-        # Call our added reset_position method with no heading (uses drone compass)
-        drone._ctrl_client.reset_position(lat, lon)
-        logger.info("Position reset command sent successfully (using drone compass)")
-        
-        # Give some time for the position to be updated
+        drone._ctrl_client.reset_position()
+        logger.info("Position reset successful using current GPS and drone compass")
         time.sleep(2)
         return True
     except Exception as e:
@@ -476,11 +525,13 @@ def main():
             logger.error("Failed to connect to drone. Exiting.")
             return 1
         
-        # Reset the drone's position to the hardcoded starting coordinates (using drone compass)
-        start_lat = 63.4414548287786
-        start_lon = 10.3482882678509
+        # # Reset the drone's position to the hardcoded starting coordinates (using drone compass)
+        # start_lat = 63.4414548287786
+        # start_lon = 10.3482882678509
         
-        if not reset_drone_position(drone, start_lat, start_lon, logger):
+        # You can set the drone heading to a specific value if needed during the reset e.g (90 degrees = East) will be 
+        # if not reset_drone_position(drone, logger, heading=90.0):
+        if not reset_drone_position(drone, logger):
             logger.error("Failed to reset drone position. Exiting.")
             return 1
         

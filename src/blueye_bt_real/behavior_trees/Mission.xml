@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root BTCPP_format="4"
-     main_tree_to_execute="Mission">
+      main_tree_to_execute="Mission">
   <BehaviorTree ID="Mission">
     <Fallback name="mission_with_emergency_fallback">
       <Sequence name="normal_mission_with_battery_check">
@@ -10,30 +10,42 @@
                                    threshold="20.0"/>
           </Inverter>
           <Sequence name="mission_sequence">
-            <LaunchMissionProcedure name="pipeline_inspection_mission"
-                                    script_path="~/Desktop/blueyeROV_BT/launch_mission.sh"
-                                    drone_ip="192.168.1.101"
-                                    max_retries="10"/>
+            <LaunchUndockingProcedure name="test_undocking_procedure"
+                                      script_path="/home/badawi/Desktop/blueyeROV_BT/src/bash_scripts/launch_undocking_real.sh"
+                                      drone_ip="192.168.1.101"
+                                      reverse_duration="10"
+                                      reverse_power="0.4"/>
+            <ParallelAll max_failures="1">
+              <ActivateAutoModes name="post_undocking_stabilization"
+                                 depth_hold="true"
+                                 heading_hold="true"
+                                 hold_duration="5"/>
+              <LaunchMissionProcedure name="pipeline_inspection_mission"
+                                      script_path="~/Desktop/blueyeROV_BT/launch_mission.sh"
+                                      drone_ip="192.168.1.101"
+                                      max_retries="10"/>
+            </ParallelAll>
             <LaunchDockingProcedure name="launch_integrated_docking"/>
-            <SetBlackboard value="ROV successfully docked and now charging"
+            <Wait name="Initialization"
+                  duration="1000"/>
+            <SetBlackboard value="Waiting for docking"
+                           output_key="status_message"/>
+            <SetBlackboard value="Blueye Docked and Charging"
                            output_key="status_message"/>
           </Sequence>
         </ReactiveSequence>
       </Sequence>
       <Sequence name="emergency_sequence">
-        <ActivateAutoModes depth_hold="true"
-                           heading_hold="true"
-                           hold_duration="5"/>
-        <GoToWaypointCC waypoint_lat="63.44070"
-                        waypoint_lon="10.34899"
-                        depth="0.5"
-                        drone_ip="192.168.1.101"
-                        initialize_connection="false"/>
+        <GoToWaypoint name="goto_target"
+                      waypoint_lat="63.4406996"
+                      waypoint_lon="10.3489307"
+                      depth="1.5"
+                      drone_ip="192.168.1.101"/>
         <LaunchDockingProcedure name="launch_integrated_docking"/>
       </Sequence>
     </Fallback>
   </BehaviorTree>
-  
+
   <!-- Description of Node Models (used by Groot) -->
   <TreeNodesModel>
     <Action ID="ActivateAutoModes">
@@ -47,7 +59,6 @@
                   default="10"
                   type="Int">Duration to hold position in seconds</input_port>
     </Action>
-    
     <Condition ID="BatteryLevelCondition">
       <input_port name="threshold"
                   default="20.0"
@@ -55,8 +66,7 @@
       <output_port name="battery_level"
                    type="Double">Current battery level percentage</output_port>
     </Condition>
-    
-    <Action ID="GoToWaypointCC">
+    <Action ID="GoToWaypoint">
       <input_port name="waypoint_lat"
                   type="Double">Target latitude</input_port>
       <input_port name="waypoint_lon"
@@ -67,13 +77,9 @@
       <input_port name="drone_ip"
                   default="192.168.1.101"
                   type="String">IP address of the drone</input_port>
-      <input_port name="initialize_connection"
-                  default="false"
-                  type="Bool">Whether to initialize a new connection</input_port>
     </Action>
-    
-    <Action ID="LaunchDockingProcedure"/>
-    
+    <Action ID="LaunchDockingProcedure"
+            editable="true"/>
     <Action ID="LaunchMissionProcedure">
       <input_port name="script_path"
                   type="String">Path to the mission script</input_port>
@@ -83,5 +89,24 @@
                   default="5"
                   type="Int">Maximum number of retry attempts for aborted missions</input_port>
     </Action>
+    <Action ID="LaunchUndockingProcedure">
+      <input_port name="script_path"
+                  default="/home/badawi/Desktop/blueyeROV_BT/src/bash_scripts/launch_undocking_real.sh"
+                  type="String">Path to the undocking script</input_port>
+      <input_port name="drone_ip"
+                  default="192.168.1.101"
+                  type="String">IP address of the drone</input_port>
+      <input_port name="reverse_duration"
+                  default="10"
+                  type="Int">Duration to move backwards in seconds</input_port>
+      <input_port name="reverse_power"
+                  default="0.4"
+                  type="Float">Power for backwards movement (0.1 to 1.0)</input_port>
+    </Action>
+    <Action ID="Wait">
+      <input_port name="duration"
+                  type="Int">Wait duration in seconds</input_port>
+    </Action>
   </TreeNodesModel>
+
 </root>

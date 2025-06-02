@@ -44,7 +44,7 @@ BT::NodeStatus ActivateAutoModes::onRunning()
     
     // Report progress periodically
     if (elapsed_seconds % 2 == 0) {  // Log every 2 seconds
-        RCLCPP_INFO(node_->get_logger(), "Maintaining position... %ld/%d seconds completed", 
+        RCLCPP_DEBUG(node_->get_logger(), "Maintaining position... %ld/%d seconds completed", 
                    elapsed_seconds, hold_duration_);
     }
     
@@ -95,7 +95,7 @@ bool ActivateAutoModes::callAutoService(rclcpp::Client<std_srvs::srv::SetBool>::
         return false;
     }
     
-    RCLCPP_INFO(node_->get_logger(), "%s set to %s: %s", 
+    RCLCPP_DEBUG(node_->get_logger(), "%s set to %s: %s", 
                 service_name.c_str(), enable ? "active" : "inactive", response->message.c_str());
     return true;
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+     main_tree_to_execute="TestUndocking">
+  <BehaviorTree ID="TestUndocking">
+    <Sequence name="test_undocking_sequence">
+      <LaunchUndockingProcedure name="test_undocking_procedure"
+                                script_path="/home/badawi/Desktop/blueyeROV_BT/src/bash_scripts/launch_undocking_real.sh"
+                                drone_ip="192.168.1.101"
+                                reverse_duration="10"
+                                reverse_power="0.4"/>
+      <SetBlackboard value="Undocking test completed successfully"
+                     output_key="status_message"/>
+    </Sequence>
+  </BehaviorTree>
+  
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="LaunchUndockingProcedure">
+      <input_port name="script_path"
+                  type="String"
+                  default="/home/badawi/Desktop/blueyeROV_BT/src/bash_scripts/launch_undocking_real.sh">Path to the undocking script</input_port>
+      <input_port name="drone_ip"
+                  type="String"
+                  default="192.168.1.101">IP address of the drone</input_port>
+      <input_port name="reverse_duration"
+                  type="Int"
+                  default="10">Duration to move backwards in seconds</input_port>
+      <input_port name="reverse_power"
+                  type="Float"
+                  default="0.4">Power for backwards movement (0.1 to 1.0)</input_port>
+    </Action>
+  </TreeNodesModel>
+</root>

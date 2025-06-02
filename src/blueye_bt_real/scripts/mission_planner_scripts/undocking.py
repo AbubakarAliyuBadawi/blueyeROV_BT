@@ -1,142 +1,151 @@
 #!/usr/bin/env python3
 """
-ROS service-based script to hold drone position and move backwards.
-Uses existing ROS node connection instead of creating new drone connection.
+Direct SDK undocking script that connects to drone, performs undocking, then disconnects.
+Similar to mission script approach to avoid connection conflicts.
 """
 
-import rclpy
-from rclpy.node import Node
-from std_srvs.srv import SetBool
-from geometry_msgs.msg import WrenchStamped
 import time
 import logging
 import sys
+import argparse
+from blueye.sdk import Drone
 
-class PositionHoldClient(Node):
-    """ROS client for position hold and reverse movement."""
+def setup_logging():
+    """Set up basic logging."""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[logging.StreamHandler(sys.stdout)]
+    )
+    return logging.getLogger("undocking")
+
+def connect_to_drone(drone_ip, timeout, logger):
+    """Connect to the drone."""
+    logger.info(f"Connecting to drone at {drone_ip}")
+    try:
+        drone = Drone(ip=drone_ip, auto_connect=True, timeout=timeout)
+        
+        logger.info(f"Connected to drone: {drone.serial_number}")
+        logger.info(f"Drone software version: {drone.software_version}")
+        
+        if not drone.in_control:
+            logger.info("Taking control of drone...")
+            drone.take_control()
+            logger.info("Control of drone acquired")
+        
+        return drone
+        
+    except Exception as e:
+        logger.error(f"Failed to connect to drone: {str(e)}")
+        return None
+
+def perform_undocking_sequence(drone, reverse_duration=10, reverse_power=0.4, logger=None):
+    """
+    Perform undocking sequence using direct drone SDK commands.
     
-    def __init__(self):
-        super().__init__('position_hold_client')
+    Args:
+        drone: Connected Blueye drone object
+        reverse_duration (int): How long to move backwards in seconds
+        reverse_power (float): Power for backwards movement (0.1 to 1.0)
+        logger: Logger object
+    """
+    try:
+        # Enable station keeping (holds position and orientation)
+        logger.info("Activating station keeping mode...")
+        drone.motion.station_keeping_active = True
+        time.sleep(3)  # Give time for station keeping to activate
         
-        # Create service clients
-        self.depth_hold_client = self.create_client(SetBool, '/blueye/depth_hold')
-        self.heading_hold_client = self.create_client(SetBool, '/blueye/heading_hold')
-        self.stationkeep_client = self.create_client(SetBool, '/blueye/stationkeep')
+        # Check if station keeping is active
+        if drone.motion.station_keeping_active:
+            logger.info("Station keeping is ACTIVE - drone will hold position")
+        else:
+            logger.warning("Station keeping failed to activate, using manual auto modes")
+            # Fallback to manual auto modes
+            drone.motion.auto_depth_active = True
+            drone.motion.auto_heading_active = True
+            time.sleep(2)
         
-        # Create command publisher
-        self.cmd_pub = self.create_publisher(WrenchStamped, '/blueye/commands', 10)
+        # Hold position for a few seconds
+        logger.info("Holding position for 5 seconds...")
+        time.sleep(5)
         
-        # Set up logging
-        self.logger = self.get_logger()
+        # Now move backwards while maintaining position control
+        logger.info(f"Moving backwards at {reverse_power} power for {reverse_duration} seconds...")
         
-    def wait_for_services(self, timeout=10.0):
-        """Wait for all services to be available."""
-        services = [
-            (self.depth_hold_client, 'depth_hold'),
-            (self.heading_hold_client, 'heading_hold'),
-            (self.stationkeep_client, 'stationkeep')
-        ]
+        # Disable station keeping but keep auto modes for controlled backwards movement
+        drone.motion.station_keeping_active = False
+        drone.motion.auto_depth_active = True
+        drone.motion.auto_heading_active = True
+        time.sleep(1)  # Brief pause for mode change
         
-        for client, name in services:
-            self.logger.info(f"Waiting for {name} service...")
-            if not client.wait_for_service(timeout_sec=timeout):
-                self.logger.error(f"{name} service not available after {timeout} seconds")
-                return False
+        # Move backwards
+        drone.motion.surge = -reverse_power
         
-        self.logger.info("All services are available")
+        # Monitor movement
+        start_time = time.time()
+        while time.time() - start_time < reverse_duration:
+            try:
+                current_depth = drone.depth
+                logger.info(f"Moving backwards... Depth: {current_depth:.2f}m")
+            except:
+                logger.info("Moving backwards...")
+            time.sleep(2)
+        
+        # Stop movement
+        drone.motion.surge = 0.0
+        logger.info("Backwards movement complete - drone stopped")
+        
+        # Re-enable station keeping to hold new position
+        time.sleep(1)
+        drone.motion.station_keeping_active = True
+        logger.info("Station keeping re-activated - holding new position")
+        
+        # Hold the new position briefly
+        time.sleep(3)
+        
+        logger.info("Undocking sequence completed successfully!")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error during undocking sequence: {str(e)}")
+        return False
+
+def disconnect_drone(drone, logger):
+    """Disconnect from the drone safely."""
+    if not drone or not drone.connected:
         return True
     
-    def call_service(self, client, enable, service_name):
-        """Call a SetBool service."""
-        request = SetBool.Request()
-        request.data = enable
+    logger.info("Disconnecting from drone")
+    try:
+        # Stop all movement first
+        drone.motion.surge = 0.0
+        drone.motion.sway = 0.0
+        drone.motion.heave = 0.0
+        drone.motion.yaw = 0.0
         
-        future = client.call_async(request)
-        rclpy.spin_until_future_complete(self, future, timeout_sec=5.0)
+        # Disable auto modes
+        drone.motion.station_keeping_active = False
+        drone.motion.auto_depth_active = False
+        drone.motion.auto_heading_active = False
         
-        if future.result() is not None:
-            response = future.result()
-            if response.success:
-                self.logger.info(f"{service_name}: {response.message}")
-                return True
-            else:
-                self.logger.error(f"{service_name} failed: {response.message}")
-                return False
-        else:
-            self.logger.error(f"Service call to {service_name} failed")
-            return False
-    
-    def send_command(self, surge=0.0, sway=0.0, heave=0.0, yaw=0.0):
-        """Send movement command to drone."""
-        cmd_msg = WrenchStamped()
-        cmd_msg.header.stamp = self.get_clock().now().to_msg()
-        cmd_msg.wrench.force.x = surge
-        cmd_msg.wrench.force.y = sway
-        cmd_msg.wrench.force.z = heave
-        cmd_msg.wrench.torque.z = yaw
+        time.sleep(1)
         
-        self.cmd_pub.publish(cmd_msg)
-    
-    def hold_position_and_reverse(self, reverse_duration=10, reverse_power=0.4):
-        """Execute position hold and reverse sequence."""
-        try:
-            # Wait for services
-            if not self.wait_for_services():
-                return False
-            
-            # Enable station keeping
-            self.logger.info("Activating station keeping mode...")
-            if not self.call_service(self.stationkeep_client, True, "stationkeep"):
-                self.logger.warning("Station keeping failed, using individual auto modes")
-                # Fallback to individual modes
-                self.call_service(self.depth_hold_client, True, "depth_hold")
-                self.call_service(self.heading_hold_client, True, "heading_hold")
-            
-            # Hold position for a few seconds
-            self.logger.info("Holding position for 5 seconds...")
-            time.sleep(5)
-            
-            # Move backwards while maintaining position control
-            self.logger.info(f"Moving backwards at {reverse_power} power for {reverse_duration} seconds...")
-            
-            # Disable station keeping but keep auto modes
-            self.call_service(self.stationkeep_client, False, "stationkeep")
-            time.sleep(0.5)
-            self.call_service(self.depth_hold_client, True, "depth_hold")
-            self.call_service(self.heading_hold_client, True, "heading_hold")
-            time.sleep(1)
-            
-            # Move backwards
-            start_time = time.time()
-            while time.time() - start_time < reverse_duration:
-                self.send_command(surge=-reverse_power)
-                self.logger.info("Moving backwards...")
-                time.sleep(2)
-            
-            # Stop movement
-            self.send_command(surge=0.0)
-            self.logger.info("Backwards movement complete - drone stopped")
-            
-            # Re-enable station keeping
-            time.sleep(1)
-            self.call_service(self.stationkeep_client, True, "stationkeep")
-            self.logger.info("Station keeping re-activated - holding new position")
-            
-            # Hold new position briefly
-            time.sleep(3)
-            
-            self.logger.info("Position hold and reverse sequence completed successfully!")
-            return True
-            
-        except Exception as e:
-            self.logger.error(f"Error during position hold and reverse: {str(e)}")
-            return False
+        # Disconnect
+        drone.disconnect()
+        logger.info("Disconnected from drone")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error during disconnect: {str(e)}")
+        return False
 
 def main():
     """Main function."""
-    import argparse
-    
-    parser = argparse.ArgumentParser(description='Hold position and move backwards via ROS')
+    parser = argparse.ArgumentParser(description='Perform undocking sequence using direct SDK')
+    parser.add_argument('--drone-ip', type=str, default="192.168.1.101",
+                        help='IP address of the drone')
+    parser.add_argument('--timeout', type=int, default=30,
+                        help='Connection timeout for the drone in seconds')
     parser.add_argument('--reverse-duration', type=int, default=10,
                         help='Duration to move backwards in seconds')
     parser.add_argument('--reverse-power', type=float, default=0.4,
@@ -149,26 +158,45 @@ def main():
         print("Error: reverse-power must be between 0.1 and 1.0")
         return 1
     
-    # Initialize ROS
-    rclpy.init()
+    # Set up logging
+    logger = setup_logging()
+    logger.info("Starting direct SDK undocking procedure")
+    
+    drone = None
+    success = False
     
     try:
-        # Create client node
-        client = PositionHoldClient()
+        # Connect to the drone
+        drone = connect_to_drone(args.drone_ip, args.timeout, logger)
+        if not drone:
+            logger.error("Failed to connect to drone. Exiting.")
+            return 1
         
-        # Execute position hold sequence
-        success = client.hold_position_and_reverse(
-            reverse_duration=args.reverse_duration,
-            reverse_power=args.reverse_power
+        # Perform undocking sequence
+        success = perform_undocking_sequence(
+            drone, 
+            args.reverse_duration, 
+            args.reverse_power, 
+            logger
         )
         
+        logger.info(f"Undocking {'completed successfully' if success else 'failed'}")
         return 0 if success else 1
         
     except KeyboardInterrupt:
-        print("Interrupted by user")
+        logger.info("Undocking aborted by user")
+        return 130  # Standard exit code for SIGINT
+        
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}", exc_info=True)
         return 1
+        
     finally:
-        rclpy.shutdown()
+        # Always try to disconnect from the drone
+        if drone:
+            disconnect_drone(drone, logger)
+        
+        return 0 if success else 1
 
 if __name__ == "__main__":
     sys.exit(main())
