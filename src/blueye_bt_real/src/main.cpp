@@ -19,6 +19,7 @@
 #include "blueye_bt_real/behaviors/activate_auto_modes.hpp"
 #include "blueye_bt_real/conditions/CheckBlackboardBool.hpp"
 #include "blueye_bt_real/behaviors/pipeline_inspection_mission.hpp"
+#include "blueye_bt_real/behaviors/launch_undocking_real.hpp"
 
 // Global node for service clients
 rclcpp::Node::SharedPtr g_node;
@@ -128,6 +129,14 @@ int main(int argc, char **argv) {
         {
             return std::make_unique<PublishState>(name, config);
         });
+
+    // Register LaunchUndockingProcedure
+    factory.registerBuilder<LaunchUndockingProcedure>(
+        "LaunchUndockingProcedure",
+        [](const std::string& name, const BT::NodeConfig& config) {
+            return std::make_unique<LaunchUndockingProcedure>(name, config);
+        });
+        
 try {
         std::string mission_file;
         if (!g_node->get_parameter("behavior_tree_path", mission_file)) {

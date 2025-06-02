@@ -1,0 +1,86 @@
+{
+  "id": 1,
+  "name": "Pipeline Survey",
+  "default_surge_speed": 0.20000000298023224,
+  "default_heave_speed": 0.5,
+  "default_circle_of_acceptance": 0.5,
+  "instructions": [
+    {
+      "id": 1,
+      "auto_continue": true,
+      "type": "control_mode",
+      "control_mode_vertical": "CONTROL_MODE_VERTICAL_AUTO_DEPTH",
+      "control_mode_horizontal": "CONTROL_MODE_HORIZONTAL_AUTO_HEADING"
+    },
+    {
+      "id": 2,
+      "auto_continue": true,
+      "type": "depth_set_point",
+      "depth": 1.0,
+      "speed_to_depth": 0.5,
+      "depth_zero_reference": "DEPTH_ZERO_REFERENCE_SURFACE"
+    },
+    {
+      "id": 3,
+      "auto_continue": true,
+      "type": "waypoint",
+      "name": "Pipeline Point 1",
+      "latitude": 63.4414001130402,
+      "longitude": 10.348227918148,
+      "circle_of_acceptance": 0.5,
+      "speed_to_target": 0.20000000298023224,
+      "depth": 1.0
+    },
+    {
+      "id": 4,
+      "auto_continue": true,
+      "type": "wait",
+      "wait_for_seconds": 10.0
+    },
+    {
+      "id": 5,
+      "auto_continue": true,
+      "type": "waypoint",
+      "name": "Pipeline Point 2",
+      "latitude": 63.4413996633213,
+      "longitude": 10.3483355417848,
+      "circle_of_acceptance": 0.5,
+      "speed_to_target": 0.20000000298023224,
+      "depth": 1.0
+    },
+    {
+      "id": 6,
+      "auto_continue": true,
+      "type": "wait",
+      "wait_for_seconds": 10.0
+    },
+    {
+      "id": 7,
+      "auto_continue": true,
+      "type": "waypoint",
+      "name": "Pipeline Point 3",
+      "latitude": 63.4414320430591,
+      "longitude": 10.3482845798135,
+      "circle_of_acceptance": 0.5,
+      "speed_to_target": 0.20000000298023224,
+      "depth": 1.0
+    },
+    {
+      "id": 8,
+      "auto_continue": true,
+      "type": "wait",
+      "wait_for_seconds": 10.0
+    },
+    {
+      "id": 9,
+      "auto_continue": true,
+      "type": "waypoint",
+      "name": "Docking Station",
+      "latitude": 63.4414548287786,
+      "longitude": 10.3482882678509,
+      "circle_of_acceptance": 0.5,
+      "speed_to_target": 0.5,
+      "depth": 1.0
+    }
+  ]
+}

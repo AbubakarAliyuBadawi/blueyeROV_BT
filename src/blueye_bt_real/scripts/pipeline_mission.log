@@ -85,3 +85,67 @@
 2025-05-06 13:35:55,971 - pipeline_mission - INFO - Mission: MISSION_STATE_FAILED_TO_START_MISSION, Progress: 0/19 instructions, Time: 0s/37s, Depth: -0.0m
 2025-05-06 13:35:55,972 - pipeline_mission - ERROR - Mission failed with state: MISSION_STATE_FAILED_TO_START_MISSION
 2025-05-06 13:35:55,972 - pipeline_mission - INFO - Mission failed
+2025-05-30 17:40:06,712 - pipeline_mission - INFO - Starting Integrated Pipeline Inspection Mission (goto_docking=True)
+2025-05-30 17:40:06,713 - pipeline_mission - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 17:40:06,713 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 17:40:18,387 - pipeline_mission - INFO - Mission aborted by user
+2025-05-30 17:40:30,209 - pipeline_mission - INFO - Starting Integrated Pipeline Inspection Mission (goto_docking=True)
+2025-05-30 17:40:30,209 - pipeline_mission - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 17:40:30,209 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 17:40:31,279 - blueye.sdk.drone - INFO - Connection successful, client id: 4
+2025-05-30 17:40:31,279 - blueye.sdk.drone - INFO - Client id in control: 3
+2025-05-30 17:40:31,280 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-30 17:40:31,280 - pipeline_mission - INFO - Connected to drone: BYEDP220008
+2025-05-30 17:40:31,280 - pipeline_mission - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 17:40:31,280 - pipeline_mission - INFO - Taking control of drone...
+2025-05-30 17:40:31,298 - pipeline_mission - INFO - Control of drone acquired
+2025-05-30 17:40:31,298 - pipeline_mission - INFO - Drone control client extended with reset_position functionality
+2025-05-30 17:40:31,298 - pipeline_mission - INFO - Creating pipeline inspection mission
+2025-05-30 17:40:31,298 - pipeline_mission - INFO - Added waypoint: Start Point (63.4407, 10.34899) at 0.2m depth
+2025-05-30 17:40:31,299 - pipeline_mission - INFO - Added waypoint: Pipeline Point 1 (63.44068, 10.34895) at 0.2m depth
+2025-05-30 17:40:31,299 - pipeline_mission - INFO - Added waypoint: Pipeline Point 2 (63.44065, 10.34895) at 0.2m depth
+2025-05-30 17:40:31,299 - pipeline_mission - INFO - Added waypoint: Pipeline Point 3 (63.44065, 10.34901) at 0.2m depth
+2025-05-30 17:40:31,300 - pipeline_mission - INFO - Added waypoint: Pipeline Point 4 (63.44068, 10.34901) at 0.2m depth
+2025-05-30 17:40:31,300 - pipeline_mission - INFO - Added waypoint: Docking Station (63.4407, 10.34899) at 2.3m depth
+2025-05-30 17:40:31,300 - pipeline_mission - INFO - Clearing any previous missions
+2025-05-30 17:40:32,301 - pipeline_mission - INFO - Sending new mission: Pipeline Inspection
+2025-05-30 17:40:32,352 - pipeline_mission - ERROR - Error during mission execution: No response received from drone before timeout
+2025-05-30 17:40:32,352 - pipeline_mission - INFO - Mission failed
+2025-05-30 17:40:37,983 - pipeline_mission - INFO - Starting Integrated Pipeline Inspection Mission (goto_docking=True)
+2025-05-30 17:40:37,983 - pipeline_mission - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 17:40:37,983 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 17:40:46,519 - blueye.sdk.drone - INFO - Connection successful, client id: 5
+2025-05-30 17:40:46,519 - blueye.sdk.drone - INFO - Client id in control: 5
+2025-05-30 17:40:46,520 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-30 17:40:46,531 - pipeline_mission - INFO - Connected to drone: BYEDP220008
+2025-05-30 17:40:46,532 - pipeline_mission - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 17:40:46,532 - pipeline_mission - INFO - Drone control client extended with reset_position functionality
+2025-05-30 17:40:46,532 - pipeline_mission - INFO - Creating pipeline inspection mission
+2025-05-30 17:40:46,532 - pipeline_mission - INFO - Added waypoint: Start Point (63.4407, 10.34899) at 0.2m depth
+2025-05-30 17:40:46,533 - pipeline_mission - INFO - Added waypoint: Pipeline Point 1 (63.44068, 10.34895) at 0.2m depth
+2025-05-30 17:40:46,533 - pipeline_mission - INFO - Added waypoint: Pipeline Point 2 (63.44065, 10.34895) at 0.2m depth
+2025-05-30 17:40:46,533 - pipeline_mission - INFO - Added waypoint: Pipeline Point 3 (63.44065, 10.34901) at 0.2m depth
+2025-05-30 17:40:46,534 - pipeline_mission - INFO - Added waypoint: Pipeline Point 4 (63.44068, 10.34901) at 0.2m depth
+2025-05-30 17:40:46,534 - pipeline_mission - INFO - Added waypoint: Docking Station (63.4407, 10.34899) at 2.3m depth
+2025-05-30 17:40:46,534 - pipeline_mission - INFO - Clearing any previous missions
+2025-05-30 17:40:47,534 - pipeline_mission - INFO - Sending new mission: Pipeline Inspection
+2025-05-30 17:40:48,549 - pipeline_mission - INFO - Starting mission execution
+2025-05-30 17:40:48,549 - pipeline_mission - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/12s, Depth: -0.0m
+2025-05-30 17:40:50,552 - pipeline_mission - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/19 instructions, Time: 0s/37s, Depth: -0.0m
+2025-05-30 17:40:52,555 - pipeline_mission - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/19 instructions, Time: 2s/39s, Depth: -0.0m
+2025-05-30 17:40:54,558 - pipeline_mission - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/19 instructions, Time: 4s/41s, Depth: 0.0m
+2025-05-30 17:40:56,560 - pipeline_mission - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/19 instructions, Time: 6s/43s, Depth: 0.1m
+2025-05-30 17:40:58,563 - pipeline_mission - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/19 instructions, Time: 8s/45s, Depth: 0.1m
+2025-05-30 17:41:00,565 - pipeline_mission - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/19 instructions, Time: 9s/11744771s, Depth: 0.1m
+2025-05-30 17:41:00,566 - pipeline_mission - WARNING - Mission was aborted (attempt 1/4)
+2025-05-30 17:41:00,566 - pipeline_mission - INFO - Resuming mission execution (attempt 2/4)
+2025-05-30 17:41:00,566 - pipeline_mission - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/19 instructions, Time: 9s/11744771s, Depth: 0.1m
+2025-05-30 17:41:00,566 - pipeline_mission - WARNING - Mission was aborted (attempt 2/4)
+2025-05-30 17:41:00,566 - pipeline_mission - INFO - Resuming mission execution (attempt 3/4)
+2025-05-30 17:41:00,567 - pipeline_mission - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/19 instructions, Time: 9s/11744771s, Depth: 0.1m
+2025-05-30 17:41:00,567 - pipeline_mission - WARNING - Mission was aborted (attempt 3/4)
+2025-05-30 17:41:00,567 - pipeline_mission - INFO - Resuming mission execution (attempt 4/4)
+2025-05-30 17:41:00,568 - pipeline_mission - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/19 instructions, Time: 9s/11744771s, Depth: 0.1m
+2025-05-30 17:41:00,568 - pipeline_mission - WARNING - Mission was aborted (attempt 4/4)
+2025-05-30 17:41:00,568 - pipeline_mission - WARNING - Maximum retry attempts (3) reached. Mission failed.
+2025-05-30 17:41:00,568 - pipeline_mission - INFO - Mission failed

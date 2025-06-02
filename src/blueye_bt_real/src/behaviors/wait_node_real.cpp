@@ -22,7 +22,7 @@ BT::NodeStatus Wait::onRunning() {
     auto elapsed = (rclcpp::Clock().now() - start_time_).seconds();
     
     if (elapsed >= duration_seconds_) {
-        RCLCPP_INFO(rclcpp::get_logger("wait_node"), 
+        RCLCPP_DEBUG(rclcpp::get_logger("wait_node"), 
                    "Wait completed after %d seconds", duration_seconds_);
         return BT::NodeStatus::SUCCESS;
     }
@@ -33,7 +33,7 @@ BT::NodeStatus Wait::onRunning() {
     
     if (current_progress > last_report) {
         last_report = current_progress;
-        RCLCPP_INFO(rclcpp::get_logger("wait_node"), 
+        RCLCPP_DEBUG(rclcpp::get_logger("wait_node"), 
                    "Still waiting... %.1f / %d seconds", 
                    elapsed, duration_seconds_);
     }
@@ -42,5 +42,5 @@ BT::NodeStatus Wait::onRunning() {
 }
 
 void Wait::onHalted() {
-    RCLCPP_INFO(rclcpp::get_logger("wait_node"), "Wait halted");
+    RCLCPP_DEBUG(rclcpp::get_logger("wait_node"), "Wait halted");
 }

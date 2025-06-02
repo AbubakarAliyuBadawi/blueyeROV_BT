@@ -1654,3 +1654,660 @@
 2025-05-06 13:35:17,292 - pool_test - INFO - Mission failed
 2025-05-06 13:35:17,292 - pool_test - INFO - Disconnecting from drone
 2025-05-06 13:35:17,308 - pool_test - INFO - Disconnected from drone
+2025-05-30 17:44:17,820 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 17:44:17,822 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 17:44:17,822 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 17:44:19,109 - blueye.sdk.drone - INFO - Connection successful, client id: 8
+2025-05-30 17:44:19,109 - blueye.sdk.drone - INFO - Client id in control: 8
+2025-05-30 17:44:19,109 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-30 17:44:19,117 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 17:44:19,117 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 17:44:19,118 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 17:44:19,118 - pool_test - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-05-30 17:44:19,118 - pool_test - INFO - Position reset command sent successfully
+2025-05-30 17:44:29,128 - pool_test - INFO - Creating pipeline survey
+2025-05-30 17:44:29,129 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.440662, 10.3488502) at 0.5m depth
+2025-05-30 17:44:29,130 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4406063, 10.3488254) at 0.5m depth
+2025-05-30 17:44:29,130 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4406029, 10.3489612) at 0.5m depth
+2025-05-30 17:44:29,130 - pool_test - INFO - Added waypoint: Pipeline Point 4 (63.4406575, 10.3489893) at 0.5m depth
+2025-05-30 17:44:29,131 - pool_test - INFO - Added docking waypoint: (63.4406991, 10.3489964) at 2.3m depth
+2025-05-30 17:44:29,131 - pool_test - INFO - Clearing any previous missions
+2025-05-30 17:44:30,131 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 17:44:31,140 - pool_test - INFO - Starting mission execution
+2025-05-30 17:44:31,141 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/173s, Depth: -0.0m
+2025-05-30 17:44:33,143 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/7 instructions, Time: 0s/194s, Depth: -0.0m
+2025-05-30 17:44:35,146 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 2s/42s, Depth: 0.0m
+2025-05-30 17:44:37,148 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 4s/44s, Depth: 0.2m
+2025-05-30 17:44:39,151 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 6s/46s, Depth: 0.4m
+2025-05-30 17:44:41,154 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/7 instructions, Time: 8s/48s, Depth: 0.5m
+2025-05-30 17:44:43,156 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 10s/206s, Depth: 0.4m
+2025-05-30 17:44:45,159 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 12s/208s, Depth: 0.4m
+2025-05-30 17:44:47,161 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 14s/210s, Depth: 0.4m
+2025-05-30 17:44:49,163 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 16s/211s, Depth: 0.5m
+2025-05-30 17:44:51,166 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 18s/212s, Depth: 0.5m
+2025-05-30 17:44:53,168 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 20s/213s, Depth: 0.6m
+2025-05-30 17:44:55,171 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 22s/213s, Depth: 0.6m
+2025-05-30 17:44:57,173 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 24s/214s, Depth: 0.6m
+2025-05-30 17:44:59,176 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 26s/214s, Depth: 0.5m
+2025-05-30 17:45:01,178 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/7 instructions, Time: 28s/215s, Depth: 0.5m
+2025-05-30 17:45:03,180 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/7 instructions, Time: 28s/213s, Depth: 0.4m
+2025-05-30 17:45:03,181 - pool_test - WARNING - Mission was aborted (attempt 1/6)
+2025-05-30 17:45:03,181 - pool_test - INFO - Instantly resuming mission execution (attempt 2/6)
+2025-05-30 17:45:03,181 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/7 instructions, Time: 28s/213s, Depth: 0.4m
+2025-05-30 17:45:03,181 - pool_test - WARNING - Mission was aborted (attempt 2/6)
+2025-05-30 17:45:03,181 - pool_test - INFO - Instantly resuming mission execution (attempt 3/6)
+2025-05-30 17:45:03,181 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/7 instructions, Time: 28s/213s, Depth: 0.4m
+2025-05-30 17:45:03,181 - pool_test - WARNING - Mission was aborted (attempt 3/6)
+2025-05-30 17:45:03,182 - pool_test - INFO - Instantly resuming mission execution (attempt 4/6)
+2025-05-30 17:45:03,182 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/7 instructions, Time: 28s/213s, Depth: 0.4m
+2025-05-30 17:45:03,182 - pool_test - WARNING - Mission was aborted (attempt 4/6)
+2025-05-30 17:45:03,182 - pool_test - INFO - Instantly resuming mission execution (attempt 5/6)
+2025-05-30 17:45:03,182 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/7 instructions, Time: 28s/213s, Depth: 0.4m
+2025-05-30 17:45:03,183 - pool_test - WARNING - Mission was aborted (attempt 5/6)
+2025-05-30 17:45:03,183 - pool_test - INFO - Instantly resuming mission execution (attempt 6/6)
+2025-05-30 17:45:03,183 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/7 instructions, Time: 28s/213s, Depth: 0.4m
+2025-05-30 17:45:03,183 - pool_test - WARNING - Mission was aborted (attempt 6/6)
+2025-05-30 17:45:03,183 - pool_test - WARNING - Maximum retry attempts (5) reached. Mission failed.
+2025-05-30 17:45:03,183 - pool_test - INFO - Mission failed
+2025-05-30 17:45:03,183 - pool_test - INFO - Disconnecting from drone
+2025-05-30 17:45:03,190 - pool_test - INFO - Disconnected from drone
+2025-05-30 18:55:24,935 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 18:55:24,935 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 18:55:24,935 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 18:55:26,190 - blueye.sdk.drone - INFO - Connection successful, client id: 26
+2025-05-30 18:55:26,190 - blueye.sdk.drone - INFO - Client id in control: 26
+2025-05-30 18:55:26,190 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-30 18:55:26,201 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 18:55:26,202 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 18:55:26,202 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 18:55:26,202 - pool_test - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-05-30 18:55:26,202 - pool_test - INFO - Position reset command sent successfully
+2025-05-30 18:55:36,212 - pool_test - INFO - Creating pipeline survey
+2025-05-30 18:55:36,213 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.5m depth
+2025-05-30 18:55:36,214 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.5m depth
+2025-05-30 18:55:36,214 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.5m depth
+2025-05-30 18:55:36,214 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 18:55:36,216 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 18:55:36,217 - pool_test - INFO - Clearing any previous missions
+2025-05-30 18:55:37,217 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 18:55:38,227 - pool_test - INFO - Starting mission execution
+2025-05-30 18:55:38,228 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/0s, Depth: -0.1m
+2025-05-30 18:55:40,231 - pool_test - INFO - Mission: MISSION_STATE_FAILED_TO_START_MISSION, Progress: 0/9 instructions, Time: 0s/36s, Depth: -0.1m
+2025-05-30 18:55:40,232 - pool_test - ERROR - Mission failed with state: MISSION_STATE_FAILED_TO_START_MISSION
+2025-05-30 18:55:40,232 - pool_test - INFO - Mission failed
+2025-05-30 18:55:40,233 - pool_test - INFO - Disconnecting from drone
+2025-05-30 18:55:40,246 - pool_test - INFO - Disconnected from drone
+2025-05-30 18:57:53,615 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 18:57:53,615 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 18:57:53,615 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 18:57:54,419 - blueye.sdk.drone - INFO - Connection successful, client id: 29
+2025-05-30 18:57:54,419 - blueye.sdk.drone - INFO - Client id in control: 28
+2025-05-30 18:57:54,419 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-30 18:57:54,420 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 18:57:54,420 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 18:57:54,420 - pool_test - INFO - Taking control of drone...
+2025-05-30 18:57:54,457 - pool_test - INFO - Control of drone acquired
+2025-05-30 18:57:54,457 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 18:57:54,457 - pool_test - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-05-30 18:57:54,457 - pool_test - INFO - Position reset command sent successfully
+2025-05-30 18:58:04,468 - pool_test - INFO - Creating pipeline survey
+2025-05-30 18:58:04,469 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.5m depth
+2025-05-30 18:58:04,469 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.5m depth
+2025-05-30 18:58:04,470 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.5m depth
+2025-05-30 18:58:04,470 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 18:58:04,472 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 18:58:04,472 - pool_test - INFO - Clearing any previous missions
+2025-05-30 18:58:05,473 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 18:58:06,482 - pool_test - INFO - Starting mission execution
+2025-05-30 18:58:06,483 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/9 instructions, Time: 0s/35s, Depth: -0.1m
+2025-05-30 18:58:08,486 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/9 instructions, Time: 0s/36s, Depth: -0.1m
+2025-05-30 18:58:10,489 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 2s/37s, Depth: -0.1m
+2025-05-30 18:58:12,490 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 4s/55s, Depth: -0.1m
+2025-05-30 18:58:14,494 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 6s/57s, Depth: -0.1m
+2025-05-30 18:58:16,495 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 6s/57s, Depth: -0.1m
+2025-05-30 18:58:16,496 - pool_test - WARNING - Mission was aborted (attempt 1/6)
+2025-05-30 18:58:16,496 - pool_test - INFO - Instantly resuming mission execution (attempt 2/6)
+2025-05-30 18:58:16,496 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 6s/57s, Depth: -0.1m
+2025-05-30 18:58:16,496 - pool_test - WARNING - Mission was aborted (attempt 2/6)
+2025-05-30 18:58:16,496 - pool_test - INFO - Instantly resuming mission execution (attempt 3/6)
+2025-05-30 18:58:16,496 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 6s/57s, Depth: -0.1m
+2025-05-30 18:58:16,496 - pool_test - WARNING - Mission was aborted (attempt 3/6)
+2025-05-30 18:58:16,496 - pool_test - INFO - Instantly resuming mission execution (attempt 4/6)
+2025-05-30 18:58:16,497 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 6s/57s, Depth: -0.1m
+2025-05-30 18:58:16,497 - pool_test - WARNING - Mission was aborted (attempt 4/6)
+2025-05-30 18:58:16,497 - pool_test - INFO - Instantly resuming mission execution (attempt 5/6)
+2025-05-30 18:58:16,497 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 6s/57s, Depth: -0.1m
+2025-05-30 18:58:16,497 - pool_test - WARNING - Mission was aborted (attempt 5/6)
+2025-05-30 18:58:16,497 - pool_test - INFO - Instantly resuming mission execution (attempt 6/6)
+2025-05-30 18:58:16,497 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 6s/57s, Depth: -0.1m
+2025-05-30 18:58:16,497 - pool_test - WARNING - Mission was aborted (attempt 6/6)
+2025-05-30 18:58:16,497 - pool_test - WARNING - Maximum retry attempts (5) reached. Mission failed.
+2025-05-30 18:58:16,497 - pool_test - INFO - Mission failed
+2025-05-30 18:58:16,497 - pool_test - INFO - Disconnecting from drone
+2025-05-30 18:58:16,506 - pool_test - INFO - Disconnected from drone
+2025-05-30 18:59:47,005 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 18:59:47,005 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 18:59:47,006 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 18:59:47,683 - blueye.sdk.drone - INFO - Connection successful, client id: 31
+2025-05-30 18:59:47,683 - blueye.sdk.drone - INFO - Client id in control: 31
+2025-05-30 18:59:47,683 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-30 18:59:47,693 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 18:59:47,693 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 18:59:47,693 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 18:59:47,693 - pool_test - INFO - Resetting drone position to coordinates: 63.441475, 10.348348 with heading: 0.0°
+2025-05-30 18:59:47,693 - pool_test - INFO - Position reset command sent successfully
+2025-05-30 18:59:57,703 - pool_test - INFO - Creating pipeline survey
+2025-05-30 18:59:57,705 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.5m depth
+2025-05-30 18:59:57,705 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.5m depth
+2025-05-30 18:59:57,705 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.5m depth
+2025-05-30 18:59:57,706 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 18:59:57,708 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 18:59:57,708 - pool_test - INFO - Clearing any previous missions
+2025-05-30 18:59:58,709 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 18:59:59,718 - pool_test - INFO - Starting mission execution
+2025-05-30 18:59:59,719 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/30s, Depth: -0.1m
+2025-05-30 19:00:01,722 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/9 instructions, Time: 0s/51s, Depth: -0.1m
+2025-05-30 19:00:03,723 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 2s/37s, Depth: -0.1m
+2025-05-30 19:00:05,725 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 4s/57s, Depth: -0.1m
+2025-05-30 19:00:07,727 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 6s/59s, Depth: -0.1m
+2025-05-30 19:00:09,730 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 8s/61s, Depth: -0.1m
+2025-05-30 19:00:11,733 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 10s/63s, Depth: 0.1m
+2025-05-30 19:00:13,735 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 12s/63s, Depth: 0.2m
+2025-05-30 19:00:15,737 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 14s/64s, Depth: 0.1m
+2025-05-30 19:00:17,740 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 16s/65s, Depth: 0.1m
+2025-05-30 19:00:19,742 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 18s/65s, Depth: 0.1m
+2025-05-30 19:00:21,745 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 20s/66s, Depth: 0.0m
+2025-05-30 19:00:23,748 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 22s/67s, Depth: -0.0m
+2025-05-30 19:00:25,750 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 24s/67s, Depth: 0.1m
+2025-05-30 19:00:27,753 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 26s/67s, Depth: 0.0m
+2025-05-30 19:00:29,756 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 28s/68s, Depth: 0.0m
+2025-05-30 19:00:31,758 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 30s/68s, Depth: -0.0m
+2025-05-30 19:00:33,761 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 31s/68s, Depth: -0.1m
+2025-05-30 19:00:33,762 - pool_test - WARNING - Mission was aborted (attempt 1/6)
+2025-05-30 19:00:33,762 - pool_test - INFO - Instantly resuming mission execution (attempt 2/6)
+2025-05-30 19:00:33,762 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 31s/68s, Depth: -0.1m
+2025-05-30 19:00:33,762 - pool_test - WARNING - Mission was aborted (attempt 2/6)
+2025-05-30 19:00:33,762 - pool_test - INFO - Instantly resuming mission execution (attempt 3/6)
+2025-05-30 19:00:33,763 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 31s/68s, Depth: -0.1m
+2025-05-30 19:00:33,763 - pool_test - WARNING - Mission was aborted (attempt 3/6)
+2025-05-30 19:00:33,763 - pool_test - INFO - Instantly resuming mission execution (attempt 4/6)
+2025-05-30 19:00:33,763 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 31s/68s, Depth: -0.1m
+2025-05-30 19:00:33,764 - pool_test - WARNING - Mission was aborted (attempt 4/6)
+2025-05-30 19:00:33,764 - pool_test - INFO - Instantly resuming mission execution (attempt 5/6)
+2025-05-30 19:00:33,764 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 31s/68s, Depth: -0.1m
+2025-05-30 19:00:33,764 - pool_test - WARNING - Mission was aborted (attempt 5/6)
+2025-05-30 19:00:33,765 - pool_test - INFO - Instantly resuming mission execution (attempt 6/6)
+2025-05-30 19:00:33,765 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 2/9 instructions, Time: 31s/68s, Depth: -0.1m
+2025-05-30 19:00:33,765 - pool_test - WARNING - Mission was aborted (attempt 6/6)
+2025-05-30 19:00:33,765 - pool_test - WARNING - Maximum retry attempts (5) reached. Mission failed.
+2025-05-30 19:00:33,765 - pool_test - INFO - Mission failed
+2025-05-30 19:00:33,765 - pool_test - INFO - Disconnecting from drone
+2025-05-30 19:00:33,780 - pool_test - INFO - Disconnected from drone
+2025-05-30 19:15:37,504 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 19:15:37,505 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 19:15:37,505 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 19:15:38,648 - blueye.sdk.drone - INFO - Connection successful, client id: 32
+2025-05-30 19:15:38,648 - blueye.sdk.drone - INFO - Client id in control: 32
+2025-05-30 19:15:38,648 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-30 19:15:38,660 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 19:15:38,660 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 19:15:38,660 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 19:15:38,660 - pool_test - INFO - Resetting drone position to coordinates: 63.4414001130402, 10.348227918148 using drone compass for heading
+2025-05-30 19:15:38,661 - pool_test - INFO - Position reset command sent successfully (using drone compass)
+2025-05-30 19:15:48,671 - pool_test - INFO - Creating pipeline survey
+2025-05-30 19:15:48,673 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.0m depth
+2025-05-30 19:15:48,673 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.0m depth
+2025-05-30 19:15:48,673 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.0m depth
+2025-05-30 19:15:48,674 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 19:15:48,676 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 19:15:48,676 - pool_test - INFO - Clearing any previous missions
+2025-05-30 19:15:49,676 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 19:15:50,687 - pool_test - INFO - Starting mission execution
+2025-05-30 19:15:50,688 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/15s, Depth: -0.1m
+2025-05-30 19:15:52,691 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/9 instructions, Time: 0s/36s, Depth: -0.1m
+2025-05-30 19:15:54,693 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 2s/37s, Depth: -0.1m
+2025-05-30 19:15:56,696 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 4s/40s, Depth: -0.1m
+2025-05-30 19:15:58,699 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 6s/40s, Depth: -0.1m
+2025-05-30 19:16:00,702 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 8s/40s, Depth: -0.1m
+2025-05-30 19:16:02,705 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 10s/40s, Depth: -0.1m
+2025-05-30 19:16:04,707 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 12s/42s, Depth: -0.1m
+2025-05-30 19:16:06,708 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 14s/44s, Depth: -0.1m
+2025-05-30 19:16:08,711 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 16s/46s, Depth: -0.1m
+2025-05-30 19:16:10,714 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 18s/47s, Depth: 0.0m
+2025-05-30 19:16:12,717 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 20s/48s, Depth: 0.1m
+2025-05-30 19:16:14,720 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 22s/49s, Depth: 0.0m
+2025-05-30 19:16:16,722 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 24s/49s, Depth: 0.0m
+2025-05-30 19:16:18,723 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 26s/50s, Depth: -0.0m
+2025-05-30 19:16:20,726 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 28s/49s, Depth: -0.1m
+2025-05-30 19:16:22,728 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 30s/49s, Depth: -0.1m
+2025-05-30 19:16:24,731 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 32s/49s, Depth: -0.1m
+2025-05-30 19:16:25,436 - pool_test - INFO - Mission aborted by user
+2025-05-30 19:16:25,436 - pool_test - INFO - Disconnecting from drone
+2025-05-30 19:16:25,437 - pool_test - INFO - Stopping active mission
+2025-05-30 19:16:25,437 - pool_test - WARNING - Error checking mission status: 'Mission' object has no attribute 'stop'
+2025-05-30 19:16:25,447 - pool_test - INFO - Disconnected from drone
+2025-05-30 19:17:52,879 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 19:17:52,879 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 19:17:52,879 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 19:17:53,913 - blueye.sdk.drone - INFO - Connection successful, client id: 36
+2025-05-30 19:17:53,913 - blueye.sdk.drone - INFO - Client id in control: 35
+2025-05-30 19:17:53,913 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-30 19:17:53,914 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 19:17:53,914 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 19:17:53,914 - pool_test - INFO - Taking control of drone...
+2025-05-30 19:17:53,931 - pool_test - INFO - Control of drone acquired
+2025-05-30 19:17:53,932 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 19:17:53,932 - pool_test - INFO - Resetting drone position to coordinates: 63.4414001130402, 10.348227918148 using drone compass for heading
+2025-05-30 19:17:53,932 - pool_test - INFO - Position reset command sent successfully (using drone compass)
+2025-05-30 19:18:03,942 - pool_test - INFO - Creating pipeline survey
+2025-05-30 19:18:03,944 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.0m depth
+2025-05-30 19:18:03,944 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.0m depth
+2025-05-30 19:18:03,944 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.0m depth
+2025-05-30 19:18:03,945 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 19:18:03,947 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 19:18:03,947 - pool_test - INFO - Clearing any previous missions
+2025-05-30 19:18:04,948 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 19:18:05,961 - pool_test - INFO - Starting mission execution
+2025-05-30 19:18:05,962 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/9 instructions, Time: 0s/35s, Depth: -0.1m
+2025-05-30 19:18:07,965 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 1s/36s, Depth: -0.1m
+2025-05-30 19:18:09,968 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 3s/38s, Depth: -0.1m
+2025-05-30 19:18:11,970 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 5s/40s, Depth: -0.1m
+2025-05-30 19:18:13,973 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 7s/40s, Depth: -0.1m
+2025-05-30 19:18:15,976 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 9s/40s, Depth: -0.1m
+2025-05-30 19:18:17,979 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 11s/41s, Depth: -0.1m
+2025-05-30 19:18:19,980 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 13s/43s, Depth: -0.1m
+2025-05-30 19:18:21,983 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 15s/45s, Depth: -0.1m
+2025-05-30 19:18:23,986 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 17s/46s, Depth: -0.0m
+2025-05-30 19:18:25,989 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 19s/48s, Depth: 0.1m
+2025-05-30 19:18:27,992 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 21s/49s, Depth: 0.2m
+2025-05-30 19:18:29,995 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 23s/49s, Depth: 0.1m
+2025-05-30 19:18:31,997 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 25s/49s, Depth: 0.1m
+2025-05-30 19:18:34,001 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 27s/50s, Depth: 0.1m
+2025-05-30 19:18:36,004 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/9 instructions, Time: 28s/51s, Depth: 0.1m
+2025-05-30 19:18:36,004 - pool_test - WARNING - Mission was aborted (attempt 1/6)
+2025-05-30 19:18:36,004 - pool_test - INFO - Instantly resuming mission execution (attempt 2/6)
+2025-05-30 19:18:36,004 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/9 instructions, Time: 28s/51s, Depth: 0.1m
+2025-05-30 19:18:36,005 - pool_test - WARNING - Mission was aborted (attempt 2/6)
+2025-05-30 19:18:36,005 - pool_test - INFO - Instantly resuming mission execution (attempt 3/6)
+2025-05-30 19:18:36,005 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/9 instructions, Time: 28s/51s, Depth: 0.1m
+2025-05-30 19:18:36,005 - pool_test - WARNING - Mission was aborted (attempt 3/6)
+2025-05-30 19:18:36,005 - pool_test - INFO - Instantly resuming mission execution (attempt 4/6)
+2025-05-30 19:18:36,005 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/9 instructions, Time: 28s/51s, Depth: 0.1m
+2025-05-30 19:18:36,006 - pool_test - WARNING - Mission was aborted (attempt 4/6)
+2025-05-30 19:18:36,006 - pool_test - INFO - Instantly resuming mission execution (attempt 5/6)
+2025-05-30 19:18:36,007 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/9 instructions, Time: 28s/51s, Depth: 0.1m
+2025-05-30 19:18:36,007 - pool_test - WARNING - Mission was aborted (attempt 5/6)
+2025-05-30 19:18:36,007 - pool_test - INFO - Instantly resuming mission execution (attempt 6/6)
+2025-05-30 19:18:36,007 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 4/9 instructions, Time: 28s/51s, Depth: 0.1m
+2025-05-30 19:18:36,007 - pool_test - WARNING - Mission was aborted (attempt 6/6)
+2025-05-30 19:18:36,007 - pool_test - WARNING - Maximum retry attempts (5) reached. Mission failed.
+2025-05-30 19:18:36,008 - pool_test - INFO - Mission failed
+2025-05-30 19:18:36,008 - pool_test - INFO - Disconnecting from drone
+2025-05-30 19:18:36,016 - pool_test - INFO - Disconnected from drone
+2025-05-30 19:20:47,095 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 19:20:47,095 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 19:20:47,095 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 19:20:48,130 - blueye.sdk.drone - INFO - Connection successful, client id: 41
+2025-05-30 19:20:48,130 - blueye.sdk.drone - INFO - Client id in control: 40
+2025-05-30 19:20:48,130 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-30 19:20:48,131 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 19:20:48,131 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 19:20:48,131 - pool_test - INFO - Taking control of drone...
+2025-05-30 19:20:48,145 - pool_test - INFO - Control of drone acquired
+2025-05-30 19:20:48,145 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 19:20:48,145 - pool_test - INFO - Resetting drone position to coordinates: 63.4414548287786, 10.3482882678509 using drone compass for heading
+2025-05-30 19:20:48,145 - pool_test - INFO - Position reset command sent successfully (using drone compass)
+2025-05-30 19:20:58,156 - pool_test - INFO - Creating pipeline survey
+2025-05-30 19:20:58,157 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.0m depth
+2025-05-30 19:20:58,157 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.0m depth
+2025-05-30 19:20:58,157 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.0m depth
+2025-05-30 19:20:58,158 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 19:20:58,160 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 19:20:58,160 - pool_test - INFO - Clearing any previous missions
+2025-05-30 19:20:59,161 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 19:21:00,188 - pool_test - INFO - Starting mission execution
+2025-05-30 19:21:00,189 - pool_test - INFO - Mission: MISSION_STATE_READY, Progress: 0/9 instructions, Time: 0s/35s, Depth: -0.1m
+2025-05-30 19:21:02,192 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 1s/36s, Depth: -0.1m
+2025-05-30 19:21:04,194 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 3s/38s, Depth: -0.1m
+2025-05-30 19:21:06,197 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 5s/52s, Depth: -0.1m
+2025-05-30 19:21:08,200 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 7s/54s, Depth: -0.1m
+2025-05-30 19:21:10,203 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 9s/56s, Depth: -0.1m
+2025-05-30 19:21:12,206 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 11s/57s, Depth: -0.0m
+2025-05-30 19:21:14,209 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 13s/58s, Depth: 0.1m
+2025-05-30 19:21:16,212 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 15s/59s, Depth: 0.1m
+2025-05-30 19:21:18,215 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 17s/60s, Depth: 0.1m
+2025-05-30 19:21:20,217 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 19s/60s, Depth: 0.1m
+2025-05-30 19:21:22,219 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 21s/61s, Depth: 0.1m
+2025-05-30 19:21:24,221 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 23s/62s, Depth: 0.0m
+2025-05-30 19:21:26,224 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 25s/62s, Depth: 0.0m
+2025-05-30 19:21:28,227 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 27s/62s, Depth: -0.1m
+2025-05-30 19:21:30,229 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 29s/62s, Depth: -0.1m
+2025-05-30 19:21:32,232 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 31s/62s, Depth: -0.1m
+2025-05-30 19:21:34,235 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 33s/65s, Depth: -0.1m
+2025-05-30 19:21:36,238 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 35s/67s, Depth: -0.1m
+2025-05-30 19:21:38,241 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 37s/69s, Depth: -0.1m
+2025-05-30 19:21:40,244 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 39s/70s, Depth: 0.0m
+2025-05-30 19:21:42,247 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 41s/71s, Depth: 0.1m
+2025-05-30 19:21:44,250 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 43s/72s, Depth: 0.2m
+2025-05-30 19:21:46,253 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 45s/73s, Depth: 0.1m
+2025-05-30 19:21:48,256 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 47s/73s, Depth: 0.1m
+2025-05-30 19:21:50,259 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 49s/74s, Depth: 0.0m
+2025-05-30 19:21:52,262 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 51s/75s, Depth: 0.0m
+2025-05-30 19:21:54,264 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 53s/74s, Depth: -0.0m
+2025-05-30 19:21:56,267 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 55s/74s, Depth: -0.1m
+2025-05-30 19:21:58,269 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 57s/74s, Depth: -0.1m
+2025-05-30 19:22:00,272 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 59s/76s, Depth: -0.1m
+2025-05-30 19:22:02,275 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 61s/78s, Depth: -0.1m
+2025-05-30 19:22:04,278 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 63s/80s, Depth: -0.1m
+2025-05-30 19:22:06,281 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 65s/82s, Depth: 0.0m
+2025-05-30 19:22:08,282 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 67s/83s, Depth: 0.1m
+2025-05-30 19:22:10,285 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 69s/84s, Depth: 0.2m
+2025-05-30 19:22:12,288 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 71s/85s, Depth: 0.1m
+2025-05-30 19:22:14,291 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 73s/85s, Depth: 0.1m
+2025-05-30 19:22:16,294 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 75s/86s, Depth: 0.1m
+2025-05-30 19:22:18,297 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 77s/87s, Depth: 0.0m
+2025-05-30 19:22:20,300 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 79s/89s, Depth: -0.0m
+2025-05-30 19:22:22,303 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 81s/92s, Depth: -0.1m
+2025-05-30 19:22:24,306 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 83s/95s, Depth: -0.0m
+2025-05-30 19:22:26,308 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 85s/97s, Depth: 0.0m
+2025-05-30 19:22:28,311 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 87s/98s, Depth: 0.1m
+2025-05-30 19:22:30,314 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 89s/97s, Depth: 0.0m
+2025-05-30 19:22:32,317 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 91s/97s, Depth: -0.1m
+2025-05-30 19:22:34,320 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 93s/97s, Depth: -0.1m
+2025-05-30 19:22:36,324 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 95s/100s, Depth: -0.1m
+2025-05-30 19:22:38,326 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 97s/101s, Depth: -0.1m
+2025-05-30 19:22:40,329 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 99s/104s, Depth: -0.1m
+2025-05-30 19:22:42,332 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 101s/106s, Depth: -0.0m
+2025-05-30 19:22:44,334 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 103s/107s, Depth: 0.1m
+2025-05-30 19:22:46,337 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 105s/108s, Depth: 0.1m
+2025-05-30 19:22:48,340 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 107s/109s, Depth: 0.1m
+2025-05-30 19:22:50,343 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 109s/110s, Depth: 0.1m
+2025-05-30 19:22:52,346 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 111s/113s, Depth: 0.1m
+2025-05-30 19:22:54,349 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 113s/115s, Depth: 0.1m
+2025-05-30 19:22:56,351 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 115s/118s, Depth: 0.1m
+2025-05-30 19:22:58,353 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 117s/120s, Depth: 0.1m
+2025-05-30 19:23:00,355 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 119s/122s, Depth: 0.1m
+2025-05-30 19:23:02,358 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 121s/124s, Depth: 0.1m
+2025-05-30 19:23:04,361 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 8/9 instructions, Time: 121s/124s, Depth: -0.0m
+2025-05-30 19:23:04,361 - pool_test - WARNING - Mission was aborted (attempt 1/6)
+2025-05-30 19:23:04,361 - pool_test - INFO - Instantly resuming mission execution (attempt 2/6)
+2025-05-30 19:23:04,361 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 8/9 instructions, Time: 121s/124s, Depth: -0.0m
+2025-05-30 19:23:04,361 - pool_test - WARNING - Mission was aborted (attempt 2/6)
+2025-05-30 19:23:04,362 - pool_test - INFO - Instantly resuming mission execution (attempt 3/6)
+2025-05-30 19:23:04,362 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 8/9 instructions, Time: 121s/124s, Depth: -0.0m
+2025-05-30 19:23:04,362 - pool_test - WARNING - Mission was aborted (attempt 3/6)
+2025-05-30 19:23:04,362 - pool_test - INFO - Instantly resuming mission execution (attempt 4/6)
+2025-05-30 19:23:04,363 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 8/9 instructions, Time: 121s/124s, Depth: -0.0m
+2025-05-30 19:23:04,363 - pool_test - WARNING - Mission was aborted (attempt 4/6)
+2025-05-30 19:23:04,363 - pool_test - INFO - Instantly resuming mission execution (attempt 5/6)
+2025-05-30 19:23:04,363 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 8/9 instructions, Time: 121s/124s, Depth: -0.0m
+2025-05-30 19:23:04,363 - pool_test - WARNING - Mission was aborted (attempt 5/6)
+2025-05-30 19:23:04,364 - pool_test - INFO - Instantly resuming mission execution (attempt 6/6)
+2025-05-30 19:23:04,364 - pool_test - INFO - Mission: MISSION_STATE_ABORTED, Progress: 8/9 instructions, Time: 121s/124s, Depth: -0.0m
+2025-05-30 19:23:04,364 - pool_test - WARNING - Mission was aborted (attempt 6/6)
+2025-05-30 19:23:04,364 - pool_test - WARNING - Maximum retry attempts (5) reached. Mission failed.
+2025-05-30 19:23:04,364 - pool_test - INFO - Mission failed
+2025-05-30 19:23:04,364 - pool_test - INFO - Disconnecting from drone
+2025-05-30 19:23:04,376 - pool_test - INFO - Disconnected from drone
+2025-05-30 19:29:48,960 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 19:29:48,960 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 19:29:48,960 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 19:29:57,488 - pool_test - INFO - Mission aborted by user
+2025-05-30 19:30:09,455 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 19:30:09,455 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 19:30:09,455 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 19:30:10,631 - blueye.sdk.drone - INFO - Connection successful, client id: 44
+2025-05-30 19:30:10,631 - blueye.sdk.drone - INFO - Client id in control: 43
+2025-05-30 19:30:10,631 - blueye.sdk.drone - INFO - There are 1 other clients connected
+2025-05-30 19:30:10,632 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 19:30:10,632 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 19:30:10,632 - pool_test - INFO - Taking control of drone...
+2025-05-30 19:30:10,655 - pool_test - INFO - Control of drone acquired
+2025-05-30 19:30:10,656 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 19:30:10,656 - pool_test - INFO - Resetting drone position to coordinates: 63.4414548287786, 10.3482882678509 using drone compass for heading
+2025-05-30 19:30:10,656 - pool_test - INFO - Position reset command sent successfully (using drone compass)
+2025-05-30 19:30:12,659 - pool_test - INFO - Creating pipeline survey
+2025-05-30 19:30:12,660 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.0m depth
+2025-05-30 19:30:12,661 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.0m depth
+2025-05-30 19:30:12,661 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.0m depth
+2025-05-30 19:30:12,662 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 19:30:12,664 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 19:30:12,664 - pool_test - INFO - Clearing any previous missions
+2025-05-30 19:30:13,665 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 19:30:14,681 - pool_test - INFO - Starting mission execution
+2025-05-30 19:30:14,682 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/1s, Depth: -0.1m
+2025-05-30 19:30:16,685 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/9 instructions, Time: 0s/172s, Depth: -0.1m
+2025-05-30 19:30:18,688 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 2s/172s, Depth: -0.1m
+2025-05-30 19:30:20,690 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 4s/174s, Depth: -0.1m
+2025-05-30 19:30:22,693 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 6s/188s, Depth: -0.1m
+2025-05-30 19:30:24,696 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 8s/190s, Depth: -0.1m
+2025-05-30 19:30:26,699 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 10s/192s, Depth: -0.1m
+2025-05-30 19:30:28,701 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 12s/194s, Depth: -0.0m
+2025-05-30 19:30:30,704 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 14s/195s, Depth: -0.0m
+2025-05-30 19:30:32,705 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 16s/196s, Depth: 0.0m
+2025-05-30 19:30:34,708 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 18s/197s, Depth: 0.0m
+2025-05-30 19:30:36,710 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 20s/198s, Depth: -0.0m
+2025-05-30 19:30:38,711 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 22s/199s, Depth: -0.0m
+2025-05-30 19:30:40,712 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 24s/200s, Depth: -0.0m
+2025-05-30 19:30:42,714 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 26s/201s, Depth: -0.0m
+2025-05-30 19:30:44,717 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 28s/202s, Depth: -0.0m
+2025-05-30 19:30:46,720 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 31s/203s, Depth: -0.0m
+2025-05-30 19:30:48,723 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 33s/205s, Depth: 0.0m
+2025-05-30 19:30:50,726 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 35s/206s, Depth: 0.0m
+2025-05-30 19:30:52,728 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 37s/206s, Depth: -0.0m
+2025-05-30 19:30:54,731 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 39s/206s, Depth: -0.1m
+2025-05-30 19:30:56,733 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 41s/206s, Depth: -0.1m
+2025-05-30 19:30:58,735 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 43s/206s, Depth: -0.1m
+2025-05-30 19:31:00,738 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 45s/206s, Depth: -0.1m
+2025-05-30 19:31:02,740 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 47s/206s, Depth: -0.0m
+2025-05-30 19:31:04,743 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 49s/206s, Depth: -0.0m
+2025-05-30 19:31:06,745 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 51s/206s, Depth: -0.0m
+2025-05-30 19:31:08,747 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 53s/206s, Depth: -0.0m
+2025-05-30 19:31:10,749 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 55s/206s, Depth: -0.0m
+2025-05-30 19:31:12,752 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 57s/206s, Depth: 0.0m
+2025-05-30 19:31:14,754 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 59s/206s, Depth: 0.0m
+2025-05-30 19:31:16,757 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 61s/206s, Depth: 0.0m
+2025-05-30 19:31:18,760 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 63s/206s, Depth: 0.0m
+2025-05-30 19:31:20,762 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 65s/206s, Depth: 0.0m
+2025-05-30 19:31:22,765 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 67s/206s, Depth: -0.0m
+2025-05-30 19:31:24,767 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 69s/206s, Depth: 0.0m
+2025-05-30 19:31:26,769 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 71s/206s, Depth: -0.0m
+2025-05-30 19:31:28,770 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 73s/206s, Depth: -0.0m
+2025-05-30 19:31:30,773 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 75s/206s, Depth: -0.0m
+2025-05-30 19:31:32,776 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 77s/206s, Depth: -0.0m
+2025-05-30 19:31:34,779 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 79s/206s, Depth: 0.0m
+2025-05-30 19:31:36,781 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 81s/206s, Depth: 0.0m
+2025-05-30 19:31:38,785 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 83s/206s, Depth: 0.0m
+2025-05-30 19:31:40,787 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 85s/206s, Depth: 0.0m
+2025-05-30 19:31:42,790 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 87s/207s, Depth: 0.0m
+2025-05-30 19:31:44,793 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 89s/209s, Depth: -0.0m
+2025-05-30 19:31:46,795 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 91s/211s, Depth: 0.0m
+2025-05-30 19:31:48,798 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 93s/213s, Depth: 0.1m
+2025-05-30 19:31:50,800 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 95s/215s, Depth: 0.1m
+2025-05-30 19:31:52,803 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 97s/216s, Depth: 0.0m
+2025-05-30 19:31:54,806 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 99s/217s, Depth: -0.0m
+2025-05-30 19:31:56,809 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 101s/218s, Depth: -0.0m
+2025-05-30 19:31:58,812 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 103s/219s, Depth: -0.0m
+2025-05-30 19:32:00,815 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 105s/220s, Depth: -0.0m
+2025-05-30 19:32:02,818 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 107s/221s, Depth: -0.0m
+2025-05-30 19:32:04,820 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 109s/222s, Depth: -0.0m
+2025-05-30 19:32:06,823 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 111s/224s, Depth: -0.0m
+2025-05-30 19:32:08,826 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 113s/225s, Depth: -0.0m
+2025-05-30 19:32:10,828 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 115s/225s, Depth: -0.1m
+2025-05-30 19:32:12,831 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 117s/225s, Depth: -0.1m
+2025-05-30 19:32:14,834 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 119s/225s, Depth: -0.1m
+2025-05-30 19:32:16,835 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 121s/225s, Depth: -0.1m
+2025-05-30 19:32:18,838 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 123s/225s, Depth: -0.1m
+2025-05-30 19:32:20,840 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 125s/225s, Depth: -0.1m
+2025-05-30 19:32:22,842 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 127s/225s, Depth: -0.1m
+2025-05-30 19:32:24,845 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 129s/225s, Depth: -0.1m
+2025-05-30 19:32:26,848 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 131s/225s, Depth: -0.1m
+2025-05-30 19:32:28,849 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 133s/225s, Depth: -0.0m
+2025-05-30 19:32:30,851 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 135s/225s, Depth: 0.0m
+2025-05-30 19:32:32,851 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 137s/225s, Depth: 0.0m
+2025-05-30 19:32:34,854 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 139s/225s, Depth: 0.0m
+2025-05-30 19:32:36,856 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 141s/225s, Depth: 0.0m
+2025-05-30 19:32:38,858 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 143s/225s, Depth: 0.0m
+2025-05-30 19:32:40,861 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 145s/225s, Depth: 0.0m
+2025-05-30 19:32:42,864 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 147s/225s, Depth: 0.0m
+2025-05-30 19:32:44,868 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 149s/225s, Depth: 0.0m
+2025-05-30 19:32:46,870 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 151s/225s, Depth: 0.0m
+2025-05-30 19:32:48,872 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 153s/225s, Depth: 0.0m
+2025-05-30 19:32:50,875 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 155s/225s, Depth: -0.0m
+2025-05-30 19:32:52,877 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 157s/225s, Depth: -0.0m
+2025-05-30 19:32:54,880 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 159s/225s, Depth: -0.0m
+2025-05-30 19:32:56,882 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 161s/225s, Depth: -0.0m
+2025-05-30 19:32:58,883 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 163s/225s, Depth: -0.0m
+2025-05-30 19:33:00,886 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 165s/226s, Depth: -0.0m
+2025-05-30 19:33:02,888 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 167s/229s, Depth: -0.0m
+2025-05-30 19:33:04,890 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 169s/231s, Depth: -0.0m
+2025-05-30 19:33:06,893 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 171s/233s, Depth: -0.0m
+2025-05-30 19:33:08,896 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 173s/234s, Depth: 0.0m
+2025-05-30 19:33:10,899 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 175s/235s, Depth: 0.0m
+2025-05-30 19:33:12,903 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 177s/237s, Depth: 0.0m
+2025-05-30 19:33:14,906 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 179s/238s, Depth: 0.1m
+2025-05-30 19:33:16,909 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 181s/239s, Depth: 0.0m
+2025-05-30 19:33:18,912 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 183s/240s, Depth: 0.0m
+2025-05-30 19:33:20,912 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 185s/241s, Depth: 0.0m
+2025-05-30 19:33:22,915 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 187s/242s, Depth: 0.0m
+2025-05-30 19:33:24,918 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 189s/243s, Depth: -0.0m
+2025-05-30 19:33:26,920 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 191s/243s, Depth: -0.1m
+2025-05-30 19:33:28,923 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 193s/243s, Depth: -0.1m
+2025-05-30 19:33:30,926 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 195s/243s, Depth: -0.1m
+2025-05-30 19:33:32,928 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 197s/243s, Depth: -0.1m
+2025-05-30 19:33:34,931 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 199s/243s, Depth: -0.1m
+2025-05-30 19:33:36,933 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 201s/243s, Depth: -0.1m
+2025-05-30 19:33:38,936 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 203s/243s, Depth: -0.0m
+2025-05-30 19:33:40,940 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 205s/243s, Depth: 0.0m
+2025-05-30 19:33:42,942 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 207s/243s, Depth: 0.1m
+2025-05-30 19:33:44,944 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 209s/243s, Depth: 0.1m
+2025-05-30 19:33:46,946 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 211s/243s, Depth: 0.0m
+2025-05-30 19:33:48,949 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 213s/243s, Depth: 0.0m
+2025-05-30 19:33:50,952 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 215s/243s, Depth: 0.0m
+2025-05-30 19:33:52,955 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 217s/243s, Depth: 0.0m
+2025-05-30 19:33:54,958 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 219s/243s, Depth: 0.0m
+2025-05-30 19:33:56,961 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 221s/243s, Depth: 0.0m
+2025-05-30 19:33:58,965 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 223s/243s, Depth: 0.0m
+2025-05-30 19:34:00,968 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 225s/243s, Depth: 0.0m
+2025-05-30 19:34:02,971 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 227s/243s, Depth: 0.0m
+2025-05-30 19:34:04,974 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 229s/243s, Depth: 0.0m
+2025-05-30 19:34:06,976 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 231s/243s, Depth: 0.0m
+2025-05-30 19:34:08,979 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 233s/243s, Depth: 0.0m
+2025-05-30 19:34:10,981 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 235s/243s, Depth: 0.0m
+2025-05-30 19:34:12,983 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 237s/243s, Depth: 0.0m
+2025-05-30 19:34:14,985 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 239s/243s, Depth: 0.0m
+2025-05-30 19:34:16,988 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 241s/245s, Depth: 0.0m
+2025-05-30 19:34:18,990 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 243s/247s, Depth: 0.0m
+2025-05-30 19:34:20,993 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 245s/249s, Depth: 0.0m
+2025-05-30 19:34:22,996 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 247s/250s, Depth: 0.1m
+2025-05-30 19:34:24,998 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 248s/251s, Depth: 0.2m
+2025-05-30 19:34:27,001 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 251s/252s, Depth: 0.3m
+2025-05-30 19:34:29,003 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 253s/253s, Depth: 0.2m
+2025-05-30 19:34:31,005 - pool_test - INFO - Mission: MISSION_STATE_COMPLETED, Progress: 9/9 instructions, Time: 253s/253s, Depth: 0.1m
+2025-05-30 19:34:31,005 - pool_test - INFO - Mission completed successfully
+2025-05-30 19:34:31,005 - pool_test - INFO - Mission completed successfully
+2025-05-30 19:34:31,006 - pool_test - INFO - Disconnecting from drone
+2025-05-30 19:34:31,015 - pool_test - INFO - Disconnected from drone
+2025-05-30 19:38:48,431 - pool_test - INFO - Starting Pipeline Survey and Docking Mission with Position Reset and Auto Resume
+2025-05-30 19:38:48,431 - pool_test - INFO - Connecting to drone at 192.168.1.101
+2025-05-30 19:38:48,431 - blueye.sdk.drone - INFO - Attempting to connect to drone at 192.168.1.101
+2025-05-30 19:38:49,446 - blueye.sdk.drone - INFO - Connection successful, client id: 48
+2025-05-30 19:38:49,446 - blueye.sdk.drone - INFO - Client id in control: 48
+2025-05-30 19:38:49,446 - blueye.sdk.drone - INFO - There are 0 other clients connected
+2025-05-30 19:38:49,459 - pool_test - INFO - Connected to drone: BYEDP220008
+2025-05-30 19:38:49,459 - pool_test - INFO - Drone software version: 4.0.18-kirkstone-master
+2025-05-30 19:38:49,459 - pool_test - INFO - Drone control client extended with reset_position functionality
+2025-05-30 19:38:49,459 - pool_test - INFO - Resetting drone position to coordinates: 63.4414548287786, 10.3482882678509 using drone compass for heading
+2025-05-30 19:38:49,459 - pool_test - INFO - Position reset command sent successfully (using drone compass)
+2025-05-30 19:38:51,461 - pool_test - INFO - Creating pipeline survey
+2025-05-30 19:38:51,463 - pool_test - INFO - Added waypoint: Pipeline Point 1 (63.4414001130402, 10.348227918148) at 0.0m depth
+2025-05-30 19:38:51,464 - pool_test - INFO - Added waypoint: Pipeline Point 2 (63.4413996633213, 10.3483355417848) at 0.0m depth
+2025-05-30 19:38:51,465 - pool_test - INFO - Added waypoint: Pipeline Point 3 (63.4414320430591, 10.3482845798135) at 0.0m depth
+2025-05-30 19:38:51,465 - pool_test - INFO - Added docking waypoint: (63.4414548287786, 10.3482882678509) at 0.0m depth
+2025-05-30 19:38:51,468 - pool_test - INFO - Mission saved to mission.json
+2025-05-30 19:38:51,469 - pool_test - INFO - Clearing any previous missions
+2025-05-30 19:38:52,470 - pool_test - INFO - Sending new mission: Pipeline Survey
+2025-05-30 19:38:53,481 - pool_test - INFO - Starting mission execution
+2025-05-30 19:38:53,483 - pool_test - INFO - Mission: MISSION_STATE_INACTIVE, Progress: 0/0 instructions, Time: 0s/0s, Depth: -0.1m
+2025-05-30 19:38:55,487 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 0/9 instructions, Time: 0s/51s, Depth: -0.1m
+2025-05-30 19:38:57,490 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 2s/52s, Depth: -0.1m
+2025-05-30 19:38:59,493 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 1/9 instructions, Time: 4s/54s, Depth: -0.1m
+2025-05-30 19:39:01,495 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 6s/68s, Depth: -0.1m
+2025-05-30 19:39:03,498 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 8s/70s, Depth: -0.1m
+2025-05-30 19:39:05,501 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 10s/72s, Depth: -0.1m
+2025-05-30 19:39:07,503 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 12s/74s, Depth: -0.1m
+2025-05-30 19:39:09,506 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 14s/75s, Depth: -0.1m
+2025-05-30 19:39:11,509 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 16s/77s, Depth: -0.1m
+2025-05-30 19:39:13,512 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 18s/78s, Depth: -0.1m
+2025-05-30 19:39:15,515 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 20s/79s, Depth: -0.0m
+2025-05-30 19:39:17,518 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 22s/81s, Depth: -0.0m
+2025-05-30 19:39:19,521 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 24s/82s, Depth: -0.0m
+2025-05-30 19:39:21,524 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 26s/83s, Depth: -0.0m
+2025-05-30 19:39:23,527 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 28s/85s, Depth: -0.0m
+2025-05-30 19:39:25,529 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 30s/86s, Depth: -0.0m
+2025-05-30 19:39:27,532 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 32s/87s, Depth: -0.0m
+2025-05-30 19:39:29,534 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 34s/89s, Depth: -0.0m
+2025-05-30 19:39:31,537 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 36s/90s, Depth: -0.0m
+2025-05-30 19:39:33,540 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 38s/91s, Depth: -0.0m
+2025-05-30 19:39:35,543 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 40s/93s, Depth: -0.0m
+2025-05-30 19:39:37,546 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 42s/94s, Depth: -0.0m
+2025-05-30 19:39:39,549 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 2/9 instructions, Time: 44s/95s, Depth: -0.0m
+2025-05-30 19:39:41,550 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 46s/97s, Depth: -0.0m
+2025-05-30 19:39:43,552 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 48s/97s, Depth: -0.1m
+2025-05-30 19:39:45,554 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 50s/97s, Depth: -0.0m
+2025-05-30 19:39:47,556 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 52s/97s, Depth: -0.0m
+2025-05-30 19:39:49,559 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 54s/97s, Depth: -0.0m
+2025-05-30 19:39:51,561 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 3/9 instructions, Time: 56s/97s, Depth: 0.0m
+2025-05-30 19:39:53,564 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 58s/98s, Depth: 0.0m
+2025-05-30 19:39:55,566 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 60s/100s, Depth: -0.0m
+2025-05-30 19:39:57,569 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 62s/102s, Depth: -0.0m
+2025-05-30 19:39:59,571 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 64s/104s, Depth: -0.0m
+2025-05-30 19:40:01,573 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 66s/105s, Depth: -0.0m
+2025-05-30 19:40:03,575 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 68s/107s, Depth: 0.0m
+2025-05-30 19:40:05,578 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 70s/108s, Depth: 0.0m
+2025-05-30 19:40:07,581 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 72s/110s, Depth: 0.0m
+2025-05-30 19:40:09,584 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 74s/111s, Depth: 0.0m
+2025-05-30 19:40:11,586 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 76s/113s, Depth: -0.0m
+2025-05-30 19:40:13,589 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 78s/114s, Depth: -0.0m
+2025-05-30 19:40:15,592 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 80s/115s, Depth: -0.0m
+2025-05-30 19:40:17,594 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 82s/117s, Depth: -0.0m
+2025-05-30 19:40:19,596 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 84s/118s, Depth: -0.0m
+2025-05-30 19:40:21,598 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 86s/119s, Depth: -0.0m
+2025-05-30 19:40:23,601 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 4/9 instructions, Time: 88s/121s, Depth: -0.0m
+2025-05-30 19:40:25,604 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 90s/122s, Depth: -0.0m
+2025-05-30 19:40:27,607 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 92s/122s, Depth: -0.0m
+2025-05-30 19:40:29,610 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 94s/122s, Depth: -0.0m
+2025-05-30 19:40:31,613 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 96s/122s, Depth: -0.0m
+2025-05-30 19:40:33,616 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 98s/122s, Depth: -0.0m
+2025-05-30 19:40:35,619 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 5/9 instructions, Time: 100s/122s, Depth: 0.0m
+2025-05-30 19:40:37,622 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 102s/123s, Depth: 0.0m
+2025-05-30 19:40:39,625 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 104s/125s, Depth: -0.0m
+2025-05-30 19:40:41,627 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 106s/127s, Depth: -0.0m
+2025-05-30 19:40:43,630 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 108s/129s, Depth: -0.0m
+2025-05-30 19:40:45,634 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 110s/130s, Depth: -0.0m
+2025-05-30 19:40:47,636 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 112s/132s, Depth: -0.0m
+2025-05-30 19:40:49,638 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 114s/133s, Depth: 0.0m
+2025-05-30 19:40:51,641 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 116s/135s, Depth: 0.0m
+2025-05-30 19:40:53,644 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 118s/136s, Depth: 0.0m
+2025-05-30 19:40:55,646 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 120s/137s, Depth: -0.0m
+2025-05-30 19:40:57,649 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 122s/139s, Depth: -0.0m
+2025-05-30 19:40:59,652 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 124s/140s, Depth: -0.0m
+2025-05-30 19:41:01,654 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 126s/142s, Depth: -0.0m
+2025-05-30 19:41:03,657 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 6/9 instructions, Time: 128s/143s, Depth: -0.0m
+2025-05-30 19:41:05,660 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 130s/144s, Depth: -0.0m
+2025-05-30 19:41:07,663 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 132s/144s, Depth: -0.0m
+2025-05-30 19:41:09,665 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 134s/144s, Depth: -0.0m
+2025-05-30 19:41:11,668 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 136s/144s, Depth: -0.0m
+2025-05-30 19:41:13,671 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 138s/144s, Depth: -0.0m
+2025-05-30 19:41:15,674 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 7/9 instructions, Time: 140s/144s, Depth: -0.0m
+2025-05-30 19:41:17,677 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 142s/146s, Depth: -0.0m
+2025-05-30 19:41:19,679 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 144s/148s, Depth: 0.0m
+2025-05-30 19:41:21,682 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 146s/150s, Depth: 0.0m
+2025-05-30 19:41:23,685 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 148s/151s, Depth: 0.1m
+2025-05-30 19:41:25,688 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 150s/152s, Depth: 0.2m
+2025-05-30 19:41:27,691 - pool_test - INFO - Mission: MISSION_STATE_RUNNING, Progress: 8/9 instructions, Time: 152s/152s, Depth: 0.2m
+2025-05-30 19:41:29,694 - pool_test - INFO - Mission: MISSION_STATE_COMPLETED, Progress: 9/9 instructions, Time: 153s/153s, Depth: 0.1m
+2025-05-30 19:41:29,694 - pool_test - INFO - Mission completed successfully
+2025-05-30 19:41:29,695 - pool_test - INFO - Mission completed successfully
+2025-05-30 19:41:29,695 - pool_test - INFO - Disconnecting from drone
+2025-05-30 19:41:29,709 - pool_test - INFO - Disconnected from drone

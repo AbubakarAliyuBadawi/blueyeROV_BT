@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+     main_tree_to_execute="TestGoToWaypointCC">
+  <BehaviorTree ID="TestGoToWaypointCC">
+    <Sequence name="test_waypoint_mission">
+      <SetBlackboard value="Starting GoToWaypointCC Test"
+                     output_key="status_message"/>
+      
+      <Wait name="initialization_wait" duration="2"/>
+      
+      <SetBlackboard value="Navigating to test waypoint"
+                     output_key="status_message"/>
+      
+      <GoToWaypointCC waypoint_lat="63.4414548287786"
+                      waypoint_lon="10.3482882678509"
+                      depth="1.0"
+                      drone_ip="192.168.1.101"
+                      initialize_connection="true"/>
+      
+      <SetBlackboard value="Waypoint reached successfully"
+                     output_key="status_message"/>
+      
+      <Wait name="completion_wait" duration="3"/>
+      
+      <SetBlackboard value="Test completed"
+                     output_key="status_message"/>
+    </Sequence>
+  </BehaviorTree>
+  
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="GoToWaypointCC">
+      <input_port name="waypoint_lat"
+                  type="Double">Target latitude</input_port>
+      <input_port name="waypoint_lon"
+                  type="Double">Target longitude</input_port>
+      <input_port name="depth"
+                  default="1.0"
+                  type="Double">Target depth in meters</input_port>
+      <input_port name="drone_ip"
+                  default="192.168.1.101"
+                  type="String">IP address of the drone</input_port>
+      <input_port name="initialize_connection"
+                  default="false"
+                  type="Bool">Whether to initialize a new connection</input_port>
+    </Action>
+    
+    <Action ID="Wait">
+      <input_port name="duration" type="Int">Wait duration in seconds</input_port>
+    </Action>
+    
+    <Action ID="SetBlackboard">
+      <input_port name="value" type="String">Value to set</input_port>
+      <input_port name="output_key" type="String">Blackboard key to set</input_port>
+    </Action>
+  </TreeNodesModel>
+</root>

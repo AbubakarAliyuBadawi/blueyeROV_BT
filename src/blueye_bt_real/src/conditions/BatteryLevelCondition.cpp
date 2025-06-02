@@ -13,7 +13,23 @@ BatteryLevelCondition::BatteryLevelCondition(const std::string& name, const BT::
         "/blueye/battery", 10, 
         std::bind(&BatteryLevelCondition::batteryCallback, this, std::placeholders::_1));
         
-    RCLCPP_INFO(g_node->get_logger(), "BatteryLevelCondition node initialized, waiting for battery data");
+    RCLCPP_INFO(g_node->get_logger(), "BatteryLevelCondition subscribed to /blueye/battery");
+    
+    // Debug: Check if topic exists
+    auto topic_names = g_node->get_topic_names_and_types();
+    bool topic_exists = false;
+    for (const auto& topic : topic_names) {
+        if (topic.first == "/blueye/battery") {
+            topic_exists = true;
+            break;
+        }
+    }
+    
+    if (topic_exists) {
+        RCLCPP_INFO(g_node->get_logger(), "/blueye/battery topic exists");
+    } else {
+        RCLCPP_WARN(g_node->get_logger(), "/blueye/battery topic does not exist yet");
+    }
 }
 
 void BatteryLevelCondition::batteryCallback(const geometry_msgs::msg::Pose::SharedPtr msg)
@@ -33,7 +49,7 @@ void BatteryLevelCondition::batteryCallback(const geometry_msgs::msg::Pose::Shar
     charging_current_ = msg->position.x;  // Store charging current
     
     has_battery_data_ = true;
-    RCLCPP_INFO(g_node->get_logger(), "Estimated battery level: %.1f%% (runtime: %.1f s, current: %.2f A)", 
+    RCLCPP_INFO(g_node->get_logger(), "Battery callback received - Estimated battery level: %.1f%% (runtime: %.1f s, current: %.2f A)", 
                battery_percentage_, time_remaining, current_);
 }
 
@@ -55,7 +71,7 @@ BT::NodeStatus BatteryLevelCondition::tick()
     // First, check if we have received any battery data
     if (!has_data)
     {
-        RCLCPP_WARN(g_node->get_logger(), "No battery data received yet");
+        RCLCPP_DEBUG(g_node->get_logger(), "No battery data received yet - waiting for /blueye/battery topic");
         return BT::NodeStatus::FAILURE;
     }
     
@@ -65,13 +81,13 @@ BT::NodeStatus BatteryLevelCondition::tick()
     // Compare battery percentage to threshold
     if (current_battery_level <= threshold)
     {
-        RCLCPP_INFO(g_node->get_logger(), "Battery level (%.1f%%) is below threshold (%.1f%%)", 
+        RCLCPP_INFO(g_node->get_logger(), "Battery level (%.1f%%) is below threshold (%.1f%%) - LOW BATTERY", 
                     current_battery_level, threshold);
         return BT::NodeStatus::SUCCESS;  // Return SUCCESS when battery is low
     }
     else
     {
-        RCLCPP_DEBUG(g_node->get_logger(), "Battery level (%.1f%%) is above threshold (%.1f%%)", 
+        RCLCPP_INFO(g_node->get_logger(), "Battery level (%.1f%%) is above threshold (%.1f%%) - BATTERY OK", 
                      current_battery_level, threshold);
         return BT::NodeStatus::FAILURE;  // Return FAILURE when battery is good
     }

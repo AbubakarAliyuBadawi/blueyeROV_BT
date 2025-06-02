@@ -2,20 +2,22 @@
 <root BTCPP_format="4" main_tree_to_execute="BatteryTest">
 <BehaviorTree ID="BatteryTest">
   <Sequence name="battery_monitoring">
-    <!-- Check if battery is low -->
+    <!-- Initial wait for telemetry to start -->
     <Wait duration="5"/>
     
-    <Inverter>
-      <BatteryLevelCondition name="check_battery" threshold="10.0"/>
-    </Inverter>
-
-    <!-- This sequence executes when battery is NOT low (above threshold) -->
-    <Sequence name="normal_operation">
-      <!-- <ActivateAutoModes depth_hold="true" heading_hold="true" hold_duration="5"/> -->
-      <GoToWaypointCC waypoint_lat="63.44070" waypoint_lon="10.34899" depth="1.5" initialize_connection="false"/>
-      <GoToWaypointCC waypoint_lat="63.44065" waypoint_lon="10.34895" depth="1.5" initialize_connection="false"/>
-      <ActivateAutoModes depth_hold="true" heading_hold="true" hold_duration="10"/>
-    </Sequence>
+    <!-- Continuous battery monitoring during mission -->
+    <ReactiveSequence name="continuous_battery_check">
+      <Inverter>
+        <BatteryLevelCondition name="check_battery" threshold="10.0"/>
+      </Inverter>
+      
+      <!-- This sequence executes when battery is NOT low (above threshold) -->
+      <Sequence name="normal_operation">
+        <GoToWaypointCC waypoint_lat="63.44070" waypoint_lon="10.34899" depth="1.5" initialize_connection="false"/>
+        <GoToWaypointCC waypoint_lat="63.44065" waypoint_lon="10.34895" depth="1.5" initialize_connection="false"/>
+        <ActivateAutoModes depth_hold="true" heading_hold="true" hold_duration="10"/>
+      </Sequence>
+    </ReactiveSequence>
   </Sequence>
 </BehaviorTree>
 

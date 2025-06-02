@@ -15,13 +15,13 @@ BT::NodeStatus GoToWaypointCC::tick() {
     
     double waypoint_lat = 0.0;
     if (!getInput<double>("waypoint_lat", waypoint_lat)) {
-        RCLCPP_ERROR(g_node->get_logger(), "GoToWaypoint: Missing required parameter 'waypoint_lat'");
+        RCLCPP_ERROR(g_node->get_logger(), "GoToWaypointCC: Missing required parameter 'waypoint_lat'");
         return BT::NodeStatus::FAILURE;
     }
     
     double waypoint_lon = 0.0;
     if (!getInput<double>("waypoint_lon", waypoint_lon)) {
-        RCLCPP_ERROR(g_node->get_logger(), "GoToWaypoint: Missing required parameter 'waypoint_lon'");
+        RCLCPP_ERROR(g_node->get_logger(), "GoToWaypointCC: Missing required parameter 'waypoint_lon'");
         return BT::NodeStatus::FAILURE;
     }
     
@@ -33,7 +33,7 @@ BT::NodeStatus GoToWaypointCC::tick() {
     
     // Build command with parameters - simple call to the Python script
     std::stringstream cmd_ss;
-    cmd_ss << "/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt_real/scripts/goto_waypoint.py "
+    cmd_ss << "python3 /home/badawi/Desktop/blueyeROV_BT/src/blueye_bt_real/scripts/goto_waypoint_cc.py "
            << waypoint_lat << " "
            << waypoint_lon << " "
            << depth << " "
