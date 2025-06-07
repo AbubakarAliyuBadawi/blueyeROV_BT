@@ -28,8 +28,6 @@
             <LaunchDockingProcedure name="launch_integrated_docking"/>
             <Wait name="Initialization"
                   duration="1000"/>
-            <SetBlackboard value="Waiting for docking"
-                           output_key="status_message"/>
             <SetBlackboard value="Blueye Docked and Charging"
                            output_key="status_message"/>
           </Sequence>
@@ -42,6 +40,10 @@
                       depth="1.5"
                       drone_ip="192.168.1.101"/>
         <LaunchDockingProcedure name="launch_integrated_docking"/>
+        <Wait name="Initialization"
+              duration="1000"/>
+        <SetBlackboard value="Blueye Docked and Charging"
+                       output_key="status_message"/>
       </Sequence>
     </Fallback>
   </BehaviorTree>

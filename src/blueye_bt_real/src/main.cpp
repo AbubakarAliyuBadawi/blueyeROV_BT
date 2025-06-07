@@ -11,14 +11,12 @@
 #include "blueye_bt_real/behaviors/launch_mission_procedure.hpp"
 #include "blueye_bt_real/behaviors/wait_node_real.hpp"
 #include "blueye_bt_real/behaviors/launch_docking_real.hpp"
-#include "blueye_bt_real/behaviors/launch_depth_mission.hpp"
 #include "blueye_bt_real/conditions/BatteryLevelCondition.hpp"
 #include "blueye_bt_real/behaviors/goto_waypoint.hpp"
 #include "blueye_bt_real/behaviors/goto_waypoint_cc.hpp"
 #include "blueye_bt_real/behaviors/publish_state.hpp"
 #include "blueye_bt_real/behaviors/activate_auto_modes.hpp"
 #include "blueye_bt_real/conditions/CheckBlackboardBool.hpp"
-#include "blueye_bt_real/behaviors/pipeline_inspection_mission.hpp"
 #include "blueye_bt_real/behaviors/launch_undocking_real.hpp"
 
 // Global node for service clients
@@ -74,12 +72,6 @@ int main(int argc, char **argv) {
             return std::make_unique<LaunchDockingProcedure>(name, config);
         });
 
-    // Register LaunchSimpleDepthMission
-    factory.registerBuilder<LaunchSimpleDepthMission>(
-        "LaunchSimpleDepthMission",
-        [](const std::string& name, const BT::NodeConfig& config) {
-            return std::make_unique<LaunchSimpleDepthMission>(name, config);
-        });
 
     // Register BatteryLevelCondition
     factory.registerBuilder<BatteryLevelCondition>(
@@ -115,12 +107,7 @@ int main(int argc, char **argv) {
             return std::make_unique<blueye_bt_real::CheckBlackboardBool>(name, config);
         });
 
-    // Register PipelineInspectionMission
-    factory.registerBuilder<PipelineInspectionMission>(
-        "PipelineInspectionMission",
-        [](const std::string& name, const BT::NodeConfig& config) {
-            return std::make_unique<PipelineInspectionMission>(name, config);
-        });
+
 
     // Register the node in main()
     factory.registerBuilder<PublishState>(
