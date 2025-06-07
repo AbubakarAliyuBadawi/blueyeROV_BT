@@ -18,7 +18,6 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 
 include_directories(
-  include
   ${behaviortree_cpp_INCLUDE_DIRS}
   ${blueye_sdk_INCLUDE_DIRS}
 )
@@ -27,12 +26,10 @@ add_library(blueye_bt_real_nodes SHARED
   src/behaviors/launch_mission_procedure.cpp
   src/behaviors/wait_node_real.cpp 
   src/behaviors/launch_docking_real.cpp
-  src/behaviors/launch_depth_mission.cpp
   src/conditions/BatteryLevelCondition.cpp
   src/behaviors/goto_waypoint.cpp
   src/behaviors/goto_waypoint_cc.cpp
   src/behaviors/activate_auto_modes.cpp
-  src/behaviors/pipeline_inspection_mission.cpp
   src/behaviors/publish_state.cpp
   src/behaviors/launch_undocking_real.cpp
 )
