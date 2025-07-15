@@ -10,6 +10,7 @@
 #include "blueye_bt/behaviors/launch_docking_procedure.hpp"
 #include "blueye_bt/behaviors/wait_node.hpp"
 #include "blueye_bt/actions/publish_state.hpp"
+#include "blueye_bt/decorators/abort_on_condition_decorator.hpp"
 #include "blueye_bt/control_nodes/learning_mission_selector.hpp"
 #include "blueye_bt/behaviors/safe_navigate_to_waypoint.hpp"    
 #include "blueye_bt/decorators/abort_on_condition_decorator.hpp"

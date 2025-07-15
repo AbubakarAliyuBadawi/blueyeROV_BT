@@ -36,11 +36,6 @@ install(PROGRAMS
 )
 
 install(PROGRAMS
-  scripts/blueye_ros2_bridge.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-install(PROGRAMS
   scripts/blueye_visulization_2d_enhanced_real.py
   DESTINATION lib/${PROJECT_NAME}
 )

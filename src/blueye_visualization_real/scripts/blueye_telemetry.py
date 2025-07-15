@@ -6,12 +6,15 @@ This node connects to a Blueye drone using the SDK and publishes position data a
 
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import PoseStamped, Vector3
+from geometry_msgs.msg import PoseStamped, Vector3, Pose
 from std_msgs.msg import Float32, Bool
 import numpy as np
 import threading
 import time
 import blueye.protocol
+from std_srvs.srv import SetBool
+from geometry_msgs.msg import Point
+from geometry_msgs.msg import WrenchStamped
 
 class BlueyePositionNode(Node):
     """ROS Node for publishing Blueye drone position data."""
@@ -28,13 +31,23 @@ class BlueyePositionNode(Node):
         self.drone_ip = self.get_parameter('drone_ip').value
         self.publish_rate = self.get_parameter('publish_rate').value
         
+        # Add command subscriber
+        self.command_subscriber = self.create_subscription(WrenchStamped, "/blueye/commands", self.blueye_commands_callback, 1)
+        
         # Create publishers
         self.pose_pub = self.create_publisher(PoseStamped, 'blueye/pose', 10)
         self.position_pub = self.create_publisher(Vector3, 'blueye/position', 10)
         self.depth_pub = self.create_publisher(Float32, 'blueye/depth', 10)
         self.altitude_pub = self.create_publisher(Float32, 'blueye/altitude', 10)
         self.position_valid_pub = self.create_publisher(Bool, 'blueye/position_valid', 10)
+        self.battery_pub = self.create_publisher(Pose, 'blueye/battery', 10)
+        self.lat_long_pub = self.create_publisher(Point, 'blueye/gps', 10)
         
+        # Create services for auto modes
+        self.depth_hold_service = self.create_service(SetBool, "/blueye/depth_hold", self.depth_hold_callback)
+        self.heading_hold_service = self.create_service(SetBool, "/blueye/heading_hold", self.heading_hold_callback)
+        self.stationkeep_service = self.create_service(SetBool, "/blueye/stationkeep", self.stationkeep_callback)
+
         # Initialize drone connection
         self.get_logger().info(f'Connecting to Blueye drone at {self.drone_ip}')
         
@@ -60,9 +73,21 @@ class BlueyePositionNode(Node):
             self.pitch = 0.0
             self.yaw = 0.0
             self.altitude = 0.0
+            self.latitude = 0.0
+            self.longitude = 0.0
             
             # Create timer for publishing data
             self.timer = self.create_timer(1.0/self.publish_rate, self.publish_data)
+            
+            # Set up telemetry callback for battery updates
+            self.drone.telemetry.set_msg_publish_frequency(blueye.protocol.BatteryBQ40Z50Tel, 10)
+            self.battery_callback_id = self.drone.telemetry.add_msg_callback(
+                [blueye.protocol.BatteryBQ40Z50Tel], 
+                self.on_battery_updated
+            )
+
+            # Initialize battery data
+            self.battery_current = -1
             
         except Exception as e:
             self.get_logger().error(f'Failed to connect to drone: {str(e)}')
@@ -81,10 +106,58 @@ class BlueyePositionNode(Node):
             # Get northing (Y) and easting (X) coordinates
             self.x = pos_estimate.easting
             self.y = pos_estimate.northing
+            self.latitude = pos_estimate.global_position.latitude
+            self.longitude = pos_estimate.global_position.longitude
             
             # Get orientation (convert to degrees for better readability)
-            self.yaw = np.degrees(pos_estimate.heading) % 360
+            self.yaw = np.degrees(pos_estimate.heading) % 360      
+            
+    def on_battery_updated(self, msg_type_name, msg):
+        """Handle battery updates from drone telemetry."""
+        battery_msg = Pose()
+        battery_msg.position.x = msg.battery.charging_current
+        battery_msg.position.y = msg.battery.relative_state_of_charge
+        battery_msg.position.z = msg.battery.current
+        battery_msg.orientation.x = float(msg.battery.runtime_to_empty)
+        
+        # Store current locally
+        self.battery_current = msg.battery.current
+        
+        # Publish battery data
+        self.battery_pub.publish(battery_msg)
+        
+    def depth_hold_callback(self, request, response):
+        self.drone.motion.auto_depth_active = request.data
+        response.success = True
+        response.message = "Depth hold is on" if request.data else "Depth hold is off"
+        return response
+
+    def heading_hold_callback(self, request, response):
+        self.drone.motion.auto_heading_active = request.data
+        response.success = True
+        response.message = "Heading hold is on" if request.data else "Heading hold is off"
+        return response
+
+    def stationkeep_callback(self, request, response):
+        self.drone.motion.stationkeep_active = request.data
+        response.success = True
+        response.message = "Stationkeep is on" if request.data else "Stationkeep is off"
+        return response
     
+    def blueye_commands_callback(self, msg):
+        """Handle movement commands."""
+        # Thresholding incoming values
+        surge = max(-1, min(msg.wrench.force.x, 1))
+        sway = max(-1, min(msg.wrench.force.y, 1))
+        heave = max(-1, min(msg.wrench.force.z, 1))
+        yaw = max(-1, min(msg.wrench.torque.z, 1))
+        
+        # Send commands to drone
+        self.drone.motion.surge = surge
+        self.drone.motion.sway = sway
+        self.drone.motion.heave = heave
+        self.drone.motion.yaw = yaw
+
     def publish_data(self):
         """Publish drone position data to ROS topics."""
         if not self.connected:
@@ -162,12 +235,13 @@ class BlueyePositionNode(Node):
         valid_msg.data = self.position_valid
         self.position_valid_pub.publish(valid_msg)
         
-        # Log occasionally
-        if int(self.get_clock().now().nanoseconds / 1e9) % 10 == 0:
-            self.get_logger().info(
-                f"Publishing position: X={self.x:.2f}, Y={self.y:.2f}, "
-                f"Depth={self.depth:.2f}, Heading={self.yaw:.2f}"
-            )
+        # GPS coordinates
+        if self.latitude != 0.0 or self.longitude != 0.0:
+            gps_msg = Point()
+            gps_msg.x = self.latitude
+            gps_msg.y = self.longitude
+            gps_msg.z = self.depth
+            self.lat_long_pub.publish(gps_msg)
     
     def destroy_node(self):
         """Clean up resources when the node is destroyed."""
@@ -175,6 +249,10 @@ class BlueyePositionNode(Node):
             # Remove callback
             if hasattr(self, 'position_callback_id'):
                 self.drone.telemetry.remove_msg_callback(self.position_callback_id)
+                
+            # Remove battery callback
+            if hasattr(self, 'battery_callback_id'):
+                self.drone.telemetry.remove_msg_callback(self.battery_callback_id)
             
             # Disconnect from drone
             self.drone.disconnect()

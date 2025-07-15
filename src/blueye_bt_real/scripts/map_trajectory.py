@@ -191,166 +191,136 @@
 #     main()
 
 #!/usr/bin/env python3
+# import numpy as np
+# import pandas as pd
+# from datetime import datetime, timedelta
 
-# import json
-# import folium
+# # Define the waypoints from the table
+# waypoints = {
+#     'P1': {'lat': 63.441461, 'lon': 10.348320, 'phase': 'Undocking'},
+#     'P2': {'lat': 63.441461, 'lon': 10.348370, 'phase': 'Transit 1'},
+#     'P3': {'lat': 63.441390, 'lon': 10.348361, 'phase': 'Pipeline Inspection'},
+#     'P4': {'lat': 63.441394, 'lon': 10.348239, 'phase': 'Pipeline Inspection'},
+#     'P5': {'lat': 63.441420, 'lon': 10.348241, 'phase': 'Transit 2'},
+#     'P6': {'lat': 63.441427, 'lon': 10.348363, 'phase': 'Docking'}
+# }
 
-# # Load your JSON file
-# with open('/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt_real/scripts/rov_trajectory_data.json') as f:
-#     data = json.load(f)
-
-# # Extract coordinates
-# coordinates = [(entry['lat'], entry['lon']) for entry in data]
-
-# # Create a folium map centered at the first point
-# start_lat, start_lon = coordinates[0]
-# m = folium.Map(location=[start_lat, start_lon], zoom_start=18, tiles='OpenStreetMap')
-
-# # Add the points and a line to represent the path
-# folium.PolyLine(locations=coordinates, color='blue', weight=3).add_to(m)
-
-# # Optionally, add markers with timestamps
-# for entry in data:
-#     folium.Marker(
-#         location=(entry['lat'], entry['lon']),
-#         popup=f"Time: {entry['timestamp']}, Alt: {entry['alt']:.2f} m"
-#     ).add_to(m)
-
-# # Save the map to an HTML file
-# m.save("rov_trajectory_map.html")
-# print("Map saved as rov_trajectory_map.html")
-
-
-import numpy as np
-import pandas as pd
-from datetime import datetime, timedelta
-
-# Define the waypoints from the table
-waypoints = {
-    'P1': {'lat': 63.441461, 'lon': 10.348320, 'phase': 'Undocking'},
-    'P2': {'lat': 63.441461, 'lon': 10.348370, 'phase': 'Transit 1'},
-    'P3': {'lat': 63.441390, 'lon': 10.348361, 'phase': 'Pipeline Inspection'},
-    'P4': {'lat': 63.441394, 'lon': 10.348239, 'phase': 'Pipeline Inspection'},
-    'P5': {'lat': 63.441420, 'lon': 10.348241, 'phase': 'Transit 2'},
-    'P6': {'lat': 63.441427, 'lon': 10.348363, 'phase': 'Docking'}
-}
-
-def interpolate_path(start_point, end_point, num_points):
-    """Generate interpolated points between two waypoints"""
-    lat_start, lon_start = start_point
-    lat_end, lon_end = end_point
+# def interpolate_path(start_point, end_point, num_points):
+#     """Generate interpolated points between two waypoints"""
+#     lat_start, lon_start = start_point
+#     lat_end, lon_end = end_point
     
-    # Linear interpolation
-    lats = np.linspace(lat_start, lat_end, num_points)
-    lons = np.linspace(lon_start, lon_end, num_points)
+#     # Linear interpolation
+#     lats = np.linspace(lat_start, lat_end, num_points)
+#     lons = np.linspace(lon_start, lon_end, num_points)
     
-    return list(zip(lats, lons))
+#     return list(zip(lats, lons))
 
-def generate_rov_mission_data():
-    """Generate continuous GPS data for the ROV mission"""
+# def generate_rov_mission_data():
+#     """Generate continuous GPS data for the ROV mission"""
     
-    # Define the mission sequence based on the diagram
-    mission_sequence = [
-        ('P1', 'P2', 'Transit 1', 20),      # Undocking to Transit 1
-        ('P2', 'P3', 'Pipeline Inspection', 30),  # Transit 1 to Inspection start
-        ('P3', 'P4', 'Pipeline Inspection', 50),  # Along pipeline inspection
-        ('P4', 'P5', 'Transit 2', 25),     # Inspection end to Transit 2
-        ('P5', 'P6', 'Docking', 20),       # Transit 2 to Docking
-        ('P6', 'P6', 'Docking Station', 10) # At docking station
-    ]
+#     # Define the mission sequence based on the diagram
+#     mission_sequence = [
+#         ('P1', 'P2', 'Transit 1', 20),      # Undocking to Transit 1
+#         ('P2', 'P3', 'Pipeline Inspection', 30),  # Transit 1 to Inspection start
+#         ('P3', 'P4', 'Pipeline Inspection', 50),  # Along pipeline inspection
+#         ('P4', 'P5', 'Transit 2', 25),     # Inspection end to Transit 2
+#         ('P5', 'P6', 'Docking', 20),       # Transit 2 to Docking
+#         ('P6', 'P6', 'Docking Station', 10) # At docking station
+#     ]
     
-    gps_data = []
-    timestamp = datetime(2024, 6, 4, 10, 0, 0)  # Start time
-    point_id = 1
+#     gps_data = []
+#     timestamp = datetime(2024, 6, 4, 10, 0, 0)  # Start time
+#     point_id = 1
     
-    for start_wp, end_wp, phase, num_points in mission_sequence:
-        start_coords = (waypoints[start_wp]['lat'], waypoints[start_wp]['lon'])
-        end_coords = (waypoints[end_wp]['lat'], waypoints[end_wp]['lon'])
+#     for start_wp, end_wp, phase, num_points in mission_sequence:
+#         start_coords = (waypoints[start_wp]['lat'], waypoints[start_wp]['lon'])
+#         end_coords = (waypoints[end_wp]['lat'], waypoints[end_wp]['lon'])
         
-        # Generate interpolated points
-        if start_wp == end_wp:  # Stationary at docking station
-            points = [start_coords] * num_points
-        else:
-            points = interpolate_path(start_coords, end_coords, num_points)
+#         # Generate interpolated points
+#         if start_wp == end_wp:  # Stationary at docking station
+#             points = [start_coords] * num_points
+#         else:
+#             points = interpolate_path(start_coords, end_coords, num_points)
         
-        # Add points to dataset
-        for i, (lat, lon) in enumerate(points):
-            # Add small random variations to simulate real GPS noise
-            lat_noise = np.random.normal(0, 0.000002)  # ~0.2m variation
-            lon_noise = np.random.normal(0, 0.000002)
+#         # Add points to dataset
+#         for i, (lat, lon) in enumerate(points):
+#             # Add small random variations to simulate real GPS noise
+#             lat_noise = np.random.normal(0, 0.000002)  # ~0.2m variation
+#             lon_noise = np.random.normal(0, 0.000002)
             
-            gps_data.append({
-                'Point_ID': point_id,
-                'Timestamp': timestamp.strftime('%Y-%m-%d %H:%M:%S'),
-                'Latitude': round(lat + lat_noise, 6),
-                'Longitude': round(lon + lon_noise, 6),
-                'Mission_Phase': phase,
-                'Waypoint_Nearest': start_wp if i < num_points//2 else end_wp,
-                'Depth_m': round(np.random.uniform(15, 25), 1),  # Simulated depth
-                'Speed_ms': round(np.random.uniform(0.5, 2.0), 1) if phase != 'Docking Station' else 0.0
-            })
+#             gps_data.append({
+#                 'Point_ID': point_id,
+#                 'Timestamp': timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+#                 'Latitude': round(lat + lat_noise, 6),
+#                 'Longitude': round(lon + lon_noise, 6),
+#                 'Mission_Phase': phase,
+#                 'Waypoint_Nearest': start_wp if i < num_points//2 else end_wp,
+#                 'Depth_m': round(np.random.uniform(15, 25), 1),  # Simulated depth
+#                 'Speed_ms': round(np.random.uniform(0.5, 2.0), 1) if phase != 'Docking Station' else 0.0
+#             })
             
-            point_id += 1
-            timestamp += timedelta(seconds=10)  # 10-second intervals
+#             point_id += 1
+#             timestamp += timedelta(seconds=10)  # 10-second intervals
     
-    return pd.DataFrame(gps_data)
+#     return pd.DataFrame(gps_data)
 
-# Generate the GPS data
-df = generate_rov_mission_data()
+# # Generate the GPS data
+# df = generate_rov_mission_data()
 
-# Display sample data
-print("ROV Mission GPS Data Sample:")
-print("="*80)
-print(df.head(15).to_string(index=False))
-print("\n" + "="*80)
-print(f"Total data points: {len(df)}")
-print(f"Mission duration: {len(df) * 10 / 60:.1f} minutes")
+# # Display sample data
+# print("ROV Mission GPS Data Sample:")
+# print("="*80)
+# print(df.head(15).to_string(index=False))
+# print("\n" + "="*80)
+# print(f"Total data points: {len(df)}")
+# print(f"Mission duration: {len(df) * 10 / 60:.1f} minutes")
 
-# Show waypoint summary
-print("\nWaypoint Summary:")
-print("-"*50)
-for wp, data in waypoints.items():
-    print(f"{wp}: {data['lat']:.6f}, {data['lon']:.6f} - {data['phase']}")
+# # Show waypoint summary
+# print("\nWaypoint Summary:")
+# print("-"*50)
+# for wp, data in waypoints.items():
+#     print(f"{wp}: {data['lat']:.6f}, {data['lon']:.6f} - {data['phase']}")
 
-# Phase distribution
-print("\nPhase Distribution:")
-print("-"*30)
-phase_counts = df['Mission_Phase'].value_counts()
-for phase, count in phase_counts.items():
-    print(f"{phase}: {count} points ({count*10/60:.1f} min)")
+# # Phase distribution
+# print("\nPhase Distribution:")
+# print("-"*30)
+# phase_counts = df['Mission_Phase'].value_counts()
+# for phase, count in phase_counts.items():
+#     print(f"{phase}: {count} points ({count*10/60:.1f} min)")
 
-# Save to CSV (uncomment to save)
-# df.to_csv('rov_mission_gps_data.csv', index=False)
-# print("\nData saved to 'rov_mission_gps_data.csv'")
+# # Save to CSV (uncomment to save)
+# # df.to_csv('rov_mission_gps_data.csv', index=False)
+# # print("\nData saved to 'rov_mission_gps_data.csv'")
 
-# Additional analysis - distance calculations
-def haversine_distance(lat1, lon1, lat2, lon2):
-    """Calculate distance between two GPS points in meters"""
-    R = 6371000  # Earth's radius in meters
+# # Additional analysis - distance calculations
+# def haversine_distance(lat1, lon1, lat2, lon2):
+#     """Calculate distance between two GPS points in meters"""
+#     R = 6371000  # Earth's radius in meters
     
-    lat1_rad = np.radians(lat1)
-    lat2_rad = np.radians(lat2)
-    delta_lat = np.radians(lat2 - lat1)
-    delta_lon = np.radians(lon2 - lon1)
+#     lat1_rad = np.radians(lat1)
+#     lat2_rad = np.radians(lat2)
+#     delta_lat = np.radians(lat2 - lat1)
+#     delta_lon = np.radians(lon2 - lon1)
     
-    a = np.sin(delta_lat/2)**2 + np.cos(lat1_rad) * np.cos(lat2_rad) * np.sin(delta_lon/2)**2
-    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1-a))
+#     a = np.sin(delta_lat/2)**2 + np.cos(lat1_rad) * np.cos(lat2_rad) * np.sin(delta_lon/2)**2
+#     c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1-a))
     
-    return R * c
+#     return R * c
 
-# Calculate total mission distance
-total_distance = 0
-for i in range(1, len(df)):
-    dist = haversine_distance(
-        df.iloc[i-1]['Latitude'], df.iloc[i-1]['Longitude'],
-        df.iloc[i]['Latitude'], df.iloc[i]['Longitude']
-    )
-    total_distance += dist
+# # Calculate total mission distance
+# total_distance = 0
+# for i in range(1, len(df)):
+#     dist = haversine_distance(
+#         df.iloc[i-1]['Latitude'], df.iloc[i-1]['Longitude'],
+#         df.iloc[i]['Latitude'], df.iloc[i]['Longitude']
+#     )
+#     total_distance += dist
 
-print(f"\nMission Statistics:")
-print(f"Total distance traveled: {total_distance:.1f} meters")
-print(f"Average speed: {total_distance / (len(df) * 10):.2f} m/s")
+# print(f"\nMission Statistics:")
+# print(f"Total distance traveled: {total_distance:.1f} meters")
+# print(f"Average speed: {total_distance / (len(df) * 10):.2f} m/s")
 
-# Show last few points to verify return to docking
-print(f"\nFinal positions (return to docking):")
-print(df.tail(5)[['Timestamp', 'Latitude', 'Longitude', 'Mission_Phase']].to_string(index=False))
+# # Show last few points to verify return to docking
+# print(f"\nFinal positions (return to docking):")
+# print(df.tail(5)[['Timestamp', 'Latitude', 'Longitude', 'Mission_Phase']].to_string(index=False))

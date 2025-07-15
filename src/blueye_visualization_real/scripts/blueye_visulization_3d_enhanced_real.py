@@ -23,11 +23,11 @@ class Blueye3DVisualizerNode(Node):
         super().__init__('blueye_3d_visualizer_node')
         
         # ROV position and orientation
-        self.rov_position = np.array([0.0, 0.0, 2.2])
+        self.rov_position = np.array([0.0, 0.0, 1.0])
         self.rov_orientation = np.array([0.0, 0.0, 0.0, 1.0])  # Quaternion
         
         # Docking station is at the origin
-        self.docking_station = np.array([0.0, 0.0, 2.2])
+        self.docking_station = np.array([-0.1, 1.5, 1.0])
         
         # Thread safety for plotting updates
         self.plot_lock = threading.Lock()

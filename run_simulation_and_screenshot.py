@@ -1,204 +1,154 @@
-#!/usr/bin/env python3
-import subprocess
-import time
-import os
-from datetime import datetime
-import signal
-import sys
-import psutil
+import json
+import folium
+from folium import plugins
+import numpy as np
 
-def create_directory_if_not_exists(directory):
-    """Create directory if it doesn't exist"""
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-        print(f"Created directory: {directory}")
+# Load your JSON file
+json_path = "/home/badawi/Desktop/blueyeROV_BT/src/blueye_bt_real/scripts/rov_trajectory_data.json"
+with open(json_path, "r") as f:
+    data = json.load(f)
 
-def cleanup_processes(processes):
-    """Clean termination of all processes"""
-    print("\nTerminating processes...")
-    
-    for name, process in processes.items():
-        if process and process.poll() is None:
-            try:
-                os.killpg(os.getpgid(process.pid), signal.SIGTERM)
-                print(f"{name} process terminated")
-            except Exception as e:
-                print(f"Error terminating {name}: {e}")
-    
-    # Additional cleanup to ensure all related ROS processes are terminated
-    print("Cleaning up any remaining ROS processes...")
-    try:
-        cleanup_cmd = "pkill -f 'ros2|mundus_mir|blueye_bt'"
-        subprocess.run(cleanup_cmd, shell=True)
-    except Exception as e:
-        print(f"Cleanup warning: {e}")
-    
-    print("All processes have been terminated.")
+# Extract trajectory points (remove duplicates for cleaner visualization)
+coordinates = []
+seen_coords = set()
+for entry in data:
+    # coord_key = (round(entry["lat"], 8), round(entry["lon"], 8))  # Round to avoid tiny differences
+    # if coord_key not in seen_coords:
+    coordinates.append([entry["lat"], entry["lon"]])
+        # seen_coords.add(coord_key)
 
-def check_simulation_ready():
-    """Check if key ROS nodes are running to verify simulation is ready"""
-    try:
-        # Run ros2 node list and check if expected nodes are present
-        result = subprocess.run(['ros2', 'node', 'list'], 
-                              stdout=subprocess.PIPE, 
-                              stderr=subprocess.PIPE,
-                              text=True)
-        
-        nodes = result.stdout.strip().split('\n')
-        
-        # Check for key simulation nodes (customize these to match your simulation)
-        # These are example node names - replace with actual node names from your simulation
-        key_node_patterns = ['mundus', 'simulator', 'controller']
-        
-        for pattern in key_node_patterns:
-            if not any(pattern in node for node in nodes):
-                return False
-                
-        return len(nodes) > 5  # Assuming at least 5 nodes when simulation is running properly
-    except Exception as e:
-        print(f"Error checking ROS nodes: {e}")
-        return False
+print(f"Total unique coordinates: {len(coordinates)}")
 
-def run_simulation_and_capture(wait_minutes=45, test_mode=False):
-    """Run simulation, capture screenshot after specified wait time"""
-    # Create screenshots directory
-    screenshots_dir = os.path.expanduser("~/thesis_simulation_screenshots")
-    create_directory_if_not_exists(screenshots_dir)
-    
-    # Path to simulation and BT workspaces
-    sim_workspace = "/home/badawi/Desktop/mundus_mir_simulator"
-    bt_workspace = "/home/badawi/Desktop/blueyeROV_BT"
-    
-    # Script to source and launch simulation
-    sim_script = f"""
-    cd {sim_workspace}
-    source install/setup.bash
-    source set_env
-    exec ros2 launch mundus_mir_simulator_launch generated_mundus_mir_pipeline_world.launch.py
-    """
-    
-    # Script to source and launch behavior tree
-    bt_script = f"""
-    cd {bt_workspace}
-    source install/setup.bash
-    exec ros2 launch blueye_bt blueye_bt.launch.py
-    """
-    
-    active_processes = {}
-    
-    try:
-        # Start simulation process
-        print("Starting simulation...")
-        sim_process = subprocess.Popen(['bash', '-c', sim_script], 
-                                      stdout=subprocess.PIPE, 
-                                      stderr=subprocess.PIPE,
-                                      preexec_fn=os.setsid)
-        active_processes["Simulation"] = sim_process
-        
-        # Give the simulation time to initialize (minimum 15 seconds)
-        max_init_wait = 60  # Maximum seconds to wait for initialization
-        print(f"Waiting for simulation to fully initialize (up to {max_init_wait} seconds)...")
-        
-        # Count down while checking if simulation is ready
-        ready = False
-        for i in range(max_init_wait):
-            remaining = max_init_wait - i
-            if i >= 15:  # Only start checking after 15 seconds minimum
-                if check_simulation_ready():
-                    ready = True
-                    print(f"\rSimulation is fully initialized after {i} seconds!        ")
-                    break
-            
-            sys.stdout.write(f"\rWaiting for simulation to initialize... {remaining} seconds remaining ")
-            sys.stdout.flush()
-            time.sleep(1)
-            
-        if not ready:
-            print("\rSimulation initialization time expired. Continuing anyway...      ")
-        
-        print("Starting behavior tree...")
-        
-        # Start behavior tree process
-        print("Starting behavior tree...")
-        bt_process = subprocess.Popen(['bash', '-c', bt_script],
-                                     stdout=subprocess.PIPE,
-                                     stderr=subprocess.PIPE,
-                                     preexec_fn=os.setsid)
-        active_processes["Behavior Tree"] = bt_process
-        
-        # Calculate wait time (minutes to seconds)
-        wait_time = wait_minutes * 60
-        
-        print(f"Processes started successfully. Waiting for {wait_minutes} minutes...")
-        if test_mode:
-            print("[TEST MODE ENABLED - Using very short wait time]")
-        
-        end_time = datetime.now() + datetime.timedelta(seconds=wait_time)
-        print(f"Simulation will complete at approximately: {end_time.strftime('%H:%M:%S')}")
-        
-        # Wait for specified time, but check process status regularly
-        # This allows for better handling of early termination
-        elapsed = 0
-        check_interval = 5  # Check every 5 seconds
-        
-        while elapsed < wait_time:
-            try:
-                time.sleep(min(check_interval, wait_time - elapsed))
-                elapsed += check_interval
-                
-                # Check if processes are still running
-                if (sim_process.poll() is not None or bt_process.poll() is not None):
-                    print("One of the processes has terminated unexpectedly.")
-                    # Take screenshot anyway before exiting
-                    break
-                
-                # Show progress every minute
-                if elapsed % 60 == 0 and elapsed > 0:
-                    mins_left = (wait_time - elapsed) // 60
-                    print(f"Still running... {mins_left} minutes remaining")
-                    
-            except KeyboardInterrupt:
-                print("\nProcess interrupted by user (Ctrl+C)")
-                user_input = input("Take screenshot before exiting? (y/n): ").lower()
-                if user_input == 'y':
-                    break
-                else:
-                    return
-        
-        # Take screenshot using gnome-screenshot
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        screenshot_path = f"{screenshots_dir}/simulation_{timestamp}.png"
-        
-        print("Taking screenshot...")
-        screenshot_cmd = f"gnome-screenshot -f {screenshot_path}"
-        subprocess.run(screenshot_cmd, shell=True)
-        print(f"Screenshot saved to: {screenshot_path}")
-        
-        # Allow a moment for screenshot to complete
-        time.sleep(2)
-        
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        
-    finally:
-        # Clean termination of all processes
-        cleanup_processes(active_processes)
+# Calculate the bounding box for your trajectory
+lats = [coord[0] for coord in coordinates]
+lons = [coord[1] for coord in coordinates]
+min_lat, max_lat = min(lats), max(lats)
+min_lon, max_lon = min(lons), max(lons)
 
-if __name__ == "__main__":
-    # Parse command line arguments
-    wait_minutes = 45
-    test_mode = False
+# Calculate center point
+center_lat = (min_lat + max_lat) / 2
+center_lon = (min_lon + max_lon) / 2
+
+print(f"Trajectory bounds: Lat({min_lat:.8f} to {max_lat:.8f}), Lon({min_lon:.8f} to {max_lon:.8f})")
+
+# Initialize folium map with very high zoom
+m = folium.Map(
+    location=[center_lat, center_lon],
+    zoom_start=22,  # Maximum zoom level
+    tiles=None
+)
+
+# Add multiple high-resolution satellite tile sources
+# Esri World Imagery (your current choice)
+folium.TileLayer(
+    tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    attr='Esri World Imagery',
+    name='Esri Satellite',
+    overlay=False,
+    control=True,
+    max_zoom=22
+).add_to(m)
+
+# Google Satellite (often higher resolution)
+folium.TileLayer(
+    tiles='https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+    attr='Google Satellite',
+    name='Google Satellite',
+    overlay=False,
+    control=True,
+    max_zoom=22
+).add_to(m)
+
+# Bing Satellite (alternative high-res option)
+folium.TileLayer(
+    tiles='https://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=1',
+    attr='Bing Satellite',
+    name='Bing Satellite',
+    overlay=False,
+    control=True,
+    max_zoom=21,
+    subdomains='0123'
+).add_to(m)
+
+# Plot trajectory with enhanced styling
+if len(coordinates) > 1:
+    folium.PolyLine(
+        coordinates, 
+        color="red", 
+        weight=4, 
+        opacity=0.8,
+        popup="ROV Trajectory"
+    ).add_to(m)
     
-    if len(sys.argv) > 1:
-        if sys.argv[1].lower() == "test":
-            test_mode = True
-            wait_minutes = 0.2  # 12 seconds for testing
-            print(f"TEST MODE: Using very short wait time ({wait_minutes} minutes)")
-        else:
-            try:
-                wait_minutes = float(sys.argv[1])
-                print(f"Using custom wait time: {wait_minutes} minutes")
-            except ValueError:
-                print(f"Invalid wait time. Using default of {wait_minutes} minutes.")
+    # Add direction markers at regular intervals instead of arrows
+    num_markers = min(10, len(coordinates)//20)  # Add up to 10 direction markers
+    if num_markers > 0:
+        step = len(coordinates) // num_markers
+        for i in range(0, len(coordinates), step):
+            if i < len(coordinates):
+                folium.CircleMarker(
+                    location=coordinates[i],
+                    radius=3,
+                    popup=f"Point {i+1}",
+                    color="yellow",
+                    fillColor="orange",
+                    fillOpacity=0.8
+                ).add_to(m)
+
+# Add markers for start and end points
+if coordinates:
+    # Start point
+    folium.Marker(
+        location=coordinates[0],
+        popup=f"Start Point<br>Lat: {coordinates[0][0]:.8f}<br>Lon: {coordinates[0][1]:.8f}",
+        icon=folium.Icon(color="green", icon="play")
+    ).add_to(m)
     
-    run_simulation_and_capture(wait_minutes, test_mode)
+    # End point (if different from start)
+    if len(coordinates) > 1:
+        folium.Marker(
+            location=coordinates[-1],
+            popup=f"End Point<br>Lat: {coordinates[-1][0]:.8f}<br>Lon: {coordinates[-1][1]:.8f}",
+            icon=folium.Icon(color="red", icon="stop")
+        ).add_to(m)
+
+# Fit the map to show all trajectory points with some padding
+if len(coordinates) > 1:
+    # Add small padding to the bounds
+    lat_padding = (max_lat - min_lat) * 0.1 if max_lat != min_lat else 0.0001
+    lon_padding = (max_lon - min_lon) * 0.1 if max_lon != min_lon else 0.0001
+    
+    southwest = [min_lat - lat_padding, min_lon - lon_padding]
+    northeast = [max_lat + lat_padding, max_lon + lon_padding]
+    
+    m.fit_bounds([southwest, northeast])
+
+# Add layer control to switch between satellite providers
+folium.LayerControl().add_to(m)
+
+# Add a scale bar
+plugins.MeasureControl().add_to(m)
+
+# Save map
+output_path = "/home/badawi/Desktop/rov_trajectory_satellite_enhanced.html"
+m.save(output_path)
+print(f"Enhanced satellite map saved to: {output_path}")
+
+# Print some statistics
+if len(coordinates) > 1:
+    # Calculate approximate trajectory length
+    total_distance = 0
+    for i in range(len(coordinates)-1):
+        lat1, lon1 = coordinates[i]
+        lat2, lon2 = coordinates[i+1]
+        
+        # Haversine distance (approximate for small distances)
+        dlat = np.radians(lat2 - lat1)
+        dlon = np.radians(lon2 - lon1)
+        a = np.sin(dlat/2)**2 + np.cos(np.radians(lat1)) * np.cos(np.radians(lat2)) * np.sin(dlon/2)**2
+        c = 2 * np.arcsin(np.sqrt(a))
+        distance = 6371000 * c  # Earth radius in meters
+        total_distance += distance
+    
+    print(f"Approximate trajectory length: {total_distance:.2f} meters")
+    print(f"Trajectory spans: {(max_lat-min_lat)*111000:.2f}m N-S, {(max_lon-min_lon)*111000*np.cos(np.radians(center_lat)):.2f}m E-W")

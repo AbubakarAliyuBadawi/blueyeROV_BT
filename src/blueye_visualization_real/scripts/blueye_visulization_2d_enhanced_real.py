@@ -26,7 +26,7 @@ class BlueyeVisualizerNode(Node):
         self.rov_orientation = np.array([0.0, 0.0, 0.0, 1.0])  # Quaternion
         
         # Docking station is at the origin
-        self.docking_station = np.array([0.0, 0.0, 0.0])
+        self.docking_station = np.array([-0.1, 1.5, 1.0])
         
         # Trajectory tracking
         self.trajectory = []

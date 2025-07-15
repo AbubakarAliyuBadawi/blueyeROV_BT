@@ -41,11 +41,11 @@ class MissionStatePublisher(Node):
         # # Updated to use Transit 1 (ID 3) and Transit 2 (ID 5)
         self.mission_timeline = [
             (0, 1.0),   # Trajectory for 5 seconds
-            (1, 26.16),   # Undocking for 5 seconds  
-            (3, 39.17),  # Transit 1 for 10 seconds
-            (2, 14.50),  # Pipeline Inspection for 15 seconds
-            (5, 25.0),  # Transit 2 for 10 seconds
-            (4, 30.0),  # Docking for 10 seconds
+            (1, 28.16),   # Undocking for 5 seconds  
+            (3, 59.17),  # Transit 1 for 10 seconds
+            (2, 50.50),  # Pipeline Inspection for 15 seconds
+            (5, 40.0),  # Transit 2 for 10 seconds
+            (4, 20.0),  # Docking for 10 seconds
             (0, 5.0)    # Back to Trajectory for 5 seconds (then repeat)
         ]
         
