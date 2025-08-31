@@ -2,3 +2,27 @@
 /install
 /log
 .vscode/
+# Build artifacts
+build/
+install/
+log/
+
+# ROS bag files
+rosbag_files/
+*.bag
+*.db3
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
