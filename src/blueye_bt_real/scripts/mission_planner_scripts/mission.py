@@ -19,8 +19,6 @@ from datetime import datetime
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Point
-
-# Import required Blueye SDK components
 import blueye.protocol as bp
 from blueye.sdk import Drone
 from blueye.protocol.types.mission_planning import DepthZeroReference
@@ -207,7 +205,6 @@ def create_mission(logger):
         "lat": 63.4414548287786,
         "lon": 10.3482882678509,
         "name": "Docking Station",
-        # ADD DOCKING STATION DEPTH
         "depth": 1.0
     }
     
@@ -525,12 +522,6 @@ def main():
             logger.error("Failed to connect to drone. Exiting.")
             return 1
         
-        # # Reset the drone's position to the hardcoded starting coordinates (using drone compass)
-        # start_lat = 63.4414548287786
-        # start_lon = 10.3482882678509
-        
-        # You can set the drone heading to a specific value if needed during the reset e.g (90 degrees = East) will be 
-        # if not reset_drone_position(drone, logger, heading=90.0):
         if not reset_drone_position(drone, logger):
             logger.error("Failed to reset drone position. Exiting.")
             return 1

@@ -193,55 +193,6 @@ void parseWaypointStatus(const std::string& status) {
         }
     }
 }
-  
-  // void startObstacleAvoidance()
-  // {
-  //   RCLCPP_INFO(this->get_logger(), "Obstacle detected at %.2f meters. Starting avoidance maneuver.", min_dist_center_);
-    
-  //   is_avoiding_ = true;
-  //   avoidance_start_time_ = this->now();
-    
-  //   // Create deviation waypoint
-  //   float avoidance_x, avoidance_y;
-    
-  //   // Determine if we should go left or right
-  //   bool go_left = min_dist_left_ <= min_dist_right_;
-    
-  //   // Calculate 25-degree direction instead of 45 degrees
-  //   float deviation_angle = current_yaw_ + (go_left ? (25.0 * M_PI/180.0) : -(25.0 * M_PI/180.0));
-
-  //   // Calculate deviation point
-  //   avoidance_x = current_pose_.position.x + deviation_distance_ * cos(deviation_angle);
-  //   avoidance_y = current_pose_.position.y + deviation_distance_ * sin(deviation_angle);
-
-  //   // Add these lines right here:
-  //   avoidance_waypoint_.x = avoidance_x;
-  //   avoidance_waypoint_.y = avoidance_y;
-  //   avoidance_waypoint_.z = original_waypoint_.z;
-    
-  //   RCLCPP_INFO(this->get_logger(), "Creating avoidance waypoint at x=%.2f, y=%.2f (going %s)",
-  //              avoidance_x, avoidance_y, go_left ? "left" : "right");
-    
-  //   // Clear current waypoints
-  //   auto clear_request = std::make_shared<mundus_mir_msgs::srv::ClearWaypoints::Request>();
-  //   clear_request->clear = true;
-    
-  //   auto clear_response_callback = [this, avoidance_x, avoidance_y](
-  //       rclcpp::Client<mundus_mir_msgs::srv::ClearWaypoints>::SharedFuture future) {
-  //     auto response = future.get();
-  //     if (response->accepted) {
-  //       // Add deviation waypoint
-  //       addDeviationWaypoint(avoidance_x, avoidance_y);
-  //     }
-  //   };
-    
-  //   clear_waypoints_client_->async_send_request(clear_request, clear_response_callback);
-    
-  //   // Publish avoidance status
-  //   auto status_msg = std::make_unique<std_msgs::msg::Bool>();
-  //   status_msg->data = true;
-  //   avoidance_status_pub_->publish(std::move(status_msg));
-  // }
 
 void startObstacleAvoidance()
 {
@@ -298,36 +249,6 @@ void startObstacleAvoidance()
     status_msg->data = true;
     avoidance_status_pub_->publish(std::move(status_msg));
 }
-  
-//   void addDeviationWaypoint(float x, float y) {
-//     auto add_request = std::make_shared<mundus_mir_msgs::srv::AddWaypoint::Request>();
-//     add_request->x = x;
-//     add_request->y = y;
-//     add_request->z = original_waypoint_.z;  // Use original waypoint's z-value
-//     add_request->desired_velocity = deviation_velocity_;
-//     add_request->fixed_heading = false;  // Look toward waypoint
-//     add_request->heading = 0.0;  // Not used with fixed_heading=false
-    
-//     auto add_response_callback = [this](
-//         rclcpp::Client<mundus_mir_msgs::srv::AddWaypoint>::SharedFuture future) {
-//         auto response = future.get();
-//         if (response->accepted) {
-//             // Start going to waypoint
-//             auto go_request = std::make_shared<mundus_mir_msgs::srv::GoToWaypoints::Request>();
-//             go_request->run = true;
-            
-//             auto go_response_callback = [this](
-//                 rclcpp::Client<mundus_mir_msgs::srv::GoToWaypoints>::SharedFuture future) {
-//                 // Successfully started going to avoidance waypoint
-//             };
-            
-//             go_to_waypoints_client_->async_send_request(go_request, go_response_callback);
-//         }
-//     };
-    
-//     add_waypoint_client_->async_send_request(add_request, add_response_callback);
-// }
-  
 
 void addDeviationWaypoint(float x, float y) {
     RCLCPP_INFO(this->get_logger(), "Adding deviation waypoint x=%.2f, y=%.2f, z=%.2f, velocity=%.2f",
@@ -509,9 +430,6 @@ void addDeviationWaypoint(float x, float y) {
                 
                 // Log some sample intensities
                 if (beam_idx % 5 == 0 && range_idx % 20 == 0) {
-                    // RCLCPP_INFO(this->get_logger(), "Beam %d, Range %zu (%.2f m): Intensity = %.6f, Bytes: %d,%d,%d,%d", 
-                    //            beam_idx, range_idx, msg->ranges[range_idx], intensity,
-                    //            bytes[0], bytes[1], bytes[2], bytes[3]);
                 }
             }
             

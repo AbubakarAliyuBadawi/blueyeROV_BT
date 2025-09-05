@@ -64,9 +64,6 @@ int main(int argc, char **argv) {
     g_node->declare_parameter("target_altitude", 2.0); 
     g_mission_state_pub = g_node->create_publisher<std_msgs::msg::Int32>("/mission_state", 10);
     setupContinuousStatePublishing();
-    // rclcpp::TimerBase::SharedPtr state_timer = g_node->create_wall_timer(
-    // std::chrono::milliseconds(500), publishMissionState);
-
 
     BT::BehaviorTreeFactory factory;
 
@@ -195,9 +192,6 @@ int main(int argc, char **argv) {
 
         BT::Groot2Publisher publisher(tree, 6677);
         RCLCPP_INFO(g_node->get_logger(), "Groot2 publisher created on port 6677. You can monitor the tree using Groot2");
-
-        // auto timeline_logger = std::make_shared<blueye_bt::TimelineLogger>(tree, g_node);
-        // RCLCPP_INFO(g_node->get_logger(), "Timeline logger added. Data will be saved to /tmp/bt_timeline_data.csv");
 
         const auto sleep_ms = std::chrono::milliseconds(1);
         auto status = BT::NodeStatus::RUNNING;

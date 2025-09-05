@@ -50,9 +50,6 @@ def generate_launch_description():
         }]
     )
     
-    # Add 5-second delay before starting the behavior tree node for the telemetry to initialize
-    # This is useful for ensuring that the telemetry data is available before the behavior tree starts
-    # This delay can be adjusted as needed
     delayed_bt_node = TimerAction(
         period=5.0,
         actions=[blueye_mission_node_real]
