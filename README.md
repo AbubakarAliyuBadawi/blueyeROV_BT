@@ -1,7 +1,7 @@
 # blueyeROV_BT
 A behaviourTree package for the BlueyeROV mission planning
 
-![Behavior Tree](./images/bt.png)
+![Behavior Tree](src/images/bt.png)
 *The behaviourTree visualized with Groot2*
 
 ## Dependencies
