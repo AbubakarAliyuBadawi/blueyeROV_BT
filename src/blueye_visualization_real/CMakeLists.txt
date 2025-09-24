@@ -3,7 +3,7 @@ project(blueye_visualization_real)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
-find_package(blueye_msgs_real REQUIRED)
+# find_package(blueye_msgs_real REQUIRED)
 
 install(
   DIRECTORY include/

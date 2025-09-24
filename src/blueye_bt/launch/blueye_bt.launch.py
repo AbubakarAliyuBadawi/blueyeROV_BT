@@ -85,15 +85,23 @@ def generate_launch_description():
         output='screen'
     )
     
+    rov_trajectory_plotter_node = Node(
+    package='blueye_visualization',
+    executable='rov_trajectory_plotter',
+    name='rov_trajectory_plotter',
+    output='screen'
+    )
+    
     ld = LaunchDescription([
         blueye_mission_node,
-        # battery_management_node,
-        # dock_distance_node,
+        battery_management_node,
+        dock_distance_node,
         altitude_controller_node,
-        # battery_percentage_node,
-        # battery_node,
-        # enhanced_visualization_node,
-        # sonar_node,
+        battery_percentage_node,
+        battery_node,
+        enhanced_visualization_node,
+        sonar_node,
+        rov_trajectory_plotter_node
     ])
     
     return ld

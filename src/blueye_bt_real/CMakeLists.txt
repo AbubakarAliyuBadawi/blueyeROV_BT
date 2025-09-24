@@ -18,6 +18,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 
 include_directories(
+  include()
   ${behaviortree_cpp_INCLUDE_DIRS}
   ${blueye_sdk_INCLUDE_DIRS}
 )
